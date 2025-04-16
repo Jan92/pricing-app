@@ -1,0 +1,48 @@
+.dimension-group {
+  margin-bottom: 2em;
+  padding: 1em;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.criterion-group {
+  margin-bottom: 1em;
+  padding-left: 1em;
+}
+
+.criterion-group h4 small {
+  font-weight: normal;
+  color: #555;
+}
+
+.score-options {
+  display: flex;
+  flex-direction: column; /* Stack options vertically */
+  gap: 0.5em; /* Space between radio buttons */
+}
+
+.score-label {
+  display: block; /* Make labels block elements */
+  cursor: pointer;
+}
+
+.score-label input[type="radio"] {
+  margin-right: 0.5em;
+}
+
+h3 {
+    margin-top: 0;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    margin-top: 1em;
+}
+
+button:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+

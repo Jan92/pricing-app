@@ -1,0 +1,89 @@
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { ScoreService } from '../score.service';
+import { Dimension, ScoreInput } from '../models/score.model';
+import { Observable } from 'rxjs';
+
+@Component({
+  selector: 'app-data-input',
+  standalone: false,
+  templateUrl: './data-input.component.html',
+  styleUrl: './data-input.component.css'
+})
+export class DataInputComponent implements OnInit {
+  dimensions$: Observable<Dimension[]>;
+  scoreForm: FormGroup;
+  evaluationId: string = 'eval_' + Date.now(); // Simple unique ID for this session
+
+  constructor(private fb: FormBuilder, private scoreService: ScoreService) {
+    this.scoreForm = this.fb.group({ // Initialize with an empty group
+        evaluationId: [this.evaluationId, Validators.required]
+    });
+    this.dimensions$ = this.scoreService.getDimensions();
+  }
+
+  ngOnInit(): void {
+    this.dimensions$.subscribe(dims => {
+      this.buildForm(dims);
+    });
+  }
+
+  buildForm(dimensions: Dimension[]): void {
+     const dimensionGroups = dimensions.reduce((acc, dim) => {
+      const criteriaControls = dim.criteria.reduce((critAcc, crit) => {
+        // Default to score 1, or load existing value if available (e.g., editing)
+        critAcc[crit.id] = this.fb.control(1, Validators.required); 
+        return critAcc;
+      }, {} as { [key: string]: FormControl });
+      acc[dim.id] = this.fb.group(criteriaControls);
+      return acc;
+    }, {} as { [key: string]: FormGroup });
+
+     // Replace the controls in the existing form group
+     // Clear existing dimension controls first
+    Object.keys(this.scoreForm.controls).forEach(key => {
+        if (key !== 'evaluationId') {
+            this.scoreForm.removeControl(key);
+        }
+    });
+    // Add new dimension controls
+    Object.keys(dimensionGroups).forEach(key => {
+        this.scoreForm.addControl(key, dimensionGroups[key]);
+    });
+  }
+
+  onSubmit(): void {
+    if (this.scoreForm.valid) {
+      const formValue = this.scoreForm.value;
+      const scoreInput: ScoreInput = {
+        evaluationId: formValue.evaluationId,
+        dimensionValues: {}
+      };
+
+      // Extract dimension values correctly
+      Object.keys(formValue).forEach(key => {
+        if (key !== 'evaluationId') {
+          scoreInput.dimensionValues[key] = formValue[key];
+        }
+      });
+
+      this.scoreService.saveScoreInput(scoreInput);
+      console.log('Score Input Saved:', scoreInput);
+      alert('Daten gespeichert für Evaluation ID: ' + this.evaluationId);
+      // Optionally, navigate to the output page or reset the form
+      // this.router.navigate(['/output', this.evaluationId]);
+       // Reset form for a new evaluation
+       this.evaluationId = 'eval_' + Date.now();
+       this.scoreForm.reset({ evaluationId: this.evaluationId });
+       this.dimensions$.subscribe(dims => this.buildForm(dims)); // Rebuild form with defaults
+    } else {
+      console.error('Form is invalid');
+      alert('Bitte füllen Sie alle Felder aus.');
+    }
+  }
+
+  // Helper to get score labels for radio buttons
+  getScoreLabel(dimensionId: string, criterionId: string, score: number): string {
+      return this.scoreService.getScoreLabel(dimensionId, criterionId, score);
+  }
+}

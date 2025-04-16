@@ -1,3 +1,13 @@
-<app-pricing-calculator></app-pricing-calculator>
+<mat-toolbar color="primary">
+  <span>Pricing Score App</span>
+  <span class="toolbar-spacer"></span>
+  <button mat-button routerLink="/manage" routerLinkActive="active-link">Score Ansicht</button>
+  <button mat-button routerLink="/input" routerLinkActive="active-link">Dateneingabe</button>
+  <button mat-button routerLink="/properties" routerLinkActive="active-link">Score Einstellungen</button>
+</mat-toolbar>
+
+<div class="content-container">
+  <router-outlet></router-outlet>
+</div>
 
 

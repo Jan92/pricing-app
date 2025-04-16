@@ -1,0 +1,24 @@
+<h2>Dateneingabe für Score</h2>
+
+<form [formGroup]="scoreForm" (ngSubmit)="onSubmit()" *ngIf="dimensions$ | async as dimensions">
+  
+  <input type="hidden" formControlName="evaluationId">
+  <p>Aktuelle Evaluations-ID: {{ evaluationId }}</p>
+
+  <div *ngFor="let dim of dimensions" class="dimension-group">
+    <h3>{{ dim.name }}</h3>
+    <div [formGroupName]="dim.id">
+      <div *ngFor="let crit of dim.criteria" class="criterion-group">
+        <h4>{{ crit.name }} <small>({{ crit.description }})</small></h4>
+        <div class="score-options">
+          <label *ngFor="let score of [1, 2, 3, 4, 5]" class="score-label">
+            <input type="radio" [formControlName]="crit.id" [value]="score">
+            {{ score }} - {{ getScoreLabel(dim.id, crit.id, score) }}
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button type="submit" [disabled]="!scoreForm.valid">Speichern</button>
+</form>

@@ -1,0 +1,61 @@
+.score-properties-container {
+  display: flex;
+  margin-top: 20px;
+  gap: 20px;
+}
+
+.dimension-list, .criteria-list {
+  flex: 1;
+  max-width: 300px;
+  border-right: 1px solid #eee;
+}
+
+.scale-editor {
+  flex: 2;
+}
+
+.scale-item {
+  margin-bottom: 15px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+h3 {
+  margin-top: 0;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #eee;
+  color: rgba(0, 0, 0, 0.6);
+  font-weight: 400;
+}
+
+mat-list-item {
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+mat-list-item:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+mat-list-item.selected {
+  background-color: rgba(63, 81, 181, 0.15);
+  color: #3f51b5;
+  font-weight: 500;
+}
+
+.select-prompt {
+  margin-top: 40px;
+  text-align: center;
+  color: rgba(0, 0, 0, 0.54);
+}
+
+mat-card-actions {
+  padding-right: 16px;
+  padding-bottom: 16px;
+}
+
+button {
+  margin-left: 8px;
+}
