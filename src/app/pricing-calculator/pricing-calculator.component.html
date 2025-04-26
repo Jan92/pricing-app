@@ -1,1 +1,147 @@
-<p>pricing-calculator works!</p>
+<div class="container mt-4">
+  <h2>Preissimulation</h2>
+
+  <!-- Simulation Input Form -->
+  <form [formGroup]="simulationForm" (ngSubmit)="onSubmit()" class="mb-4 p-4 border rounded bg-light">
+    <h4>Simulationsparameter</h4>
+
+    <div class="row mb-3">
+      <div class="col-md-4">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Anzahl Nutzer</mat-label>
+          <input matInput type="number" formControlName="numberOfUsers">
+          <mat-error *ngIf="f['numberOfUsers'].errors?.['required']">Anzahl Nutzer ist erforderlich.</mat-error>
+          <mat-error *ngIf="f['numberOfUsers'].errors?.['min']">Mindestens 1 Nutzer erforderlich.</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-4">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Anzahl Anfragen pro Monat</mat-label>
+          <input matInput type="number" formControlName="numberOfRequests">
+           <mat-error *ngIf="f['numberOfRequests'].errors?.['required']">Anzahl Anfragen ist erforderlich.</mat-error>
+           <mat-error *ngIf="f['numberOfRequests'].errors?.['min']">Mindestens 0 Anfragen erforderlich.</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-4">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>KI-Score (0-100)</mat-label>
+          <input matInput type="number" formControlName="aiScore">
+          <mat-error *ngIf="f['aiScore'].errors?.['required']">KI-Score ist erforderlich.</mat-error>
+          <mat-error *ngIf="f['aiScore'].errors?.['min'] || f['aiScore'].errors?.['max']">Score muss zwischen 0 und 100 liegen.</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <!-- Add row for pricing inputs -->
+    <div class="row mb-3">
+        <div class="col-md-4">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Monatlicher Preis pro Nutzer (€)</mat-label>
+              <input matInput type="number" formControlName="pricePerUser" min="0" step="0.01">
+              <mat-error *ngIf="f['pricePerUser'].errors?.['required']">Preis pro Nutzer ist erforderlich.</mat-error>
+              <mat-error *ngIf="f['pricePerUser'].errors?.['min']">Preis darf nicht negativ sein.</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-md-4">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Preis pro Anfrage (€)</mat-label>
+              <input matInput type="number" formControlName="pricePerRequest" min="0" step="0.001">
+              <mat-error *ngIf="f['pricePerRequest'].errors?.['required']">Preis pro Anfrage ist erforderlich.</mat-error>
+              <mat-error *ngIf="f['pricePerRequest'].errors?.['min']">Preis darf nicht negativ sein.</mat-error>
+            </mat-form-field>
+          </div>
+           <div class="col-md-4">
+             <!-- Placeholder for AI Score Multiplier Input if needed later -->
+             <mat-form-field appearance="outline" class="w-100">
+                <mat-label>KI Score Referenzpreis (€)</mat-label>
+                <input matInput type="number" formControlName="aiScoreReferencePrice" min="0" step="0.0001">
+                <mat-error *ngIf="f['aiScoreReferencePrice'].errors?.['required']">Referenzpreis ist erforderlich.</mat-error>
+                <mat-error *ngIf="f['aiScoreReferencePrice'].errors?.['min']">Preis darf nicht negativ sein.</mat-error>
+              </mat-form-field>
+           </div>
+    </div>
+
+    <div class="mb-3">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Beschreibung (Optional)</mat-label>
+        <textarea matInput formControlName="description" rows="2"></textarea>
+      </mat-form-field>
+    </div>
+
+    <div class="mb-4">
+      <h5>Modelle zur Berechnung auswählen</h5>
+      <div class="d-flex flex-wrap gap-3">
+        <mat-checkbox formControlName="calculateMonthly">Monatliche Miete</mat-checkbox>
+        <mat-checkbox formControlName="calculateVolume">Volumenbasiert</mat-checkbox>
+        <mat-checkbox formControlName="calculateAiScore">KI-Score-basiert</mat-checkbox>
+      </div>
+    </div>
+
+    <button mat-raised-button color="primary" type="submit" [disabled]="simulationForm.invalid">Simulation starten</button>
+  </form>
+
+  <!-- Latest Simulation Result -->
+  <mat-card *ngIf="latestSimulation" class="mb-4">
+    <mat-card-header>
+      <mat-card-title>Letztes Simulationsergebnis</mat-card-title>
+      <mat-card-subtitle>ID: {{ latestSimulation.id }} | Simuliert am: {{ latestSimulation.timestamp | date:'medium':'':'de' }}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <h4>Eingabeparameter</h4>
+      <p>
+        Nutzer: {{ latestSimulation.input.numberOfUsers }} | Anfragen/Monat: {{ latestSimulation.input.numberOfRequests }} | KI-Score: {{ latestSimulation.input.aiScore }} <br>
+        Monatl. Preis/Nutzer: {{ latestSimulation.input.pricePerUser | currency:'EUR' }} | Preis/Anfrage: {{ latestSimulation.input.pricePerRequest | currency:'EUR':'symbol':'1.3-5' }} | KI Score Referenzpreis: {{ latestSimulation.input.aiScoreReferencePrice | currency:'EUR':'symbol':'1.4-6' }}
+        <span *ngIf="latestSimulation.description"><br>Beschreibung: {{ latestSimulation.description }}</span>
+      </p>
+      <hr>
+      <h4>Berechnete Jahreskosten</h4>
+      <div *ngFor="let result of latestSimulation.results" class="mb-2">
+        <div *ngIf="result.cost !== null">
+          <strong>
+            <ng-container [ngSwitch]="result.modelName">
+              <span *ngSwitchCase="'monthly'">Jahreskosten Miete:</span>
+              <span *ngSwitchCase="'volume'">Jahreskosten Volumenbasiert:</span>
+              <span *ngSwitchCase="'aiScore'">Jahreskosten KI-Score-basiert:</span>
+            </ng-container>
+          </strong>
+          {{ result.cost | currency:'EUR':'symbol':'1.2-2' }}
+          <br>
+          <small class="text-muted">Rechenweg: {{ result.calculation }}</small>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Simulation History -->
+  <div *ngIf="simulationHistory.length > 0">
+    <h4>Simulationsverlauf</h4>
+    <table class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Zeitstempel</th>
+          <th>Beschreibung</th>
+          <th>Eingaben (Nutzer/Anfragen/Score)</th>
+          <th>Jahreskosten Miete</th>
+          <th>Jahreskosten Volumen</th>
+          <th>Jahreskosten KI-Score</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let sim of simulationHistory | slice:0:10"> <!-- Show last 10 -->
+          <td>{{ sim.id.substring(0, 8) }}...</td>
+          <td>{{ sim.timestamp | date:'short':'':'de' }}</td>
+          <td>{{ sim.description || '-' }}</td>
+          <td>{{ sim.input.numberOfUsers }} / {{ sim.input.numberOfRequests }} / {{ sim.input.aiScore }}</td>
+          <td>{{ (sim.results | findCost:'monthly') !== null ? ((sim.results | findCost:'monthly') | currency:'EUR':'symbol':'1.2-2') : 'N/V' }}</td>
+          <td>{{ (sim.results | findCost:'volume') !== null ? ((sim.results | findCost:'volume') | currency:'EUR':'symbol':'1.2-2') : 'N/V' }}</td>
+          <td>{{ (sim.results | findCost:'aiScore') !== null ? ((sim.results | findCost:'aiScore') | currency:'EUR':'symbol':'1.2-2') : 'N/V' }}</td>
+          <!-- Add buttons for duplicate/delete/export later if needed -->
+        </tr>
+      </tbody>
+    </table>
+     <p *ngIf="simulationHistory.length > 10" class="text-muted small">Zeige letzte 10 Simulationen.</p>
+  </div>
+</div>
+
+<!-- Custom Pipe Definition (needs to be created) -->

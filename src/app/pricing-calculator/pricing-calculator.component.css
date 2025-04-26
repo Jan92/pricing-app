@@ -1,0 +1,43 @@
+/* Add some breathing room around the main sections */
+.container {
+  padding-bottom: 2rem; 
+}
+
+/* Style the form container slightly (Material does most of the work now) */
+form {
+  /* background-color: #f8f9fa; Light grey background */
+  /* Padding is added directly in the template */
+}
+
+/* Remove Card styles as MatCard is used now */
+/*
+.card {
+  box-shadow: 0 2px 4px rgba(0,0,0,.1);
+}
+
+.card-header {
+  background-color: #e9ecef; 
+  font-weight: bold;
+}
+
+.card-body ul {
+  padding-left: 1.2rem; 
+  margin-bottom: 1rem;
+}
+
+.card-body li {
+  margin-bottom: 0.5rem;
+}
+*/
+
+/* Style the history table */
+table th {
+  background-color: #f8f9fa;
+}
+
+/* Add a subtle hover effect to table rows */
+table tbody tr:hover {
+  background-color: #e9ecef;
+}
+
+/* Removed styles specific to old form elements like .text-danger.small */

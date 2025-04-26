@@ -1,7 +1,12 @@
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+// Register the German locale data
+import { registerLocaleData } from '@angular/common';
+import localeDe from '@angular/common/locales/de';
+registerLocaleData(localeDe);
 
 // Import Angular Material modules directly
 import { MatButtonModule } from '@angular/material/button';
@@ -31,7 +36,7 @@ import { ScorePropertiesComponent } from './score-properties/score-properties.co
 @NgModule({
   declarations: [
     AppComponent,
-    PricingCalculatorComponent,
+    // PricingCalculatorComponent, // Removed because it is standalone
     ScoreOutputComponent,
     DataInputComponent,
     ScoreManagementComponent,
@@ -60,7 +65,10 @@ import { ScorePropertiesComponent } from './score-properties/score-properties.co
     MatTabsModule,
     MatDividerModule
   ],
-  providers: [],
+  providers: [
+    // Provide LOCALE_ID for German
+    { provide: LOCALE_ID, useValue: 'de' }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
