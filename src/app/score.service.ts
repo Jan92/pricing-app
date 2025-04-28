@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Dimension, ScoreInput, ScoreResult, Criterion } from './models/score.model';
+import { Dimension, ScoreInput, ScoreResult, Criterion, SCORING_DIMENSIONS } from './models/score.model';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -8,57 +8,8 @@ import { map } from 'rxjs/operators';
 })
 export class ScoreService {
 
-  // BehaviorSubject for dimensions to allow editing
-  private dimensionsSubject = new BehaviorSubject<Dimension[]>([
-    // 1. Datenkomplexität und -vielfalt
-    {
-      id: 'dataComplexity',
-      name: 'Datenkomplexität und -vielfalt',
-      criteria: [
-        { id: 'sourceVariety', name: 'Datenquellenvielfalt', description: 'Anzahl der genutzten Datentypen.', scale: { 1: 'Nur ein Datentyp', 5: 'Fünf oder mehr Datentypen' } },
-        { id: 'integrity', name: 'Datenintegrität', description: 'Grad der Vollständigkeit und Konsistenz.', scale: { 1: 'Nur ein Teil verarbeitbar', 5: 'Nahezu vollständig verarbeitbar' } },
-        { id: 'complexity', name: 'Datenkomplexität', description: 'Schwierigkeitsgrad bei der Interpretation.', scale: { 1: 'Strukturiert, leicht', 5: 'Unstrukturiert, hochkomplex' } },
-        { id: 'linking', name: 'Datenverknüpfung', description: 'Fähigkeit zur Kombination von Quellen.', scale: { 1: 'Keine Verknüpfung', 5: 'Vollständig integriert' } },
-        { id: 'volume', name: 'Datenvolumen', description: 'Menge der Daten pro Analyse.', scale: { 1: 'Gering', 5: 'Sehr groß (Millionen Parameter)' } }
-      ]
-    },
-    // 2. Komplexität der Erkrankung
-    {
-      id: 'diseaseComplexity',
-      name: 'Komplexität der Erkrankung',
-      criteria: [
-        { id: 'rarity', name: 'Seltenheit der Erkrankung', description: 'Prävalenz in der Bevölkerung.', scale: { 1: 'Häufig', 5: 'Sehr selten' } },
-        { id: 'ambiguity', name: 'Diagnostische Mehrdeutigkeit', description: 'Schwierigkeit der Abgrenzung.', scale: { 1: 'Einfach abzugrenzen', 5: 'Hochgradig mehrdeutig' } },
-        { id: 'uncertainty', name: 'Prognostische Unsicherheit', description: 'Vorhersehbarkeit des Verlaufs.', scale: { 1: 'Gut vorhersagbar', 5: 'Unvorhersehbar' } },
-        { id: 'multimorbidity', name: 'Multimorbidität', description: 'Einfluss anderer Erkrankungen.', scale: { 1: 'Kaum beeinflusst', 5: 'Stark beeinflusst' } },
-        { id: 'decisionVariety', name: 'Klinische Entscheidungsvielfalt', description: 'Anzahl möglicher Strategien.', scale: { 1: 'Standardisiert', 5: 'Vielzahl komplexer Entscheidungen' } }
-      ]
-    },
-    // 3. Schwierigkeitsgrad der Fragestellung
-    {
-      id: 'questionDifficulty',
-      name: 'Schwierigkeitsgrad der Fragestellung',
-      criteria: [
-        { id: 'differentialDepth', name: 'Differenzialdiagnostische Tiefe', description: 'Anzahl möglicher Diagnosen.', scale: { 1: '< 3 Diagnosen', 5: '> 10 Diagnosen' } },
-        { id: 'prognosticPrecision', name: 'Prognostische Präzision', description: 'Genauigkeit/Langfristigkeit der Vorhersage.', scale: { 1: 'Kurzfristige Trends', 5: 'Hochpräzise, langfristig' } },
-        { id: 'therapeuticComplexity', name: 'Therapeutische Komplexität', description: 'Individualisierungsgrad der Empfehlungen.', scale: { 1: 'Generisch', 5: 'Stark personalisiert' } },
-        { id: 'interdisciplinaryRelevance', name: 'Interdisziplinäre Relevanz', description: 'Anzahl der Fachbereiche.', scale: { 1: 'Ein Fachbereich', 5: '> 3 Fachbereiche' } },
-        { id: 'dynamicAdaptability', name: 'Dynamische Anpassungsfähigkeit', description: 'Reaktion auf Parameteränderungen.', scale: { 1: 'Keine Anpassung', 5: 'Echtzeit-Anpassung' } }
-      ]
-    },
-    // 4. Ausmaß der KI-Unterstützung
-    {
-      id: 'aiSupportLevel',
-      name: 'Ausmaß der KI-Unterstützung',
-      criteria: [
-        { id: 'automationLevel', name: 'Automatisierungsgrad', description: 'Grad der Autonomie der KI.', scale: { 1: 'Nur unterstützend', 5: 'Vollautomatisiert' } },
-        { id: 'analysisLevel', name: 'Analyseebene', description: 'Tiefe der Analyse.', scale: { 1: 'Einzelparameterniveau', 5: 'Hochdimensional, integrativ' } },
-        { id: 'recommendationComplexity', name: 'Empfehlungskomplexität', description: 'Umfang der Vorschläge.', scale: { 1: 'Einfach, generisch', 5: 'Detaillierte Handlungspläne' } },
-        { id: 'guidelineIntegration', name: 'Integration von Leitlinien', description: 'Einbindung medizinischer Standards.', scale: { 1: 'Keine Berücksichtigung', 5: 'Vollständige Integration' } },
-        { id: 'patientIndividualization', name: 'Patientenspezifische Individualisierung', description: 'Berücksichtigung individueller Merkmale.', scale: { 1: 'Keine Individualisierung', 5: 'Höchstgradig spezifisch' } }
-      ]
-    }
-  ]);
+  // BehaviorSubject for dimensions, initialized with the imported constant
+  private dimensionsSubject = new BehaviorSubject<Dimension[]>(SCORING_DIMENSIONS);
 
   // In-memory storage for score inputs and results (replace with backend later)
   private scoreInputs = new BehaviorSubject<ScoreInput[]>([]);
