@@ -33,6 +33,10 @@ import { DataInputComponent } from './data-input/data-input.component';
 import { ScoreManagementComponent } from './score-management/score-management.component';
 import { ScorePropertiesComponent } from './score-properties/score-properties.component';
 
+// New component and pipe for series simulation results
+import { SeriesResultsComponent } from './score-output/series-results.component';
+import { FilterByOriginalValuePipe } from './score-output/filter-by-original-value.pipe';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,7 +44,9 @@ import { ScorePropertiesComponent } from './score-properties/score-properties.co
     ScoreOutputComponent,
     DataInputComponent,
     ScoreManagementComponent,
-    ScorePropertiesComponent
+    ScorePropertiesComponent,
+    SeriesResultsComponent,
+    FilterByOriginalValuePipe
   ],
   imports: [
     BrowserModule,

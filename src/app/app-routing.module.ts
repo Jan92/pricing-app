@@ -5,6 +5,7 @@ import { ScoreManagementComponent } from './score-management/score-management.co
 import { ScoreOutputComponent } from './score-output/score-output.component';
 import { ScorePropertiesComponent } from './score-properties/score-properties.component';
 import { PricingCalculatorComponent } from './pricing-calculator/pricing-calculator.component';
+import { SeriesResultsComponent } from './score-output/series-results.component';
 
 const routes: Routes = [
   { path: 'input', component: DataInputComponent },
@@ -12,6 +13,7 @@ const routes: Routes = [
   { path: 'manage/:evaluationId', component: ScoreOutputComponent },
   { path: 'properties', component: ScorePropertiesComponent },
   { path: 'pricing', component: PricingCalculatorComponent },
+  { path: 'series-results', component: SeriesResultsComponent },
   { path: '', redirectTo: '/input', pathMatch: 'full' } // Default route
 ];
 

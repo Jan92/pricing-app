@@ -5,6 +5,36 @@
   <form [formGroup]="simulationForm" (ngSubmit)="onSubmit()" class="mb-4 p-4 border rounded bg-light">
     <h4>Simulationsparameter</h4>
 
+    <!-- Series Simulation Toggle -->
+    <div class="mb-3">
+      <mat-checkbox [(ngModel)]="isSeriesMode" [ngModelOptions]="{standalone: true}">
+        Seriensimulation durchführen?
+      </mat-checkbox>
+    </div>
+
+    <!-- Series Simulation Inputs (Conditional) -->
+    <div *ngIf="isSeriesMode" class="mb-3 p-3 border rounded bg-white">
+      <h5>Einstellungen für Seriensimulation</h5>
+      <div class="row">
+        <div class="col-md-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Variierender Parameter</mat-label>
+            <mat-select [(ngModel)]="selectedSeriesParameter" [ngModelOptions]="{standalone: true}">
+              <mat-option *ngFor="let param of seriesParameterOptions" [value]="param.value">
+                {{ param.label }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Werte (kommagetrennt, z.B. 10,50,100)</mat-label>
+            <input matInput type="text" [(ngModel)]="seriesValuesString" [ngModelOptions]="{standalone: true}" placeholder="z.B. 10,50,100">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+
     <div class="row mb-3">
       <div class="col-md-4">
         <mat-form-field appearance="outline" class="w-100">
@@ -80,8 +110,53 @@
     <button mat-raised-button color="primary" type="submit" [disabled]="simulationForm.invalid">Simulation starten</button>
   </form>
 
-  <!-- Latest Simulation Result -->
-  <mat-card *ngIf="latestSimulation" class="mb-4">
+  <!-- Display Area for Series Simulation Results -->
+  <div *ngIf="isSeriesMode && latestSeriesSimulationRun.length > 0" class="mb-4">
+    <h4>Ergebnisse der Seriensimulation</h4>
+    <div *ngFor="let runPart of latestSeriesSimulationRun; let i = index" class="series-run-part-card mb-3">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>
+            Serie für {{ getSeriesParameterLabel(runPart.parameter) }}: 
+            Ursprungswert = {{ runPart.inputValue }}
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <table class="table table-sm table-bordered">
+            <thead>
+              <tr>
+                <th>Szenario</th>
+                <th>Wert für {{ getSeriesParameterLabel(runPart.parameter) }}</th>
+                <th>Jahreskosten Miete</th>
+                <th>Jahreskosten Volumen</th>
+                <th>Jahreskosten KI-Score</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let scenario of runPart.scenarios">
+                <td>{{ scenario.type | titlecase }}</td>
+                <td>{{ scenario.value }}</td>
+                <td>{{ (scenario.result?.results | findCost:'monthly') !== null ? ((scenario.result?.results | findCost:'monthly') | currency:'EUR':'symbol':'1.2-2') : 'N/V' }}</td>
+                <td>{{ (scenario.result?.results | findCost:'volume') !== null ? ((scenario.result?.results | findCost:'volume') | currency:'EUR':'symbol':'1.2-2') : 'N/V' }}</td>
+                <td>{{ (scenario.result?.results | findCost:'aiScore') !== null ? ((scenario.result?.results | findCost:'aiScore') | currency:'EUR':'symbol':'1.2-2') : 'N/V' }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+
+  <!-- Export Button for Series Simulation -->
+  <div *ngIf="isSeriesMode && latestSeriesSimulationRun.length > 0" class="mt-3 mb-4">
+    <button mat-stroked-button color="accent" (click)="exportToExcel()">
+      <mat-icon>save_alt</mat-icon>
+      Serienergebnisse als Excel exportieren
+    </button>
+  </div>
+
+  <!-- Latest Single Simulation Result (Conditional Display) -->
+  <mat-card *ngIf="!isSeriesMode && latestSimulation" class="mb-4">
     <mat-card-header>
       <mat-card-title>Letztes Simulationsergebnis</mat-card-title>
       <mat-card-subtitle>ID: {{ latestSimulation.id }} | Simuliert am: {{ latestSimulation.timestamp | date:'medium':'':'de' }}</mat-card-subtitle>
@@ -110,6 +185,13 @@
         </div>
       </div>
     </mat-card-content>
+    <!-- Export Button for Single Simulation -->
+    <mat-card-actions *ngIf="!isSeriesMode && latestSimulation" class="mt-2 mb-2 pl-2">
+        <button mat-stroked-button color="accent" (click)="exportToExcel()">
+            <mat-icon>save_alt</mat-icon>
+            Ergebnis als Excel exportieren
+        </button>
+    </mat-card-actions>
   </mat-card>
 
   <!-- Simulation History -->

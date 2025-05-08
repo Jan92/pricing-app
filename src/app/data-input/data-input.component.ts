@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { ScoreService } from '../score.service';
-import { Dimension, ScoreInput } from '../models/score.model';
+import { Dimension, ScoreInput, Criterion } from '../models/score.model';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -70,12 +70,12 @@ export class DataInputComponent implements OnInit {
       this.scoreService.saveScoreInput(scoreInput);
       console.log('Score Input Saved:', scoreInput);
       alert('Daten gespeichert für Evaluation ID: ' + this.evaluationId);
-      // Optionally, navigate to the output page or reset the form
-      // this.router.navigate(['/output', this.evaluationId]);
-       // Reset form for a new evaluation
-       this.evaluationId = 'eval_' + Date.now();
-       this.scoreForm.reset({ evaluationId: this.evaluationId });
-       this.dimensions$.subscribe(dims => this.buildForm(dims)); // Rebuild form with defaults
+      
+      // Reset form for a new evaluation
+      this.evaluationId = 'eval_' + Date.now();
+      this.scoreForm.reset({ evaluationId: this.evaluationId });
+      this.dimensions$.subscribe(dims => this.buildForm(dims)); // Rebuild form with defaults
+
     } else {
       console.error('Form is invalid');
       alert('Bitte füllen Sie alle Felder aus.');

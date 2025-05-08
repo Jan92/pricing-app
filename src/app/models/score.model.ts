@@ -21,6 +21,10 @@ export interface ScoreInput {
       [criterionId: string]: number;
     };
   };
+  // Optional fields for series simulation
+  seriesParameterDimensionId?: string; // e.g., 'dataComplexity'
+  seriesParameterCriterionId?: string; // e.g., 'dataVolume'
+  seriesValues?: number[]; // e.g., [5, 10, 25, 100]
 }
 
 // Structure to hold the calculated score
@@ -30,6 +34,25 @@ export interface ScoreResult {
     [dimensionId: string]: number;
   };
   totalScore: number;
+}
+
+// --- Structures for Series Simulation ---
+
+export interface SeriesScenarioResult extends ScoreResult {
+  originalSeriesValue: number; // The value from the user-inputted series array
+  scenarioType: 'original' | 'half' | 'double' | 'triple';
+  scenarioValue: number; // The actual value used for this scenario (e.g., originalSeriesValue * 0.5)
+  // The evaluationId in ScoreResult will link back to a specific scenario run,
+  // potentially prefixed or suffixed to distinguish from single runs.
+}
+
+export interface SeriesSimulationRun {
+  seriesRunId: string; // Identifier for the whole series run, could be based on the original evaluationId
+  originalEvaluationId: string; // The ID of the initial ScoreInput that triggered this series
+  seriesParameterDimensionId: string;
+  seriesParameterCriterionId: string;
+  inputSeriesValues: number[]; // The values initially provided by the user for the varied parameter
+  results: SeriesScenarioResult[]; // An array of results, one for each scenario (original, half, double, triple) for each inputSeriesValue
 }
 
 // --- Updated Dimensions and Criteria ---

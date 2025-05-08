@@ -1,0 +1,48 @@
+<div class="series-results-container" *ngIf="seriesRuns$ | async as seriesRuns; else noData">
+  <div *ngIf="seriesRuns.length === 0; else showData">
+    <p>Noch keine Seriensimulationen durchgeführt oder vorhanden.</p>
+  </div>
+
+  <ng-template #showData>
+    <div *ngFor="let run of seriesRuns; let i = index" class="series-run-card">
+      <h3>Seriensimulation #{{ i + 1 }} (ID: {{ run.seriesRunId }})</h3>
+      <p><strong>Variiertes Kriterium:</strong> {{ getCriterionName(run.seriesParameterDimensionId, run.seriesParameterCriterionId) }} (Dimension: {{ getDimensionName(run.seriesParameterDimensionId) }})</p>
+      <p><strong>Ursprüngliche Eingabewerte für Serie:</strong> {{ run.inputSeriesValues.join(', ') }}</p>
+      
+      <h4>Ergebnisse:</h4>
+      <table class="results-table">
+        <thead>
+          <tr>
+            <th>Ursprünglicher Wert</th>
+            <th>Szenario-Typ</th>
+            <th>Szenario-Wert</th>
+            <th>Gesamtpunktzahl</th>
+            <!-- Optional: Add dimension scores here -->
+            <th *ngFor="let dim of dimensions">{{ dim.name }} Score</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngFor="let originalVal of run.inputSeriesValues">
+            <tr *ngFor="let result of run.results | filterByOriginalValue:originalVal ">
+              <td *ngIf="result.scenarioType === 'original'" [attr.rowspan]="(run.results | filterByOriginalValue:originalVal).length">{{ result.originalSeriesValue }}</td>
+              <td>{{ result.scenarioType | titlecase }}</td>
+              <td>{{ result.scenarioValue }}</td>
+              <td><strong>{{ result.totalScore }}</strong></td>
+              <td *ngFor="let dim of dimensions">
+                {{ result.dimensionScores[dim.id] !== undefined ? result.dimensionScores[dim.id] : 'N/A' }}
+              </td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
+    </div>
+  </ng-template>
+</div>
+
+<ng-template #noData>
+  <p>Lade Seriensimulationsdaten...</p>
+</ng-template>
+
+<!-- TODO: Create a Pipe named 'filterByOriginalValue' -->
+<!-- pipe logic: transform(items: SeriesScenarioResult[], originalValue: number): SeriesScenarioResult[] -->
+<!-- return items.filter(item => item.originalSeriesValue === originalValue); --> 

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Dimension, ScoreInput, ScoreResult, Criterion, SCORING_DIMENSIONS } from './models/score.model';
+import { Dimension, ScoreInput, ScoreResult, Criterion, SCORING_DIMENSIONS, SeriesScenarioResult, SeriesSimulationRun } from './models/score.model';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -14,6 +14,7 @@ export class ScoreService {
   // In-memory storage for score inputs and results (replace with backend later)
   private scoreInputs = new BehaviorSubject<ScoreInput[]>([]);
   private scoreResults = new BehaviorSubject<ScoreResult[]>([]);
+  private seriesSimulationRuns = new BehaviorSubject<SeriesSimulationRun[]>([]);
 
   // Default scale labels used when no custom labels are defined
   private defaultScaleLabels = {
@@ -92,7 +93,14 @@ export class ScoreService {
       currentInputs.push(input);
     }
     this.scoreInputs.next(currentInputs);
-    this.calculateAndSaveScore(input); // Calculate score immediately after saving input
+
+    // Decide whether to run a single calculation or a series simulation
+    if (input.seriesValues && input.seriesValues.length > 0 && input.seriesParameterDimensionId && input.seriesParameterCriterionId) {
+      this.calculateAndSaveSeriesSimulation(input);
+    } else {
+      const result = this.calculateScoreInternal(input);
+      this.saveSingleScoreResult(result);
+    }
   }
 
   getScoreInputs(): Observable<ScoreInput[]> {
@@ -103,6 +111,10 @@ export class ScoreService {
     return this.scoreResults.asObservable();
   }
 
+  getSeriesSimulationRuns(): Observable<SeriesSimulationRun[]> {
+    return this.seriesSimulationRuns.asObservable();
+  }
+
   getScoreResult(evaluationId: string): Observable<ScoreResult | undefined> {
     return this.scoreResults.pipe(
       map(results => results.find(r => r.evaluationId === evaluationId))
@@ -111,6 +123,22 @@ export class ScoreService {
 
   // Simple calculation: Sum scores for each dimension
   private calculateAndSaveScore(input: ScoreInput): void {
+    const result = this.calculateScoreInternal(input);
+    this.saveSingleScoreResult(result);
+  }
+
+  private saveSingleScoreResult(result: ScoreResult): void {
+    const currentResults = this.scoreResults.getValue();
+    const existingIndex = currentResults.findIndex(r => r.evaluationId === result.evaluationId);
+    if (existingIndex > -1) {
+      currentResults[existingIndex] = result;
+    } else {
+      currentResults.push(result);
+    }
+    this.scoreResults.next(currentResults);
+  }
+
+  private calculateScoreInternal(input: ScoreInput): ScoreResult {
     const dimensionScores: { [dimensionId: string]: number } = {};
     let totalScore = 0;
 
@@ -118,26 +146,85 @@ export class ScoreService {
     dimensions.forEach(dim => {
       let dimScore = 0;
       dim.criteria.forEach((crit: Criterion) => {
-        dimScore += input.dimensionValues[dim.id]?.[crit.id] || 0;
+        // Use a default of 0 if the value is not found, null, or undefined
+        const value = input.dimensionValues[dim.id]?.[crit.id];
+        dimScore += (typeof value === 'number' && !isNaN(value)) ? value : 0;
       });
       dimensionScores[dim.id] = dimScore;
       totalScore += dimScore;
     });
 
-    const result: ScoreResult = {
+    return {
       evaluationId: input.evaluationId,
       dimensionScores,
       totalScore
     };
+  }
 
-    const currentResults = this.scoreResults.getValue();
-     const existingIndex = currentResults.findIndex(r => r.evaluationId === result.evaluationId);
-    if (existingIndex > -1) {
-      currentResults[existingIndex] = result;
-    } else {
-      currentResults.push(result);
+  private calculateAndSaveSeriesSimulation(originalInput: ScoreInput): void {
+    if (!originalInput.seriesParameterDimensionId || !originalInput.seriesParameterCriterionId || !originalInput.seriesValues) {
+      console.error('Series simulation input is missing necessary parameters.');
+      return;
     }
-    this.scoreResults.next(currentResults);
+
+    const seriesRunId = `series-${originalInput.evaluationId}-${Date.now()}`;
+    const allScenarioResults: SeriesScenarioResult[] = [];
+
+    const { seriesParameterDimensionId, seriesParameterCriterionId, seriesValues, dimensionValues, evaluationId: originalEvaluationId } = originalInput;
+
+    seriesValues.forEach(originalSeriesValue => {
+      const scenarios: { type: 'original' | 'half' | 'double' | 'triple', multiplier: number }[] = [
+        { type: 'original', multiplier: 1 },
+        { type: 'half', multiplier: 0.5 },
+        { type: 'double', multiplier: 2 },
+        { type: 'triple', multiplier: 3 },
+      ];
+
+      scenarios.forEach(scenario => {
+        const scenarioValue = Math.round(originalSeriesValue * scenario.multiplier); // Ensure integer values if applicable, or adjust as needed
+
+        // Deep clone the original dimensionValues to avoid modification issues
+        const scenarioDimensionValues = JSON.parse(JSON.stringify(dimensionValues));
+        
+        // Ensure the dimension and criterion exist before trying to set them
+        if (!scenarioDimensionValues[seriesParameterDimensionId]) {
+          scenarioDimensionValues[seriesParameterDimensionId] = {};
+        }
+        scenarioDimensionValues[seriesParameterDimensionId][seriesParameterCriterionId] = scenarioValue;
+
+        const scenarioInput: ScoreInput = {
+          ...originalInput, // Spread originalInput to carry over any other relevant fields
+          evaluationId: `${originalEvaluationId}-${seriesParameterCriterionId}-${originalSeriesValue}-${scenario.type}`, // Unique ID for this specific scenario
+          dimensionValues: scenarioDimensionValues,
+          seriesValues: undefined, // Clear series values for internal calculation
+          seriesParameterCriterionId: undefined,
+          seriesParameterDimensionId: undefined,
+        };
+        
+        const scoreResult = this.calculateScoreInternal(scenarioInput);
+
+        const scenarioResult: SeriesScenarioResult = {
+          ...scoreResult,
+          originalSeriesValue,
+          scenarioType: scenario.type,
+          scenarioValue,
+        };
+        allScenarioResults.push(scenarioResult);
+      });
+    });
+
+    const seriesRun: SeriesSimulationRun = {
+      seriesRunId,
+      originalEvaluationId: originalInput.evaluationId,
+      seriesParameterDimensionId,
+      seriesParameterCriterionId,
+      inputSeriesValues: seriesValues,
+      results: allScenarioResults,
+    };
+
+    const currentRuns = this.seriesSimulationRuns.getValue();
+    currentRuns.push(seriesRun);
+    this.seriesSimulationRuns.next(currentRuns);
   }
 
   deleteScore(evaluationId: string): void {
