@@ -1,11 +1,21 @@
 <mat-toolbar color="primary">
   <span>Pricing Score App</span>
   <span class="toolbar-spacer"></span>
-  <button mat-button routerLink="/manage" routerLinkActive="active-link">Score Ansicht</button>
-  <button mat-button routerLink="/input" routerLinkActive="active-link">Dateneingabe</button>
-  <button mat-button routerLink="/properties" routerLinkActive="active-link">Score Einstellungen</button>
-  <button mat-button routerLink="/pricing" routerLinkActive="active-link">Preissimulation</button>
-  <button mat-button routerLink="/series-results" routerLinkActive="active-link">Seriensimulation Ergebnisse</button>
+
+  <!-- Einzelscore Berechnung Dropdown -->
+  <button mat-button [matMenuTriggerFor]="einzelscoreMenu">Einzelscore Berechnung</button>
+  <mat-menu #einzelscoreMenu="matMenu">
+    <button mat-menu-item routerLink="/manage" routerLinkActive="active-link">Übersicht berechnete Scores</button>
+    <button mat-menu-item routerLink="/input" routerLinkActive="active-link">Neuen Score Berechnen</button>
+    <button mat-menu-item routerLink="/properties" routerLinkActive="active-link">Score Einstellungen</button>
+  </mat-menu>
+
+  <!-- Preissimulation Dropdown -->
+  <button mat-button [matMenuTriggerFor]="preissimulationMenu">Preissimulation</button>
+  <mat-menu #preissimulationMenu="matMenu">
+    <button mat-menu-item routerLink="/pricing" routerLinkActive="active-link">Preissimulation Input</button>
+    <button mat-menu-item routerLink="/series-results" routerLinkActive="active-link">Preissimulation Ergebnisse</button>
+  </mat-menu>
 </mat-toolbar>
 
 <div class="content-container">

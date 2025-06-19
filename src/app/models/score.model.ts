@@ -16,6 +16,7 @@ export interface Dimension {
 // This will hold the user's input for a specific evaluation
 export interface ScoreInput {
   evaluationId: string; // Identifier for this specific evaluation
+  name?: string;
   dimensionValues: {
     [dimensionId: string]: {
       [criterionId: string]: number;
@@ -30,6 +31,7 @@ export interface ScoreInput {
 // Structure to hold the calculated score
 export interface ScoreResult {
   evaluationId: string;
+  name?: string;
   dimensionScores: {
     [dimensionId: string]: number;
   };

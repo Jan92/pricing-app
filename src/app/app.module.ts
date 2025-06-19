@@ -24,6 +24,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatMenuModule } from '@angular/material/menu';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -69,7 +70,8 @@ import { FilterByOriginalValuePipe } from './score-output/filter-by-original-val
     MatExpansionModule,
     MatSelectModule,
     MatTabsModule,
-    MatDividerModule
+    MatDividerModule,
+    MatMenuModule
   ],
   providers: [
     // Provide LOCALE_ID for German

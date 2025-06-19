@@ -1,7 +1,12 @@
-<h2>Dateneingabe für Score</h2>
+<h2>Berechnung einzelner AI Score</h2>
 
 <form [formGroup]="scoreForm" (ngSubmit)="onSubmit()" *ngIf="dimensions$ | async as dimensions">
   
+  <mat-form-field appearance="outline" class="w-100">
+    <mat-label>Score-Name</mat-label>
+    <input matInput formControlName="name" placeholder="z.B. Projekt XY oder Patient 123">
+  </mat-form-field>
+
   <input type="hidden" formControlName="evaluationId">
   <p>Aktuelle Evaluations-ID: {{ evaluationId }}</p>
 

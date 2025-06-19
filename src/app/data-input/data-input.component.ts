@@ -16,8 +16,9 @@ export class DataInputComponent implements OnInit {
   evaluationId: string = 'eval_' + Date.now(); // Simple unique ID for this session
 
   constructor(private fb: FormBuilder, private scoreService: ScoreService) {
-    this.scoreForm = this.fb.group({ // Initialize with an empty group
-        evaluationId: [this.evaluationId, Validators.required]
+    this.scoreForm = this.fb.group({
+      evaluationId: [this.evaluationId, Validators.required],
+      name: ['', Validators.required]
     });
     this.dimensions$ = this.scoreService.getDimensions();
   }
@@ -42,7 +43,7 @@ export class DataInputComponent implements OnInit {
      // Replace the controls in the existing form group
      // Clear existing dimension controls first
     Object.keys(this.scoreForm.controls).forEach(key => {
-        if (key !== 'evaluationId') {
+        if (key !== 'evaluationId' && key !== 'name') {
             this.scoreForm.removeControl(key);
         }
     });
@@ -57,12 +58,13 @@ export class DataInputComponent implements OnInit {
       const formValue = this.scoreForm.value;
       const scoreInput: ScoreInput = {
         evaluationId: formValue.evaluationId,
+        name: formValue.name,
         dimensionValues: {}
       };
 
       // Extract dimension values correctly
       Object.keys(formValue).forEach(key => {
-        if (key !== 'evaluationId') {
+        if (key !== 'evaluationId' && key !== 'name') {
           scoreInput.dimensionValues[key] = formValue[key];
         }
       });
@@ -73,7 +75,7 @@ export class DataInputComponent implements OnInit {
       
       // Reset form for a new evaluation
       this.evaluationId = 'eval_' + Date.now();
-      this.scoreForm.reset({ evaluationId: this.evaluationId });
+      this.scoreForm.reset({ evaluationId: this.evaluationId, name: '' });
       this.dimensions$.subscribe(dims => this.buildForm(dims)); // Rebuild form with defaults
 
     } else {

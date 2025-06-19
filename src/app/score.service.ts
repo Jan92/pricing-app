@@ -156,6 +156,7 @@ export class ScoreService {
 
     return {
       evaluationId: input.evaluationId,
+      name: input.name,
       dimensionScores,
       totalScore
     };
