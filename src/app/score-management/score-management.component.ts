@@ -36,4 +36,8 @@ export class ScoreManagementComponent implements OnInit {
       alert(`Bewertung ${evaluationId} gelöscht.`);
     }
   }
+
+  editScore(evaluationId: string): void {
+    this.router.navigate(['/input', { evaluationId }]);
+  }
 }

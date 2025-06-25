@@ -25,6 +25,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -71,7 +72,8 @@ import { FilterByOriginalValuePipe } from './score-output/filter-by-original-val
     MatSelectModule,
     MatTabsModule,
     MatDividerModule,
-    MatMenuModule
+    MatMenuModule,
+    MatSidenavModule
   ],
   providers: [
     // Provide LOCALE_ID for German

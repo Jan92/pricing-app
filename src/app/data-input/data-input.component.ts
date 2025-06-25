@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 import { ScoreService } from '../score.service';
 import { Dimension, ScoreInput, Criterion } from '../models/score.model';
 import { Observable } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-data-input',
@@ -15,17 +16,45 @@ export class DataInputComponent implements OnInit {
   scoreForm: FormGroup;
   evaluationId: string = 'eval_' + Date.now(); // Simple unique ID for this session
 
-  constructor(private fb: FormBuilder, private scoreService: ScoreService) {
-    this.scoreForm = this.fb.group({
-      evaluationId: [this.evaluationId, Validators.required],
-      name: ['', Validators.required]
+  constructor(
+    private fb: FormBuilder,
+    private scoreService: ScoreService,
+    private route: ActivatedRoute
+  ) {
+    this.scoreForm = this.fb.group({ // Initialize with an empty group
+        evaluationId: [this.evaluationId, Validators.required]
     });
     this.dimensions$ = this.scoreService.getDimensions();
   }
 
   ngOnInit(): void {
-    this.dimensions$.subscribe(dims => {
-      this.buildForm(dims);
+    // Check if editing
+    this.route.paramMap.subscribe(params => {
+      const evalId = params.get('evaluationId');
+      if (evalId) {
+        this.evaluationId = evalId;
+        // Try to load existing input
+        this.scoreService.getScoreInputs().subscribe(inputs => {
+          const existing = inputs.find(i => i.evaluationId === evalId);
+          if (existing) {
+            this.dimensions$.subscribe(dims => {
+              this.buildForm(dims);
+              // Patch form with existing values
+              this.scoreForm.patchValue({ evaluationId: existing.evaluationId, ...existing.dimensionValues });
+              // Patch each dimension group
+              Object.keys(existing.dimensionValues).forEach(dimId => {
+                if (this.scoreForm.get(dimId)) {
+                  this.scoreForm.get(dimId)?.patchValue(existing.dimensionValues[dimId]);
+                }
+              });
+            });
+          } else {
+            this.dimensions$.subscribe(dims => this.buildForm(dims));
+          }
+        });
+      } else {
+        this.dimensions$.subscribe(dims => this.buildForm(dims));
+      }
     });
   }
 
@@ -43,7 +72,7 @@ export class DataInputComponent implements OnInit {
      // Replace the controls in the existing form group
      // Clear existing dimension controls first
     Object.keys(this.scoreForm.controls).forEach(key => {
-        if (key !== 'evaluationId' && key !== 'name') {
+        if (key !== 'evaluationId') {
             this.scoreForm.removeControl(key);
         }
     });
@@ -58,13 +87,12 @@ export class DataInputComponent implements OnInit {
       const formValue = this.scoreForm.value;
       const scoreInput: ScoreInput = {
         evaluationId: formValue.evaluationId,
-        name: formValue.name,
         dimensionValues: {}
       };
 
       // Extract dimension values correctly
       Object.keys(formValue).forEach(key => {
-        if (key !== 'evaluationId' && key !== 'name') {
+        if (key !== 'evaluationId') {
           scoreInput.dimensionValues[key] = formValue[key];
         }
       });
@@ -75,7 +103,7 @@ export class DataInputComponent implements OnInit {
       
       // Reset form for a new evaluation
       this.evaluationId = 'eval_' + Date.now();
-      this.scoreForm.reset({ evaluationId: this.evaluationId, name: '' });
+      this.scoreForm.reset({ evaluationId: this.evaluationId });
       this.dimensions$.subscribe(dims => this.buildForm(dims)); // Rebuild form with defaults
 
     } else {

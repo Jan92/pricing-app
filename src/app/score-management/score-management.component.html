@@ -1,4 +1,4 @@
-<h2>Score Ansicht</h2>
+<h2>Übersicht Scores</h2>
 
 <div *ngIf="(scoreResults$ | async) as results; else loading">
   <div *ngIf="results.length > 0; else noResults">
@@ -24,6 +24,9 @@
           </button>
           <button mat-raised-button color="warn" (click)="deleteEvaluation(result.evaluationId)" class="ml-2">
             <mat-icon>delete</mat-icon> Löschen
+          </button>
+          <button mat-raised-button color="accent" (click)="editScore(result.evaluationId)" class="ml-2">
+            <mat-icon>edit</mat-icon> Bearbeiten
           </button>
         </td>
       </ng-container>

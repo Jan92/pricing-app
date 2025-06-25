@@ -1,0 +1,105 @@
+/* --- Toolbar should be above the sidenav and full width --- */
+.full-width-toolbar {
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+}
+
+.sidenav-container {
+  height: 100vh;
+  display: flex;
+  background: #f5f6fa;
+  min-height: 0;
+}
+
+.sidenav {
+  width: 250px;
+  background: #f5f6fa;
+  border-right: 1px solid #e0e0e0;
+  padding: 0;
+  min-height: 100%;
+  box-shadow: none;
+}
+
+.sidenav-header {
+  display: flex;
+  align-items: center;
+  height: 64px;
+  font-size: 1.4rem;
+  font-weight: 700;
+  background: #f5f6fa;
+  border-bottom: 1px solid #e0e0e0;
+  color: #222;
+}
+
+.sidenav-title {
+  margin-left: 8px;
+  color: #222;
+  font-size: 1.3rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.mat-nav-list .mat-list-item {
+  font-size: 1.05rem;
+  display: flex;
+  align-items: center;
+}
+
+.mat-list-icon, .mat-icon[matListIcon] {
+  margin-right: 16px;
+  min-width: 24px;
+  text-align: center;
+  color: #1976d2;
+}
+
+.main-title {
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.content-container {
+  padding: 32px 24px 24px 24px;
+  min-height: 100vh;
+  background: #f5f6fa;
+  box-sizing: border-box;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.active-link {
+  background: rgba(33, 150, 243, 0.08) !important;
+  color: #1976d2 !important;
+}
+
+.hide-desktop {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .sidenav {
+    width: 200px;
+  }
+  .content-container {
+    padding: 16px 8px;
+  }
+}
+
+@media (max-width: 600px) {
+  .sidenav-container {
+    flex-direction: column;
+    height: 100vh;
+  }
+  .sidenav {
+    width: 100vw;
+    min-width: 0;
+  }
+  .hide-desktop {
+    display: inline-flex;
+  }
+}

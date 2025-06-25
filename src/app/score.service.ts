@@ -25,7 +25,356 @@ export class ScoreService {
     5: 'Hoch'
   };
 
-  constructor() { }
+  constructor() { 
+    // Preconfigured scores
+    const preconfiguredScores: ScoreInput[] = [
+      {
+        evaluationId: 'ct-befundung',
+        name: 'CT-Befundung',
+        dimensionValues: {
+          dataComplexity: {
+            sourceVariety: 3,
+            dataIntegrity: 5,
+            dataComplexityLevel: 4,
+            dataLinking: 2,
+            dataVolume: 4
+          },
+          diseaseComplexity: {
+            diseaseRarity: 3,
+            diagnosticAmbiguity: 3,
+            prognosticUncertainty: 4,
+            multimorbidity: 3,
+            diseaseSeverity: 4
+          },
+          questionDifficulty: {
+            differentialDepth: 4,
+            prognosticPrecision: 3,
+            realtimeRequirement: 4,
+            interdisciplinaryRelevance: 3,
+            dynamicAdaptability: 2
+          },
+          aiSupportExtent: {
+            automationLevel: 3,
+            analysisLevel: 4,
+            recommendationComplexity: 3,
+            guidelineIntegration: 3,
+            patientIndividualization: 4
+          }
+        }
+      },
+      {
+        evaluationId: 'befundung-endokrinologie',
+        name: 'Befundung Endokrinologie',
+        dimensionValues: {
+          dataComplexity: {
+            sourceVariety: 2,
+            dataIntegrity: 4,
+            dataComplexityLevel: 2,
+            dataLinking: 3,
+            dataVolume: 3
+          },
+          diseaseComplexity: {
+            diseaseRarity: 3,
+            diagnosticAmbiguity: 4,
+            prognosticUncertainty: 3,
+            multimorbidity: 4,
+            diseaseSeverity: 3
+          },
+          questionDifficulty: {
+            differentialDepth: 4,
+            prognosticPrecision: 4,
+            realtimeRequirement: 2,
+            interdisciplinaryRelevance: 3,
+            dynamicAdaptability: 3
+          },
+          aiSupportExtent: {
+            automationLevel: 3,
+            analysisLevel: 3,
+            recommendationComplexity: 3,
+            guidelineIntegration: 4,
+            patientIndividualization: 4
+          }
+        }
+      },
+      {
+        evaluationId: 'befundung-gerinnung',
+        name: 'Befundung Gerinnung',
+        dimensionValues: {
+          dataComplexity: {
+            sourceVariety: 2,
+            dataIntegrity: 5,
+            dataComplexityLevel: 2,
+            dataLinking: 3,
+            dataVolume: 2
+          },
+          diseaseComplexity: {
+            diseaseRarity: 2,
+            diagnosticAmbiguity: 3,
+            prognosticUncertainty: 3,
+            multimorbidity: 3,
+            diseaseSeverity: 4
+          },
+          questionDifficulty: {
+            differentialDepth: 3,
+            prognosticPrecision: 3,
+            realtimeRequirement: 3,
+            interdisciplinaryRelevance: 2,
+            dynamicAdaptability: 3
+          },
+          aiSupportExtent: {
+            automationLevel: 4,
+            analysisLevel: 3,
+            recommendationComplexity: 3,
+            guidelineIntegration: 4,
+            patientIndividualization: 3
+          }
+        }
+      },
+      {
+        evaluationId: 'befundung-mikrobiologie',
+        name: 'Befundung Mikrobiologie (Sepsisdiagnostik)',
+        dimensionValues: {
+          dataComplexity: {
+            sourceVariety: 3,
+            dataIntegrity: 4,
+            dataComplexityLevel: 4,
+            dataLinking: 4,
+            dataVolume: 3
+          },
+          diseaseComplexity: {
+            diseaseRarity: 2,
+            diagnosticAmbiguity: 4,
+            prognosticUncertainty: 5,
+            multimorbidity: 5,
+            diseaseSeverity: 5
+          },
+          questionDifficulty: {
+            differentialDepth: 4,
+            prognosticPrecision: 3,
+            realtimeRequirement: 5,
+            interdisciplinaryRelevance: 4,
+            dynamicAdaptability: 5
+          },
+          aiSupportExtent: {
+            automationLevel: 4,
+            analysisLevel: 5,
+            recommendationComplexity: 5,
+            guidelineIntegration: 5,
+            patientIndividualization: 5
+          }
+        }
+      },
+      {
+        evaluationId: 'befundung-kardiologie',
+        name: 'Befundung Kardiologie (EKG-Analyse)',
+        dimensionValues: {
+          dataComplexity: {
+            sourceVariety: 2,
+            dataIntegrity: 5,
+            dataComplexityLevel: 3,
+            dataLinking: 3,
+            dataVolume: 3
+          },
+          diseaseComplexity: {
+            diseaseRarity: 2,
+            diagnosticAmbiguity: 3,
+            prognosticUncertainty: 3,
+            multimorbidity: 4,
+            diseaseSeverity: 4
+          },
+          questionDifficulty: {
+            differentialDepth: 3,
+            prognosticPrecision: 3,
+            realtimeRequirement: 5,
+            interdisciplinaryRelevance: 3,
+            dynamicAdaptability: 4
+          },
+          aiSupportExtent: {
+            automationLevel: 4,
+            analysisLevel: 4,
+            recommendationComplexity: 4,
+            guidelineIntegration: 4,
+            patientIndividualization: 3
+          }
+        }
+      },
+      {
+        evaluationId: 'radiologische-tumorbefundung',
+        name: 'Radiologische Tumorbefundung',
+        dimensionValues: {
+          dataComplexity: {
+            sourceVariety: 4,
+            dataIntegrity: 4,
+            dataComplexityLevel: 5,
+            dataLinking: 4,
+            dataVolume: 5
+          },
+          diseaseComplexity: {
+            diseaseRarity: 3,
+            diagnosticAmbiguity: 4,
+            prognosticUncertainty: 5,
+            multimorbidity: 4,
+            diseaseSeverity: 5
+          },
+          questionDifficulty: {
+            differentialDepth: 5,
+            prognosticPrecision: 4,
+            realtimeRequirement: 4,
+            interdisciplinaryRelevance: 5,
+            dynamicAdaptability: 4
+          },
+          aiSupportExtent: {
+            automationLevel: 3,
+            analysisLevel: 5,
+            recommendationComplexity: 4,
+            guidelineIntegration: 5,
+            patientIndividualization: 5
+          }
+        }
+      },
+      {
+        evaluationId: 'genetische-diagnostik',
+        name: 'Genetische Diagnostik (z.B. Erbkrankheiten)',
+        dimensionValues: {
+          dataComplexity: {
+            sourceVariety: 5,
+            dataIntegrity: 4,
+            dataComplexityLevel: 5,
+            dataLinking: 5,
+            dataVolume: 5
+          },
+          diseaseComplexity: {
+            diseaseRarity: 5,
+            diagnosticAmbiguity: 4,
+            prognosticUncertainty: 4,
+            multimorbidity: 3,
+            diseaseSeverity: 5
+          },
+          questionDifficulty: {
+            differentialDepth: 4,
+            prognosticPrecision: 4,
+            realtimeRequirement: 2,
+            interdisciplinaryRelevance: 4,
+            dynamicAdaptability: 3
+          },
+          aiSupportExtent: {
+            automationLevel: 2,
+            analysisLevel: 5,
+            recommendationComplexity: 4,
+            guidelineIntegration: 4,
+            patientIndividualization: 5
+          }
+        }
+      },
+      {
+        evaluationId: 'allergiediagnostik',
+        name: 'Allergiediagnostik',
+        dimensionValues: {
+          dataComplexity: {
+            sourceVariety: 2,
+            dataIntegrity: 4,
+            dataComplexityLevel: 2,
+            dataLinking: 2,
+            dataVolume: 2
+          },
+          diseaseComplexity: {
+            diseaseRarity: 2,
+            diagnosticAmbiguity: 2,
+            prognosticUncertainty: 2,
+            multimorbidity: 3,
+            diseaseSeverity: 2
+          },
+          questionDifficulty: {
+            differentialDepth: 2,
+            prognosticPrecision: 3,
+            realtimeRequirement: 3,
+            interdisciplinaryRelevance: 2,
+            dynamicAdaptability: 2
+          },
+          aiSupportExtent: {
+            automationLevel: 3,
+            analysisLevel: 2,
+            recommendationComplexity: 2,
+            guidelineIntegration: 4,
+            patientIndividualization: 3
+          }
+        }
+      },
+      {
+        evaluationId: 'infektionsdiagnostik-covid19',
+        name: 'Infektionsdiagnostik (Covid-19-PCR)',
+        dimensionValues: {
+          dataComplexity: {
+            sourceVariety: 1,
+            dataIntegrity: 5,
+            dataComplexityLevel: 1,
+            dataLinking: 1,
+            dataVolume: 1
+          },
+          diseaseComplexity: {
+            diseaseRarity: 1,
+            diagnosticAmbiguity: 2,
+            prognosticUncertainty: 2,
+            multimorbidity: 2,
+            diseaseSeverity: 3
+          },
+          questionDifficulty: {
+            differentialDepth: 1,
+            prognosticPrecision: 2,
+            realtimeRequirement: 4,
+            interdisciplinaryRelevance: 1,
+            dynamicAdaptability: 1
+          },
+          aiSupportExtent: {
+            automationLevel: 4,
+            analysisLevel: 2,
+            recommendationComplexity: 2,
+            guidelineIntegration: 4,
+            patientIndividualization: 2
+          }
+        }
+      },
+      {
+        evaluationId: 'neurologische-befundung',
+        name: 'Neurologische Befundung (z.B. Schlaganfall)',
+        dimensionValues: {
+          dataComplexity: {
+            sourceVariety: 4,
+            dataIntegrity: 4,
+            dataComplexityLevel: 4,
+            dataLinking: 5,
+            dataVolume: 4
+          },
+          diseaseComplexity: {
+            diseaseRarity: 2,
+            diagnosticAmbiguity: 4,
+            prognosticUncertainty: 4,
+            multimorbidity: 4,
+            diseaseSeverity: 5
+          },
+          questionDifficulty: {
+            differentialDepth: 4,
+            prognosticPrecision: 4,
+            realtimeRequirement: 5,
+            interdisciplinaryRelevance: 5,
+            dynamicAdaptability: 5
+          },
+          aiSupportExtent: {
+            automationLevel: 3,
+            analysisLevel: 5,
+            recommendationComplexity: 5,
+            guidelineIntegration: 5,
+            patientIndividualization: 5
+          }
+        }
+      }
+    ];
+
+    // Add preconfigured scores to the service
+    preconfiguredScores.forEach(input => {
+      this.saveScoreInput(input);
+    });
+  }
 
   getDimensions(): Observable<Dimension[]> {
     // Return a copy to prevent direct modification
