@@ -6,7 +6,9 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "build:ghpages": "ng build --output-path docs --base-href '/pricing-app/' --configuration production && npm run postbuild:move",
+    "postbuild:move": "node move-browser-to-docs.js"
   },
   "private": true,
   "dependencies": {
@@ -38,6 +40,7 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
+    "npm-run-all": "^4.1.5",
     "typescript": "~5.7.2"
   }
 }
