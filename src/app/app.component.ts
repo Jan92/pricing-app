@@ -1,4 +1,6 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -6,16 +8,21 @@ import { Component, HostListener } from '@angular/core';
   standalone: false,
   styleUrl: './app.component.css'
 })
-export class AppComponent {
+export class AppComponent implements OnInit, OnDestroy {
   title = 'pricing-app';
-  isMobile: boolean = window.innerWidth <= 900;
+  isMobile = false;
+  private breakpointSub: Subscription | undefined;
 
-  @HostListener('window:resize', ['$event'])
-  onResize(event: Event) {
-    this.isMobile = window.innerWidth <= 900;
-  }
+  constructor(private breakpointObserver: BreakpointObserver) {}
 
   ngOnInit() {
-    this.isMobile = window.innerWidth <= 900;
+    this.breakpointSub = this.breakpointObserver.observe([Breakpoints.Handset, '(max-width: 900px)'])
+      .subscribe(result => {
+        this.isMobile = result.matches;
+      });
+  }
+
+  ngOnDestroy() {
+    this.breakpointSub?.unsubscribe();
   }
 }
