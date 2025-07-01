@@ -23,7 +23,7 @@
     </mat-nav-list>
   </div>
 
-  <div class="scale-editor" *ngIf="selectedCriterion">
+  <div class="scale-editor" *ngIf="selectedCriterion && scaleForm && scaleLabels?.length === scoreRange.length">
     <mat-card class="mat-elevation-z4">
       <mat-card-header>
         <mat-card-title>Skalenbeschriftungen - {{ selectedCriterion.name }}</mat-card-title>

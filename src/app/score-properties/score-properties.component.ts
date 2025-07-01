@@ -53,6 +53,7 @@ export class ScorePropertiesComponent implements OnInit {
 
   // Reset the form with the criterion's values
   resetScaleForm(criterion: Criterion): void {
+    if (!criterion) return;
     // Clear the form array
     while (this.scaleLabels.length > 0) {
       this.scaleLabels.removeAt(0);
