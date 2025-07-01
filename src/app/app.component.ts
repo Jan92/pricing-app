@@ -8,4 +8,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'pricing-app';
+  get isMobile(): boolean {
+    return window.innerWidth <= 900;
+  }
 }
