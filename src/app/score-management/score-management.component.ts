@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 })
 export class ScoreManagementComponent implements OnInit {
   scoreResults$: Observable<ScoreResult[]>;
+  isMobile = false;
 
   constructor(
     private scoreService: ScoreService,
@@ -22,6 +23,10 @@ export class ScoreManagementComponent implements OnInit {
 
   ngOnInit(): void {
      // Data is fetched via the async pipe in the template
+     this.isMobile = window.matchMedia('(max-width: 600px)').matches;
+     window.addEventListener('resize', () => {
+       this.isMobile = window.matchMedia('(max-width: 600px)').matches;
+     });
   }
 
   // Navigate to details view
