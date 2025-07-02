@@ -2,7 +2,7 @@
   <mat-sidenav #drawer [mode]="isMobile ? 'over' : 'side'" [opened]="!isMobile" class="sidenav">
     <mat-toolbar color="primary" class="sidenav-header">
       <mat-icon>dashboard</mat-icon>
-      <span class="sidenav-title">Pricing Score</span>
+      <span class="sidenav-title">Pricing Score Simulator</span>
     </mat-toolbar>
     <mat-nav-list>
       <a mat-list-item routerLink="/manage" routerLinkActive="active-link" (click)="isMobile ? drawer.close() : null">
@@ -34,7 +34,7 @@
       <button mat-icon-button (click)="drawer.toggle()">
         <mat-icon>menu</mat-icon>
       </button>
-      <span class="main-title">Pricing Score</span>
+      <span class="main-title">Pricing Score Simulator</span>
     </mat-toolbar>
     <div class="content-container">
       <router-outlet></router-outlet>

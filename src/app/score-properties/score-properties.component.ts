@@ -27,7 +27,7 @@ export class ScorePropertiesComponent implements OnInit {
     
     // Initialize the form
     this.scaleForm = this.fb.group({
-      scaleLabels: this.fb.array([])
+      scaleLabels: this.fb.array(this.scoreRange.map(() => new FormControl('')))
     });
   }
 
@@ -55,14 +55,15 @@ export class ScorePropertiesComponent implements OnInit {
   resetScaleForm(criterion: Criterion): void {
     if (!criterion) return;
     // Clear the form array
-    while (this.scaleLabels.length > 0) {
-      this.scaleLabels.removeAt(0);
+    const formArray = this.scaleForm.get('scaleLabels') as FormArray;
+    while (formArray.length > 0) {
+      formArray.removeAt(0);
     }
     
     // Add controls for each score in the range
     this.scoreRange.forEach(score => {
       const label = criterion.scale[score] || this.scoreService.getDefaultScaleLabels()[score] || `Score ${score}`;
-      this.scaleLabels.push(new FormControl(label));
+      formArray.push(new FormControl(label));
     });
   }
 
