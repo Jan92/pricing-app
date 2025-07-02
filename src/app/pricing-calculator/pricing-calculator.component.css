@@ -41,3 +41,34 @@ table tbody tr:hover {
 }
 
 /* Removed styles specific to old form elements like .text-danger.small */
+
+@media (max-width: 600px) {
+  .row, .col-md-4, .col-md-6 {
+    display: block !important;
+    width: 100% !important;
+    padding: 0 !important;
+  }
+  mat-form-field, input, textarea, button {
+    width: 100% !important;
+    box-sizing: border-box;
+  }
+  .table, table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    font-size: 0.95rem;
+  }
+  th, td {
+    min-width: 90px;
+    padding: 6px 4px;
+    white-space: nowrap;
+  }
+  mat-card {
+    width: 100% !important;
+    margin-bottom: 16px;
+  }
+  button {
+    font-size: 0.95rem;
+    padding: 10px 0;
+  }
+}

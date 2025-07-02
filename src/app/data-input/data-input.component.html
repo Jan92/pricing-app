@@ -10,20 +10,24 @@
   <input type="hidden" formControlName="evaluationId">
   <p>Aktuelle Evaluations-ID: {{ evaluationId }}</p>
 
-  <div *ngFor="let dim of dimensions" class="dimension-group">
-    <h3>{{ dim.name }}</h3>
-    <div [formGroupName]="dim.id">
-      <div *ngFor="let crit of dim.criteria" class="criterion-group">
-        <h4>{{ crit.name }} <small>({{ crit.description }})</small></h4>
-        <div class="score-options">
-          <label *ngFor="let score of [1, 2, 3, 4, 5]" class="score-label">
-            <input type="radio" [formControlName]="crit.id" [value]="score">
-            {{ score }} - {{ getScoreLabel(dim.id, crit.id, score) }}
-          </label>
-        </div>
+  <ng-container *ngFor="let dim of dimensions">
+    <div class="dimension-group" *ngIf="scoreForm.get(dim.id)">
+      <h3>{{ dim.name }}</h3>
+      <div [formGroupName]="dim.id">
+        <ng-container *ngFor="let crit of dim.criteria">
+          <div class="criterion-group" *ngIf="scoreForm.get(dim.id)?.get(crit.id)">
+            <h4>{{ crit.name }} <small>({{ crit.description }})</small></h4>
+            <div class="score-options">
+              <label *ngFor="let score of [1, 2, 3, 4, 5]" class="score-label">
+                <input type="radio" [formControlName]="crit.id" [value]="score">
+                {{ score }} - {{ getScoreLabel(dim.id, crit.id, score) }}
+              </label>
+            </div>
+          </div>
+        </ng-container>
       </div>
     </div>
-  </div>
+  </ng-container>
 
   <button type="submit" [disabled]="!scoreForm.valid">Speichern</button>
 </form>

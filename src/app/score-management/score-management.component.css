@@ -58,4 +58,43 @@ button {
   background-color: #da190b;
 }
 
+@media (max-width: 600px) {
+  table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    font-size: 0.95rem;
+  }
+  th, td {
+    min-width: 90px;
+    padding: 6px 4px;
+    white-space: nowrap;
+  }
+  .mat-header-row, .mat-row {
+    display: flex;
+    flex-direction: row;
+    width: max-content;
+    min-width: 100%;
+  }
+  .mat-cell, .mat-header-cell {
+    flex: 1 0 auto;
+  }
+  button {
+    font-size: 0.95rem;
+    padding: 8px 0;
+  }
+  .mat-column-actions td, .mat-column-actions {
+    display: flex !important;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    text-align: left;
+    justify-content: flex-start;
+  }
+  
+  .ml-2 {
+    margin-left: 0 !important;
+  }
+}
+
 

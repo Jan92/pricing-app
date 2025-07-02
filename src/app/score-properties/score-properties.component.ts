@@ -18,20 +18,27 @@ export class ScorePropertiesComponent implements OnInit {
   
   scaleForm: FormGroup;
   scoreRange = [1, 2, 3, 4, 5]; // Default score range
-  
+
+  // Mobile step logic
+  isMobile = false;
+  mobileStep = 0; // 0: dimension, 1: criteria, 2: scale
+
   constructor(
     private scoreService: ScoreService,
     private fb: FormBuilder
   ) {
     this.dimensions$ = this.scoreService.getDimensions();
-    
-    // Initialize the form
+    // FormArray direkt mit leeren Controls für die Score-Range initialisieren
     this.scaleForm = this.fb.group({
       scaleLabels: this.fb.array(this.scoreRange.map(() => new FormControl('')))
     });
   }
 
   ngOnInit(): void {
+    this.isMobile = window.matchMedia('(max-width: 600px)').matches;
+    window.addEventListener('resize', () => {
+      this.isMobile = window.matchMedia('(max-width: 600px)').matches;
+    });
   }
   
   // Retrieve the form array for scale labels
@@ -43,12 +50,31 @@ export class ScorePropertiesComponent implements OnInit {
   onSelectDimension(dimension: Dimension): void {
     this.selectedDimension = dimension;
     this.selectedCriterion = null; // Reset criterion selection
+    if (this.isMobile) {
+      this.mobileStep = 1;
+    }
   }
 
   // When a criterion is selected
   onSelectCriterion(criterion: Criterion): void {
     this.selectedCriterion = criterion;
     this.resetScaleForm(criterion);
+    if (this.isMobile) {
+      this.mobileStep = 2;
+    }
+  }
+
+  goBackMobileStep(): void {
+    if (this.mobileStep > 0) {
+      this.mobileStep--;
+      if (this.mobileStep === 1) {
+        this.selectedCriterion = null;
+      }
+      if (this.mobileStep === 0) {
+        this.selectedDimension = null;
+        this.selectedCriterion = null;
+      }
+    }
   }
 
   // Reset the form with the criterion's values

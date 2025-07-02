@@ -46,3 +46,28 @@ button:disabled {
     opacity: 0.6;
 }
 
+@media (max-width: 600px) {
+  .w-100, input, button, mat-form-field, textarea {
+    width: 100% !important;
+    box-sizing: border-box;
+  }
+  .dimension-group, .criterion-group {
+    margin-bottom: 24px;
+    padding: 8px 0;
+  }
+  .score-options {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .score-label {
+    font-size: 1rem;
+    padding: 4px 0;
+  }
+  button[type="submit"] {
+    margin-top: 16px;
+    font-size: 1.05rem;
+    padding: 12px 0;
+  }
+}
+

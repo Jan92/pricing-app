@@ -58,4 +58,22 @@
 /* Styling for the no data/loading messages */
 p {
   color: #666;
+}
+
+@media (max-width: 600px) {
+  .series-results-container, .series-run-card, mat-card {
+    width: 100% !important;
+    margin-bottom: 16px;
+  }
+  .results-table, table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    font-size: 0.95rem;
+  }
+  th, td {
+    min-width: 90px;
+    padding: 6px 4px;
+    white-space: nowrap;
+  }
 } 

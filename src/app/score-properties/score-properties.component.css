@@ -59,3 +59,23 @@ mat-card-actions {
 button {
   margin-left: 8px;
 }
+
+@media (max-width: 600px) {
+  .score-properties-container {
+    flex-direction: column;
+    gap: 0;
+  }
+  .dimension-list, .criteria-list, .scale-editor {
+    max-width: 100%;
+    border-right: none;
+    border-bottom: 1px solid #eee;
+  }
+  .scale-editor {
+    border-bottom: none;
+  }
+  button {
+    width: 100%;
+    margin-left: 0 !important;
+    margin-bottom: 8px;
+  }
+}
