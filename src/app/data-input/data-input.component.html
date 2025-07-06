@@ -20,7 +20,7 @@
             <div class="score-options">
               <label *ngFor="let score of [1, 2, 3, 4, 5]" class="score-label">
                 <input type="radio" [formControlName]="crit.id" [value]="score">
-                {{ score }} - {{ getScoreLabel(dim.id, crit.id, score) }}
+                <span>{{ score }} - {{ getScoreLabel(dim.id, crit.id, score) }}</span>
               </label>
             </div>
           </div>

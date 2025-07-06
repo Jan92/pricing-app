@@ -22,7 +22,8 @@ export class DataInputComponent implements OnInit {
     private route: ActivatedRoute
   ) {
     this.scoreForm = this.fb.group({ // Initialize with an empty group
-        evaluationId: [this.evaluationId, Validators.required]
+        evaluationId: [this.evaluationId, Validators.required],
+        name: ['', Validators.required]
     });
     this.dimensions$ = this.scoreService.getDimensions();
   }
@@ -72,7 +73,7 @@ export class DataInputComponent implements OnInit {
      // Replace the controls in the existing form group
      // Clear existing dimension controls first
     Object.keys(this.scoreForm.controls).forEach(key => {
-        if (key !== 'evaluationId') {
+        if (key !== 'evaluationId' && key !== 'name') {
             this.scoreForm.removeControl(key);
         }
     });
@@ -92,7 +93,7 @@ export class DataInputComponent implements OnInit {
 
       // Extract dimension values correctly
       Object.keys(formValue).forEach(key => {
-        if (key !== 'evaluationId') {
+        if (key !== 'evaluationId' && key !== 'name') {
           scoreInput.dimensionValues[key] = formValue[key];
         }
       });

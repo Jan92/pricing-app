@@ -11,10 +11,124 @@ html, body {
   flex: 1 1 auto;
 }
 
-.content-container {
-  padding: 16px;
-}
-
 .active-link {
   background: rgba(255, 255, 255, 0.2);
+}
+
+/* --- Globale Mobile-Optimierung --- */
+@media (max-width: 600px) {
+  html, body {
+    width: 100vw;
+    max-width: 100vw;
+    min-width: 0;
+    box-sizing: border-box;
+    font-size: 1rem;
+    overflow-x: hidden;
+  }
+  .content-container, .mat-card, mat-card, .score-card, .dimension-panel, .container, .score-properties-container, .score-mobile-card {
+    width: 100% !important;
+    max-width: 100vw !important;
+    box-sizing: border-box !important;
+    margin: 0 auto 16px auto !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    overflow-x: auto !important;
+  }
+  form, mat-form-field, input, textarea, select, button {
+    width: 100% !important;
+    max-width: 100vw !important;
+    box-sizing: border-box !important;
+    font-size: 1rem !important;
+    margin: 0 0 12px 0 !important;
+    padding: 8px 0 !important;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-size: 1.15rem !important;
+    margin: 8px 0 8px 0 !important;
+    word-break: break-word !important;
+    overflow-wrap: break-word !important;
+  }
+  .mat-list, mat-list, mat-list-item, .mat-list-item {
+    width: 100% !important;
+    max-width: 100vw !important;
+    box-sizing: border-box !important;
+    overflow-x: auto !important;
+    font-size: 1rem !important;
+  }
+  table, .table {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100vw !important;
+    overflow-x: auto !important;
+    font-size: 0.97rem !important;
+  }
+  th, td {
+    min-width: 90px !important;
+    padding: 6px 4px !important;
+    white-space: normal !important;
+    word-break: break-word !important;
+    overflow-wrap: break-word !important;
+  }
+  .mat-expansion-panel-header, mat-expansion-panel-header {
+    width: 100% !important;
+    max-width: 100vw !important;
+    box-sizing: border-box !important;
+    overflow-x: hidden !important;
+    font-size: 1rem !important;
+  }
+  .mat-expansion-panel-header .panel-header-left, mat-expansion-panel-header .panel-header-left {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+  }
+  .mat-expansion-panel-header mat-panel-title, mat-expansion-panel-header mat-panel-title {
+    font-size: 1.08rem !important;
+    font-weight: 500 !important;
+    margin-bottom: 2px !important;
+    text-align: left !important;
+    padding: 0 !important;
+    word-break: break-word !important;
+    overflow-wrap: break-word !important;
+    max-width: 100% !important;
+  }
+  .mat-expansion-panel-header mat-panel-description, mat-expansion-panel-header mat-panel-description {
+    font-size: 1.05rem !important;
+    color: #3f51b5 !important;
+    font-weight: 600 !important;
+    margin-top: 2px !important;
+    text-align: left !important;
+    padding: 0 !important;
+    letter-spacing: 0.01em;
+    word-break: break-word !important;
+    overflow-wrap: break-word !important;
+    max-width: 100% !important;
+  }
+  .score-label {
+    display: flex !important;
+    align-items: flex-start !important;
+    gap: 0.4em !important;
+    line-height: 1.3 !important;
+    margin-bottom: 0.2em !important;
+    word-break: break-word !important;
+    overflow-wrap: break-word !important;
+  }
+  .score-label input[type="radio"] {
+    margin-top: 0.2em !important;
+    flex-shrink: 0 !important;
+  }
+  .score-label span, .score-label-text {
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    display: inline-block !important;
+    word-break: break-word !important;
+    overflow-wrap: break-word !important;
+  }
+  button {
+    font-size: 1.05rem !important;
+    padding: 14px 0 !important;
+    border-radius: 4px !important;
+    margin-bottom: 8px !important;
+  }
 }
