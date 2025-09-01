@@ -8,317 +8,376 @@
   <div class="progress-container">
     <div class="progress-steps">
       <div class="step" *ngFor="let phase of phases; let i = index" 
-           [class.active]="i === currentPhase" 
-           [class.completed]="i < currentPhase"
+           [class.active]="isPhaseActive(i)" 
+           [class.completed]="isPhaseCompleted(i)"
            (click)="jumpToPhase(i)">
         <div class="step-number">{{ i + 1 }}</div>
         <div class="step-label">{{ phase }}</div>
       </div>
     </div>
     <div class="progress-bar">
-      <div class="progress-fill"></div>
+      <div class="progress-fill" [style.width.%]="getProgressPercent()"></div>
     </div>
   </div>
 
   <!-- Phase 1: System-Übersicht -->
-  <div class="phase" data-phase="0">
+  <div class="phase" *ngIf="isPhaseVisible(0)">
     <mat-card class="strategy-card">
       <mat-card-header>
         <mat-card-title>System-Übersicht</mat-card-title>
         <mat-card-subtitle>Grundlegende Informationen über Ihr DDSS-System</mat-card-subtitle>
       </mat-card-header>
-      <mat-card-content>
+      <mat-card-content [formGroup]="pricingForm">
         <div class="form-group">
           <mat-form-field appearance="outline" class="full-width">
             <mat-label>Name des DDSS-Systems</mat-label>
-            <input matInput name="systemName" [(ngModel)]="formData.systemName" required>
+            <input matInput formControlName="systemName" required>
+            <mat-error *ngIf="pricingForm.get('systemName')?.invalid && pricingForm.get('systemName')?.touched">
+              Bitte geben Sie einen Namen ein
+            </mat-error>
           </mat-form-field>
         </div>
 
         <div class="form-group">
           <label class="form-label">Autonomie-Level des Systems *</label>
-          <div class="radio-group">
-            <div class="radio-option">
-              <input type="radio" name="autonomy" value="assistive" required>
-              <div class="radio-text">
-                <strong>Assistive (Score 1-2)</strong>
-                <small>Unterstützt Ärzte bei der Entscheidungsfindung, trifft keine autonomen Entscheidungen</small>
-              </div>
+          <mat-radio-group formControlName="autonomy" class="radio-group" required>
+            <div class="radio-option" [class.selected]="pricingForm.get('autonomy')?.value === 'assistive'" (click)="pricingForm.get('autonomy')?.setValue('assistive')">
+              <mat-radio-button value="assistive" (click)="$event.stopPropagation()">
+                <div class="radio-text" (click)="pricingForm.get('autonomy')?.setValue('assistive')">
+                  <strong>Assistive (Score 1-2)</strong>
+                  <small>Unterstützt Ärzte bei der Entscheidungsfindung, trifft keine autonomen Entscheidungen</small>
+                </div>
+              </mat-radio-button>
             </div>
-            <div class="radio-option">
-              <input type="radio" name="autonomy" value="augmentative" required>
-              <div class="radio-text">
-                <strong>Augmentative (Score 3-4)</strong>
-                <small>Erweitert die Fähigkeiten des Arztes, kann Vorschläge machen</small>
-              </div>
+            <div class="radio-option" [class.selected]="pricingForm.get('autonomy')?.value === 'augmentative'" (click)="pricingForm.get('autonomy')?.setValue('augmentative')">
+              <mat-radio-button value="augmentative" (click)="$event.stopPropagation()">
+                <div class="radio-text" (click)="pricingForm.get('autonomy')?.setValue('augmentative')">
+                  <strong>Augmentative (Score 3-4)</strong>
+                  <small>Erweitert die Fähigkeiten des Arztes, kann Vorschläge machen</small>
+                </div>
+              </mat-radio-button>
             </div>
-            <div class="radio-option">
-              <input type="radio" name="autonomy" value="autonomous" required>
-              <div class="radio-text">
-                <strong>Autonomous (Score 5)</strong>
-                <small>Kann autonom Entscheidungen treffen, hohe KI-Beteiligung</small>
-              </div>
+            <div class="radio-option" [class.selected]="pricingForm.get('autonomy')?.value === 'autonomous'" (click)="pricingForm.get('autonomy')?.setValue('autonomous')">
+              <mat-radio-button value="autonomous" (click)="$event.stopPropagation()">
+                <div class="radio-text" (click)="pricingForm.get('autonomy')?.setValue('autonomous')">
+                  <strong>Autonomous (Score 5)</strong>
+                  <small>Kann autonom Entscheidungen treffen, hohe KI-Beteiligung</small>
+                </div>
+              </mat-radio-button>
             </div>
-          </div>
+          </mat-radio-group>
+          <mat-error *ngIf="pricingForm.get('autonomy')?.invalid && pricingForm.get('autonomy')?.touched">
+            Bitte wählen Sie ein Autonomie-Level
+          </mat-error>
         </div>
       </mat-card-content>
     </mat-card>
   </div>
 
   <!-- Phase 2: Technische Komplexität -->
-  <div class="phase" data-phase="1">
+  <div class="phase" *ngIf="isPhaseVisible(1)">
     <mat-card class="strategy-card">
       <mat-card-header>
         <mat-card-title>Technische Komplexität</mat-card-title>
         <mat-card-subtitle>Bewerten Sie die technischen Aspekte Ihres Systems</mat-card-subtitle>
       </mat-card-header>
-      <mat-card-content>
+      <mat-card-content [formGroup]="pricingForm">
         <div class="form-group">
           <label class="form-label">Messbarkeit des Nutzens *</label>
-          <div class="radio-group">
-            <div class="radio-option">
-              <input type="radio" name="measurability" value="high" required>
-              <div class="radio-text">
-                <strong>Hoch messbar</strong>
-                <small>Nutzen kann klar in Euro, Zeit oder Qualität gemessen werden</small>
-              </div>
+          <mat-radio-group formControlName="measurability" class="radio-group" required>
+            <div class="radio-option" [class.selected]="pricingForm.get('measurability')?.value === 'high'" (click)="pricingForm.get('measurability')?.setValue('high')">
+              <mat-radio-button value="high">
+                <div class="radio-text">
+                  <strong>Hoch messbar</strong>
+                  <small>Nutzen kann klar in Euro, Zeit oder Qualität gemessen werden</small>
+                </div>
+              </mat-radio-button>
             </div>
-            <div class="radio-option">
-              <input type="radio" name="measurability" value="medium" required>
-              <div class="radio-text">
-                <strong>Mittel messbar</strong>
-                <small>Teilweise messbar, aber mit Unsicherheiten</small>
-              </div>
+            <div class="radio-option" [class.selected]="pricingForm.get('measurability')?.value === 'medium'" (click)="pricingForm.get('measurability')?.setValue('medium')">
+              <mat-radio-button value="medium">
+                <div class="radio-text">
+                  <strong>Mittel messbar</strong>
+                  <small>Teilweise messbar, aber mit Unsicherheiten</small>
+                </div>
+              </mat-radio-button>
             </div>
-            <div class="radio-option">
-              <input type="radio" name="measurability" value="low" required>
-              <div class="radio-text">
-                <strong>Schwer messbar</strong>
-                <small>Nutzen ist qualitativ, schwer zu quantifizieren</small>
-              </div>
+            <div class="radio-option" [class.selected]="pricingForm.get('measurability')?.value === 'low'" (click)="pricingForm.get('measurability')?.setValue('low')">
+              <mat-radio-button value="low">
+                <div class="radio-text">
+                  <strong>Schwer messbar</strong>
+                  <small>Nutzen ist qualitativ, schwer zu quantifizieren</small>
+                </div>
+              </mat-radio-button>
             </div>
-          </div>
+          </mat-radio-group>
+          <mat-error *ngIf="pricingForm.get('measurability')?.invalid && pricingForm.get('measurability')?.touched">
+            Bitte wählen Sie die Messbarkeit des Nutzens
+          </mat-error>
         </div>
 
         <div class="form-group">
           <label class="form-label">AI-Inferenzkosten *</label>
-          <div class="radio-group">
-            <div class="radio-option">
-              <input type="radio" name="inferenceCosts" value="low" required>
-              <div class="radio-text">
-                <strong>Niedrig</strong>
-                <small>Geringe laufende Kosten für AI-Verarbeitung</small>
-              </div>
+          <mat-radio-group formControlName="inferenceCosts" class="radio-group" required>
+            <div class="radio-option" [class.selected]="pricingForm.get('inferenceCosts')?.value === 'low'" (click)="pricingForm.get('inferenceCosts')?.setValue('low')">
+              <mat-radio-button value="low">
+                <div class="radio-text">
+                  <strong>Niedrig</strong>
+                  <small>Geringe laufende Kosten für AI-Verarbeitung</small>
+                </div>
+              </mat-radio-button>
             </div>
-            <div class="radio-option">
-              <input type="radio" name="inferenceCosts" value="medium" required>
-              <div class="radio-text">
-                <strong>Mittel</strong>
-                <small>Moderate laufende Kosten</small>
-              </div>
+            <div class="radio-option" [class.selected]="pricingForm.get('inferenceCosts')?.value === 'medium'" (click)="pricingForm.get('inferenceCosts')?.setValue('medium')">
+              <mat-radio-button value="medium">
+                <div class="radio-text">
+                  <strong>Mittel</strong>
+                  <small>Moderate laufende Kosten</small>
+                </div>
+              </mat-radio-button>
             </div>
-            <div class="radio-option">
-              <input type="radio" name="inferenceCosts" value="high" required>
-              <div class="radio-text">
-                <strong>Hoch</strong>
-                <small>Hohe laufende Kosten für AI-Verarbeitung</small>
-              </div>
+            <div class="radio-option" [class.selected]="pricingForm.get('inferenceCosts')?.value === 'high'" (click)="pricingForm.get('inferenceCosts')?.setValue('high')">
+              <mat-radio-button value="high">
+                <div class="radio-text">
+                  <strong>Hoch</strong>
+                  <small>Hohe laufende Kosten für AI-Verarbeitung</small>
+                </div>
+              </mat-radio-button>
             </div>
-          </div>
+          </mat-radio-group>
+          <mat-error *ngIf="pricingForm.get('inferenceCosts')?.invalid && pricingForm.get('inferenceCosts')?.touched">
+            Bitte wählen Sie die AI-Inferenzkosten
+          </mat-error>
         </div>
       </mat-card-content>
     </mat-card>
   </div>
 
   <!-- Phase 3: Markt & Wettbewerb -->
-  <div class="phase" data-phase="2">
+  <div class="phase" *ngIf="isPhaseVisible(2)">
     <mat-card class="strategy-card">
       <mat-card-header>
         <mat-card-title>Markt & Wettbewerb</mat-card-title>
         <mat-card-subtitle>Analysieren Sie Ihre Marktposition</mat-card-subtitle>
       </mat-card-header>
-      <mat-card-content>
+      <mat-card-content [formGroup]="pricingForm">
         <div class="form-group">
           <label class="form-label">Primärer Zielsektor *</label>
-          <div class="radio-group">
-            <div class="radio-option">
-              <input type="radio" name="sector" value="public" required>
-              <div class="radio-text">
-                <strong>Öffentlich</strong>
-                <small>Krankenhäuser, Universitätskliniken, öffentliche Einrichtungen</small>
-              </div>
+          <mat-radio-group formControlName="sector" class="radio-group" required>
+            <div class="radio-option" [class.selected]="pricingForm.get('sector')?.value === 'public'" (click)="pricingForm.get('sector')?.setValue('public')">
+              <mat-radio-button value="public">
+                <div class="radio-text">
+                  <strong>Öffentlich</strong>
+                  <small>Krankenhäuser, Universitätskliniken, öffentliche Einrichtungen</small>
+                </div>
+              </mat-radio-button>
             </div>
-            <div class="radio-option">
-              <input type="radio" name="sector" value="private" required>
-              <div class="radio-text">
-                <strong>Privat</strong>
-                <small>Private Praxen, Privatkliniken, kommerzielle Einrichtungen</small>
-              </div>
+            <div class="radio-option" [class.selected]="pricingForm.get('sector')?.value === 'private'" (click)="pricingForm.get('sector')?.setValue('private')">
+              <mat-radio-button value="private">
+                <div class="radio-text">
+                  <strong>Privat</strong>
+                  <small>Private Praxen, Privatkliniken, kommerzielle Einrichtungen</small>
+                </div>
+              </mat-radio-button>
             </div>
-            <div class="radio-option">
-              <input type="radio" name="sector" value="hybrid" required>
-              <div class="radio-text">
-                <strong>Hybrid</strong>
-                <small>Gemischte Kundenstruktur</small>
-              </div>
+            <div class="radio-option" [class.selected]="pricingForm.get('sector')?.value === 'hybrid'" (click)="pricingForm.get('sector')?.setValue('hybrid')">
+              <mat-radio-button value="hybrid">
+                <div class="radio-text">
+                  <strong>Hybrid</strong>
+                  <small>Gemischte Kundenstruktur</small>
+                </div>
+              </mat-radio-button>
             </div>
-          </div>
+          </mat-radio-group>
+          <mat-error *ngIf="pricingForm.get('sector')?.invalid && pricingForm.get('sector')?.touched">
+            Bitte wählen Sie einen Zielsektor
+          </mat-error>
         </div>
 
         <div class="form-group">
           <label class="form-label">Erstattungsintegration möglich? *</label>
-          <div class="radio-group">
-            <div class="radio-option">
-              <input type="radio" name="reimbursement" value="yes" required>
-              <div class="radio-text">
-                <strong>Ja</strong>
-                <small>Integration in GOÄ/EBM möglich</small>
-              </div>
+          <mat-radio-group formControlName="reimbursement" class="radio-group" required>
+            <div class="radio-option" [class.selected]="pricingForm.get('reimbursement')?.value === 'yes'" (click)="pricingForm.get('reimbursement')?.setValue('yes')">
+              <mat-radio-button value="yes">
+                <div class="radio-text">
+                  <strong>Ja</strong>
+                  <small>Integration in GOÄ/EBM möglich</small>
+                </div>
+              </mat-radio-button>
             </div>
-            <div class="radio-option">
-              <input type="radio" name="reimbursement" value="no" required>
-              <div class="radio-text">
-                <strong>Nein</strong>
-                <small>Keine direkte Erstattung möglich</small>
-              </div>
+            <div class="radio-option" [class.selected]="pricingForm.get('reimbursement')?.value === 'no'" (click)="pricingForm.get('reimbursement')?.setValue('no')">
+              <mat-radio-button value="no">
+                <div class="radio-text">
+                  <strong>Nein</strong>
+                  <small>Keine direkte Erstattung möglich</small>
+                </div>
+              </mat-radio-button>
             </div>
-          </div>
+          </mat-radio-group>
+          <mat-error *ngIf="pricingForm.get('reimbursement')?.invalid && pricingForm.get('reimbursement')?.touched">
+            Bitte wählen Sie die Erstattungsmöglichkeit
+          </mat-error>
         </div>
 
         <div class="form-group">
           <label class="form-label">Wettbewerbsintensität *</label>
-          <div class="radio-group">
-            <div class="radio-option">
-              <input type="radio" name="competition" value="low" required>
-              <div class="radio-text">
-                <strong>Niedrig</strong>
-                <small>Wenige direkte Konkurrenten</small>
-              </div>
+          <mat-radio-group formControlName="competition" class="radio-group" required>
+            <div class="radio-option" [class.selected]="pricingForm.get('competition')?.value === 'low'" (click)="pricingForm.get('competition')?.setValue('low')">
+              <mat-radio-button value="low">
+                <div class="radio-text">
+                  <strong>Niedrig</strong>
+                  <small>Wenige direkte Konkurrenten</small>
+                </div>
+              </mat-radio-button>
             </div>
-            <div class="radio-option">
-              <input type="radio" name="competition" value="medium" required>
-              <div class="radio-text">
-                <strong>Mittel</strong>
-                <small>Moderate Konkurrenz</small>
-              </div>
+            <div class="radio-option" [class.selected]="pricingForm.get('competition')?.value === 'medium'" (click)="pricingForm.get('competition')?.setValue('medium')">
+              <mat-radio-button value="medium">
+                <div class="radio-text">
+                  <strong>Mittel</strong>
+                  <small>Moderate Konkurrenz</small>
+                </div>
+              </mat-radio-button>
             </div>
-            <div class="radio-option">
-              <input type="radio" name="competition" value="high" required>
-              <div class="radio-text">
-                <strong>Hoch</strong>
-                <small>Starke Konkurrenz, etablierte Anbieter</small>
-              </div>
+            <div class="radio-option" [class.selected]="pricingForm.get('competition')?.value === 'high'" (click)="pricingForm.get('competition')?.setValue('high')">
+              <mat-radio-button value="high">
+                <div class="radio-text">
+                  <strong>Hoch</strong>
+                  <small>Starke Konkurrenz, etablierte Anbieter</small>
+                </div>
+              </mat-radio-button>
             </div>
-          </div>
+          </mat-radio-group>
+          <mat-error *ngIf="pricingForm.get('competition')?.invalid && pricingForm.get('competition')?.touched">
+            Bitte wählen Sie die Wettbewerbsintensität
+          </mat-error>
         </div>
       </mat-card-content>
     </mat-card>
   </div>
 
   <!-- Phase 4: Implementierung & Vertrieb -->
-  <div class="phase" data-phase="3">
+  <div class="phase" *ngIf="isPhaseVisible(3)">
     <mat-card class="strategy-card">
       <mat-card-header>
         <mat-card-title>Implementierung & Vertrieb</mat-card-title>
         <mat-card-subtitle>Bewerten Sie die Implementierungskomplexität</mat-card-subtitle>
       </mat-card-header>
-      <mat-card-content>
+      <mat-card-content [formGroup]="pricingForm">
         <div class="form-group">
           <label class="form-label">Vertriebskomplexität *</label>
-          <div class="radio-group">
-            <div class="radio-option">
-              <input type="radio" name="salesEffort" value="low" required>
-              <div class="radio-text">
-                <strong>Niedrig (&lt;10%)</strong>
-                <small>Einfacher Vertrieb, geringe Kosten</small>
-              </div>
+          <mat-radio-group formControlName="salesEffort" class="radio-group" required>
+            <div class="radio-option" [class.selected]="pricingForm.get('salesEffort')?.value === 'low'" (click)="pricingForm.get('salesEffort')?.setValue('low')">
+              <mat-radio-button value="low">
+                <div class="radio-text">
+                  <strong>Niedrig (&lt;10%)</strong>
+                  <small>Einfacher Vertrieb, geringe Kosten</small>
+                </div>
+              </mat-radio-button>
             </div>
-            <div class="radio-option">
-              <input type="radio" name="salesEffort" value="medium" required>
-              <div class="radio-text">
-                <strong>Mittel (10-25%)</strong>
-                <small>Moderate Vertriebskosten</small>
-              </div>
+            <div class="radio-option" [class.selected]="pricingForm.get('salesEffort')?.value === 'medium'" (click)="pricingForm.get('salesEffort')?.setValue('medium')">
+              <mat-radio-button value="medium">
+                <div class="radio-text">
+                  <strong>Mittel (10-25%)</strong>
+                  <small>Moderate Vertriebskosten</small>
+                </div>
+              </mat-radio-button>
             </div>
-            <div class="radio-option">
-              <input type="radio" name="salesEffort" value="high" required>
-              <div class="radio-text">
-                <strong>Hoch (&gt;25%)</strong>
-                <small>Hohe Vertriebskosten, komplexe Verkaufsprozesse</small>
-              </div>
+            <div class="radio-option" [class.selected]="pricingForm.get('salesEffort')?.value === 'high'" (click)="pricingForm.get('salesEffort')?.setValue('high')">
+              <mat-radio-button value="high">
+                <div class="radio-text">
+                  <strong>Hoch (&gt;25%)</strong>
+                  <small>Hohe Vertriebskosten, komplexe Verkaufsprozesse</small>
+                </div>
+              </mat-radio-button>
             </div>
-          </div>
+          </mat-radio-group>
+          <mat-error *ngIf="pricingForm.get('salesEffort')?.invalid && pricingForm.get('salesEffort')?.touched">
+            Bitte wählen Sie die Vertriebskomplexität
+          </mat-error>
         </div>
 
         <div class="form-group">
           <label class="form-label">Implementierungskomplexität *</label>
-          <div class="radio-group">
-            <div class="radio-option">
-              <input type="radio" name="implementation" value="standard" required>
-              <div class="radio-text">
-                <strong>Standard</strong>
-                <small>Plug-and-Play, geringe Anpassungen</small>
-              </div>
+          <mat-radio-group formControlName="implementation" class="radio-group" required>
+            <div class="radio-option" [class.selected]="pricingForm.get('implementation')?.value === 'standard'" (click)="pricingForm.get('implementation')?.setValue('standard')">
+              <mat-radio-button value="standard">
+                <div class="radio-text">
+                  <strong>Standard</strong>
+                  <small>Plug-and-Play, geringe Anpassungen</small>
+                </div>
+              </mat-radio-button>
             </div>
-            <div class="radio-option">
-              <input type="radio" name="implementation" value="extensive" required>
-              <div class="radio-text">
-                <strong>Umfangreich</strong>
-                <small>Hohe Anpassungen, Integration, Schulungen</small>
-              </div>
+            <div class="radio-option" [class.selected]="pricingForm.get('implementation')?.value === 'extensive'" (click)="pricingForm.get('implementation')?.setValue('extensive')">
+              <mat-radio-button value="extensive">
+                <div class="radio-text">
+                  <strong>Umfangreich</strong>
+                  <small>Hohe Anpassungen, Integration, Schulungen</small>
+                </div>
+              </mat-radio-button>
             </div>
-          </div>
+          </mat-radio-group>
+          <mat-error *ngIf="pricingForm.get('implementation')?.invalid && pricingForm.get('implementation')?.touched">
+            Bitte wählen Sie die Implementierungskomplexität
+          </mat-error>
         </div>
 
         <div class="form-group">
           <label class="form-label">Kundenbindung *</label>
-          <div class="radio-group">
-            <div class="radio-option">
-              <input type="radio" name="customerFencing" value="strong" required>
-              <div class="radio-text">
-                <strong>Stark</strong>
-                <small>Hohe Wechselkosten, starke Bindung</small>
-              </div>
+          <mat-radio-group formControlName="customerFencing" class="radio-group" required>
+            <div class="radio-option" [class.selected]="pricingForm.get('customerFencing')?.value === 'strong'" (click)="pricingForm.get('customerFencing')?.setValue('strong')">
+              <mat-radio-button value="strong">
+                <div class="radio-text">
+                  <strong>Stark</strong>
+                  <small>Hohe Wechselkosten, starke Bindung</small>
+                </div>
+              </mat-radio-button>
             </div>
-            <div class="radio-option">
-              <input type="radio" name="customerFencing" value="weak" required>
-              <div class="radio-text">
-                <strong>Schwach</strong>
-                <small>Geringe Wechselkosten, schwache Bindung</small>
-              </div>
+            <div class="radio-option" [class.selected]="pricingForm.get('customerFencing')?.value === 'weak'" (click)="pricingForm.get('customerFencing')?.setValue('weak')">
+              <mat-radio-button value="weak">
+                <div class="radio-text">
+                  <strong>Schwach</strong>
+                  <small>Geringe Wechselkosten, schwache Bindung</small>
+                </div>
+              </mat-radio-button>
             </div>
-          </div>
+          </mat-radio-group>
+          <mat-error *ngIf="pricingForm.get('customerFencing')?.invalid && pricingForm.get('customerFencing')?.touched">
+            Bitte wählen Sie die Kundenbindung
+          </mat-error>
         </div>
       </mat-card-content>
     </mat-card>
   </div>
 
   <!-- Phase 5: Geschäftsmodell -->
-  <div class="phase" data-phase="4">
+  <div class="phase" *ngIf="isPhaseVisible(4)">
     <mat-card class="strategy-card">
       <mat-card-header>
         <mat-card-title>Geschäftsmodell</mat-card-title>
         <mat-card-subtitle>Definieren Sie Ihr Upgrade-Pfad</mat-card-subtitle>
       </mat-card-header>
-      <mat-card-content>
+      <mat-card-content [formGroup]="pricingForm">
         <div class="form-group">
           <label class="form-label">Upgrade-Pfad *</label>
-          <div class="radio-group">
-            <div class="radio-option">
-              <input type="radio" name="upgradePath" value="tiered" required>
-              <div class="radio-text">
-                <strong>Gestaffelt</strong>
-                <small>Verschiedene Produktstufen mit Upgrade-Möglichkeiten</small>
-              </div>
+          <mat-radio-group formControlName="upgradePath" class="radio-group" required>
+            <div class="radio-option" [class.selected]="pricingForm.get('upgradePath')?.value === 'tiered'" (click)="pricingForm.get('upgradePath')?.setValue('tiered')">
+              <mat-radio-button value="tiered">
+                <div class="radio-text">
+                  <strong>Gestaffelt</strong>
+                  <small>Verschiedene Produktstufen mit Upgrade-Möglichkeiten</small>
+                </div>
+              </mat-radio-button>
             </div>
-            <div class="radio-option">
-              <input type="radio" name="upgradePath" value="flat" required>
-              <div class="radio-text">
-                <strong>Flach</strong>
-                <small>Einheitliches Produkt ohne Stufen</small>
-              </div>
+            <div class="radio-option" [class.selected]="pricingForm.get('upgradePath')?.value === 'flat'" (click)="pricingForm.get('upgradePath')?.setValue('flat')">
+              <mat-radio-button value="flat">
+                <div class="radio-text">
+                  <strong>Flach</strong>
+                  <small>Einheitliches Produkt ohne Stufen</small>
+                </div>
+              </mat-radio-button>
             </div>
-          </div>
+          </mat-radio-group>
+          <mat-error *ngIf="pricingForm.get('upgradePath')?.invalid && pricingForm.get('upgradePath')?.touched">
+            Bitte wählen Sie den Upgrade-Pfad
+          </mat-error>
         </div>
 
         <div class="form-group">
@@ -328,9 +387,10 @@
               <span>Minimal</span>
               <span>Maximal</span>
             </div>
-            <input type="range" name="supportIntensity" min="1" max="5" value="3" 
-                   class="slider" [(ngModel)]="formData.supportIntensity">
-            <div class="slider-value">Level {{ formData.supportIntensity || 3 }}</div>
+            <mat-slider min="1" max="5" step="1" class="slider">
+              <input matSliderThumb formControlName="supportIntensity">
+            </mat-slider>
+            <div class="slider-value">Level {{ pricingForm.get('supportIntensity')?.value || 3 }}</div>
           </div>
         </div>
       </mat-card-content>
@@ -338,40 +398,40 @@
   </div>
 
   <!-- Phase 6: Ergebnisse -->
-  <div class="phase" data-phase="5">
+  <div class="phase" *ngIf="isPhaseVisible(5)">
     <div class="results-container" *ngIf="results.systemType">
       <div class="result-section">
-        <span class="system-type-badge" [class]="formData.autonomy || 'assistive'">
+        <span class="system-type-badge" [class]="pricingForm.get('autonomy')?.value || 'assistive'">
           {{ results.systemType }}
         </span>
-        <h3>EMPFOHLENE PRICING-STRATEGIE für "{{ formData.systemName || 'Ihr DDSS' }}"</h3>
+        <h3>EMPFOHLENE PRICING-STRATEGIE für "{{ pricingForm.get('systemName')?.value || 'Ihr DDSS' }}"</h3>
         
         <h4>SYSTEMCHARAKTERISIERUNG</h4>
         <div class="result-item">
           <span class="result-label">Autonomie-Level:</span>
-          <span class="result-value">{{ getAutonomyLabel(formData.autonomy) }}</span>
+          <span class="result-value">{{ getAutonomyLabel(pricingForm.get('autonomy')?.value) }}</span>
         </div>
         <div class="result-item">
           <span class="result-label">Messbarkeit:</span>
-          <span class="result-value">{{ getMeasurabilityLabel(formData.measurability) }}</span>
+          <span class="result-value">{{ getMeasurabilityLabel(pricingForm.get('measurability')?.value) }}</span>
         </div>
         <div class="result-item">
           <span class="result-label">Inferenzkosten:</span>
-          <span class="result-value">{{ getInferenceCostsLabel(formData.inferenceCosts) }}</span>
+          <span class="result-value">{{ getInferenceCostsLabel(pricingForm.get('inferenceCosts')?.value) }}</span>
         </div>
 
         <h4>MARKTPOSITIONIERUNG</h4>
         <div class="result-item">
           <span class="result-label">Primärer Sektor:</span>
-          <span class="result-value">{{ getSectorLabel(formData.sector) }}</span>
+          <span class="result-value">{{ getSectorLabel(pricingForm.get('sector')?.value) }}</span>
         </div>
         <div class="result-item">
           <span class="result-label">Erstattungsintegration:</span>
-          <span class="result-value">{{ formData.reimbursement === 'yes' ? 'Ja (GOÄ/EBM)' : 'Nein' }}</span>
+          <span class="result-value">{{ pricingForm.get('reimbursement')?.value === 'yes' ? 'Ja (GOÄ/EBM)' : 'Nein' }}</span>
         </div>
         <div class="result-item">
           <span class="result-label">Vertriebskomplexität:</span>
-          <span class="result-value">{{ getSalesEffortLabel(formData.salesEffort) }}</span>
+          <span class="result-value">{{ getSalesEffortLabel(pricingForm.get('salesEffort')?.value) }}</span>
         </div>
       </div>
 
@@ -403,15 +463,15 @@
           <span class="result-label">Variable Komponente:</span>
           <span class="result-value">{{ results.variableComponent }}</span>
         </div>
-        <div class="result-item" *ngIf="results.implementation.contractLength">
+        <div class="result-item" *ngIf="results.implementation?.contractLength">
           <span class="result-label">Vertragslaufzeit:</span>
           <span class="result-value">{{ results.implementation.contractLength }}</span>
         </div>
-        <div class="result-item" *ngIf="results.implementation.setupFee">
+        <div class="result-item" *ngIf="results.implementation?.setupFee">
           <span class="result-label">Setup-Fee:</span>
           <span class="result-value">{{ results.implementation.setupFee }}</span>
         </div>
-        <div class="result-item" *ngIf="results.implementation.tiers">
+        <div class="result-item" *ngIf="results.implementation?.tiers">
           <span class="result-label">Produktstufen:</span>
           <div class="result-value">
             <ul style="margin: 0; padding-left: 20px;">
@@ -423,7 +483,7 @@
         </div>
       </div>
 
-      <div class="risk-factors" *ngIf="results.risks.length > 0">
+      <div class="risk-factors" *ngIf="results.risks?.length > 0">
         <h4>RISIKOFAKTOREN & EMPFEHLUNGEN</h4>
         <div class="risk-item" *ngFor="let risk of results.risks">• {{ risk }}</div>
       </div>
@@ -443,11 +503,11 @@
 
   <!-- Navigation -->
   <div class="form-navigation">
-    <button mat-button id="prevBtn" (click)="previousPhase()" class="btn btn--outline">
+    <button mat-button (click)="previousPhase()" class="btn btn--outline" *ngIf="isPrevButtonVisible()">
       ← Zurück
     </button>
-    <button mat-raised-button color="primary" id="nextBtn" (click)="nextPhase()" class="btn btn--primary">
-      Weiter →
+    <button mat-raised-button color="primary" (click)="nextPhase()" class="btn btn--primary" *ngIf="isNextButtonVisible()">
+      {{ getNextButtonText() }}
     </button>
   </div>
 </div>

@@ -55,7 +55,7 @@ export class PricingStrategyComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private snackBar: MatSnackBar) {
     this.pricingForm = this.fb.group({
-      systemName: ['', Validators.required],
+      systemName: ['', [Validators.required, Validators.minLength(3)]],
       autonomy: ['', Validators.required],
       measurability: ['', Validators.required],
       inferenceCosts: ['', Validators.required],
@@ -66,7 +66,7 @@ export class PricingStrategyComponent implements OnInit {
       competition: ['', Validators.required],
       customerFencing: ['', Validators.required],
       upgradePath: ['', Validators.required],
-      supportIntensity: [3]
+      supportIntensity: [3, [Validators.required, Validators.min(1), Validators.max(5)]]
     });
   }
 
@@ -122,54 +122,47 @@ export class PricingStrategyComponent implements OnInit {
     }
   }
 
+  isPhaseVisible(index: number): boolean {
+    return index === this.currentPhase;
+  }
+
+  isPhaseActive(index: number): boolean {
+    return index === this.currentPhase;
+  }
+
+  isPhaseCompleted(index: number): boolean {
+    return index < this.currentPhase;
+  }
+
   updatePhaseDisplay() {
-    const phases = document.querySelectorAll('.phase');
-    phases.forEach((phase, index) => {
-      if (index === this.currentPhase) {
-        phase.classList.add('active');
-        (phase as HTMLElement).style.display = 'block';
-      } else {
-        phase.classList.remove('active');
-        (phase as HTMLElement).style.display = 'none';
-      }
-    });
+    // Diese Methode bleibt für Kompatibilität, aber die Logik wurde in die Template-Methoden verschoben
+  }
+
+  getProgressPercent(): number {
+    return ((this.currentPhase + 1) / this.totalPhases) * 100;
   }
 
   updateProgress() {
-    const progressPercent = ((this.currentPhase + 1) / this.totalPhases) * 100;
-    const progressFill = document.querySelector('.progress-fill');
-    if (progressFill) {
-      (progressFill as HTMLElement).style.width = `${progressPercent}%`;
-    }
+    // Diese Methode bleibt für Kompatibilität, aber die Logik wurde in die Template-Methoden verschoben
+  }
 
-    document.querySelectorAll('.step').forEach((step, index) => {
-      step.classList.remove('active', 'completed');
-      
-      if (index === this.currentPhase) {
-        step.classList.add('active');
-      } else if (index < this.currentPhase) {
-        step.classList.add('completed');
-      }
-    });
+  isPrevButtonVisible(): boolean {
+    return this.currentPhase !== 0;
+  }
+
+  isNextButtonVisible(): boolean {
+    return this.currentPhase !== this.totalPhases - 1;
+  }
+
+  getNextButtonText(): string {
+    if (this.currentPhase === this.totalPhases - 2) {
+      return 'Empfehlung generieren';
+    }
+    return 'Weiter →';
   }
 
   updateNavigation() {
-    const prevBtn = document.getElementById('prevBtn');
-    const nextBtn = document.getElementById('nextBtn');
-    
-    if (prevBtn) {
-      prevBtn.style.visibility = this.currentPhase === 0 ? 'hidden' : 'visible';
-    }
-    
-    if (nextBtn) {
-      if (this.currentPhase === this.totalPhases - 1) {
-        nextBtn.style.display = 'none';
-      } else if (this.currentPhase === this.totalPhases - 2) {
-        nextBtn.textContent = 'Empfehlung generieren';
-      } else {
-        nextBtn.textContent = 'Weiter →';
-      }
-    }
+    // Diese Methode bleibt für Kompatibilität, aber die Logik wurde in die Template-Methoden verschoben
   }
 
   validateCurrentPhase(): boolean {
@@ -178,83 +171,88 @@ export class PricingStrategyComponent implements OnInit {
       return true;
     }
 
-    const currentPhaseElement = document.querySelector(`[data-phase="${this.currentPhase}"]`);
-    if (!currentPhaseElement) return true;
-
-    let isValid = true;
-    const requiredInputs = currentPhaseElement.querySelectorAll('input[required], select[required], textarea[required]');
-    const validatedFields = new Set<string>();
-    
-    requiredInputs.forEach(input => {
-      if (input instanceof HTMLInputElement) {
-        const name = input.name;
-        if (!name) return;
-
-        // Vermeide Doppelvalidierung für Radio-Buttons
-        if (validatedFields.has(name)) return;
-        validatedFields.add(name);
-
-        if (input.type === 'radio') {
-          const checked = currentPhaseElement.querySelector(`input[name="${name}"]:checked`);
-          if (!checked) {
-            isValid = false;
-            this.showValidationError(input);
-          }
-        } else if (!input.value || input.value.trim() === '') {
-          isValid = false;
-          this.showValidationError(input);
-        }
+    // Prüfe die Validität des Formulars für die aktuelle Phase
+    const currentPhaseControls = this.getCurrentPhaseControls();
+    const invalidControls = currentPhaseControls.filter(control => {
+      const formControl = this.pricingForm.get(control);
+      if (formControl?.invalid) {
+        formControl.markAsTouched();
+        return true;
       }
+      return false;
     });
 
-    if (!isValid) {
-      this.snackBar.open('Bitte füllen Sie alle Pflichtfelder aus, bevor Sie fortfahren.', 'OK', {
+    if (invalidControls.length > 0) {
+      const errorMessages = invalidControls.map(control => {
+        const formControl = this.pricingForm.get(control);
+        if (formControl?.hasError('required')) {
+          return `${this.getFieldLabel(control)} ist erforderlich`;
+        } else if (formControl?.hasError('minlength')) {
+          return `${this.getFieldLabel(control)} muss mindestens ${formControl.errors?.['minlength'].requiredLength} Zeichen lang sein`;
+        } else if (formControl?.hasError('min')) {
+          return `${this.getFieldLabel(control)} muss mindestens ${formControl.errors?.['min'].min} sein`;
+        } else if (formControl?.hasError('max')) {
+          return `${this.getFieldLabel(control)} darf maximal ${formControl.errors?.['max'].max} sein`;
+        }
+        return `${this.getFieldLabel(control)} ist ungültig`;
+      });
+
+      this.snackBar.open(errorMessages.join('\n'), 'OK', {
         duration: 5000,
         horizontalPosition: 'center',
         verticalPosition: 'bottom',
         panelClass: ['error-snackbar']
       });
+
+      return false;
     }
 
-    return isValid;
+    return true;
   }
 
-  showValidationError(input: HTMLInputElement) {
-    input.classList.add('error');
-    setTimeout(() => input.classList.remove('error'), 3000);
+  private getFieldLabel(control: string): string {
+    const labels: { [key: string]: string } = {
+      systemName: 'Name des DDSS-Systems',
+      autonomy: 'Autonomie-Level',
+      measurability: 'Messbarkeit des Nutzens',
+      inferenceCosts: 'AI-Inferenzkosten',
+      sector: 'Primärer Zielsektor',
+      reimbursement: 'Erstattungsintegration',
+      salesEffort: 'Vertriebskomplexität',
+      implementation: 'Implementierungskomplexität',
+      competition: 'Wettbewerbsintensität',
+      customerFencing: 'Kundenbindung',
+      upgradePath: 'Upgrade-Pfad',
+      supportIntensity: 'Support-Intensität'
+    };
+    return labels[control] || control;
   }
+
+  private getCurrentPhaseControls(): string[] {
+    // Definiere die Formularfelder für jede Phase
+    const phaseControls = {
+      0: ['systemName', 'autonomy'],
+      1: ['measurability', 'inferenceCosts'],
+      2: ['sector', 'reimbursement', 'competition'],
+      3: ['salesEffort', 'implementation'],
+      4: ['customerFencing', 'upgradePath', 'supportIntensity']
+    };
+
+    return phaseControls[this.currentPhase as keyof typeof phaseControls] || [];
+  }
+
+  // Diese Methode wird nicht mehr benötigt, da wir jetzt Angular Forms Validierung verwenden
 
   saveFormData() {
+    // Speichere die Formulardaten aus dem ReactiveForm
     if (this.pricingForm.valid) {
       this.formData = { ...this.pricingForm.value };
-    } else {
-      // Sammle die Werte aus dem Formular
-      const formElements = document.querySelectorAll('input, select, textarea');
-      const newFormData: any = {};
-      
-      formElements.forEach(element => {
-        if (element instanceof HTMLInputElement) {
-          const name = element.name;
-          if (!name) return;
-
-          if (element.type === 'checkbox') {
-            if (element.checked) {
-              if (!newFormData[name]) {
-                newFormData[name] = [];
-              }
-              newFormData[name].push(element.value);
-            }
-          } else if (element.type === 'radio') {
-            if (element.checked) {
-              newFormData[name] = element.value;
-            }
-          } else if (element.value.trim() !== '') {
-            newFormData[name] = element.value;
-          }
-        }
+      this.snackBar.open('Daten erfolgreich gespeichert', 'OK', {
+        duration: 2000,
+        horizontalPosition: 'center',
+        verticalPosition: 'bottom',
+        panelClass: ['success-snackbar']
       });
-
-      this.formData = { ...this.formData, ...newFormData };
     }
   }
 
@@ -265,42 +263,25 @@ export class PricingStrategyComponent implements OnInit {
 
     this.saveFormData();
 
-    // Überprüfe, ob alle notwendigen Daten vorhanden sind
-    const requiredFields = [
-      'systemName', 'autonomy', 'measurability', 'inferenceCosts',
-      'sector', 'reimbursement', 'salesEffort', 'implementation',
-      'competition', 'customerFencing', 'upgradePath'
-    ];
+    if (this.pricingForm.valid) {
+      this.results = this.calculatePricingRecommendations();
+      this.currentPhase = this.totalPhases - 1;
+      this.updatePhaseDisplay();
+      this.updateProgress();
+      this.updateNavigation();
 
-    const missingFields = requiredFields.filter(field => !this.formData[field]);
-    
-    if (missingFields.length > 0) {
-      this.snackBar.open('Bitte füllen Sie alle notwendigen Felder aus.', 'OK', {
-        duration: 5000,
+      // Bestätige die erfolgreiche Generierung
+      this.snackBar.open('Pricing-Empfehlung wurde erfolgreich generiert!', 'OK', {
+        duration: 3000,
         horizontalPosition: 'center',
         verticalPosition: 'bottom',
-        panelClass: ['error-snackbar']
+        panelClass: ['success-snackbar']
       });
-      return;
     }
-
-    this.results = this.calculatePricingRecommendations();
-    this.currentPhase = this.totalPhases - 1;
-    this.updatePhaseDisplay();
-    this.updateProgress();
-    this.updateNavigation();
-
-    // Bestätige die erfolgreiche Generierung
-    this.snackBar.open('Pricing-Empfehlung wurde erfolgreich generiert!', 'OK', {
-      duration: 3000,
-      horizontalPosition: 'center',
-      verticalPosition: 'bottom',
-      panelClass: ['success-snackbar']
-    });
   }
 
   calculatePricingRecommendations() {
-    const data = this.formData;
+    const data = this.pricingForm.value;
     let recommendations: {
       systemType: string;
       pricingModel: string;
@@ -481,8 +462,7 @@ export class PricingStrategyComponent implements OnInit {
   }
 
   exportPDF() {
-    const resultsContent = document.querySelector('.results-container');
-    if (!resultsContent) {
+    if (!this.results || !this.pricingForm.valid) {
       this.snackBar.open('Keine Ergebnisse zum Exportieren verfügbar.', 'OK', {
         duration: 5000,
         horizontalPosition: 'center',
@@ -492,12 +472,39 @@ export class PricingStrategyComponent implements OnInit {
       return;
     }
 
-    const printWindow = window.open('', '_blank');
-    if (printWindow) {
-      printWindow.document.write(`
+    try {
+      const printWindow = window.open('', '_blank');
+      if (printWindow) {
+        const htmlContent = this.generatePDFContent();
+        printWindow.document.write(htmlContent);
+        printWindow.document.close();
+        setTimeout(() => {
+          printWindow.print();
+          this.snackBar.open('PDF-Export erfolgreich gestartet', 'OK', {
+            duration: 2000,
+            horizontalPosition: 'center',
+            verticalPosition: 'bottom',
+            panelClass: ['success-snackbar']
+          });
+        }, 500);
+      } else {
+        throw new Error('Popup wurde blockiert');
+      }
+    } catch (error) {
+      this.snackBar.open('Fehler beim PDF-Export: ' + (error instanceof Error ? error.message : 'Unbekannter Fehler'), 'OK', {
+        duration: 5000,
+        horizontalPosition: 'center',
+        verticalPosition: 'bottom',
+        panelClass: ['error-snackbar']
+      });
+    }
+  }
+
+  private generatePDFContent(): string {
+    return `
       <html>
       <head>
-        <title>DDSS Pricing Strategy - ${this.formData.systemName || 'Report'}</title>
+        <title>DDSS Pricing Strategy - ${this.pricingForm.get('systemName')?.value || 'Report'}</title>
         <style>
           body { 
             font-family: Arial, sans-serif; 
@@ -554,39 +561,115 @@ export class PricingStrategyComponent implements OnInit {
         <h1>DDSS Pricing Strategy Report</h1>
         <div class="meta-info">
           <p><strong>Generiert am:</strong> ${new Date().toLocaleDateString('de-DE')}</p>
-          <p><strong>System:</strong> ${this.formData.systemName || 'Unbekannt'}</p>
+          <p><strong>System:</strong> ${this.pricingForm.get('systemName')?.value || 'Unbekannt'}</p>
         </div>
-        ${resultsContent.innerHTML}
+        ${this.generateResultsHTML()}
       </body>
       </html>
-    `);
-      
-      printWindow.document.close();
-      setTimeout(() => {
-        printWindow.print();
-      }, 500);
-    }
+    `;
+  }
+
+  private generateResultsHTML(): string {
+    return `
+      <div class="results-container">
+        <div class="result-section">
+          <div class="system-type-badge">${this.results.systemType}</div>
+          <h3>Empfohlenes Pricing-Modell</h3>
+          <div class="recommendation-box">
+            <div class="result-item"><span class="result-label">Modell:</span> ${this.results.pricingModel}</div>
+            <div class="result-item"><span class="result-label">Struktur:</span> ${this.results.structure}</div>
+            <div class="result-item"><span class="result-label">Primäre Metrik:</span> ${this.results.primaryMetric}</div>
+          </div>
+          
+          <h4>Preisdetails</h4>
+          <div class="pricing-details">
+            <div class="pricing-card">
+              <h5>Basispreis</h5>
+              <p>${this.results.basePrice}</p>
+            </div>
+            <div class="pricing-card">
+              <h5>Variable Komponente</h5>
+              <p>${this.results.variableComponent}</p>
+            </div>
+          </div>
+
+          ${this.results.implementation ? `
+            <h4>Implementierungsdetails</h4>
+            <div class="recommendation-box">
+              ${Object.entries(this.results.implementation)
+                .filter(([key, value]) => value && key !== 'tiers')
+                .map(([key, value]) => `<div class="result-item"><span class="result-label">${this.formatLabel(key)}:</span> ${value}</div>`)
+                .join('')}
+              
+              ${this.results.implementation.tiers ? `
+                <h5>Verfügbare Tiers</h5>
+                ${Object.entries(this.results.implementation.tiers)
+                  .map(([tier, desc]) => `<div class="result-item"><span class="result-label">${this.formatLabel(tier)}:</span> ${desc}</div>`)
+                  .join('')}
+              ` : ''}
+            </div>
+          ` : ''}
+
+          ${this.results.risks && this.results.risks.length > 0 ? `
+            <h4>Risikofaktoren</h4>
+            <div class="risk-factors">
+              ${this.results.risks.map((risk: string) => `<div class="result-item">• ${risk}</div>`).join('')}
+            </div>
+          ` : ''}
+        </div>
+      </div>
+    `;
+  }
+
+  private formatLabel(key: string): string {
+    return key.charAt(0).toUpperCase() + key.slice(1).replace(/([A-Z])/g, ' $1');
   }
 
   exportJSON() {
-    const exportData = {
-      timestamp: new Date().toISOString(),
-      systemName: this.formData.systemName || 'Unnamed System',
-      formData: this.formData,
-      recommendations: this.results
-    };
+    if (!this.results || !this.pricingForm.valid) {
+      this.snackBar.open('Keine Ergebnisse zum Exportieren verfügbar.', 'OK', {
+        duration: 5000,
+        horizontalPosition: 'center',
+        verticalPosition: 'bottom',
+        panelClass: ['warning-snackbar']
+      });
+      return;
+    }
 
-    const dataStr = JSON.stringify(exportData, null, 2);
-    const dataBlob = new Blob([dataStr], { type: 'application/json' });
-    const url = URL.createObjectURL(dataBlob);
-    
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = `ddss-pricing-${(this.formData.systemName || 'report').replace(/[^a-zA-Z0-9]/g, '-')}-${new Date().toISOString().split('T')[0]}.json`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    
-    URL.revokeObjectURL(url);
+    try {
+      const exportData = {
+        timestamp: new Date().toISOString(),
+        systemName: this.pricingForm.get('systemName')?.value || 'Unnamed System',
+        formData: this.pricingForm.value,
+        recommendations: this.results
+      };
+
+      const dataStr = JSON.stringify(exportData, null, 2);
+      const dataBlob = new Blob([dataStr], { type: 'application/json' });
+      const url = URL.createObjectURL(dataBlob);
+      
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `ddss-pricing-${(this.pricingForm.get('systemName')?.value || 'report').replace(/[^a-zA-Z0-9]/g, '-')}-${new Date().toISOString().split('T')[0]}.json`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      
+      URL.revokeObjectURL(url);
+
+      this.snackBar.open('JSON-Export erfolgreich', 'OK', {
+        duration: 2000,
+        horizontalPosition: 'center',
+        verticalPosition: 'bottom',
+        panelClass: ['success-snackbar']
+      });
+    } catch (error) {
+      this.snackBar.open('Fehler beim JSON-Export: ' + (error instanceof Error ? error.message : 'Unbekannter Fehler'), 'OK', {
+        duration: 5000,
+        horizontalPosition: 'center',
+        verticalPosition: 'bottom',
+        panelClass: ['error-snackbar']
+      });
+    }
   }
 }
