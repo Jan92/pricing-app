@@ -11,6 +11,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
+import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators, FormsModule } from '@angular/forms';
 
 @Component({
@@ -31,6 +32,7 @@ import { ReactiveFormsModule, FormBuilder, FormGroup, Validators, FormsModule } 
     MatProgressBarModule, 
     MatChipsModule,
     MatIconModule,
+    MatSnackBarModule,
     ReactiveFormsModule,
     FormsModule
   ]
@@ -51,7 +53,7 @@ export class PricingStrategyComponent implements OnInit {
     'Ergebnisse'
   ];
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private snackBar: MatSnackBar) {
     this.pricingForm = this.fb.group({
       systemName: ['', Validators.required],
       autonomy: ['', Validators.required],
@@ -81,7 +83,9 @@ export class PricingStrategyComponent implements OnInit {
     
     this.saveFormData();
     
-    if (this.currentPhase < this.totalPhases - 1) {
+    if (this.currentPhase === this.totalPhases - 2) {
+      this.generateRecommendations();
+    } else if (this.currentPhase < this.totalPhases - 1) {
       this.currentPhase++;
       this.updatePhaseDisplay();
       this.updateProgress();
@@ -99,11 +103,22 @@ export class PricingStrategyComponent implements OnInit {
   }
 
   jumpToPhase(phaseIndex: number) {
-    if (phaseIndex < this.currentPhase) {
-      this.currentPhase = phaseIndex;
-      this.updatePhaseDisplay();
-      this.updateProgress();
-      this.updateNavigation();
+    // Erlaube nur Sprünge zu bereits besuchten Phasen oder der nächsten Phase
+    if (phaseIndex <= this.currentPhase || phaseIndex === this.currentPhase + 1) {
+      if (this.currentPhase === this.totalPhases - 1 && phaseIndex < this.currentPhase) {
+        // Wenn wir von den Ergebnissen zurückspringen, speichern wir die aktuellen Ergebnisse
+        const savedResults = { ...this.results };
+        this.currentPhase = phaseIndex;
+        this.updatePhaseDisplay();
+        this.updateProgress();
+        this.updateNavigation();
+        this.results = savedResults; // Stelle die Ergebnisse wieder her
+      } else {
+        this.currentPhase = phaseIndex;
+        this.updatePhaseDisplay();
+        this.updateProgress();
+        this.updateNavigation();
+      }
     }
   }
 
@@ -158,16 +173,28 @@ export class PricingStrategyComponent implements OnInit {
   }
 
   validateCurrentPhase(): boolean {
+    // Wenn wir auf der Ergebnisseite sind, ist die Validierung immer erfolgreich
+    if (this.currentPhase === this.totalPhases - 1) {
+      return true;
+    }
+
     const currentPhaseElement = document.querySelector(`[data-phase="${this.currentPhase}"]`);
     if (!currentPhaseElement) return true;
 
     let isValid = true;
     const requiredInputs = currentPhaseElement.querySelectorAll('input[required], select[required], textarea[required]');
+    const validatedFields = new Set<string>();
     
     requiredInputs.forEach(input => {
       if (input instanceof HTMLInputElement) {
+        const name = input.name;
+        if (!name) return;
+
+        // Vermeide Doppelvalidierung für Radio-Buttons
+        if (validatedFields.has(name)) return;
+        validatedFields.add(name);
+
         if (input.type === 'radio') {
-          const name = input.name;
           const checked = currentPhaseElement.querySelector(`input[name="${name}"]:checked`);
           if (!checked) {
             isValid = false;
@@ -181,7 +208,12 @@ export class PricingStrategyComponent implements OnInit {
     });
 
     if (!isValid) {
-      alert('Bitte füllen Sie alle Pflichtfelder aus, bevor Sie fortfahren.');
+      this.snackBar.open('Bitte füllen Sie alle Pflichtfelder aus, bevor Sie fortfahren.', 'OK', {
+        duration: 5000,
+        horizontalPosition: 'center',
+        verticalPosition: 'bottom',
+        panelClass: ['error-snackbar']
+      });
     }
 
     return isValid;
@@ -193,26 +225,37 @@ export class PricingStrategyComponent implements OnInit {
   }
 
   saveFormData() {
-    const formElements = document.querySelectorAll('input, select, textarea');
-    
-    formElements.forEach(element => {
-      if (element instanceof HTMLInputElement) {
-        if (element.type === 'checkbox') {
-          if (element.checked) {
-            if (!this.formData[element.name]) {
-              this.formData[element.name] = [];
+    if (this.pricingForm.valid) {
+      this.formData = { ...this.pricingForm.value };
+    } else {
+      // Sammle die Werte aus dem Formular
+      const formElements = document.querySelectorAll('input, select, textarea');
+      const newFormData: any = {};
+      
+      formElements.forEach(element => {
+        if (element instanceof HTMLInputElement) {
+          const name = element.name;
+          if (!name) return;
+
+          if (element.type === 'checkbox') {
+            if (element.checked) {
+              if (!newFormData[name]) {
+                newFormData[name] = [];
+              }
+              newFormData[name].push(element.value);
             }
-            this.formData[element.name].push(element.value);
+          } else if (element.type === 'radio') {
+            if (element.checked) {
+              newFormData[name] = element.value;
+            }
+          } else if (element.value.trim() !== '') {
+            newFormData[name] = element.value;
           }
-        } else if (element.type === 'radio') {
-          if (element.checked) {
-            this.formData[element.name] = element.value;
-          }
-        } else if (element.value.trim() !== '') {
-          this.formData[element.name] = element.value;
         }
-      }
-    });
+      });
+
+      this.formData = { ...this.formData, ...newFormData };
+    }
   }
 
   generateRecommendations() {
@@ -221,11 +264,39 @@ export class PricingStrategyComponent implements OnInit {
     }
 
     this.saveFormData();
+
+    // Überprüfe, ob alle notwendigen Daten vorhanden sind
+    const requiredFields = [
+      'systemName', 'autonomy', 'measurability', 'inferenceCosts',
+      'sector', 'reimbursement', 'salesEffort', 'implementation',
+      'competition', 'customerFencing', 'upgradePath'
+    ];
+
+    const missingFields = requiredFields.filter(field => !this.formData[field]);
+    
+    if (missingFields.length > 0) {
+      this.snackBar.open('Bitte füllen Sie alle notwendigen Felder aus.', 'OK', {
+        duration: 5000,
+        horizontalPosition: 'center',
+        verticalPosition: 'bottom',
+        panelClass: ['error-snackbar']
+      });
+      return;
+    }
+
     this.results = this.calculatePricingRecommendations();
     this.currentPhase = this.totalPhases - 1;
     this.updatePhaseDisplay();
     this.updateProgress();
     this.updateNavigation();
+
+    // Bestätige die erfolgreiche Generierung
+    this.snackBar.open('Pricing-Empfehlung wurde erfolgreich generiert!', 'OK', {
+      duration: 3000,
+      horizontalPosition: 'center',
+      verticalPosition: 'bottom',
+      panelClass: ['success-snackbar']
+    });
   }
 
   calculatePricingRecommendations() {
@@ -412,7 +483,12 @@ export class PricingStrategyComponent implements OnInit {
   exportPDF() {
     const resultsContent = document.querySelector('.results-container');
     if (!resultsContent) {
-      alert('Keine Ergebnisse zum Exportieren verfügbar.');
+      this.snackBar.open('Keine Ergebnisse zum Exportieren verfügbar.', 'OK', {
+        duration: 5000,
+        horizontalPosition: 'center',
+        verticalPosition: 'bottom',
+        panelClass: ['warning-snackbar']
+      });
       return;
     }
 
