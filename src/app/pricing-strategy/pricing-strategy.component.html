@@ -1,0 +1,453 @@
+<div class="pricing-strategy-container">
+  <div class="header">
+    <h1>Pricing Strategie</h1>
+    <p>Entwickeln und verwalten Sie Ihre Pricing-Strategien für DDSS-Systeme</p>
+  </div>
+
+  <!-- Progress Indicator -->
+  <div class="progress-container">
+    <div class="progress-steps">
+      <div class="step" *ngFor="let phase of phases; let i = index" 
+           [class.active]="i === currentPhase" 
+           [class.completed]="i < currentPhase"
+           (click)="jumpToPhase(i)">
+        <div class="step-number">{{ i + 1 }}</div>
+        <div class="step-label">{{ phase }}</div>
+      </div>
+    </div>
+    <div class="progress-bar">
+      <div class="progress-fill"></div>
+    </div>
+  </div>
+
+  <!-- Phase 1: System-Übersicht -->
+  <div class="phase" data-phase="0">
+    <mat-card class="strategy-card">
+      <mat-card-header>
+        <mat-card-title>System-Übersicht</mat-card-title>
+        <mat-card-subtitle>Grundlegende Informationen über Ihr DDSS-System</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="form-group">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Name des DDSS-Systems</mat-label>
+            <input matInput name="systemName" [(ngModel)]="formData.systemName" required>
+          </mat-form-field>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Autonomie-Level des Systems *</label>
+          <div class="radio-group">
+            <div class="radio-option">
+              <input type="radio" name="autonomy" value="assistive" required>
+              <div class="radio-text">
+                <strong>Assistive (Score 1-2)</strong>
+                <small>Unterstützt Ärzte bei der Entscheidungsfindung, trifft keine autonomen Entscheidungen</small>
+              </div>
+            </div>
+            <div class="radio-option">
+              <input type="radio" name="autonomy" value="augmentative" required>
+              <div class="radio-text">
+                <strong>Augmentative (Score 3-4)</strong>
+                <small>Erweitert die Fähigkeiten des Arztes, kann Vorschläge machen</small>
+              </div>
+            </div>
+            <div class="radio-option">
+              <input type="radio" name="autonomy" value="autonomous" required>
+              <div class="radio-text">
+                <strong>Autonomous (Score 5)</strong>
+                <small>Kann autonom Entscheidungen treffen, hohe KI-Beteiligung</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <!-- Phase 2: Technische Komplexität -->
+  <div class="phase" data-phase="1">
+    <mat-card class="strategy-card">
+      <mat-card-header>
+        <mat-card-title>Technische Komplexität</mat-card-title>
+        <mat-card-subtitle>Bewerten Sie die technischen Aspekte Ihres Systems</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="form-group">
+          <label class="form-label">Messbarkeit des Nutzens *</label>
+          <div class="radio-group">
+            <div class="radio-option">
+              <input type="radio" name="measurability" value="high" required>
+              <div class="radio-text">
+                <strong>Hoch messbar</strong>
+                <small>Nutzen kann klar in Euro, Zeit oder Qualität gemessen werden</small>
+              </div>
+            </div>
+            <div class="radio-option">
+              <input type="radio" name="measurability" value="medium" required>
+              <div class="radio-text">
+                <strong>Mittel messbar</strong>
+                <small>Teilweise messbar, aber mit Unsicherheiten</small>
+              </div>
+            </div>
+            <div class="radio-option">
+              <input type="radio" name="measurability" value="low" required>
+              <div class="radio-text">
+                <strong>Schwer messbar</strong>
+                <small>Nutzen ist qualitativ, schwer zu quantifizieren</small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">AI-Inferenzkosten *</label>
+          <div class="radio-group">
+            <div class="radio-option">
+              <input type="radio" name="inferenceCosts" value="low" required>
+              <div class="radio-text">
+                <strong>Niedrig</strong>
+                <small>Geringe laufende Kosten für AI-Verarbeitung</small>
+              </div>
+            </div>
+            <div class="radio-option">
+              <input type="radio" name="inferenceCosts" value="medium" required>
+              <div class="radio-text">
+                <strong>Mittel</strong>
+                <small>Moderate laufende Kosten</small>
+              </div>
+            </div>
+            <div class="radio-option">
+              <input type="radio" name="inferenceCosts" value="high" required>
+              <div class="radio-text">
+                <strong>Hoch</strong>
+                <small>Hohe laufende Kosten für AI-Verarbeitung</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <!-- Phase 3: Markt & Wettbewerb -->
+  <div class="phase" data-phase="2">
+    <mat-card class="strategy-card">
+      <mat-card-header>
+        <mat-card-title>Markt & Wettbewerb</mat-card-title>
+        <mat-card-subtitle>Analysieren Sie Ihre Marktposition</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="form-group">
+          <label class="form-label">Primärer Zielsektor *</label>
+          <div class="radio-group">
+            <div class="radio-option">
+              <input type="radio" name="sector" value="public" required>
+              <div class="radio-text">
+                <strong>Öffentlich</strong>
+                <small>Krankenhäuser, Universitätskliniken, öffentliche Einrichtungen</small>
+              </div>
+            </div>
+            <div class="radio-option">
+              <input type="radio" name="sector" value="private" required>
+              <div class="radio-text">
+                <strong>Privat</strong>
+                <small>Private Praxen, Privatkliniken, kommerzielle Einrichtungen</small>
+              </div>
+            </div>
+            <div class="radio-option">
+              <input type="radio" name="sector" value="hybrid" required>
+              <div class="radio-text">
+                <strong>Hybrid</strong>
+                <small>Gemischte Kundenstruktur</small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Erstattungsintegration möglich? *</label>
+          <div class="radio-group">
+            <div class="radio-option">
+              <input type="radio" name="reimbursement" value="yes" required>
+              <div class="radio-text">
+                <strong>Ja</strong>
+                <small>Integration in GOÄ/EBM möglich</small>
+              </div>
+            </div>
+            <div class="radio-option">
+              <input type="radio" name="reimbursement" value="no" required>
+              <div class="radio-text">
+                <strong>Nein</strong>
+                <small>Keine direkte Erstattung möglich</small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Wettbewerbsintensität *</label>
+          <div class="radio-group">
+            <div class="radio-option">
+              <input type="radio" name="competition" value="low" required>
+              <div class="radio-text">
+                <strong>Niedrig</strong>
+                <small>Wenige direkte Konkurrenten</small>
+              </div>
+            </div>
+            <div class="radio-option">
+              <input type="radio" name="competition" value="medium" required>
+              <div class="radio-text">
+                <strong>Mittel</strong>
+                <small>Moderate Konkurrenz</small>
+              </div>
+            </div>
+            <div class="radio-option">
+              <input type="radio" name="competition" value="high" required>
+              <div class="radio-text">
+                <strong>Hoch</strong>
+                <small>Starke Konkurrenz, etablierte Anbieter</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <!-- Phase 4: Implementierung & Vertrieb -->
+  <div class="phase" data-phase="3">
+    <mat-card class="strategy-card">
+      <mat-card-header>
+        <mat-card-title>Implementierung & Vertrieb</mat-card-title>
+        <mat-card-subtitle>Bewerten Sie die Implementierungskomplexität</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="form-group">
+          <label class="form-label">Vertriebskomplexität *</label>
+          <div class="radio-group">
+            <div class="radio-option">
+              <input type="radio" name="salesEffort" value="low" required>
+              <div class="radio-text">
+                <strong>Niedrig (&lt;10%)</strong>
+                <small>Einfacher Vertrieb, geringe Kosten</small>
+              </div>
+            </div>
+            <div class="radio-option">
+              <input type="radio" name="salesEffort" value="medium" required>
+              <div class="radio-text">
+                <strong>Mittel (10-25%)</strong>
+                <small>Moderate Vertriebskosten</small>
+              </div>
+            </div>
+            <div class="radio-option">
+              <input type="radio" name="salesEffort" value="high" required>
+              <div class="radio-text">
+                <strong>Hoch (&gt;25%)</strong>
+                <small>Hohe Vertriebskosten, komplexe Verkaufsprozesse</small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Implementierungskomplexität *</label>
+          <div class="radio-group">
+            <div class="radio-option">
+              <input type="radio" name="implementation" value="standard" required>
+              <div class="radio-text">
+                <strong>Standard</strong>
+                <small>Plug-and-Play, geringe Anpassungen</small>
+              </div>
+            </div>
+            <div class="radio-option">
+              <input type="radio" name="implementation" value="extensive" required>
+              <div class="radio-text">
+                <strong>Umfangreich</strong>
+                <small>Hohe Anpassungen, Integration, Schulungen</small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Kundenbindung *</label>
+          <div class="radio-group">
+            <div class="radio-option">
+              <input type="radio" name="customerFencing" value="strong" required>
+              <div class="radio-text">
+                <strong>Stark</strong>
+                <small>Hohe Wechselkosten, starke Bindung</small>
+              </div>
+            </div>
+            <div class="radio-option">
+              <input type="radio" name="customerFencing" value="weak" required>
+              <div class="radio-text">
+                <strong>Schwach</strong>
+                <small>Geringe Wechselkosten, schwache Bindung</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <!-- Phase 5: Geschäftsmodell -->
+  <div class="phase" data-phase="4">
+    <mat-card class="strategy-card">
+      <mat-card-header>
+        <mat-card-title>Geschäftsmodell</mat-card-title>
+        <mat-card-subtitle>Definieren Sie Ihr Upgrade-Pfad</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="form-group">
+          <label class="form-label">Upgrade-Pfad *</label>
+          <div class="radio-group">
+            <div class="radio-option">
+              <input type="radio" name="upgradePath" value="tiered" required>
+              <div class="radio-text">
+                <strong>Gestaffelt</strong>
+                <small>Verschiedene Produktstufen mit Upgrade-Möglichkeiten</small>
+              </div>
+            </div>
+            <div class="radio-option">
+              <input type="radio" name="upgradePath" value="flat" required>
+              <div class="radio-text">
+                <strong>Flach</strong>
+                <small>Einheitliches Produkt ohne Stufen</small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Support-Intensität</label>
+          <div class="slider-container">
+            <div class="slider-labels">
+              <span>Minimal</span>
+              <span>Maximal</span>
+            </div>
+            <input type="range" name="supportIntensity" min="1" max="5" value="3" 
+                   class="slider" [(ngModel)]="formData.supportIntensity">
+            <div class="slider-value">Level {{ formData.supportIntensity || 3 }}</div>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <!-- Phase 6: Ergebnisse -->
+  <div class="phase" data-phase="5">
+    <div class="results-container" *ngIf="results.systemType">
+      <div class="result-section">
+        <span class="system-type-badge" [class]="formData.autonomy || 'assistive'">
+          {{ results.systemType }}
+        </span>
+        <h3>EMPFOHLENE PRICING-STRATEGIE für "{{ formData.systemName || 'Ihr DDSS' }}"</h3>
+        
+        <h4>SYSTEMCHARAKTERISIERUNG</h4>
+        <div class="result-item">
+          <span class="result-label">Autonomie-Level:</span>
+          <span class="result-value">{{ getAutonomyLabel(formData.autonomy) }}</span>
+        </div>
+        <div class="result-item">
+          <span class="result-label">Messbarkeit:</span>
+          <span class="result-value">{{ getMeasurabilityLabel(formData.measurability) }}</span>
+        </div>
+        <div class="result-item">
+          <span class="result-label">Inferenzkosten:</span>
+          <span class="result-value">{{ getInferenceCostsLabel(formData.inferenceCosts) }}</span>
+        </div>
+
+        <h4>MARKTPOSITIONIERUNG</h4>
+        <div class="result-item">
+          <span class="result-label">Primärer Sektor:</span>
+          <span class="result-value">{{ getSectorLabel(formData.sector) }}</span>
+        </div>
+        <div class="result-item">
+          <span class="result-label">Erstattungsintegration:</span>
+          <span class="result-value">{{ formData.reimbursement === 'yes' ? 'Ja (GOÄ/EBM)' : 'Nein' }}</span>
+        </div>
+        <div class="result-item">
+          <span class="result-label">Vertriebskomplexität:</span>
+          <span class="result-value">{{ getSalesEffortLabel(formData.salesEffort) }}</span>
+        </div>
+      </div>
+
+      <div class="recommendation-box">
+        <h4>EMPFOHLENES PREISMODELL</h4>
+        <div class="pricing-details">
+          <div class="pricing-card">
+            <h5>Primäre Metrik</h5>
+            <p>{{ results.primaryMetric }}</p>
+          </div>
+          <div class="pricing-card">
+            <h5>Preisstruktur</h5>
+            <p>{{ results.structure }}</p>
+          </div>
+          <div class="pricing-card">
+            <h5>Billing-Modell</h5>
+            <p>{{ results.billingModel }}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="result-section">
+        <h4>KONKRETE IMPLEMENTIERUNG</h4>
+        <div class="result-item">
+          <span class="result-label">Basispreis:</span>
+          <span class="result-value">{{ results.basePrice }}</span>
+        </div>
+        <div class="result-item">
+          <span class="result-label">Variable Komponente:</span>
+          <span class="result-value">{{ results.variableComponent }}</span>
+        </div>
+        <div class="result-item" *ngIf="results.implementation.contractLength">
+          <span class="result-label">Vertragslaufzeit:</span>
+          <span class="result-value">{{ results.implementation.contractLength }}</span>
+        </div>
+        <div class="result-item" *ngIf="results.implementation.setupFee">
+          <span class="result-label">Setup-Fee:</span>
+          <span class="result-value">{{ results.implementation.setupFee }}</span>
+        </div>
+        <div class="result-item" *ngIf="results.implementation.tiers">
+          <span class="result-label">Produktstufen:</span>
+          <div class="result-value">
+            <ul style="margin: 0; padding-left: 20px;">
+              <li>Basic: {{ results.implementation.tiers.basic }}</li>
+              <li>Standard: {{ results.implementation.tiers.standard }}</li>
+              <li>Premium: {{ results.implementation.tiers.premium }}</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="risk-factors" *ngIf="results.risks.length > 0">
+        <h4>RISIKOFAKTOREN & EMPFEHLUNGEN</h4>
+        <div class="risk-item" *ngFor="let risk of results.risks">• {{ risk }}</div>
+      </div>
+
+      <div class="form-group">
+        <button mat-raised-button color="primary" (click)="exportPDF()" class="btn btn--primary">
+          <mat-icon>print</mat-icon>
+          PDF Export
+        </button>
+        <button mat-raised-button color="accent" (click)="exportJSON()" class="btn btn--secondary">
+          <mat-icon>download</mat-icon>
+          JSON Export
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <div class="form-navigation">
+    <button mat-button id="prevBtn" (click)="previousPhase()" class="btn btn--outline">
+      ← Zurück
+    </button>
+    <button mat-raised-button color="primary" id="nextBtn" (click)="nextPhase()" class="btn btn--primary">
+      Weiter →
+    </button>
+  </div>
+</div>
