@@ -31,7 +31,7 @@
   </div>
 
   <!-- Phase 1: System-Übersicht -->
-  <div class="phase" *ngIf="isPhaseVisible(0)">
+  <div class="phase" *ngIf="currentPhase === 0">
     <!-- Debug: Phase 1 should be visible -->
     <div style="background: yellow; padding: 5px; margin: 5px; border: 1px solid red;">
       DEBUG: Phase 1 is visible, currentPhase = {{ currentPhase }}
@@ -90,7 +90,7 @@
   </div>
 
   <!-- Phase 2: Technische Komplexität -->
-  <div class="phase" *ngIf="isPhaseVisible(1)">
+  <div class="phase" *ngIf="currentPhase === 1">
     <mat-card class="strategy-card">
       <mat-card-header>
         <mat-card-title>Technische Komplexität</mat-card-title>
@@ -167,7 +167,7 @@
   </div>
 
   <!-- Phase 3: Markt & Wettbewerb -->
-  <div class="phase" *ngIf="isPhaseVisible(2)">
+  <div class="phase" *ngIf="currentPhase === 2">
     <mat-card class="strategy-card">
       <mat-card-header>
         <mat-card-title>Markt & Wettbewerb</mat-card-title>
@@ -269,7 +269,7 @@
   </div>
 
   <!-- Phase 4: Implementierung & Vertrieb -->
-  <div class="phase" *ngIf="isPhaseVisible(3)">
+  <div class="phase" *ngIf="currentPhase === 3">
     <mat-card class="strategy-card">
       <mat-card-header>
         <mat-card-title>Implementierung & Vertrieb</mat-card-title>
@@ -363,7 +363,7 @@
   </div>
 
   <!-- Phase 5: Geschäftsmodell -->
-  <div class="phase" *ngIf="isPhaseVisible(4)">
+  <div class="phase" *ngIf="currentPhase === 4">
     <mat-card class="strategy-card">
       <mat-card-header>
         <mat-card-title>Geschäftsmodell</mat-card-title>
@@ -413,7 +413,7 @@
   </div>
 
   <!-- Phase 6: Ergebnisse -->
-  <div class="phase" *ngIf="isPhaseVisible(5)">
+  <div class="phase" *ngIf="currentPhase === 5">
     <div class="results-container" *ngIf="results.systemType">
       <div class="result-section">
         <span class="system-type-badge" [class]="pricingForm.get('autonomy')?.value || 'assistive'">
