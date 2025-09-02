@@ -38,7 +38,6 @@ import { ScorePropertiesComponent } from './score-properties/score-properties.co
 // New component and pipe for series simulation results
 import { SeriesResultsComponent } from './score-output/series-results.component';
 import { FilterByOriginalValuePipe } from './score-output/filter-by-original-value.pipe';
-import { PricingStrategyComponent } from './pricing-strategy/pricing-strategy.component';
 
 @NgModule({
   declarations: [
@@ -74,8 +73,7 @@ import { PricingStrategyComponent } from './pricing-strategy/pricing-strategy.co
     MatTabsModule,
     MatDividerModule,
     MatMenuModule,
-    MatSidenavModule,
-    PricingStrategyComponent
+    MatSidenavModule
   ],
   providers: [
     // Provide LOCALE_ID for German
