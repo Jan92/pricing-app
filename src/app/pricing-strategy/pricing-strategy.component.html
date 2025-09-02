@@ -4,6 +4,11 @@
     <strong>Debug Info:</strong> currentPhase: {{ currentPhase }}, Form Valid: {{ pricingForm.valid }}, Form Values: {{ pricingForm.value | json }}
   </div>
   
+  <!-- Simple test to see if component is rendering -->
+  <div style="background: green; color: white; padding: 10px; margin: 10px; border: 1px solid darkgreen;">
+    <strong>TEST:</strong> Component is rendering! currentPhase = {{ currentPhase }}
+  </div>
+  
   <div class="header">
     <h1>Pricing Strategie</h1>
     <p>Entwickeln und verwalten Sie Ihre Pricing-Strategien für DDSS effizient</p>
@@ -27,6 +32,11 @@
 
   <!-- Phase 1: System-Übersicht -->
   <div class="phase" *ngIf="isPhaseVisible(0)">
+    <!-- Debug: Phase 1 should be visible -->
+    <div style="background: yellow; padding: 5px; margin: 5px; border: 1px solid red;">
+      DEBUG: Phase 1 is visible, currentPhase = {{ currentPhase }}
+    </div>
+    
     <mat-card class="strategy-card">
       <mat-card-header>
         <mat-card-title>System-Übersicht</mat-card-title>
