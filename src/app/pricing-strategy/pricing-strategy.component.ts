@@ -71,6 +71,7 @@ export class PricingStrategyComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log('PricingStrategyComponent initialized, currentPhase:', this.currentPhase);
     this.updatePhaseDisplay();
     this.updateProgress();
     this.updateNavigation();
@@ -123,6 +124,7 @@ export class PricingStrategyComponent implements OnInit {
   }
 
   isPhaseVisible(index: number): boolean {
+    console.log('isPhaseVisible called with index:', index, 'currentPhase:', this.currentPhase);
     return index === this.currentPhase;
   }
 
