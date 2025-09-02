@@ -368,11 +368,8 @@
 
 /* Phase Management */
 .phase {
-  display: none;
-}
-
-.phase.active {
   display: block;
+  margin-bottom: 30px;
 }
 
 /* Error States */
