@@ -72,6 +72,9 @@ export class PricingStrategyComponent implements OnInit {
 
   ngOnInit(): void {
     console.log('PricingStrategyComponent initialized, currentPhase:', this.currentPhase);
+    console.log('Form initialized:', this.pricingForm);
+    console.log('Form valid:', this.pricingForm.valid);
+    console.log('Form values:', this.pricingForm.value);
     this.updatePhaseDisplay();
     this.updateProgress();
     this.updateNavigation();
@@ -124,8 +127,9 @@ export class PricingStrategyComponent implements OnInit {
   }
 
   isPhaseVisible(index: number): boolean {
-    console.log('isPhaseVisible called with index:', index, 'currentPhase:', this.currentPhase);
-    return index === this.currentPhase;
+    const result = index === this.currentPhase;
+    console.log('isPhaseVisible called with index:', index, 'currentPhase:', this.currentPhase, 'result:', result);
+    return result;
   }
 
   isPhaseActive(index: number): boolean {
