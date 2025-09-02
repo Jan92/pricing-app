@@ -22,11 +22,6 @@
 
   <!-- Phase 1: System-Übersicht -->
   <div class="phase" *ngIf="currentPhase === 0">
-    <!-- Debug: Phase 1 should be visible -->
-    <div style="background: yellow; padding: 5px; margin: 5px; border: 1px solid red;">
-      DEBUG: Phase 1 is visible, currentPhase = {{ currentPhase }}
-    </div>
-    
     <mat-card class="strategy-card">
       <mat-card-header>
         <mat-card-title>System-Übersicht</mat-card-title>
@@ -385,19 +380,57 @@
           </mat-error>
         </div>
 
-        <div class="form-group">
-          <label class="form-label">Support-Intensität</label>
-          <div class="slider-container">
-            <div class="slider-labels">
-              <span>Minimal</span>
-              <span>Maximal</span>
-            </div>
-            <mat-slider min="1" max="5" step="1" class="slider">
-              <input matSliderThumb formControlName="supportIntensity">
-            </mat-slider>
-            <div class="slider-value">Level {{ pricingForm.get('supportIntensity')?.value || 3 }}</div>
-          </div>
-        </div>
+                 <div class="form-group">
+           <label class="form-label">Support-Intensität</label>
+           <div class="slider-container">
+             <div class="slider-labels">
+               <span>Minimal</span>
+               <span>Maximal</span>
+             </div>
+             <div class="radio-group">
+               <div class="radio-option" [class.selected]="pricingForm.get('supportIntensity')?.value === 1" (click)="pricingForm.get('supportIntensity')?.setValue(1)">
+                 <mat-radio-button value="1" (click)="$event.stopPropagation()">
+                   <div class="radio-text">
+                     <strong>Level 1 - Minimal</strong>
+                     <small>Grundlegender Support, Selbstbedienung</small>
+                   </div>
+                 </mat-radio-button>
+               </div>
+               <div class="radio-option" [class.selected]="pricingForm.get('supportIntensity')?.value === 2" (click)="pricingForm.get('supportIntensity')?.setValue(2)">
+                 <mat-radio-button value="2" (click)="$event.stopPropagation()">
+                   <div class="radio-text">
+                     <strong>Level 2 - Basis</strong>
+                     <small>E-Mail Support, Dokumentation</small>
+                   </div>
+                 </mat-radio-button>
+               </div>
+               <div class="radio-option" [class.selected]="pricingForm.get('supportIntensity')?.value === 3" (click)="pricingForm.get('supportIntensity')?.setValue(3)">
+                 <mat-radio-button value="3" (click)="$event.stopPropagation()">
+                   <div class="radio-text">
+                     <strong>Level 3 - Standard</strong>
+                     <small>Telefon Support, Schulungen</small>
+                   </div>
+                 </mat-radio-button>
+               </div>
+               <div class="radio-option" [class.selected]="pricingForm.get('supportIntensity')?.value === 4" (click)="pricingForm.get('supportIntensity')?.setValue(4)">
+                 <mat-radio-button value="4" (click)="$event.stopPropagation()">
+                   <div class="radio-text">
+                     <strong>Level 4 - Premium</strong>
+                     <small>Dedizierter Support, 24/7 Verfügbarkeit</small>
+                   </div>
+                 </mat-radio-button>
+               </div>
+               <div class="radio-option" [class.selected]="pricingForm.get('supportIntensity')?.value === 5" (click)="pricingForm.get('supportIntensity')?.setValue(5)">
+                 <mat-radio-button value="5" (click)="$event.stopPropagation()">
+                   <div class="radio-text">
+                     <strong>Level 5 - Maximal</strong>
+                     <small>Persönlicher Account Manager, On-Site Support</small>
+                   </div>
+                 </mat-radio-button>
+               </div>
+             </div>
+           </div>
+         </div>
       </mat-card-content>
     </mat-card>
   </div>
