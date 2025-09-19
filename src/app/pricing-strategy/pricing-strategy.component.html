@@ -236,90 +236,304 @@
           </mat-error>
         </div>
 
-        <!-- Mehrdimensionale Komplexitätsbewertung -->
+        <!-- 5-dimensionale Komplexitätsbewertung -->
         <mat-divider style="margin: 20px 0;"></mat-divider>
-        <h3>Mehrdimensionale Komplexitätsbewertung</h3>
+        <h3>5-dimensionale Komplexitätsbewertung</h3>
         <p class="complexity-description">Bewerten Sie die folgenden Aspekte auf einer Skala von 1 (niedrig) bis 5 (hoch):</p>
 
+        <!-- 1. Datenkomplexität und -vielfalt -->
+        <h4>1. Datenkomplexität und -vielfalt</h4>
         <div class="complexity-grid">
           <div class="form-group">
-            <label class="form-label">Datenvielfalt/-qualität *</label>
+            <label class="form-label">Datenquellenvielfalt *</label>
             <div class="slider-container">
-              <mat-slider 
-                formControlName="dataDiversity" 
-                min="1" 
-                max="5" 
-                step="1" 
-                discrete 
-                [displayWith]="formatLabel">
+              <mat-slider formControlName="dataSourceDiversity" min="1" max="5" step="1" discrete [displayWith]="formatLabel">
                 <input matSliderThumb>
               </mat-slider>
               <div class="slider-labels">
-                <span>1 - Sehr homogen/hochwertig</span>
-                <span>5 - Sehr heterogen oder qualitativ schwierig</span>
+                <span>1 - Nur ein Datentyp (z.B. Labordaten)</span>
+                <span>5 - Fünf oder mehr Datentypen (z.B. Bild-, Text-, und Genomdaten)</span>
               </div>
             </div>
-            <mat-icon matTooltip="1 = nur ein Datentyp (z.B. nur Laborwerte), 5 = mehrere Datentypen (Bilder, Texte, Genomik) kombiniert">info</mat-icon>
+            <mat-icon matTooltip="Anzahl der genutzten Datentypen">info</mat-icon>
           </div>
 
           <div class="form-group">
-            <label class="form-label">Krankheits-/Fallkomplexität *</label>
+            <label class="form-label">Datenintegrität *</label>
             <div class="slider-container">
-              <mat-slider 
-                formControlName="caseComplexity" 
-                min="1" 
-                max="5" 
-                step="1" 
-                discrete 
-                [displayWith]="formatLabel">
+              <mat-slider formControlName="dataIntegrity" min="1" max="5" step="1" discrete [displayWith]="formatLabel">
                 <input matSliderThumb>
               </mat-slider>
               <div class="slider-labels">
-                <span>1 - Routinefall</span>
-                <span>5 - Extrem selten/schwierig</span>
+                <span>1 - Nur ein Teil der Eingangsdaten kann verarbeitet werden</span>
+                <span>5 - Daten sind nahezu vollständig und konsistent verarbeitbar</span>
               </div>
             </div>
-            <mat-icon matTooltip="1 = Standard-Routinefälle, 5 = seltene Erkrankungen oder komplexe multimorbide Patienten">info</mat-icon>
+            <mat-icon matTooltip="Grad der Vollständigkeit und Konsistenz der verarbeitbaren Eingangsdaten">info</mat-icon>
           </div>
 
           <div class="form-group">
-            <label class="form-label">Komplexität der klinischen Fragestellung *</label>
+            <label class="form-label">Datenkomplexität *</label>
             <div class="slider-container">
-              <mat-slider 
-                formControlName="clinicalQuestionComplexity" 
-                min="1" 
-                max="5" 
-                step="1" 
-                discrete 
-                [displayWith]="formatLabel">
+              <mat-slider formControlName="dataComplexity" min="1" max="5" step="1" discrete [displayWith]="formatLabel">
                 <input matSliderThumb>
               </mat-slider>
               <div class="slider-labels">
-                <span>1 - Einfache Ja/Nein-Entscheidung</span>
-                <span>5 - Ausgeprägter Entscheidungsbaum</span>
+                <span>1 - Strukturiert, leicht interpretierbar (z.B. numerische Labordaten)</span>
+                <span>5 - Unstrukturierte oder hochkomplexe Daten (z.B. freier Text oder verrauschte Daten)</span>
               </div>
             </div>
-            <mat-icon matTooltip="1 = einfache binäre Entscheidungen, 5 = komplexe Entscheidungsbäume mit vielen Verzweigungen">info</mat-icon>
+            <mat-icon matTooltip="Schwierigkeitsgrad bei der Interpretation der Daten">info</mat-icon>
           </div>
 
           <div class="form-group">
-            <label class="form-label">KI-Beteiligungsgrad *</label>
+            <label class="form-label">Datenverknüpfung *</label>
             <div class="slider-container">
-              <mat-slider 
-                formControlName="aiInvolvementLevel" 
-                min="1" 
-                max="5" 
-                step="1" 
-                discrete 
-                [displayWith]="formatLabel">
+              <mat-slider formControlName="dataLinking" min="1" max="5" step="1" discrete [displayWith]="formatLabel">
                 <input matSliderThumb>
               </mat-slider>
               <div class="slider-labels">
-                <span>1 - Nur assistierend</span>
-                <span>5 - Vollautonome Analyse</span>
+                <span>1 - Keine Verknüpfung unterschiedlicher Quellen</span>
+                <span>5 - Vollständig integrierte Analyse aus mehreren Quellen</span>
               </div>
             </div>
-            <mat-icon matTooltip="1 = KI unterstützt nur bei der Analyse, 5 = KI führt die komplette Analyse autonom durch">info</mat-icon>
+            <mat-icon matTooltip="Fähigkeit, mehrere Datenquellen in einer Analyse zu kombinieren">info</mat-icon>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Datenvolumen *</label>
+            <div class="slider-container">
+              <mat-slider formControlName="dataVolume" min="1" max="5" step="1" discrete [displayWith]="formatLabel">
+                <input matSliderThumb>
+              </mat-slider>
+              <div class="slider-labels">
+                <span>1 - Gering (z.B. ein einzelner Parameter)</span>
+                <span>5 - Sehr groß (z.B. Millionen von Parametern pro Patient)</span>
+              </div>
+            </div>
+            <mat-icon matTooltip="Menge der Daten pro Analyse">info</mat-icon>
+          </div>
+        </div>
+
+        <!-- 2. Komplexität der Erkrankung -->
+        <h4>2. Komplexität der Erkrankung</h4>
+        <div class="complexity-grid">
+          <div class="form-group">
+            <label class="form-label">Seltenheit der Erkrankung *</label>
+            <div class="slider-container">
+              <mat-slider formControlName="diseaseRarity" min="1" max="5" step="1" discrete [displayWith]="formatLabel">
+                <input matSliderThumb>
+              </mat-slider>
+              <div class="slider-labels">
+                <span>1 - Häufig (z.B. Anämie)</span>
+                <span>5 - Sehr selten (z.B. Morbus Gaucher)</span>
+              </div>
+            </div>
+            <mat-icon matTooltip="Prävalenz in der Bevölkerung">info</mat-icon>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Diagnostische Mehrdeutigkeit *</label>
+            <div class="slider-container">
+              <mat-slider formControlName="diagnosticAmbiguity" min="1" max="5" step="1" discrete [displayWith]="formatLabel">
+                <input matSliderThumb>
+              </mat-slider>
+              <div class="slider-labels">
+                <span>1 - Einfach abzugrenzen (z.B. Grippe)</span>
+                <span>5 - Hochgradig mehrdeutig (z.B. systemischer Lupus erythematodes)</span>
+              </div>
+            </div>
+            <mat-icon matTooltip="Schwierigkeit der Abgrenzung von anderen Krankheitsbildern">info</mat-icon>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Prognostische Unsicherheit *</label>
+            <div class="slider-container">
+              <mat-slider formControlName="prognosticUncertainty" min="1" max="5" step="1" discrete [displayWith]="formatLabel">
+                <input matSliderThumb>
+              </mat-slider>
+              <div class="slider-labels">
+                <span>1 - Gut vorhersagbar (z.B. unkomplizierte bakterielle Infektion)</span>
+                <span>5 - Unvorhersehbar und individuell unterschiedlich (z.B. aggressive Krebsarten)</span>
+              </div>
+            </div>
+            <mat-icon matTooltip="Vorhersehbarkeit des Krankheitsverlaufs">info</mat-icon>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Multimorbidität *</label>
+            <div class="slider-container">
+              <mat-slider formControlName="multimorbidity" min="1" max="5" step="1" discrete [displayWith]="formatLabel">
+                <input matSliderThumb>
+              </mat-slider>
+              <div class="slider-labels">
+                <span>1 - Kaum beeinflusst durch Komorbiditäten</span>
+                <span>5 - Stark beeinflusst durch zahlreiche Komorbiditäten</span>
+              </div>
+            </div>
+            <mat-icon matTooltip="Einfluss anderer Erkrankungen auf die Zielerkrankung">info</mat-icon>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Schweregrad der Erkrankung *</label>
+            <div class="slider-container">
+              <mat-slider formControlName="diseaseSeverity" min="1" max="5" step="1" discrete [displayWith]="formatLabel">
+                <input matSliderThumb>
+              </mat-slider>
+              <div class="slider-labels">
+                <span>1 - Geringe Lethalität und wenig Einfluss auf Patienten</span>
+                <span>5 - Hohe Letalität wie z.B. Krebs</span>
+              </div>
+            </div>
+            <mat-icon matTooltip="Lethalität und Bedeutung einer frühen Entdeckung">info</mat-icon>
+          </div>
+        </div>
+
+        <!-- 3. Schwierigkeitsgrad der Fragestellung -->
+        <h4>3. Schwierigkeitsgrad der Fragestellung</h4>
+        <div class="complexity-grid">
+          <div class="form-group">
+            <label class="form-label">Differenzialdiagnostische Tiefe *</label>
+            <div class="slider-container">
+              <mat-slider formControlName="differentialDiagnosticDepth" min="1" max="5" step="1" discrete [displayWith]="formatLabel">
+                <input matSliderThumb>
+              </mat-slider>
+              <div class="slider-labels">
+                <span>1 - Wenige Differenzialdiagnosen (< 3)</span>
+                <span>5 - Viele Differenzialdiagnosen (> 10)</span>
+              </div>
+            </div>
+            <mat-icon matTooltip="Anzahl möglicher Diagnosen, die in der Anfrage berücksichtigt werden müssen">info</mat-icon>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Prognostische Präzision *</label>
+            <div class="slider-container">
+              <mat-slider formControlName="prognosticPrecision" min="1" max="5" step="1" discrete [displayWith]="formatLabel">
+                <input matSliderThumb>
+              </mat-slider>
+              <div class="slider-labels">
+                <span>1 - Nur kurzfristige Trends (z.B. einfache Risikoabschätzung)</span>
+                <span>5 - Hochpräzise, langfristige Vorhersagen (z.B. Krankheitsprogression)</span>
+              </div>
+            </div>
+            <mat-icon matTooltip="Grad der Genauigkeit und Langfristigkeit der Vorhersage">info</mat-icon>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Anforderung an die Echtzeit *</label>
+            <div class="slider-container">
+              <mat-slider formControlName="realTimeRequirement" min="1" max="5" step="1" discrete [displayWith]="formatLabel">
+                <input matSliderThumb>
+              </mat-slider>
+              <div class="slider-labels">
+                <span>1 - Nächtliche Batch Prozessierung ausreichend</span>
+                <span>5 - Sofortige Antwort erwartet</span>
+              </div>
+            </div>
+            <mat-icon matTooltip="Erwartung an die Geschwindigkeit des Systems">info</mat-icon>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Interdisziplinäre Relevanz *</label>
+            <div class="slider-container">
+              <mat-slider formControlName="interdisciplinaryRelevance" min="1" max="5" step="1" discrete [displayWith]="formatLabel">
+                <input matSliderThumb>
+              </mat-slider>
+              <div class="slider-labels">
+                <span>1 - Nur ein Fachbereich</span>
+                <span>5 - Mehrere Fachbereiche (> 3)</span>
+              </div>
+            </div>
+            <mat-icon matTooltip="Anzahl der Fachbereiche, die in die Analyse einfließen">info</mat-icon>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Dynamische Anpassungsfähigkeit *</label>
+            <div class="slider-container">
+              <mat-slider formControlName="dynamicAdaptability" min="1" max="5" step="1" discrete [displayWith]="formatLabel">
+                <input matSliderThumb>
+              </mat-slider>
+              <div class="slider-labels">
+                <span>1 - Keine Anpassung an dynamische Parameter</span>
+                <span>5 - Echtzeit-Anpassung an klinische Änderungen</span>
+              </div>
+            </div>
+            <mat-icon matTooltip="Fähigkeit des Systems, auf Änderungen klinischer Parameter zu reagieren">info</mat-icon>
+          </div>
+        </div>
+
+        <!-- 4. Ausmaß der KI-Unterstützung -->
+        <h4>4. Ausmaß der KI-Unterstützung</h4>
+        <div class="complexity-grid">
+          <div class="form-group">
+            <label class="form-label">Automatisierungsgrad *</label>
+            <div class="slider-container">
+              <mat-slider formControlName="automationLevel" min="1" max="5" step="1" discrete [displayWith]="formatLabel">
+                <input matSliderThumb>
+              </mat-slider>
+              <div class="slider-labels">
+                <span>1 - Nur unterstützend, keine eigenständigen Analysen</span>
+                <span>5 - Vollautomatisierte Analysen und Entscheidungen</span>
+              </div>
+            </div>
+            <mat-icon matTooltip="Grad der Autonomie der KI">info</mat-icon>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Analyseebene *</label>
+            <div class="slider-container">
+              <mat-slider formControlName="analysisDepth" min="1" max="5" step="1" discrete [displayWith]="formatLabel">
+                <input matSliderThumb>
+              </mat-slider>
+              <div class="slider-labels">
+                <span>1 - Einfacher Vorschlag</span>
+                <span>5 - Hochdimensionale, integrative Analysen</span>
+              </div>
+            </div>
+            <mat-icon matTooltip="Tiefe der durchgeführten Analyse">info</mat-icon>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Empfehlungskomplexität *</label>
+            <div class="slider-container">
+              <mat-slider formControlName="recommendationComplexity" min="1" max="5" step="1" discrete [displayWith]="formatLabel">
+                <input matSliderThumb>
+              </mat-slider>
+              <div class="slider-labels">
+                <span>1 - Einfache, generische Vorschläge</span>
+                <span>5 - Detaillierte, umsetzungsfähige Handlungspläne</span>
+              </div>
+            </div>
+            <mat-icon matTooltip="Umfang der Vorschläge oder Handlungspläne">info</mat-icon>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Integration von Leitlinien *</label>
+            <div class="slider-container">
+              <mat-slider formControlName="guidelineIntegration" min="1" max="5" step="1" discrete [displayWith]="formatLabel">
+                <input matSliderThumb>
+              </mat-slider>
+              <div class="slider-labels">
+                <span>1 - Keine Berücksichtigung von Leitlinien</span>
+                <span>5 - Vollständige Integration aktueller Leitlinien</span>
+              </div>
+            </div>
+            <mat-icon matTooltip="Umfang der Einbindung medizinischer Standards">info</mat-icon>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Patientenspezifische Individualisierung *</label>
+            <div class="slider-container">
+              <mat-slider formControlName="patientSpecificIndividualization" min="1" max="5" step="1" discrete [displayWith]="formatLabel">
+                <input matSliderThumb>
+              </mat-slider>
+              <div class="slider-labels">
+                <span>1 - Keine Individualisierung</span>
+                <span>5 - Höchstgradig patientenspezifische Analysen</span>
+              </div>
+            </div>
+            <mat-icon matTooltip="Berücksichtigung individueller Patientenmerkmale">info</mat-icon>
           </div>
         </div>
 
@@ -332,15 +546,15 @@
             </mat-card-header>
             <mat-card-content>
               <div class="score-display">
-                <div class="score-value">{{ calculateComplexityScore() }}/20</div>
+                <div class="score-value">{{ calculateComplexityScore() }}/100</div>
                 <div class="score-level" [class]="getComplexityLevel()">{{ getComplexityLevel() | titlecase }}</div>
               </div>
               <div class="score-breakdown">
                 <small>
-                  • Datenvielfalt: {{ pricingForm.get('dataDiversity')?.value || 3 }}/5<br>
-                  • Fallkomplexität: {{ pricingForm.get('caseComplexity')?.value || 3 }}/5<br>
-                  • Klinische Fragestellung: {{ pricingForm.get('clinicalQuestionComplexity')?.value || 3 }}/5<br>
-                  • KI-Beteiligung: {{ pricingForm.get('aiInvolvementLevel')?.value || 3 }}/5
+                  <strong>1. Datenkomplexität:</strong> {{ (pricingForm.get('dataSourceDiversity')?.value || 3) + (pricingForm.get('dataIntegrity')?.value || 3) + (pricingForm.get('dataComplexity')?.value || 3) + (pricingForm.get('dataLinking')?.value || 3) + (pricingForm.get('dataVolume')?.value || 3) }}/25<br>
+                  <strong>2. Erkrankungskomplexität:</strong> {{ (pricingForm.get('diseaseRarity')?.value || 3) + (pricingForm.get('diagnosticAmbiguity')?.value || 3) + (pricingForm.get('prognosticUncertainty')?.value || 3) + (pricingForm.get('multimorbidity')?.value || 3) + (pricingForm.get('diseaseSeverity')?.value || 3) }}/25<br>
+                  <strong>3. Fragestellungskomplexität:</strong> {{ (pricingForm.get('differentialDiagnosticDepth')?.value || 3) + (pricingForm.get('prognosticPrecision')?.value || 3) + (pricingForm.get('realTimeRequirement')?.value || 3) + (pricingForm.get('interdisciplinaryRelevance')?.value || 3) + (pricingForm.get('dynamicAdaptability')?.value || 3) }}/25<br>
+                  <strong>4. KI-Unterstützung:</strong> {{ (pricingForm.get('automationLevel')?.value || 3) + (pricingForm.get('analysisDepth')?.value || 3) + (pricingForm.get('recommendationComplexity')?.value || 3) + (pricingForm.get('guidelineIntegration')?.value || 3) + (pricingForm.get('patientSpecificIndividualization')?.value || 3) }}/25
                 </small>
               </div>
             </mat-card-content>
@@ -1196,7 +1410,7 @@
           <p>Das DACS-Modell (Dynamic Adaptive Complexity-based Scoring) ermöglicht eine faire Preisgestaltung basierend auf der tatsächlichen Komplexität jedes Falls:</p>
           
           <div class="dacs-details">
-            <h5>Ihr aktueller Komplexitätsscore: {{ calculateComplexityScore() }}/20 ({{ getComplexityLevel() }})</h5>
+            <h5>Ihr aktueller Komplexitätsscore: {{ calculateComplexityScore() }}/100 ({{ getComplexityLevel() }})</h5>
             <p>Basierend auf Ihrer Eingabe wird der folgende Preis empfohlen:</p>
             
             <div class="dacs-price-display">
@@ -1208,9 +1422,9 @@
             
             <h5>Preisspanne für verschiedene Komplexitätsstufen:</h5>
             <ul>
-              <li><strong>Einfache Fälle (Score 1-8):</strong> {{ calculateDACSPrices().simple | number:'1.2-2' }}€ - Standard-Diagnosen mit geringem AI-Aufwand</li>
-              <li><strong>Mittlere Fälle (Score 9-12):</strong> {{ calculateDACSPrices().medium | number:'1.2-2' }}€ - Komplexere Analysen mit moderatem AI-Aufwand</li>
-              <li><strong>Komplexe Fälle (Score 13-20):</strong> {{ calculateDACSPrices().complex | number:'1.2-2' }}€ - Hochkomplexe Diagnosen mit hohem AI-Aufwand</li>
+              <li><strong>Einfache Fälle (Score 20-40):</strong> {{ calculateDACSPrices().simple | number:'1.2-2' }}€ - Standard-Diagnosen mit geringem AI-Aufwand</li>
+              <li><strong>Mittlere Fälle (Score 41-60):</strong> {{ calculateDACSPrices().medium | number:'1.2-2' }}€ - Komplexere Analysen mit moderatem AI-Aufwand</li>
+              <li><strong>Komplexe Fälle (Score 61-100):</strong> {{ calculateDACSPrices().complex | number:'1.2-2' }}€ - Hochkomplexe Diagnosen mit hohem AI-Aufwand</li>
             </ul>
             
             <div class="dacs-benefits">

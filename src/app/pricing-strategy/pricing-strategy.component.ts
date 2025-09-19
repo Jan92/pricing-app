@@ -71,14 +71,34 @@ export class PricingStrategyComponent implements OnInit {
       expectedCasesPerYear: [100, [Validators.required, Validators.min(1)]],
       amortizationPeriod: [5, [Validators.required, Validators.min(1), Validators.max(10)]],
       
-      // Schritt 2: Technische Komplexität (erweitert)
-      measurability: ['', Validators.required],
-      inferenceCosts: ['', Validators.required],
-      // Mehrdimensionale Komplexitätsbewertung
-      dataDiversity: [3, [Validators.required, Validators.min(1), Validators.max(5)]],
-      caseComplexity: [3, [Validators.required, Validators.min(1), Validators.max(5)]],
-      clinicalQuestionComplexity: [3, [Validators.required, Validators.min(1), Validators.max(5)]],
-      aiInvolvementLevel: [3, [Validators.required, Validators.min(1), Validators.max(5)]],
+        // Schritt 2: Technische Komplexität (erweitert)
+        measurability: ['', Validators.required],
+        inferenceCosts: ['', Validators.required],
+        // 5-dimensionale Komplexitätsbewertung (20 Unterkriterien)
+        // 1. Datenkomplexität und -vielfalt
+        dataSourceDiversity: [3, [Validators.required, Validators.min(1), Validators.max(5)]],
+        dataIntegrity: [3, [Validators.required, Validators.min(1), Validators.max(5)]],
+        dataComplexity: [3, [Validators.required, Validators.min(1), Validators.max(5)]],
+        dataLinking: [3, [Validators.required, Validators.min(1), Validators.max(5)]],
+        dataVolume: [3, [Validators.required, Validators.min(1), Validators.max(5)]],
+        // 2. Komplexität der Erkrankung
+        diseaseRarity: [3, [Validators.required, Validators.min(1), Validators.max(5)]],
+        diagnosticAmbiguity: [3, [Validators.required, Validators.min(1), Validators.max(5)]],
+        prognosticUncertainty: [3, [Validators.required, Validators.min(1), Validators.max(5)]],
+        multimorbidity: [3, [Validators.required, Validators.min(1), Validators.max(5)]],
+        diseaseSeverity: [3, [Validators.required, Validators.min(1), Validators.max(5)]],
+        // 3. Schwierigkeitsgrad der Fragestellung
+        differentialDiagnosticDepth: [3, [Validators.required, Validators.min(1), Validators.max(5)]],
+        prognosticPrecision: [3, [Validators.required, Validators.min(1), Validators.max(5)]],
+        realTimeRequirement: [3, [Validators.required, Validators.min(1), Validators.max(5)]],
+        interdisciplinaryRelevance: [3, [Validators.required, Validators.min(1), Validators.max(5)]],
+        dynamicAdaptability: [3, [Validators.required, Validators.min(1), Validators.max(5)]],
+        // 4. Ausmaß der KI-Unterstützung
+        automationLevel: [3, [Validators.required, Validators.min(1), Validators.max(5)]],
+        analysisDepth: [3, [Validators.required, Validators.min(1), Validators.max(5)]],
+        recommendationComplexity: [3, [Validators.required, Validators.min(1), Validators.max(5)]],
+        guidelineIntegration: [3, [Validators.required, Validators.min(1), Validators.max(5)]],
+        patientSpecificIndividualization: [3, [Validators.required, Validators.min(1), Validators.max(5)]],
       
       // Schritt 3: Markt & Wettbewerb (erweitert)
       sector: ['', Validators.required],
@@ -135,19 +155,46 @@ export class PricingStrategyComponent implements OnInit {
 
   calculateComplexityScore(): number {
     const formValue = this.pricingForm.value;
-    const dataDiversity = formValue.dataDiversity || 3;
-    const caseComplexity = formValue.caseComplexity || 3;
-    const clinicalQuestionComplexity = formValue.clinicalQuestionComplexity || 3;
-    const aiInvolvementLevel = formValue.aiInvolvementLevel || 3;
+    
+    // 1. Datenkomplexität und -vielfalt (5 Kriterien)
+    const dataSourceDiversity = formValue.dataSourceDiversity || 3;
+    const dataIntegrity = formValue.dataIntegrity || 3;
+    const dataComplexity = formValue.dataComplexity || 3;
+    const dataLinking = formValue.dataLinking || 3;
+    const dataVolume = formValue.dataVolume || 3;
+    
+    // 2. Komplexität der Erkrankung (5 Kriterien)
+    const diseaseRarity = formValue.diseaseRarity || 3;
+    const diagnosticAmbiguity = formValue.diagnosticAmbiguity || 3;
+    const prognosticUncertainty = formValue.prognosticUncertainty || 3;
+    const multimorbidity = formValue.multimorbidity || 3;
+    const diseaseSeverity = formValue.diseaseSeverity || 3;
+    
+    // 3. Schwierigkeitsgrad der Fragestellung (5 Kriterien)
+    const differentialDiagnosticDepth = formValue.differentialDiagnosticDepth || 3;
+    const prognosticPrecision = formValue.prognosticPrecision || 3;
+    const realTimeRequirement = formValue.realTimeRequirement || 3;
+    const interdisciplinaryRelevance = formValue.interdisciplinaryRelevance || 3;
+    const dynamicAdaptability = formValue.dynamicAdaptability || 3;
+    
+    // 4. Ausmaß der KI-Unterstützung (5 Kriterien)
+    const automationLevel = formValue.automationLevel || 3;
+    const analysisDepth = formValue.analysisDepth || 3;
+    const recommendationComplexity = formValue.recommendationComplexity || 3;
+    const guidelineIntegration = formValue.guidelineIntegration || 3;
+    const patientSpecificIndividualization = formValue.patientSpecificIndividualization || 3;
 
-    return dataDiversity + caseComplexity + clinicalQuestionComplexity + aiInvolvementLevel;
+    return dataSourceDiversity + dataIntegrity + dataComplexity + dataLinking + dataVolume +
+           diseaseRarity + diagnosticAmbiguity + prognosticUncertainty + multimorbidity + diseaseSeverity +
+           differentialDiagnosticDepth + prognosticPrecision + realTimeRequirement + interdisciplinaryRelevance + dynamicAdaptability +
+           automationLevel + analysisDepth + recommendationComplexity + guidelineIntegration + patientSpecificIndividualization;
   }
 
   getComplexityLevel(): string {
     const score = this.calculateComplexityScore();
-    if (score <= 8) return 'niedrig';
-    if (score <= 12) return 'mittel';
-    if (score <= 16) return 'hoch';
+    if (score <= 40) return 'niedrig';
+    if (score <= 60) return 'mittel';
+    if (score <= 80) return 'hoch';
     return 'sehr hoch';
   }
 
@@ -204,11 +251,11 @@ export class PricingStrategyComponent implements OnInit {
     const mediumPrice = basePrice * (1 + profitMargin / 100); // 100% des Basispreises für mittlere Fälle
     const complexPrice = (basePrice * 1.5) * (1 + profitMargin / 100); // 150% des Basispreises für komplexe Fälle
     
-    // Dynamische Preisanpassung basierend auf tatsächlichem Komplexitätsscore
+    // Dynamische Preisanpassung basierend auf tatsächlichem Komplexitätsscore (20-100)
     let dynamicPrice = basePrice;
-    if (complexityScore <= 8) {
+    if (complexityScore <= 40) {
       dynamicPrice = simplePrice;
-    } else if (complexityScore <= 12) {
+    } else if (complexityScore <= 60) {
       dynamicPrice = mediumPrice;
     } else {
       dynamicPrice = complexPrice;
@@ -430,10 +477,30 @@ export class PricingStrategyComponent implements OnInit {
       amortizationPeriod: 'Amortisierungszeitraum (Jahre)',
       measurability: 'Messbarkeit des Nutzens',
       inferenceCosts: 'AI-Inferenzkosten',
-      dataDiversity: 'Datenvielfalt/-qualität',
-      caseComplexity: 'Krankheits-/Fallkomplexität',
-      clinicalQuestionComplexity: 'Komplexität der klinischen Fragestellung',
-      aiInvolvementLevel: 'KI-Beteiligungsgrad',
+      // 1. Datenkomplexität und -vielfalt
+      dataSourceDiversity: 'Datenquellenvielfalt',
+      dataIntegrity: 'Datenintegrität',
+      dataComplexity: 'Datenkomplexität',
+      dataLinking: 'Datenverknüpfung',
+      dataVolume: 'Datenvolumen',
+      // 2. Komplexität der Erkrankung
+      diseaseRarity: 'Seltenheit der Erkrankung',
+      diagnosticAmbiguity: 'Diagnostische Mehrdeutigkeit',
+      prognosticUncertainty: 'Prognostische Unsicherheit',
+      multimorbidity: 'Multimorbidität',
+      diseaseSeverity: 'Schweregrad der Erkrankung',
+      // 3. Schwierigkeitsgrad der Fragestellung
+      differentialDiagnosticDepth: 'Differenzialdiagnostische Tiefe',
+      prognosticPrecision: 'Prognostische Präzision',
+      realTimeRequirement: 'Anforderung an die Echtzeit',
+      interdisciplinaryRelevance: 'Interdisziplinäre Relevanz',
+      dynamicAdaptability: 'Dynamische Anpassungsfähigkeit',
+      // 4. Ausmaß der KI-Unterstützung
+      automationLevel: 'Automatisierungsgrad',
+      analysisDepth: 'Analyseebene',
+      recommendationComplexity: 'Empfehlungskomplexität',
+      guidelineIntegration: 'Integration von Leitlinien',
+      patientSpecificIndividualization: 'Patientenspezifische Individualisierung',
       sector: 'Primärer Zielsektor',
       reimbursement: 'Erstattungsintegration',
       competition: 'Wettbewerbsintensität',
@@ -461,7 +528,10 @@ export class PricingStrategyComponent implements OnInit {
     // Definiere die Formularfelder für jede Phase
     const phaseControls = {
       0: ['systemName', 'autonomy', 'developmentCosts', 'costPerUsage', 'maintenanceCosts', 'expectedCasesPerYear', 'amortizationPeriod'],
-      1: ['measurability', 'inferenceCosts', 'dataDiversity', 'caseComplexity', 'clinicalQuestionComplexity', 'aiInvolvementLevel'],
+      1: ['measurability', 'inferenceCosts', 'dataSourceDiversity', 'dataIntegrity', 'dataComplexity', 'dataLinking', 'dataVolume',
+          'diseaseRarity', 'diagnosticAmbiguity', 'prognosticUncertainty', 'multimorbidity', 'diseaseSeverity',
+          'differentialDiagnosticDepth', 'prognosticPrecision', 'realTimeRequirement', 'interdisciplinaryRelevance', 'dynamicAdaptability',
+          'automationLevel', 'analysisDepth', 'recommendationComplexity', 'guidelineIntegration', 'patientSpecificIndividualization'],
       2: ['sector', 'reimbursement', 'competition'],
       3: ['salesEffort', 'implementation', 'customerFencing', 'deploymentType', 'salesChannel'],
       4: ['upgradePath', 'supportIntensity', 'pricingModel']
