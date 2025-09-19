@@ -477,73 +477,183 @@
         <h4>2. Komplexität der Erkrankung</h4>
         <div class="complexity-grid">
           <div class="form-group">
-            <label class="form-label">Seltenheit der Erkrankung *</label>
-            <div class="slider-container">
-              <mat-slider formControlName="diseaseRarity" min="1" max="5" step="1" discrete [displayWith]="formatLabel">
-                <input matSliderThumb>
-              </mat-slider>
-              <div class="slider-labels">
-                <span>1 - Häufig (z.B. Anämie)</span>
-                <span>5 - Sehr selten (z.B. Morbus Gaucher)</span>
-              </div>
-            </div>
-            <mat-icon matTooltip="Prävalenz in der Bevölkerung">info</mat-icon>
+            <label class="form-label">Seltenheit der Erkrankung (Prävalenz in der Bevölkerung.) *</label>
+            <mat-radio-group formControlName="diseaseRarity" class="radio-group">
+              <mat-radio-button value="1" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">1</span>
+                  <span class="radio-text">Häufig (z.B. Anämie).</span>
+                </div>
+              </mat-radio-button>
+              <mat-radio-button value="2" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">2</span>
+                  <span class="radio-text">Unterdurchschnittlich</span>
+                </div>
+              </mat-radio-button>
+              <mat-radio-button value="3" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">3</span>
+                  <span class="radio-text">Durchschnittlich</span>
+                </div>
+              </mat-radio-button>
+              <mat-radio-button value="4" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">4</span>
+                  <span class="radio-text">Überdurchschnittlich</span>
+                </div>
+              </mat-radio-button>
+              <mat-radio-button value="5" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">5</span>
+                  <span class="radio-text">Sehr selten (z.B. Morbus Gaucher).</span>
+                </div>
+              </mat-radio-button>
+            </mat-radio-group>
           </div>
 
           <div class="form-group">
-            <label class="form-label">Diagnostische Mehrdeutigkeit *</label>
-            <div class="slider-container">
-              <mat-slider formControlName="diagnosticAmbiguity" min="1" max="5" step="1" discrete [displayWith]="formatLabel">
-                <input matSliderThumb>
-              </mat-slider>
-              <div class="slider-labels">
-                <span>1 - Einfach abzugrenzen (z.B. Grippe)</span>
-                <span>5 - Hochgradig mehrdeutig (z.B. systemischer Lupus erythematodes)</span>
-              </div>
-            </div>
-            <mat-icon matTooltip="Schwierigkeit der Abgrenzung von anderen Krankheitsbildern">info</mat-icon>
+            <label class="form-label">Diagnostische Mehrdeutigkeit (Schwierigkeit der Abgrenzung von anderen Krankheitsbildern.) *</label>
+            <mat-radio-group formControlName="diagnosticAmbiguity" class="radio-group">
+              <mat-radio-button value="1" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">1</span>
+                  <span class="radio-text">Einfach abzugrenzen (z.B. Grippe).</span>
+                </div>
+              </mat-radio-button>
+              <mat-radio-button value="2" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">2</span>
+                  <span class="radio-text">Unterdurchschnittlich</span>
+                </div>
+              </mat-radio-button>
+              <mat-radio-button value="3" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">3</span>
+                  <span class="radio-text">Durchschnittlich</span>
+                </div>
+              </mat-radio-button>
+              <mat-radio-button value="4" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">4</span>
+                  <span class="radio-text">Überdurchschnittlich</span>
+                </div>
+              </mat-radio-button>
+              <mat-radio-button value="5" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">5</span>
+                  <span class="radio-text">Hochgradig mehrdeutig (z.B. systemischer Lupus erythematodes).</span>
+                </div>
+              </mat-radio-button>
+            </mat-radio-group>
           </div>
 
           <div class="form-group">
-            <label class="form-label">Prognostische Unsicherheit *</label>
-            <div class="slider-container">
-              <mat-slider formControlName="prognosticUncertainty" min="1" max="5" step="1" discrete [displayWith]="formatLabel">
-                <input matSliderThumb>
-              </mat-slider>
-              <div class="slider-labels">
-                <span>1 - Gut vorhersagbar (z.B. unkomplizierte bakterielle Infektion)</span>
-                <span>5 - Unvorhersehbar und individuell unterschiedlich (z.B. aggressive Krebsarten)</span>
-              </div>
-            </div>
-            <mat-icon matTooltip="Vorhersehbarkeit des Krankheitsverlaufs">info</mat-icon>
+            <label class="form-label">Prognostische Unsicherheit (Vorhersehbarkeit des Krankheitsverlaufs.) *</label>
+            <mat-radio-group formControlName="prognosticUncertainty" class="radio-group">
+              <mat-radio-button value="1" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">1</span>
+                  <span class="radio-text">Gut vorhersagbar (z.B. unkomplizierte bakterielle Infektion).</span>
+                </div>
+              </mat-radio-button>
+              <mat-radio-button value="2" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">2</span>
+                  <span class="radio-text">Unterdurchschnittlich</span>
+                </div>
+              </mat-radio-button>
+              <mat-radio-button value="3" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">3</span>
+                  <span class="radio-text">Durchschnittlich</span>
+                </div>
+              </mat-radio-button>
+              <mat-radio-button value="4" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">4</span>
+                  <span class="radio-text">Überdurchschnittlich</span>
+                </div>
+              </mat-radio-button>
+              <mat-radio-button value="5" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">5</span>
+                  <span class="radio-text">Unvorhersehbar und individuell unterschiedlich (z.B. aggressive Krebsarten).</span>
+                </div>
+              </mat-radio-button>
+            </mat-radio-group>
           </div>
 
           <div class="form-group">
-            <label class="form-label">Multimorbidität *</label>
-            <div class="slider-container">
-              <mat-slider formControlName="multimorbidity" min="1" max="5" step="1" discrete [displayWith]="formatLabel">
-                <input matSliderThumb>
-              </mat-slider>
-              <div class="slider-labels">
-                <span>1 - Kaum beeinflusst durch Komorbiditäten</span>
-                <span>5 - Stark beeinflusst durch zahlreiche Komorbiditäten</span>
-              </div>
-            </div>
-            <mat-icon matTooltip="Einfluss anderer Erkrankungen auf die Zielerkrankung">info</mat-icon>
+            <label class="form-label">Multimorbidität (Einfluss anderer Erkrankungen auf die Zielerkrankung.) *</label>
+            <mat-radio-group formControlName="multimorbidity" class="radio-group">
+              <mat-radio-button value="1" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">1</span>
+                  <span class="radio-text">Kaum beeinflusst durch Komorbiditäten.</span>
+                </div>
+              </mat-radio-button>
+              <mat-radio-button value="2" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">2</span>
+                  <span class="radio-text">Unterdurchschnittlich</span>
+                </div>
+              </mat-radio-button>
+              <mat-radio-button value="3" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">3</span>
+                  <span class="radio-text">Durchschnittlich</span>
+                </div>
+              </mat-radio-button>
+              <mat-radio-button value="4" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">4</span>
+                  <span class="radio-text">Überdurchschnittlich</span>
+                </div>
+              </mat-radio-button>
+              <mat-radio-button value="5" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">5</span>
+                  <span class="radio-text">Stark beeinflusst durch zahlreiche Komorbiditäten.</span>
+                </div>
+              </mat-radio-button>
+            </mat-radio-group>
           </div>
 
           <div class="form-group">
-            <label class="form-label">Schweregrad der Erkrankung *</label>
-            <div class="slider-container">
-              <mat-slider formControlName="diseaseSeverity" min="1" max="5" step="1" discrete [displayWith]="formatLabel">
-                <input matSliderThumb>
-              </mat-slider>
-              <div class="slider-labels">
-                <span>1 - Geringe Lethalität und wenig Einfluss auf Patienten</span>
-                <span>5 - Hohe Letalität wie z.B. Krebs</span>
-              </div>
-            </div>
-            <mat-icon matTooltip="Lethalität und Bedeutung einer frühen Entdeckung">info</mat-icon>
+            <label class="form-label">Schweregrad der Erkrankung (Lethalität und Bedeutung einer frühen Entdeckung.) *</label>
+            <mat-radio-group formControlName="diseaseSeverity" class="radio-group">
+              <mat-radio-button value="1" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">1</span>
+                  <span class="radio-text">Geringe Lethalität und wenig Einfluss auf Patienten.</span>
+                </div>
+              </mat-radio-button>
+              <mat-radio-button value="2" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">2</span>
+                  <span class="radio-text">Unterdurchschnittlich</span>
+                </div>
+              </mat-radio-button>
+              <mat-radio-button value="3" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">3</span>
+                  <span class="radio-text">Durchschnittlich</span>
+                </div>
+              </mat-radio-button>
+              <mat-radio-button value="4" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">4</span>
+                  <span class="radio-text">Überdurchschnittlich</span>
+                </div>
+              </mat-radio-button>
+              <mat-radio-button value="5" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">5</span>
+                  <span class="radio-text">Hohe Letalität wie z.B. Krebs.</span>
+                </div>
+              </mat-radio-button>
+            </mat-radio-group>
           </div>
         </div>
 
@@ -551,73 +661,183 @@
         <h4>3. Schwierigkeitsgrad der Fragestellung</h4>
         <div class="complexity-grid">
           <div class="form-group">
-            <label class="form-label">Differenzialdiagnostische Tiefe *</label>
-            <div class="slider-container">
-              <mat-slider formControlName="differentialDiagnosticDepth" min="1" max="5" step="1" discrete [displayWith]="formatLabel">
-                <input matSliderThumb>
-              </mat-slider>
-              <div class="slider-labels">
-                <span>1 - Wenige Differenzialdiagnosen (< 3)</span>
-                <span>5 - Viele Differenzialdiagnosen (> 10)</span>
-              </div>
-            </div>
-            <mat-icon matTooltip="Anzahl möglicher Diagnosen, die in der Anfrage berücksichtigt werden müssen">info</mat-icon>
+            <label class="form-label">Differenzialdiagnostische Tiefe (Anzahl möglicher Diagnosen, die in der Anfrage berücksichtigt werden müssen.) *</label>
+            <mat-radio-group formControlName="differentialDiagnosticDepth" class="radio-group">
+              <mat-radio-button value="1" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">1</span>
+                  <span class="radio-text">Wenige Differenzialdiagnosen (< 3).</span>
+                </div>
+              </mat-radio-button>
+              <mat-radio-button value="2" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">2</span>
+                  <span class="radio-text">Unterdurchschnittlich</span>
+                </div>
+              </mat-radio-button>
+              <mat-radio-button value="3" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">3</span>
+                  <span class="radio-text">Durchschnittlich</span>
+                </div>
+              </mat-radio-button>
+              <mat-radio-button value="4" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">4</span>
+                  <span class="radio-text">Überdurchschnittlich</span>
+                </div>
+              </mat-radio-button>
+              <mat-radio-button value="5" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">5</span>
+                  <span class="radio-text">Viele Differenzialdiagnosen (> 10).</span>
+                </div>
+              </mat-radio-button>
+            </mat-radio-group>
           </div>
 
           <div class="form-group">
-            <label class="form-label">Prognostische Präzision *</label>
-            <div class="slider-container">
-              <mat-slider formControlName="prognosticPrecision" min="1" max="5" step="1" discrete [displayWith]="formatLabel">
-                <input matSliderThumb>
-              </mat-slider>
-              <div class="slider-labels">
-                <span>1 - Nur kurzfristige Trends (z.B. einfache Risikoabschätzung)</span>
-                <span>5 - Hochpräzise, langfristige Vorhersagen (z.B. Krankheitsprogression)</span>
-              </div>
-            </div>
-            <mat-icon matTooltip="Grad der Genauigkeit und Langfristigkeit der Vorhersage">info</mat-icon>
+            <label class="form-label">Prognostische Präzision (Grad der Genauigkeit und Langfristigkeit der Vorhersage.) *</label>
+            <mat-radio-group formControlName="prognosticPrecision" class="radio-group">
+              <mat-radio-button value="1" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">1</span>
+                  <span class="radio-text">Nur kurzfristige Trends (z.B. einfache Risikoabschätzung).</span>
+                </div>
+              </mat-radio-button>
+              <mat-radio-button value="2" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">2</span>
+                  <span class="radio-text">Unterdurchschnittlich</span>
+                </div>
+              </mat-radio-button>
+              <mat-radio-button value="3" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">3</span>
+                  <span class="radio-text">Durchschnittlich</span>
+                </div>
+              </mat-radio-button>
+              <mat-radio-button value="4" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">4</span>
+                  <span class="radio-text">Überdurchschnittlich</span>
+                </div>
+              </mat-radio-button>
+              <mat-radio-button value="5" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">5</span>
+                  <span class="radio-text">Hochpräzise, langfristige Vorhersagen (z.B. Krankheitsprogression).</span>
+                </div>
+              </mat-radio-button>
+            </mat-radio-group>
           </div>
 
           <div class="form-group">
-            <label class="form-label">Anforderung an die Echtzeit *</label>
-            <div class="slider-container">
-              <mat-slider formControlName="realTimeRequirement" min="1" max="5" step="1" discrete [displayWith]="formatLabel">
-                <input matSliderThumb>
-              </mat-slider>
-              <div class="slider-labels">
-                <span>1 - Nächtliche Batch Prozessierung ausreichend</span>
-                <span>5 - Sofortige Antwort erwartet</span>
-              </div>
-            </div>
-            <mat-icon matTooltip="Erwartung an die Geschwindigkeit des Systems">info</mat-icon>
+            <label class="form-label">Anforderung an die Echtzeit (Erwartung an die Geschwindigkeit des Systems.) *</label>
+            <mat-radio-group formControlName="realTimeRequirement" class="radio-group">
+              <mat-radio-button value="1" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">1</span>
+                  <span class="radio-text">Nächtliche Batch Prozessierung ausreichend.</span>
+                </div>
+              </mat-radio-button>
+              <mat-radio-button value="2" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">2</span>
+                  <span class="radio-text">Unterdurchschnittlich</span>
+                </div>
+              </mat-radio-button>
+              <mat-radio-button value="3" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">3</span>
+                  <span class="radio-text">Durchschnittlich</span>
+                </div>
+              </mat-radio-button>
+              <mat-radio-button value="4" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">4</span>
+                  <span class="radio-text">Überdurchschnittlich</span>
+                </div>
+              </mat-radio-button>
+              <mat-radio-button value="5" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">5</span>
+                  <span class="radio-text">Sofortige Antwort erwartet.</span>
+                </div>
+              </mat-radio-button>
+            </mat-radio-group>
           </div>
 
           <div class="form-group">
-            <label class="form-label">Interdisziplinäre Relevanz *</label>
-            <div class="slider-container">
-              <mat-slider formControlName="interdisciplinaryRelevance" min="1" max="5" step="1" discrete [displayWith]="formatLabel">
-                <input matSliderThumb>
-              </mat-slider>
-              <div class="slider-labels">
-                <span>1 - Nur ein Fachbereich</span>
-                <span>5 - Mehrere Fachbereiche (> 3)</span>
-              </div>
-            </div>
-            <mat-icon matTooltip="Anzahl der Fachbereiche, die in die Analyse einfließen">info</mat-icon>
+            <label class="form-label">Interdisziplinäre Relevanz (Anzahl der Fachbereiche, die in die Analyse einfließen.) *</label>
+            <mat-radio-group formControlName="interdisciplinaryRelevance" class="radio-group">
+              <mat-radio-button value="1" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">1</span>
+                  <span class="radio-text">Nur ein Fachbereich.</span>
+                </div>
+              </mat-radio-button>
+              <mat-radio-button value="2" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">2</span>
+                  <span class="radio-text">Unterdurchschnittlich</span>
+                </div>
+              </mat-radio-button>
+              <mat-radio-button value="3" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">3</span>
+                  <span class="radio-text">Durchschnittlich</span>
+                </div>
+              </mat-radio-button>
+              <mat-radio-button value="4" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">4</span>
+                  <span class="radio-text">Überdurchschnittlich</span>
+                </div>
+              </mat-radio-button>
+              <mat-radio-button value="5" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">5</span>
+                  <span class="radio-text">Mehrere Fachbereiche (> 3).</span>
+                </div>
+              </mat-radio-button>
+            </mat-radio-group>
           </div>
 
           <div class="form-group">
-            <label class="form-label">Dynamische Anpassungsfähigkeit *</label>
-            <div class="slider-container">
-              <mat-slider formControlName="dynamicAdaptability" min="1" max="5" step="1" discrete [displayWith]="formatLabel">
-                <input matSliderThumb>
-              </mat-slider>
-              <div class="slider-labels">
-                <span>1 - Keine Anpassung an dynamische Parameter</span>
-                <span>5 - Echtzeit-Anpassung an klinische Änderungen</span>
-              </div>
-            </div>
-            <mat-icon matTooltip="Fähigkeit des Systems, auf Änderungen klinischer Parameter zu reagieren">info</mat-icon>
+            <label class="form-label">Dynamische Anpassungsfähigkeit (Fähigkeit des Systems, auf Änderungen klinischer Parameter zu reagieren.) *</label>
+            <mat-radio-group formControlName="dynamicAdaptability" class="radio-group">
+              <mat-radio-button value="1" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">1</span>
+                  <span class="radio-text">Keine Anpassung an dynamische Parameter.</span>
+                </div>
+              </mat-radio-button>
+              <mat-radio-button value="2" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">2</span>
+                  <span class="radio-text">Unterdurchschnittlich</span>
+                </div>
+              </mat-radio-button>
+              <mat-radio-button value="3" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">3</span>
+                  <span class="radio-text">Durchschnittlich</span>
+                </div>
+              </mat-radio-button>
+              <mat-radio-button value="4" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">4</span>
+                  <span class="radio-text">Überdurchschnittlich</span>
+                </div>
+              </mat-radio-button>
+              <mat-radio-button value="5" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">5</span>
+                  <span class="radio-text">Echtzeit-Anpassung an klinische Änderungen.</span>
+                </div>
+              </mat-radio-button>
+            </mat-radio-group>
           </div>
         </div>
 
@@ -625,73 +845,183 @@
         <h4>4. Ausmaß der KI-Unterstützung</h4>
         <div class="complexity-grid">
           <div class="form-group">
-            <label class="form-label">Automatisierungsgrad *</label>
-            <div class="slider-container">
-              <mat-slider formControlName="automationLevel" min="1" max="5" step="1" discrete [displayWith]="formatLabel">
-                <input matSliderThumb>
-              </mat-slider>
-              <div class="slider-labels">
-                <span>1 - Nur unterstützend, keine eigenständigen Analysen</span>
-                <span>5 - Vollautomatisierte Analysen und Entscheidungen</span>
-              </div>
-            </div>
-            <mat-icon matTooltip="Grad der Autonomie der KI">info</mat-icon>
+            <label class="form-label">Automatisierungsgrad (Grad der Autonomie der KI.) *</label>
+            <mat-radio-group formControlName="automationLevel" class="radio-group">
+              <mat-radio-button value="1" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">1</span>
+                  <span class="radio-text">Nur unterstützend, keine eigenständigen Analysen.</span>
+                </div>
+              </mat-radio-button>
+              <mat-radio-button value="2" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">2</span>
+                  <span class="radio-text">Unterdurchschnittlich</span>
+                </div>
+              </mat-radio-button>
+              <mat-radio-button value="3" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">3</span>
+                  <span class="radio-text">Durchschnittlich</span>
+                </div>
+              </mat-radio-button>
+              <mat-radio-button value="4" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">4</span>
+                  <span class="radio-text">Überdurchschnittlich</span>
+                </div>
+              </mat-radio-button>
+              <mat-radio-button value="5" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">5</span>
+                  <span class="radio-text">Vollautomatisierte Analysen und Entscheidungen.</span>
+                </div>
+              </mat-radio-button>
+            </mat-radio-group>
           </div>
 
           <div class="form-group">
-            <label class="form-label">Analyseebene *</label>
-            <div class="slider-container">
-              <mat-slider formControlName="analysisDepth" min="1" max="5" step="1" discrete [displayWith]="formatLabel">
-                <input matSliderThumb>
-              </mat-slider>
-              <div class="slider-labels">
-                <span>1 - Einfacher Vorschlag</span>
-                <span>5 - Hochdimensionale, integrative Analysen</span>
-              </div>
-            </div>
-            <mat-icon matTooltip="Tiefe der durchgeführten Analyse">info</mat-icon>
+            <label class="form-label">Analyseebene (Tiefe der durchgeführten Analyse.) *</label>
+            <mat-radio-group formControlName="analysisDepth" class="radio-group">
+              <mat-radio-button value="1" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">1</span>
+                  <span class="radio-text">Einfacher Vorschlag.</span>
+                </div>
+              </mat-radio-button>
+              <mat-radio-button value="2" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">2</span>
+                  <span class="radio-text">Unterdurchschnittlich</span>
+                </div>
+              </mat-radio-button>
+              <mat-radio-button value="3" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">3</span>
+                  <span class="radio-text">Durchschnittlich</span>
+                </div>
+              </mat-radio-button>
+              <mat-radio-button value="4" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">4</span>
+                  <span class="radio-text">Überdurchschnittlich</span>
+                </div>
+              </mat-radio-button>
+              <mat-radio-button value="5" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">5</span>
+                  <span class="radio-text">Hochdimensionale, integrative Analysen.</span>
+                </div>
+              </mat-radio-button>
+            </mat-radio-group>
           </div>
 
           <div class="form-group">
-            <label class="form-label">Empfehlungskomplexität *</label>
-            <div class="slider-container">
-              <mat-slider formControlName="recommendationComplexity" min="1" max="5" step="1" discrete [displayWith]="formatLabel">
-                <input matSliderThumb>
-              </mat-slider>
-              <div class="slider-labels">
-                <span>1 - Einfache, generische Vorschläge</span>
-                <span>5 - Detaillierte, umsetzungsfähige Handlungspläne</span>
-              </div>
-            </div>
-            <mat-icon matTooltip="Umfang der Vorschläge oder Handlungspläne">info</mat-icon>
+            <label class="form-label">Empfehlungskomplexität (Umfang der Vorschläge oder Handlungspläne.) *</label>
+            <mat-radio-group formControlName="recommendationComplexity" class="radio-group">
+              <mat-radio-button value="1" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">1</span>
+                  <span class="radio-text">Einfache, generische Vorschläge.</span>
+                </div>
+              </mat-radio-button>
+              <mat-radio-button value="2" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">2</span>
+                  <span class="radio-text">Unterdurchschnittlich</span>
+                </div>
+              </mat-radio-button>
+              <mat-radio-button value="3" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">3</span>
+                  <span class="radio-text">Durchschnittlich</span>
+                </div>
+              </mat-radio-button>
+              <mat-radio-button value="4" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">4</span>
+                  <span class="radio-text">Überdurchschnittlich</span>
+                </div>
+              </mat-radio-button>
+              <mat-radio-button value="5" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">5</span>
+                  <span class="radio-text">Detaillierte, umsetzungsfähige Handlungspläne.</span>
+                </div>
+              </mat-radio-button>
+            </mat-radio-group>
           </div>
 
           <div class="form-group">
-            <label class="form-label">Integration von Leitlinien *</label>
-            <div class="slider-container">
-              <mat-slider formControlName="guidelineIntegration" min="1" max="5" step="1" discrete [displayWith]="formatLabel">
-                <input matSliderThumb>
-              </mat-slider>
-              <div class="slider-labels">
-                <span>1 - Keine Berücksichtigung von Leitlinien</span>
-                <span>5 - Vollständige Integration aktueller Leitlinien</span>
-              </div>
-            </div>
-            <mat-icon matTooltip="Umfang der Einbindung medizinischer Standards">info</mat-icon>
+            <label class="form-label">Integration von Leitlinien (Umfang der Einbindung medizinischer Standards.) *</label>
+            <mat-radio-group formControlName="guidelineIntegration" class="radio-group">
+              <mat-radio-button value="1" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">1</span>
+                  <span class="radio-text">Keine Berücksichtigung von Leitlinien.</span>
+                </div>
+              </mat-radio-button>
+              <mat-radio-button value="2" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">2</span>
+                  <span class="radio-text">Unterdurchschnittlich</span>
+                </div>
+              </mat-radio-button>
+              <mat-radio-button value="3" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">3</span>
+                  <span class="radio-text">Durchschnittlich</span>
+                </div>
+              </mat-radio-button>
+              <mat-radio-button value="4" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">4</span>
+                  <span class="radio-text">Überdurchschnittlich</span>
+                </div>
+              </mat-radio-button>
+              <mat-radio-button value="5" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">5</span>
+                  <span class="radio-text">Vollständige Integration aktueller Leitlinien.</span>
+                </div>
+              </mat-radio-button>
+            </mat-radio-group>
           </div>
 
           <div class="form-group">
-            <label class="form-label">Patientenspezifische Individualisierung *</label>
-            <div class="slider-container">
-              <mat-slider formControlName="patientSpecificIndividualization" min="1" max="5" step="1" discrete [displayWith]="formatLabel">
-                <input matSliderThumb>
-              </mat-slider>
-              <div class="slider-labels">
-                <span>1 - Keine Individualisierung</span>
-                <span>5 - Höchstgradig patientenspezifische Analysen</span>
-              </div>
-            </div>
-            <mat-icon matTooltip="Berücksichtigung individueller Patientenmerkmale">info</mat-icon>
+            <label class="form-label">Patientenspezifische Individualisierung (Berücksichtigung individueller Patientenmerkmale.) *</label>
+            <mat-radio-group formControlName="patientSpecificIndividualization" class="radio-group">
+              <mat-radio-button value="1" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">1</span>
+                  <span class="radio-text">Keine Individualisierung.</span>
+                </div>
+              </mat-radio-button>
+              <mat-radio-button value="2" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">2</span>
+                  <span class="radio-text">Unterdurchschnittlich</span>
+                </div>
+              </mat-radio-button>
+              <mat-radio-button value="3" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">3</span>
+                  <span class="radio-text">Durchschnittlich</span>
+                </div>
+              </mat-radio-button>
+              <mat-radio-button value="4" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">4</span>
+                  <span class="radio-text">Überdurchschnittlich</span>
+                </div>
+              </mat-radio-button>
+              <mat-radio-button value="5" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">5</span>
+                  <span class="radio-text">Höchstgradig patientenspezifische Analysen.</span>
+                </div>
+              </mat-radio-button>
+            </mat-radio-group>
           </div>
         </div>
 
