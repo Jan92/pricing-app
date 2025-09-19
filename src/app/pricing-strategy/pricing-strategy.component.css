@@ -1256,6 +1256,7 @@
   flex-direction: column;
   gap: 8px;
   margin: 10px 0;
+  width: 100%;
 }
 
 .radio-option {
@@ -1263,7 +1264,10 @@
   border-radius: 6px;
   padding: 12px;
   transition: all 0.2s ease;
-  margin: 0;
+  margin: 0 !important;
+  width: 100%;
+  display: block;
+  position: relative;
 }
 
 .radio-option:hover {
@@ -1276,34 +1280,60 @@
   border-color: #1976d2;
 }
 
+/* Angular Material Radio Button Override */
+.radio-option .mat-radio-button {
+  width: 100%;
+  display: block;
+}
+
+.radio-option .mat-radio-container {
+  display: none !important;
+}
+
+.radio-option .mat-radio-label {
+  width: 100%;
+  padding-left: 0 !important;
+}
+
+.radio-option .mat-radio-label-content {
+  width: 100%;
+  padding-left: 0 !important;
+}
+
 .radio-content {
   display: flex;
   align-items: center;
   gap: 12px;
+  width: 100%;
+  cursor: pointer;
+  pointer-events: none;
 }
 
 .radio-value {
   background: #1976d2;
   color: white;
-  width: 24px;
-  height: 24px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: bold;
-  font-size: 0.9em;
+  font-size: 1em;
   flex-shrink: 0;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .radio-option.mat-radio-checked .radio-value {
   background: #0d47a1;
+  box-shadow: 0 2px 6px rgba(13,71,161,0.3);
 }
 
 .radio-text {
   flex: 1;
   font-size: 0.95em;
   line-height: 1.4;
+  color: #333;
 }
 
 /* Responsive Anpassungen für Radio-Buttons */
@@ -1317,13 +1347,13 @@
   }
   
   .radio-content {
-    gap: 8px;
+    gap: 10px;
   }
   
   .radio-value {
-    width: 20px;
-    height: 20px;
-    font-size: 0.8em;
+    width: 24px;
+    height: 24px;
+    font-size: 0.9em;
   }
   
   .radio-text {
