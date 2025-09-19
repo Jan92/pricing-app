@@ -162,12 +162,12 @@
     </mat-card>
   </div>
 
-  <!-- Phase 2: Technische Komplexität -->
+  <!-- Phase 2: Komplexität -->
   <div class="phase" *ngIf="currentPhase === 1">
     <mat-card class="strategy-card">
       <mat-card-header>
-        <mat-card-title>Technische Komplexität</mat-card-title>
-        <mat-card-subtitle>Mehrdimensionale Bewertung der technischen Aspekte Ihres Systems</mat-card-subtitle>
+        <mat-card-title>Komplexität</mat-card-title>
+        <mat-card-subtitle>Mehrdimensionale Bewertung der Komplexität Ihres Systems</mat-card-subtitle>
       </mat-card-header>
       <mat-card-content [formGroup]="pricingForm">
         <div class="form-group">
@@ -1039,10 +1039,10 @@
                 </div>
                 <div class="score-breakdown">
                   <small>
-                    <strong>1. Datenkomplexität:</strong> {{ (pricingForm.get('dataSourceDiversity')?.value || 3) + (pricingForm.get('dataIntegrity')?.value || 3) + (pricingForm.get('dataComplexity')?.value || 3) + (pricingForm.get('dataLinking')?.value || 3) + (pricingForm.get('dataVolume')?.value || 3) }}/25<br>
-                    <strong>2. Erkrankungskomplexität:</strong> {{ (pricingForm.get('diseaseRarity')?.value || 3) + (pricingForm.get('diagnosticAmbiguity')?.value || 3) + (pricingForm.get('prognosticUncertainty')?.value || 3) + (pricingForm.get('multimorbidity')?.value || 3) + (pricingForm.get('diseaseSeverity')?.value || 3) }}/25<br>
-                    <strong>3. Fragestellungskomplexität:</strong> {{ (pricingForm.get('differentialDiagnosticDepth')?.value || 3) + (pricingForm.get('prognosticPrecision')?.value || 3) + (pricingForm.get('realTimeRequirement')?.value || 3) + (pricingForm.get('interdisciplinaryRelevance')?.value || 3) + (pricingForm.get('dynamicAdaptability')?.value || 3) }}/25<br>
-                    <strong>4. KI-Unterstützung:</strong> {{ (pricingForm.get('automationLevel')?.value || 3) + (pricingForm.get('analysisDepth')?.value || 3) + (pricingForm.get('recommendationComplexity')?.value || 3) + (pricingForm.get('guidelineIntegration')?.value || 3) + (pricingForm.get('patientSpecificIndividualization')?.value || 3) }}/25
+                    <strong>1. Datenkomplexität und -vielfalt:</strong> {{ (pricingForm.get('dataSourceDiversity')?.value || 3) + (pricingForm.get('dataIntegrity')?.value || 3) + (pricingForm.get('dataComplexity')?.value || 3) + (pricingForm.get('dataLinking')?.value || 3) + (pricingForm.get('dataVolume')?.value || 3) }}/25<br>
+                    <strong>2. Komplexität der Erkrankung:</strong> {{ (pricingForm.get('diseaseRarity')?.value || 3) + (pricingForm.get('diagnosticAmbiguity')?.value || 3) + (pricingForm.get('prognosticUncertainty')?.value || 3) + (pricingForm.get('multimorbidity')?.value || 3) + (pricingForm.get('diseaseSeverity')?.value || 3) }}/25<br>
+                    <strong>3. Schwierigkeitsgrad der Fragestellung:</strong> {{ (pricingForm.get('differentialDiagnosticDepth')?.value || 3) + (pricingForm.get('prognosticPrecision')?.value || 3) + (pricingForm.get('realTimeRequirement')?.value || 3) + (pricingForm.get('interdisciplinaryRelevance')?.value || 3) + (pricingForm.get('dynamicAdaptability')?.value || 3) }}/25<br>
+                    <strong>4. Ausmaß der KI-Unterstützung:</strong> {{ (pricingForm.get('automationLevel')?.value || 3) + (pricingForm.get('analysisDepth')?.value || 3) + (pricingForm.get('recommendationComplexity')?.value || 3) + (pricingForm.get('guidelineIntegration')?.value || 3) + (pricingForm.get('patientSpecificIndividualization')?.value || 3) }}/25
                   </small>
                 </div>
               </mat-card-content>
