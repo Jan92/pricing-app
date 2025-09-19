@@ -236,82 +236,240 @@
           </mat-error>
         </div>
 
-        <!-- 5-dimensionale Komplexitätsbewertung -->
+        <!-- Komplexitätsbewertung - Eingabemethode -->
         <mat-divider style="margin: 20px 0;"></mat-divider>
-        <h3>5-dimensionale Komplexitätsbewertung</h3>
-        <p class="complexity-description">Bewerten Sie die folgenden Aspekte auf einer Skala von 1 (niedrig) bis 5 (hoch):</p>
+        <h3>Komplexitätsbewertung</h3>
+        
+        <!-- Eingabemethode wählen -->
+        <div class="form-group">
+          <label class="form-label">Wie möchten Sie die Komplexität bewerten? *</label>
+          <mat-radio-group formControlName="complexityInputMethod" class="input-method-group">
+            <mat-radio-button value="detailed" class="input-method-option">
+              <div class="option-content">
+                <strong>Detaillierte Bewertung</strong>
+                <small>Alle 20 Kriterien einzeln bewerten (wie in der AI-Score Berechnung)</small>
+              </div>
+            </mat-radio-button>
+            <mat-radio-button value="direct" class="input-method-option">
+              <div class="option-content">
+                <strong>Direkte Score-Eingabe</strong>
+                <small>AI-Score direkt eingeben (z.B. aus vorheriger Berechnung)</small>
+              </div>
+            </mat-radio-button>
+          </mat-radio-group>
+        </div>
+
+        <!-- Direkte Score-Eingabe -->
+        <div *ngIf="pricingForm.get('complexityInputMethod')?.value === 'direct'" class="direct-score-section">
+          <div class="form-group">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>AI-Score (20-100) *</mat-label>
+              <input matInput type="number" formControlName="directComplexityScore" min="20" max="100" required>
+              <mat-icon matSuffix matTooltip="Geben Sie den bereits berechneten AI-Score ein">info</mat-icon>
+              <mat-error *ngIf="pricingForm.get('directComplexityScore')?.invalid && pricingForm.get('directComplexityScore')?.touched">
+                Bitte geben Sie einen gültigen Score zwischen 20 und 100 ein
+              </mat-error>
+            </mat-form-field>
+          </div>
+          
+          <!-- Score-Anzeige -->
+          <div class="score-preview">
+            <mat-card class="feedback-card">
+              <mat-card-content>
+                <div class="score-display">
+                  <div class="score-value">{{ calculateComplexityScore() }}/100</div>
+                  <div class="score-level" [class]="getComplexityLevel()">{{ getComplexityLevel() | titlecase }}</div>
+                </div>
+              </mat-card-content>
+            </mat-card>
+          </div>
+        </div>
+
+        <!-- Detaillierte Bewertung -->
+        <div *ngIf="pricingForm.get('complexityInputMethod')?.value === 'detailed'">
+          <p class="complexity-description">Bewerten Sie die folgenden Aspekte auf einer Skala von 1 (niedrig) bis 5 (hoch):</p>
 
         <!-- 1. Datenkomplexität und -vielfalt -->
         <h4>1. Datenkomplexität und -vielfalt</h4>
         <div class="complexity-grid">
           <div class="form-group">
-            <label class="form-label">Datenquellenvielfalt *</label>
-            <div class="slider-container">
-              <mat-slider formControlName="dataSourceDiversity" min="1" max="5" step="1" discrete [displayWith]="formatLabel">
-                <input matSliderThumb>
-              </mat-slider>
-              <div class="slider-labels">
-                <span>1 - Nur ein Datentyp (z.B. Labordaten)</span>
-                <span>5 - Fünf oder mehr Datentypen (z.B. Bild-, Text-, und Genomdaten)</span>
-              </div>
-            </div>
-            <mat-icon matTooltip="Anzahl der genutzten Datentypen">info</mat-icon>
+            <label class="form-label">Datenquellenvielfalt (Anzahl der genutzten Datentypen.) *</label>
+            <mat-radio-group formControlName="dataSourceDiversity" class="radio-group">
+              <mat-radio-button value="1" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">1</span>
+                  <span class="radio-text">Nur ein Datentyp (z.B. Labordaten).</span>
+                </div>
+              </mat-radio-button>
+              <mat-radio-button value="2" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">2</span>
+                  <span class="radio-text">Unterdurchschnittlich</span>
+                </div>
+              </mat-radio-button>
+              <mat-radio-button value="3" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">3</span>
+                  <span class="radio-text">Durchschnittlich</span>
+                </div>
+              </mat-radio-button>
+              <mat-radio-button value="4" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">4</span>
+                  <span class="radio-text">Überdurchschnittlich</span>
+                </div>
+              </mat-radio-button>
+              <mat-radio-button value="5" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">5</span>
+                  <span class="radio-text">Fünf oder mehr Datentypen (z.B. Bild-, Text-, und Genomdaten).</span>
+                </div>
+              </mat-radio-button>
+            </mat-radio-group>
           </div>
 
           <div class="form-group">
-            <label class="form-label">Datenintegrität *</label>
-            <div class="slider-container">
-              <mat-slider formControlName="dataIntegrity" min="1" max="5" step="1" discrete [displayWith]="formatLabel">
-                <input matSliderThumb>
-              </mat-slider>
-              <div class="slider-labels">
-                <span>1 - Nur ein Teil der Eingangsdaten kann verarbeitet werden</span>
-                <span>5 - Daten sind nahezu vollständig und konsistent verarbeitbar</span>
-              </div>
-            </div>
-            <mat-icon matTooltip="Grad der Vollständigkeit und Konsistenz der verarbeitbaren Eingangsdaten">info</mat-icon>
+            <label class="form-label">Datenintegrität (Grad der Vollständigkeit und Konsistenz der verarbeitbaren Eingangsdaten.) *</label>
+            <mat-radio-group formControlName="dataIntegrity" class="radio-group">
+              <mat-radio-button value="1" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">1</span>
+                  <span class="radio-text">Nur ein Teil der Eingangsdaten kann verarbeitet werden.</span>
+                </div>
+              </mat-radio-button>
+              <mat-radio-button value="2" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">2</span>
+                  <span class="radio-text">Unterdurchschnittlich</span>
+                </div>
+              </mat-radio-button>
+              <mat-radio-button value="3" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">3</span>
+                  <span class="radio-text">Durchschnittlich</span>
+                </div>
+              </mat-radio-button>
+              <mat-radio-button value="4" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">4</span>
+                  <span class="radio-text">Überdurchschnittlich</span>
+                </div>
+              </mat-radio-button>
+              <mat-radio-button value="5" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">5</span>
+                  <span class="radio-text">Daten sind nahezu vollständig und konsistent verarbeitbar.</span>
+                </div>
+              </mat-radio-button>
+            </mat-radio-group>
           </div>
 
           <div class="form-group">
-            <label class="form-label">Datenkomplexität *</label>
-            <div class="slider-container">
-              <mat-slider formControlName="dataComplexity" min="1" max="5" step="1" discrete [displayWith]="formatLabel">
-                <input matSliderThumb>
-              </mat-slider>
-              <div class="slider-labels">
-                <span>1 - Strukturiert, leicht interpretierbar (z.B. numerische Labordaten)</span>
-                <span>5 - Unstrukturierte oder hochkomplexe Daten (z.B. freier Text oder verrauschte Daten)</span>
-              </div>
-            </div>
-            <mat-icon matTooltip="Schwierigkeitsgrad bei der Interpretation der Daten">info</mat-icon>
+            <label class="form-label">Datenkomplexität (Schwierigkeitsgrad bei der Interpretation der Daten.) *</label>
+            <mat-radio-group formControlName="dataComplexity" class="radio-group">
+              <mat-radio-button value="1" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">1</span>
+                  <span class="radio-text">Strukturiert, leicht interpretierbar (z.B. numerische Labordaten).</span>
+                </div>
+              </mat-radio-button>
+              <mat-radio-button value="2" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">2</span>
+                  <span class="radio-text">Unterdurchschnittlich</span>
+                </div>
+              </mat-radio-button>
+              <mat-radio-button value="3" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">3</span>
+                  <span class="radio-text">Durchschnittlich</span>
+                </div>
+              </mat-radio-button>
+              <mat-radio-button value="4" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">4</span>
+                  <span class="radio-text">Überdurchschnittlich</span>
+                </div>
+              </mat-radio-button>
+              <mat-radio-button value="5" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">5</span>
+                  <span class="radio-text">Unstrukturierte oder hochkomplexe Daten (z.B. freier Text oder verrauschte Daten).</span>
+                </div>
+              </mat-radio-button>
+            </mat-radio-group>
           </div>
 
           <div class="form-group">
-            <label class="form-label">Datenverknüpfung *</label>
-            <div class="slider-container">
-              <mat-slider formControlName="dataLinking" min="1" max="5" step="1" discrete [displayWith]="formatLabel">
-                <input matSliderThumb>
-              </mat-slider>
-              <div class="slider-labels">
-                <span>1 - Keine Verknüpfung unterschiedlicher Quellen</span>
-                <span>5 - Vollständig integrierte Analyse aus mehreren Quellen</span>
-              </div>
-            </div>
-            <mat-icon matTooltip="Fähigkeit, mehrere Datenquellen in einer Analyse zu kombinieren">info</mat-icon>
+            <label class="form-label">Datenverknüpfung (Fähigkeit, mehrere Datenquellen in einer Analyse zu kombinieren.) *</label>
+            <mat-radio-group formControlName="dataLinking" class="radio-group">
+              <mat-radio-button value="1" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">1</span>
+                  <span class="radio-text">Keine Verknüpfung unterschiedlicher Quellen.</span>
+                </div>
+              </mat-radio-button>
+              <mat-radio-button value="2" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">2</span>
+                  <span class="radio-text">Unterdurchschnittlich</span>
+                </div>
+              </mat-radio-button>
+              <mat-radio-button value="3" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">3</span>
+                  <span class="radio-text">Durchschnittlich</span>
+                </div>
+              </mat-radio-button>
+              <mat-radio-button value="4" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">4</span>
+                  <span class="radio-text">Überdurchschnittlich</span>
+                </div>
+              </mat-radio-button>
+              <mat-radio-button value="5" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">5</span>
+                  <span class="radio-text">Vollständig integrierte Analyse aus mehreren Quellen.</span>
+                </div>
+              </mat-radio-button>
+            </mat-radio-group>
           </div>
 
           <div class="form-group">
-            <label class="form-label">Datenvolumen *</label>
-            <div class="slider-container">
-              <mat-slider formControlName="dataVolume" min="1" max="5" step="1" discrete [displayWith]="formatLabel">
-                <input matSliderThumb>
-              </mat-slider>
-              <div class="slider-labels">
-                <span>1 - Gering (z.B. ein einzelner Parameter)</span>
-                <span>5 - Sehr groß (z.B. Millionen von Parametern pro Patient)</span>
-              </div>
-            </div>
-            <mat-icon matTooltip="Menge der Daten pro Analyse">info</mat-icon>
+            <label class="form-label">Datenvolumen (Menge der Daten pro Analyse.) *</label>
+            <mat-radio-group formControlName="dataVolume" class="radio-group">
+              <mat-radio-button value="1" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">1</span>
+                  <span class="radio-text">Gering (z.B. ein einzelner Parameter).</span>
+                </div>
+              </mat-radio-button>
+              <mat-radio-button value="2" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">2</span>
+                  <span class="radio-text">Unterdurchschnittlich</span>
+                </div>
+              </mat-radio-button>
+              <mat-radio-button value="3" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">3</span>
+                  <span class="radio-text">Durchschnittlich</span>
+                </div>
+              </mat-radio-button>
+              <mat-radio-button value="4" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">4</span>
+                  <span class="radio-text">Überdurchschnittlich</span>
+                </div>
+              </mat-radio-button>
+              <mat-radio-button value="5" class="radio-option">
+                <div class="radio-content">
+                  <span class="radio-value">5</span>
+                  <span class="radio-text">Sehr groß (z.B. Millionen von Parametern pro Patient).</span>
+                </div>
+              </mat-radio-button>
+            </mat-radio-group>
           </div>
         </div>
 
@@ -537,28 +695,29 @@
           </div>
         </div>
 
-        <!-- Komplexitäts-Score Live-Feedback -->
-        <div class="complexity-feedback">
-          <mat-card class="feedback-card">
-            <mat-card-header>
-              <mat-card-title>Komplexitäts-Score</mat-card-title>
-              <mat-card-subtitle>Gesamtbewertung der technischen Komplexität</mat-card-subtitle>
-            </mat-card-header>
-            <mat-card-content>
-              <div class="score-display">
-                <div class="score-value">{{ calculateComplexityScore() }}/100</div>
-                <div class="score-level" [class]="getComplexityLevel()">{{ getComplexityLevel() | titlecase }}</div>
-              </div>
-              <div class="score-breakdown">
-                <small>
-                  <strong>1. Datenkomplexität:</strong> {{ (pricingForm.get('dataSourceDiversity')?.value || 3) + (pricingForm.get('dataIntegrity')?.value || 3) + (pricingForm.get('dataComplexity')?.value || 3) + (pricingForm.get('dataLinking')?.value || 3) + (pricingForm.get('dataVolume')?.value || 3) }}/25<br>
-                  <strong>2. Erkrankungskomplexität:</strong> {{ (pricingForm.get('diseaseRarity')?.value || 3) + (pricingForm.get('diagnosticAmbiguity')?.value || 3) + (pricingForm.get('prognosticUncertainty')?.value || 3) + (pricingForm.get('multimorbidity')?.value || 3) + (pricingForm.get('diseaseSeverity')?.value || 3) }}/25<br>
-                  <strong>3. Fragestellungskomplexität:</strong> {{ (pricingForm.get('differentialDiagnosticDepth')?.value || 3) + (pricingForm.get('prognosticPrecision')?.value || 3) + (pricingForm.get('realTimeRequirement')?.value || 3) + (pricingForm.get('interdisciplinaryRelevance')?.value || 3) + (pricingForm.get('dynamicAdaptability')?.value || 3) }}/25<br>
-                  <strong>4. KI-Unterstützung:</strong> {{ (pricingForm.get('automationLevel')?.value || 3) + (pricingForm.get('analysisDepth')?.value || 3) + (pricingForm.get('recommendationComplexity')?.value || 3) + (pricingForm.get('guidelineIntegration')?.value || 3) + (pricingForm.get('patientSpecificIndividualization')?.value || 3) }}/25
-                </small>
-              </div>
-            </mat-card-content>
-          </mat-card>
+          <!-- Komplexitäts-Score Live-Feedback -->
+          <div class="complexity-feedback">
+            <mat-card class="feedback-card">
+              <mat-card-header>
+                <mat-card-title>Komplexitäts-Score</mat-card-title>
+                <mat-card-subtitle>Gesamtbewertung der technischen Komplexität</mat-card-subtitle>
+              </mat-card-header>
+              <mat-card-content>
+                <div class="score-display">
+                  <div class="score-value">{{ calculateComplexityScore() }}/100</div>
+                  <div class="score-level" [class]="getComplexityLevel()">{{ getComplexityLevel() | titlecase }}</div>
+                </div>
+                <div class="score-breakdown">
+                  <small>
+                    <strong>1. Datenkomplexität:</strong> {{ (pricingForm.get('dataSourceDiversity')?.value || 3) + (pricingForm.get('dataIntegrity')?.value || 3) + (pricingForm.get('dataComplexity')?.value || 3) + (pricingForm.get('dataLinking')?.value || 3) + (pricingForm.get('dataVolume')?.value || 3) }}/25<br>
+                    <strong>2. Erkrankungskomplexität:</strong> {{ (pricingForm.get('diseaseRarity')?.value || 3) + (pricingForm.get('diagnosticAmbiguity')?.value || 3) + (pricingForm.get('prognosticUncertainty')?.value || 3) + (pricingForm.get('multimorbidity')?.value || 3) + (pricingForm.get('diseaseSeverity')?.value || 3) }}/25<br>
+                    <strong>3. Fragestellungskomplexität:</strong> {{ (pricingForm.get('differentialDiagnosticDepth')?.value || 3) + (pricingForm.get('prognosticPrecision')?.value || 3) + (pricingForm.get('realTimeRequirement')?.value || 3) + (pricingForm.get('interdisciplinaryRelevance')?.value || 3) + (pricingForm.get('dynamicAdaptability')?.value || 3) }}/25<br>
+                    <strong>4. KI-Unterstützung:</strong> {{ (pricingForm.get('automationLevel')?.value || 3) + (pricingForm.get('analysisDepth')?.value || 3) + (pricingForm.get('recommendationComplexity')?.value || 3) + (pricingForm.get('guidelineIntegration')?.value || 3) + (pricingForm.get('patientSpecificIndividualization')?.value || 3) }}/25
+                  </small>
+                </div>
+              </mat-card-content>
+            </mat-card>
+          </div>
         </div>
       </mat-card-content>
     </mat-card>

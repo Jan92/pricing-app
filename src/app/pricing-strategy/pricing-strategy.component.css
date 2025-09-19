@@ -1195,3 +1195,138 @@
     page-break-inside: avoid;
   }
 }
+
+/* Eingabemethode für Komplexität */
+.input-method-group {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin: 15px 0;
+}
+
+.input-method-option {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 15px;
+  transition: all 0.3s ease;
+}
+
+.input-method-option:hover {
+  background: #f5f5f5;
+  border-color: #1976d2;
+}
+
+.input-method-option.mat-radio-checked {
+  background: #e3f2fd;
+  border-color: #1976d2;
+}
+
+.option-content {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.option-content strong {
+  color: #1976d2;
+  font-size: 1.1em;
+}
+
+.option-content small {
+  color: #666;
+  font-size: 0.9em;
+}
+
+/* Direkte Score-Eingabe */
+.direct-score-section {
+  margin: 20px 0;
+  padding: 20px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+}
+
+.score-preview {
+  margin-top: 15px;
+}
+
+/* Radio-Button Gruppen */
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 10px 0;
+}
+
+.radio-option {
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  padding: 12px;
+  transition: all 0.2s ease;
+  margin: 0;
+}
+
+.radio-option:hover {
+  background: #f5f5f5;
+  border-color: #1976d2;
+}
+
+.radio-option.mat-radio-checked {
+  background: #e3f2fd;
+  border-color: #1976d2;
+}
+
+.radio-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.radio-value {
+  background: #1976d2;
+  color: white;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 0.9em;
+  flex-shrink: 0;
+}
+
+.radio-option.mat-radio-checked .radio-value {
+  background: #0d47a1;
+}
+
+.radio-text {
+  flex: 1;
+  font-size: 0.95em;
+  line-height: 1.4;
+}
+
+/* Responsive Anpassungen für Radio-Buttons */
+@media (max-width: 768px) {
+  .radio-group {
+    gap: 6px;
+  }
+  
+  .radio-option {
+    padding: 10px;
+  }
+  
+  .radio-content {
+    gap: 8px;
+  }
+  
+  .radio-value {
+    width: 20px;
+    height: 20px;
+    font-size: 0.8em;
+  }
+  
+  .radio-text {
+    font-size: 0.9em;
+  }
+}

@@ -74,31 +74,35 @@ export class PricingStrategyComponent implements OnInit {
         // Schritt 2: Technische Komplexität (erweitert)
         measurability: ['', Validators.required],
         inferenceCosts: ['', Validators.required],
-        // 5-dimensionale Komplexitätsbewertung (20 Unterkriterien)
+        // Komplexitätsbewertung - Eingabemethode
+        complexityInputMethod: ['detailed', Validators.required], // 'detailed' oder 'direct'
+        directComplexityScore: [60, [Validators.min(20), Validators.max(100)]], // Direkte Score-Eingabe
+        
+        // 5-dimensionale Komplexitätsbewertung (20 Unterkriterien) - nur bei detaillierter Eingabe
         // 1. Datenkomplexität und -vielfalt
-        dataSourceDiversity: [3, [Validators.required, Validators.min(1), Validators.max(5)]],
-        dataIntegrity: [3, [Validators.required, Validators.min(1), Validators.max(5)]],
-        dataComplexity: [3, [Validators.required, Validators.min(1), Validators.max(5)]],
-        dataLinking: [3, [Validators.required, Validators.min(1), Validators.max(5)]],
-        dataVolume: [3, [Validators.required, Validators.min(1), Validators.max(5)]],
+        dataSourceDiversity: [3, [Validators.min(1), Validators.max(5)]],
+        dataIntegrity: [3, [Validators.min(1), Validators.max(5)]],
+        dataComplexity: [3, [Validators.min(1), Validators.max(5)]],
+        dataLinking: [3, [Validators.min(1), Validators.max(5)]],
+        dataVolume: [3, [Validators.min(1), Validators.max(5)]],
         // 2. Komplexität der Erkrankung
-        diseaseRarity: [3, [Validators.required, Validators.min(1), Validators.max(5)]],
-        diagnosticAmbiguity: [3, [Validators.required, Validators.min(1), Validators.max(5)]],
-        prognosticUncertainty: [3, [Validators.required, Validators.min(1), Validators.max(5)]],
-        multimorbidity: [3, [Validators.required, Validators.min(1), Validators.max(5)]],
-        diseaseSeverity: [3, [Validators.required, Validators.min(1), Validators.max(5)]],
+        diseaseRarity: [3, [Validators.min(1), Validators.max(5)]],
+        diagnosticAmbiguity: [3, [Validators.min(1), Validators.max(5)]],
+        prognosticUncertainty: [3, [Validators.min(1), Validators.max(5)]],
+        multimorbidity: [3, [Validators.min(1), Validators.max(5)]],
+        diseaseSeverity: [3, [Validators.min(1), Validators.max(5)]],
         // 3. Schwierigkeitsgrad der Fragestellung
-        differentialDiagnosticDepth: [3, [Validators.required, Validators.min(1), Validators.max(5)]],
-        prognosticPrecision: [3, [Validators.required, Validators.min(1), Validators.max(5)]],
-        realTimeRequirement: [3, [Validators.required, Validators.min(1), Validators.max(5)]],
-        interdisciplinaryRelevance: [3, [Validators.required, Validators.min(1), Validators.max(5)]],
-        dynamicAdaptability: [3, [Validators.required, Validators.min(1), Validators.max(5)]],
+        differentialDiagnosticDepth: [3, [Validators.min(1), Validators.max(5)]],
+        prognosticPrecision: [3, [Validators.min(1), Validators.max(5)]],
+        realTimeRequirement: [3, [Validators.min(1), Validators.max(5)]],
+        interdisciplinaryRelevance: [3, [Validators.min(1), Validators.max(5)]],
+        dynamicAdaptability: [3, [Validators.min(1), Validators.max(5)]],
         // 4. Ausmaß der KI-Unterstützung
-        automationLevel: [3, [Validators.required, Validators.min(1), Validators.max(5)]],
-        analysisDepth: [3, [Validators.required, Validators.min(1), Validators.max(5)]],
-        recommendationComplexity: [3, [Validators.required, Validators.min(1), Validators.max(5)]],
-        guidelineIntegration: [3, [Validators.required, Validators.min(1), Validators.max(5)]],
-        patientSpecificIndividualization: [3, [Validators.required, Validators.min(1), Validators.max(5)]],
+        automationLevel: [3, [Validators.min(1), Validators.max(5)]],
+        analysisDepth: [3, [Validators.min(1), Validators.max(5)]],
+        recommendationComplexity: [3, [Validators.min(1), Validators.max(5)]],
+        guidelineIntegration: [3, [Validators.min(1), Validators.max(5)]],
+        patientSpecificIndividualization: [3, [Validators.min(1), Validators.max(5)]],
       
       // Schritt 3: Markt & Wettbewerb (erweitert)
       sector: ['', Validators.required],
@@ -155,7 +159,14 @@ export class PricingStrategyComponent implements OnInit {
 
   calculateComplexityScore(): number {
     const formValue = this.pricingForm.value;
+    const inputMethod = formValue.complexityInputMethod;
     
+    // Direkte Score-Eingabe
+    if (inputMethod === 'direct') {
+      return formValue.directComplexityScore || 60;
+    }
+    
+    // Detaillierte Bewertung (5 Dimensionen, 20 Unterkriterien)
     // 1. Datenkomplexität und -vielfalt (5 Kriterien)
     const dataSourceDiversity = formValue.dataSourceDiversity || 3;
     const dataIntegrity = formValue.dataIntegrity || 3;
@@ -477,6 +488,8 @@ export class PricingStrategyComponent implements OnInit {
       amortizationPeriod: 'Amortisierungszeitraum (Jahre)',
       measurability: 'Messbarkeit des Nutzens',
       inferenceCosts: 'AI-Inferenzkosten',
+      complexityInputMethod: 'Eingabemethode für Komplexitätsbewertung',
+      directComplexityScore: 'Direkter AI-Score',
       // 1. Datenkomplexität und -vielfalt
       dataSourceDiversity: 'Datenquellenvielfalt',
       dataIntegrity: 'Datenintegrität',
@@ -528,16 +541,28 @@ export class PricingStrategyComponent implements OnInit {
     // Definiere die Formularfelder für jede Phase
     const phaseControls = {
       0: ['systemName', 'autonomy', 'developmentCosts', 'costPerUsage', 'maintenanceCosts', 'expectedCasesPerYear', 'amortizationPeriod'],
-      1: ['measurability', 'inferenceCosts', 'dataSourceDiversity', 'dataIntegrity', 'dataComplexity', 'dataLinking', 'dataVolume',
-          'diseaseRarity', 'diagnosticAmbiguity', 'prognosticUncertainty', 'multimorbidity', 'diseaseSeverity',
-          'differentialDiagnosticDepth', 'prognosticPrecision', 'realTimeRequirement', 'interdisciplinaryRelevance', 'dynamicAdaptability',
-          'automationLevel', 'analysisDepth', 'recommendationComplexity', 'guidelineIntegration', 'patientSpecificIndividualization'],
+      1: this.getComplexityPhaseControls(),
       2: ['sector', 'reimbursement', 'competition'],
       3: ['salesEffort', 'implementation', 'customerFencing', 'deploymentType', 'salesChannel'],
       4: ['upgradePath', 'supportIntensity', 'pricingModel']
     };
 
     return phaseControls[this.currentPhase as keyof typeof phaseControls] || [];
+  }
+
+  private getComplexityPhaseControls(): string[] {
+    const baseControls = ['measurability', 'inferenceCosts', 'complexityInputMethod'];
+    const inputMethod = this.pricingForm.get('complexityInputMethod')?.value;
+    
+    if (inputMethod === 'direct') {
+      return [...baseControls, 'directComplexityScore'];
+    } else {
+      // Detaillierte Eingabe - alle 20 Kriterien
+      return [...baseControls, 'dataSourceDiversity', 'dataIntegrity', 'dataComplexity', 'dataLinking', 'dataVolume',
+              'diseaseRarity', 'diagnosticAmbiguity', 'prognosticUncertainty', 'multimorbidity', 'diseaseSeverity',
+              'differentialDiagnosticDepth', 'prognosticPrecision', 'realTimeRequirement', 'interdisciplinaryRelevance', 'dynamicAdaptability',
+              'automationLevel', 'analysisDepth', 'recommendationComplexity', 'guidelineIntegration', 'patientSpecificIndividualization'];
+    }
   }
 
   // Diese Methode wird nicht mehr benötigt, da wir jetzt Angular Forms Validierung verwenden
