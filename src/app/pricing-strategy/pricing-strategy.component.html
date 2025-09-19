@@ -25,7 +25,7 @@
     <mat-card class="strategy-card">
       <mat-card-header>
         <mat-card-title>System-Übersicht</mat-card-title>
-        <mat-card-subtitle>Grundlegende Informationen über Ihr DDSS-System</mat-card-subtitle>
+        <mat-card-subtitle>Grundlegende Informationen über Ihr DDSS-System und Kosteneingaben</mat-card-subtitle>
       </mat-card-header>
       <mat-card-content [formGroup]="pricingForm">
         <div class="form-group">
@@ -70,6 +70,94 @@
             Bitte wählen Sie ein Autonomie-Level
           </mat-error>
         </div>
+
+        <!-- Kosteneingaben -->
+        <mat-divider style="margin: 20px 0;"></mat-divider>
+        <h3>Kosteneingaben</h3>
+        
+        <div class="costs-grid">
+          <div class="form-group">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Entwicklungskosten (einmalig) *</mat-label>
+              <input matInput type="number" formControlName="developmentCosts" required>
+              <span matSuffix>€</span>
+              <mat-icon matSuffix matTooltip="Einmalige Kosten für die Entwicklung des Systems">info</mat-icon>
+              <mat-error *ngIf="pricingForm.get('developmentCosts')?.invalid && pricingForm.get('developmentCosts')?.touched">
+                Bitte geben Sie die Entwicklungskosten ein
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="form-group">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Kosten pro Nutzung *</mat-label>
+              <input matInput type="number" formControlName="costPerUsage" required>
+              <span matSuffix>€</span>
+              <mat-icon matSuffix matTooltip="Variable Kosten pro Analyse (z.B. Cloud-Infrastruktur)">info</mat-icon>
+              <mat-error *ngIf="pricingForm.get('costPerUsage')?.invalid && pricingForm.get('costPerUsage')?.touched">
+                Bitte geben Sie die Kosten pro Nutzung ein
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="form-group">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Wartungs-/Updatekosten (jährlich) *</mat-label>
+              <input matInput type="number" formControlName="maintenanceCosts" required>
+              <span matSuffix>€</span>
+              <mat-icon matSuffix matTooltip="Laufende Kosten für Modellpflege, Support und Updates">info</mat-icon>
+              <mat-error *ngIf="pricingForm.get('maintenanceCosts')?.invalid && pricingForm.get('maintenanceCosts')?.touched">
+                Bitte geben Sie die Wartungskosten ein
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="form-group">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Erwartete Fallzahl pro Jahr *</mat-label>
+              <input matInput type="number" formControlName="expectedCasesPerYear" required>
+              <mat-icon matSuffix matTooltip="Anzahl der erwarteten Analysen pro Jahr für die Amortisierung">info</mat-icon>
+              <mat-error *ngIf="pricingForm.get('expectedCasesPerYear')?.invalid && pricingForm.get('expectedCasesPerYear')?.touched">
+                Bitte geben Sie die erwartete Fallzahl ein
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="form-group">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Amortisierungszeitraum (Jahre) *</mat-label>
+              <input matInput type="number" formControlName="amortizationPeriod" required>
+              <span matSuffix>Jahre</span>
+              <mat-icon matSuffix matTooltip="Zeitraum über den die Entwicklungskosten verteilt werden">info</mat-icon>
+              <mat-error *ngIf="pricingForm.get('amortizationPeriod')?.invalid && pricingForm.get('amortizationPeriod')?.touched">
+                Bitte geben Sie den Amortisierungszeitraum ein
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <!-- Kostenberechnung Live-Feedback -->
+        <div class="cost-calculation" *ngIf="pricingForm.get('developmentCosts')?.value > 0 || pricingForm.get('costPerUsage')?.value > 0">
+          <mat-card class="calculation-card">
+            <mat-card-header>
+              <mat-card-title>Kostenberechnung</mat-card-title>
+              <mat-card-subtitle>Selbstkosten pro Fall</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+              <div class="calculation-result">
+                <span class="result-label">Berechnete Selbstkosten pro Fall:</span>
+                <span class="result-value">{{ calculateCostPerCase() | number:'1.2-2' }} €</span>
+              </div>
+              <div class="calculation-breakdown">
+                <small>
+                  • Amortisierte Entwicklungskosten: {{ (pricingForm.get('developmentCosts')?.value || 0) / ((pricingForm.get('expectedCasesPerYear')?.value || 100) * (pricingForm.get('amortizationPeriod')?.value || 5)) | number:'1.2-2' }} €<br>
+                  • Kosten pro Nutzung: {{ pricingForm.get('costPerUsage')?.value || 0 | number:'1.2-2' }} €<br>
+                  • Wartungskosten pro Fall: {{ (pricingForm.get('maintenanceCosts')?.value || 0) / (pricingForm.get('expectedCasesPerYear')?.value || 100) | number:'1.2-2' }} €
+                </small>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
       </mat-card-content>
     </mat-card>
   </div>
@@ -79,7 +167,7 @@
     <mat-card class="strategy-card">
       <mat-card-header>
         <mat-card-title>Technische Komplexität</mat-card-title>
-        <mat-card-subtitle>Bewerten Sie die technischen Aspekte Ihres Systems</mat-card-subtitle>
+        <mat-card-subtitle>Mehrdimensionale Bewertung der technischen Aspekte Ihres Systems</mat-card-subtitle>
       </mat-card-header>
       <mat-card-content [formGroup]="pricingForm">
         <div class="form-group">
@@ -147,6 +235,117 @@
             Bitte wählen Sie die AI-Inferenzkosten
           </mat-error>
         </div>
+
+        <!-- Mehrdimensionale Komplexitätsbewertung -->
+        <mat-divider style="margin: 20px 0;"></mat-divider>
+        <h3>Mehrdimensionale Komplexitätsbewertung</h3>
+        <p class="complexity-description">Bewerten Sie die folgenden Aspekte auf einer Skala von 1 (niedrig) bis 5 (hoch):</p>
+
+        <div class="complexity-grid">
+          <div class="form-group">
+            <label class="form-label">Datenvielfalt/-qualität *</label>
+            <div class="slider-container">
+              <mat-slider 
+                formControlName="dataDiversity" 
+                min="1" 
+                max="5" 
+                step="1" 
+                discrete 
+                [displayWith]="formatLabel">
+                <input matSliderThumb>
+              </mat-slider>
+              <div class="slider-labels">
+                <span>1 - Sehr homogen/hochwertig</span>
+                <span>5 - Sehr heterogen oder qualitativ schwierig</span>
+              </div>
+            </div>
+            <mat-icon matTooltip="1 = nur ein Datentyp (z.B. nur Laborwerte), 5 = mehrere Datentypen (Bilder, Texte, Genomik) kombiniert">info</mat-icon>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Krankheits-/Fallkomplexität *</label>
+            <div class="slider-container">
+              <mat-slider 
+                formControlName="caseComplexity" 
+                min="1" 
+                max="5" 
+                step="1" 
+                discrete 
+                [displayWith]="formatLabel">
+                <input matSliderThumb>
+              </mat-slider>
+              <div class="slider-labels">
+                <span>1 - Routinefall</span>
+                <span>5 - Extrem selten/schwierig</span>
+              </div>
+            </div>
+            <mat-icon matTooltip="1 = Standard-Routinefälle, 5 = seltene Erkrankungen oder komplexe multimorbide Patienten">info</mat-icon>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Komplexität der klinischen Fragestellung *</label>
+            <div class="slider-container">
+              <mat-slider 
+                formControlName="clinicalQuestionComplexity" 
+                min="1" 
+                max="5" 
+                step="1" 
+                discrete 
+                [displayWith]="formatLabel">
+                <input matSliderThumb>
+              </mat-slider>
+              <div class="slider-labels">
+                <span>1 - Einfache Ja/Nein-Entscheidung</span>
+                <span>5 - Ausgeprägter Entscheidungsbaum</span>
+              </div>
+            </div>
+            <mat-icon matTooltip="1 = einfache binäre Entscheidungen, 5 = komplexe Entscheidungsbäume mit vielen Verzweigungen">info</mat-icon>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">KI-Beteiligungsgrad *</label>
+            <div class="slider-container">
+              <mat-slider 
+                formControlName="aiInvolvementLevel" 
+                min="1" 
+                max="5" 
+                step="1" 
+                discrete 
+                [displayWith]="formatLabel">
+                <input matSliderThumb>
+              </mat-slider>
+              <div class="slider-labels">
+                <span>1 - Nur assistierend</span>
+                <span>5 - Vollautonome Analyse</span>
+              </div>
+            </div>
+            <mat-icon matTooltip="1 = KI unterstützt nur bei der Analyse, 5 = KI führt die komplette Analyse autonom durch">info</mat-icon>
+          </div>
+        </div>
+
+        <!-- Komplexitäts-Score Live-Feedback -->
+        <div class="complexity-feedback">
+          <mat-card class="feedback-card">
+            <mat-card-header>
+              <mat-card-title>Komplexitäts-Score</mat-card-title>
+              <mat-card-subtitle>Gesamtbewertung der technischen Komplexität</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+              <div class="score-display">
+                <div class="score-value">{{ calculateComplexityScore() }}/20</div>
+                <div class="score-level" [class]="getComplexityLevel()">{{ getComplexityLevel() | titlecase }}</div>
+              </div>
+              <div class="score-breakdown">
+                <small>
+                  • Datenvielfalt: {{ pricingForm.get('dataDiversity')?.value || 3 }}/5<br>
+                  • Fallkomplexität: {{ pricingForm.get('caseComplexity')?.value || 3 }}/5<br>
+                  • Klinische Fragestellung: {{ pricingForm.get('clinicalQuestionComplexity')?.value || 3 }}/5<br>
+                  • KI-Beteiligung: {{ pricingForm.get('aiInvolvementLevel')?.value || 3 }}/5
+                </small>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
       </mat-card-content>
     </mat-card>
   </div>
@@ -156,7 +355,7 @@
     <mat-card class="strategy-card">
       <mat-card-header>
         <mat-card-title>Markt & Wettbewerb</mat-card-title>
-        <mat-card-subtitle>Analysieren Sie Ihre Marktposition</mat-card-subtitle>
+        <mat-card-subtitle>Erweiterte Markt- und Wettbewerbsanalyse</mat-card-subtitle>
       </mat-card-header>
       <mat-card-content [formGroup]="pricingForm">
         <div class="form-group">
@@ -249,6 +448,138 @@
             Bitte wählen Sie die Wettbewerbsintensität
           </mat-error>
         </div>
+
+        <!-- Wettbewerberdaten -->
+        <mat-divider style="margin: 20px 0;"></mat-divider>
+        <h3>Wettbewerberdaten</h3>
+        <p class="competitors-description">Fügen Sie Informationen zu Ihren Wettbewerbern hinzu:</p>
+
+        <div class="competitors-section">
+          <div class="competitors-header">
+            <button mat-raised-button color="primary" (click)="addCompetitor()">
+              <mat-icon>add</mat-icon>
+              Wettbewerber hinzufügen
+            </button>
+          </div>
+
+          <div class="competitors-list" *ngIf="competitorsArray.length > 0">
+            <div class="competitor-item" *ngFor="let competitor of competitorsArray.controls; let i = index" [formGroup]="$any(competitor)">
+              <mat-card class="competitor-card">
+                <mat-card-content>
+                  <div class="competitor-fields">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Name des Wettbewerbers</mat-label>
+                      <input matInput formControlName="name" required>
+                    </mat-form-field>
+                    
+                    <mat-form-field appearance="outline">
+                      <mat-label>Preis pro Fall</mat-label>
+                      <input matInput type="number" formControlName="price" required>
+                      <span matSuffix>€</span>
+                    </mat-form-field>
+                    
+                    <mat-form-field appearance="outline">
+                      <mat-label>Besonderheiten (optional)</mat-label>
+                      <input matInput formControlName="features" placeholder="z.B. besondere Features, Zielgruppe">
+                    </mat-form-field>
+                    
+                    <button mat-icon-button color="warn" (click)="removeCompetitor(i)">
+                      <mat-icon>delete</mat-icon>
+                    </button>
+                  </div>
+                </mat-card-content>
+              </mat-card>
+            </div>
+          </div>
+
+          <!-- Marktstatistiken -->
+          <div class="market-stats" *ngIf="competitorsArray.length > 0">
+            <mat-card class="stats-card">
+              <mat-card-header>
+                <mat-card-title>Marktstatistiken</mat-card-title>
+                <mat-card-subtitle>Berechnete Kennzahlen aus den Wettbewerberdaten</mat-card-subtitle>
+              </mat-card-header>
+              <mat-card-content>
+                <div class="stats-grid">
+                  <div class="stat-item">
+                    <span class="stat-label">Minimalpreis:</span>
+                    <span class="stat-value">{{ calculateMarketStats().min | number:'1.2-2' }} €</span>
+                  </div>
+                  <div class="stat-item">
+                    <span class="stat-label">Maximalpreis:</span>
+                    <span class="stat-value">{{ calculateMarketStats().max | number:'1.2-2' }} €</span>
+                  </div>
+                  <div class="stat-item">
+                    <span class="stat-label">Durchschnittspreis:</span>
+                    <span class="stat-value">{{ calculateMarketStats().avg | number:'1.2-2' }} €</span>
+                  </div>
+                </div>
+              </mat-card-content>
+            </mat-card>
+          </div>
+        </div>
+
+        <!-- Alternative Referenz -->
+        <div class="form-group">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Kosten der bisherigen Methode pro Fall (optional)</mat-label>
+            <input matInput type="number" formControlName="alternativeMethodCosts">
+            <span matSuffix>€</span>
+            <mat-icon matSuffix matTooltip="Falls kein direkter Wettbewerber vorhanden ist, können Sie hier die Kosten der manuellen/konventionellen Methode eingeben">info</mat-icon>
+          </mat-form-field>
+        </div>
+
+        <!-- Marktvergleich Live-Feedback -->
+        <div class="market-feedback" *ngIf="calculateCostPerCase() > 0 && (competitorsArray.length > 0 || pricingForm.get('alternativeMethodCosts')?.value > 0)">
+          <mat-card class="feedback-card">
+            <mat-card-header>
+              <mat-card-title>Marktvergleich</mat-card-title>
+              <mat-card-subtitle>Ihr Preis im Vergleich zum Markt</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+              <div class="price-comparison">
+                <div class="your-price">
+                  <span class="price-label">Ihre Selbstkosten pro Fall:</span>
+                  <span class="price-value">{{ calculateCostPerCase() | number:'1.2-2' }} €</span>
+                </div>
+                
+                <div class="market-comparison" *ngIf="competitorsArray.length > 0">
+                  <div class="comparison-item" [class.warning]="calculateCostPerCase() > calculateMarketStats().max">
+                    <span class="comparison-label">Marktpreise:</span>
+                    <span class="comparison-value">{{ calculateMarketStats().min | number:'1.2-2' }} - {{ calculateMarketStats().max | number:'1.2-2' }} €</span>
+                  </div>
+                  <div class="comparison-item" [class.warning]="calculateCostPerCase() > calculateMarketStats().avg">
+                    <span class="comparison-label">Marktdurchschnitt:</span>
+                    <span class="comparison-value">{{ calculateMarketStats().avg | number:'1.2-2' }} €</span>
+                  </div>
+                </div>
+
+                <div class="alternative-comparison" *ngIf="pricingForm.get('alternativeMethodCosts')?.value > 0">
+                  <div class="comparison-item">
+                    <span class="comparison-label">Konventionelle Methode:</span>
+                    <span class="comparison-value">{{ pricingForm.get('alternativeMethodCosts')?.value | number:'1.2-2' }} €</span>
+                  </div>
+                </div>
+
+                <!-- Dynamische Hinweise -->
+                <div class="market-hints" *ngIf="competitorsArray.length > 0">
+                  <div class="hint warning" *ngIf="calculateCostPerCase() > calculateMarketStats().max">
+                    <mat-icon>warning</mat-icon>
+                    <span>Achtung: Ihr Preis liegt über dem höchsten Marktpreis um {{ ((calculateCostPerCase() / calculateMarketStats().max - 1) * 100) | number:'1.0-1' }}%. Stellen Sie sicher, dass der Mehrwert dies rechtfertigt.</span>
+                  </div>
+                  <div class="hint info" *ngIf="calculateCostPerCase() < calculateMarketStats().min">
+                    <mat-icon>info</mat-icon>
+                    <span>Ihr Preis liegt unter dem günstigsten Wettbewerber. Dies kann eine aggressiv niedrige Strategie sein – prüfen Sie, ob alle Kosten gedeckt sind.</span>
+                  </div>
+                  <div class="hint success" *ngIf="calculateCostPerCase() >= calculateMarketStats().min && calculateCostPerCase() <= calculateMarketStats().max">
+                    <mat-icon>check_circle</mat-icon>
+                    <span>Ihr Preis liegt im Marktband. Sie positionieren sich {{ calculateCostPerCase() > calculateMarketStats().avg ? 'im oberen' : 'im unteren' }} Drittel des Marktsegments.</span>
+                  </div>
+                </div>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
       </mat-card-content>
     </mat-card>
   </div>
@@ -258,7 +589,7 @@
     <mat-card class="strategy-card">
       <mat-card-header>
         <mat-card-title>Implementierung & Vertrieb</mat-card-title>
-        <mat-card-subtitle>Bewerten Sie die Implementierungskomplexität</mat-card-subtitle>
+        <mat-card-subtitle>Berücksichtigung von Implementierung und Vertriebsweg</mat-card-subtitle>
       </mat-card-header>
       <mat-card-content [formGroup]="pricingForm">
         <div class="form-group">
@@ -343,6 +674,104 @@
             Bitte wählen Sie die Kundenbindung
           </mat-error>
         </div>
+
+        <!-- Bereitstellungsart -->
+        <mat-divider style="margin: 20px 0;"></mat-divider>
+        <h3>Bereitstellungsart</h3>
+        
+        <div class="form-group">
+          <label class="form-label">Bereitstellungsart *</label>
+          <mat-radio-group formControlName="deploymentType" class="radio-group" required>
+            <div class="radio-option" [class.selected]="pricingForm.get('deploymentType')?.value === 'cloud'" (click)="pricingForm.get('deploymentType')?.setValue('cloud')">
+              <mat-radio-button value="cloud">
+                <div class="radio-text">
+                  <strong>Cloud-Service</strong>
+                  <small>Software-as-a-Service, kontinuierliche Cloud-Kosten</small>
+                </div>
+              </mat-radio-button>
+            </div>
+            <div class="radio-option" [class.selected]="pricingForm.get('deploymentType')?.value === 'onpremises'" (click)="pricingForm.get('deploymentType')?.setValue('onpremises')">
+              <mat-radio-button value="onpremises">
+                <div class="radio-text">
+                  <strong>On-Premises</strong>
+                  <small>Vor-Ort Installation, hohe Initialkosten</small>
+                </div>
+              </mat-radio-button>
+            </div>
+          </mat-radio-group>
+          <mat-error *ngIf="pricingForm.get('deploymentType')?.invalid && pricingForm.get('deploymentType')?.touched">
+            Bitte wählen Sie eine Bereitstellungsart
+          </mat-error>
+        </div>
+
+        <!-- Installationsgebühr (nur bei On-Premises) -->
+        <div class="form-group" *ngIf="pricingForm.get('deploymentType')?.value === 'onpremises'">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Installationsgebühr</mat-label>
+            <input matInput type="number" formControlName="installationFee">
+            <span matSuffix>€</span>
+            <mat-icon matSuffix matTooltip="Einmalige Gebühr für die Vor-Ort-Installation und Einrichtung">info</mat-icon>
+          </mat-form-field>
+        </div>
+
+        <!-- Vertriebskanal -->
+        <div class="form-group">
+          <label class="form-label">Vertriebskanal *</label>
+          <mat-radio-group formControlName="salesChannel" class="radio-group" required>
+            <div class="radio-option" [class.selected]="pricingForm.get('salesChannel')?.value === 'direct'" (click)="pricingForm.get('salesChannel')?.setValue('direct')">
+              <mat-radio-button value="direct">
+                <div class="radio-text">
+                  <strong>Direktvertrieb</strong>
+                  <small>Verkauf direkt an Endkunden</small>
+                </div>
+              </mat-radio-button>
+            </div>
+            <div class="radio-option" [class.selected]="pricingForm.get('salesChannel')?.value === 'partner'" (click)="pricingForm.get('salesChannel')?.setValue('partner')">
+              <mat-radio-button value="partner">
+                <div class="radio-text">
+                  <strong>Partner/Distributor</strong>
+                  <small>Verkauf über Partner, Provision erforderlich</small>
+                </div>
+              </mat-radio-button>
+            </div>
+          </mat-radio-group>
+          <mat-error *ngIf="pricingForm.get('salesChannel')?.invalid && pricingForm.get('salesChannel')?.touched">
+            Bitte wählen Sie einen Vertriebskanal
+          </mat-error>
+        </div>
+
+        <!-- Partnerprovision (nur bei Partnervertrieb) -->
+        <div class="form-group" *ngIf="pricingForm.get('salesChannel')?.value === 'partner'">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Partnerprovision</mat-label>
+            <input matInput type="number" formControlName="partnerCommission" min="0" max="100">
+            <span matSuffix>%</span>
+            <mat-icon matSuffix matTooltip="Prozentsatz des Umsatzes, der als Provision an den Partner geht (Standard: ~20%)">info</mat-icon>
+          </mat-form-field>
+        </div>
+
+        <!-- Dynamische Hinweise -->
+        <div class="implementation-hints">
+          <mat-card class="hints-card" *ngIf="pricingForm.get('deploymentType')?.value">
+            <mat-card-header>
+              <mat-card-title>Hinweise zur Bereitstellungsart</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <div class="hint" *ngIf="pricingForm.get('deploymentType')?.value === 'cloud'">
+                <mat-icon>cloud</mat-icon>
+                <span>Hinweis: Laufender Cloud-Betrieb verursacht pro Nutzung Kosten – ein nutzungsabhängiger Preis ist daher oft angebracht.</span>
+              </div>
+              <div class="hint" *ngIf="pricingForm.get('deploymentType')?.value === 'onpremises'">
+                <mat-icon>computer</mat-icon>
+                <span>Hinweis: Vor-Ort-Installation bedeutet hohen Initialaufwand – häufig wird eine Einrichtungsgebühr oder hohe Startzahlung vereinbart.</span>
+              </div>
+              <div class="hint" *ngIf="pricingForm.get('salesChannel')?.value === 'partner'">
+                <mat-icon>handshake</mat-icon>
+                <span>Hinweis: Bei Vertrieb über Partner sollten Sie die Marge des Partners in Ihrem Preis berücksichtigen (z.B. 20% Aufschlag einplanen).</span>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
       </mat-card-content>
     </mat-card>
   </div>
@@ -352,7 +781,7 @@
     <mat-card class="strategy-card">
       <mat-card-header>
         <mat-card-title>Geschäftsmodell</mat-card-title>
-        <mat-card-subtitle>Definieren Sie Ihr Upgrade-Pfad</mat-card-subtitle>
+        <mat-card-subtitle>Erweiterte Geschäftsmodell-Optionen und Preismodelle</mat-card-subtitle>
       </mat-card-header>
       <mat-card-content [formGroup]="pricingForm">
         <div class="form-group">
@@ -380,57 +809,217 @@
           </mat-error>
         </div>
 
-                 <div class="form-group">
-           <label class="form-label">Support-Intensität</label>
-           <div class="slider-container">
-             <div class="slider-labels">
-               <span>Minimal</span>
-               <span>Maximal</span>
-             </div>
-             <div class="radio-group">
-               <div class="radio-option" [class.selected]="pricingForm.get('supportIntensity')?.value === 1" (click)="pricingForm.get('supportIntensity')?.setValue(1)">
-                 <mat-radio-button value="1" (click)="$event.stopPropagation()">
-                   <div class="radio-text">
-                     <strong>Level 1 - Minimal</strong>
-                     <small>Grundlegender Support, Selbstbedienung</small>
-                   </div>
-                 </mat-radio-button>
-               </div>
-               <div class="radio-option" [class.selected]="pricingForm.get('supportIntensity')?.value === 2" (click)="pricingForm.get('supportIntensity')?.setValue(2)">
-                 <mat-radio-button value="2" (click)="$event.stopPropagation()">
-                   <div class="radio-text">
-                     <strong>Level 2 - Basis</strong>
-                     <small>E-Mail Support, Dokumentation</small>
-                   </div>
-                 </mat-radio-button>
-               </div>
-               <div class="radio-option" [class.selected]="pricingForm.get('supportIntensity')?.value === 3" (click)="pricingForm.get('supportIntensity')?.setValue(3)">
-                 <mat-radio-button value="3" (click)="$event.stopPropagation()">
-                   <div class="radio-text">
-                     <strong>Level 3 - Standard</strong>
-                     <small>Telefon Support, Schulungen</small>
-                   </div>
-                 </mat-radio-button>
-               </div>
-               <div class="radio-option" [class.selected]="pricingForm.get('supportIntensity')?.value === 4" (click)="pricingForm.get('supportIntensity')?.setValue(4)">
-                 <mat-radio-button value="4" (click)="$event.stopPropagation()">
-                   <div class="radio-text">
-                     <strong>Level 4 - Premium</strong>
-                     <small>Dedizierter Support, 24/7 Verfügbarkeit</small>
-                   </div>
-                 </mat-radio-button>
-               </div>
-               <div class="radio-option" [class.selected]="pricingForm.get('supportIntensity')?.value === 5" (click)="pricingForm.get('supportIntensity')?.setValue(5)">
-                 <mat-radio-button value="5" (click)="$event.stopPropagation()">
-                   <div class="radio-text">
-                     <strong>Level 5 - Maximal</strong>
-                     <small>Persönlicher Account Manager, On-Site Support</small>
-                   </div>
-                 </mat-radio-button>
-               </div>
-             </div>
-           </div>
-         </div>
+        <div class="form-group">
+          <label class="form-label">Support-Intensität</label>
+          <div class="slider-container">
+            <div class="slider-labels">
+              <span>Minimal</span>
+              <span>Maximal</span>
+            </div>
+            <div class="radio-group">
+              <div class="radio-option" [class.selected]="pricingForm.get('supportIntensity')?.value === 1" (click)="pricingForm.get('supportIntensity')?.setValue(1)">
+                <mat-radio-button value="1" (click)="$event.stopPropagation()">
+                  <div class="radio-text">
+                    <strong>Level 1 - Minimal</strong>
+                    <small>Grundlegender Support, Selbstbedienung</small>
+                  </div>
+                </mat-radio-button>
+              </div>
+              <div class="radio-option" [class.selected]="pricingForm.get('supportIntensity')?.value === 2" (click)="pricingForm.get('supportIntensity')?.setValue(2)">
+                <mat-radio-button value="2" (click)="$event.stopPropagation()">
+                  <div class="radio-text">
+                    <strong>Level 2 - Basis</strong>
+                    <small>E-Mail Support, Dokumentation</small>
+                  </div>
+                </mat-radio-button>
+              </div>
+              <div class="radio-option" [class.selected]="pricingForm.get('supportIntensity')?.value === 3" (click)="pricingForm.get('supportIntensity')?.setValue(3)">
+                <mat-radio-button value="3" (click)="$event.stopPropagation()">
+                  <div class="radio-text">
+                    <strong>Level 3 - Standard</strong>
+                    <small>Telefon Support, Schulungen</small>
+                  </div>
+                </mat-radio-button>
+              </div>
+              <div class="radio-option" [class.selected]="pricingForm.get('supportIntensity')?.value === 4" (click)="pricingForm.get('supportIntensity')?.setValue(4)">
+                <mat-radio-button value="4" (click)="$event.stopPropagation()">
+                  <div class="radio-text">
+                    <strong>Level 4 - Premium</strong>
+                    <small>Dedizierter Support, 24/7 Verfügbarkeit</small>
+                  </div>
+                </mat-radio-button>
+              </div>
+              <div class="radio-option" [class.selected]="pricingForm.get('supportIntensity')?.value === 5" (click)="pricingForm.get('supportIntensity')?.setValue(5)">
+                <mat-radio-button value="5" (click)="$event.stopPropagation()">
+                  <div class="radio-text">
+                    <strong>Level 5 - Maximal</strong>
+                    <small>Persönlicher Account Manager, On-Site Support</small>
+                  </div>
+                </mat-radio-button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Preismodell-Auswahl -->
+        <mat-divider style="margin: 20px 0;"></mat-divider>
+        <h3>Preismodell</h3>
+        
+        <div class="form-group">
+          <label class="form-label">Preismodell *</label>
+          <mat-radio-group formControlName="pricingModel" class="radio-group" required>
+            <div class="radio-option" [class.selected]="pricingForm.get('pricingModel')?.value === 'license'" (click)="pricingForm.get('pricingModel')?.setValue('license')">
+              <mat-radio-button value="license">
+                <div class="radio-text">
+                  <strong>Feste Lizenzgebühr</strong>
+                  <small>Jährliche oder monatliche Pauschalgebühr</small>
+                </div>
+              </mat-radio-button>
+            </div>
+            <div class="radio-option" [class.selected]="pricingForm.get('pricingModel')?.value === 'usage'" (click)="pricingForm.get('pricingModel')?.setValue('usage')">
+              <mat-radio-button value="usage">
+                <div class="radio-text">
+                  <strong>Nutzungsbasiert</strong>
+                  <small>Preis pro Analyse/Nutzung</small>
+                </div>
+              </mat-radio-button>
+            </div>
+            <div class="radio-option" [class.selected]="pricingForm.get('pricingModel')?.value === 'hybrid'" (click)="pricingForm.get('pricingModel')?.setValue('hybrid')">
+              <mat-radio-button value="hybrid">
+                <div class="radio-text">
+                  <strong>Hybrid-Modell</strong>
+                  <small>Kombination aus Grundgebühr und Nutzungsgebühr</small>
+                </div>
+              </mat-radio-button>
+            </div>
+            <div class="radio-option" [class.selected]="pricingForm.get('pricingModel')?.value === 'dacs'" (click)="pricingForm.get('pricingModel')?.setValue('dacs')">
+              <mat-radio-button value="dacs">
+                <div class="radio-text">
+                  <strong>Komplexitätsabhängig (DACS)</strong>
+                  <small>Preis abhängig von der Fallkomplexität</small>
+                </div>
+              </mat-radio-button>
+            </div>
+          </mat-radio-group>
+          <mat-error *ngIf="pricingForm.get('pricingModel')?.invalid && pricingForm.get('pricingModel')?.touched">
+            Bitte wählen Sie ein Preismodell
+          </mat-error>
+        </div>
+
+        <!-- Preiseingaben basierend auf gewähltem Modell -->
+        <div class="pricing-inputs">
+          <!-- Lizenzmodell -->
+          <div class="pricing-section" *ngIf="pricingForm.get('pricingModel')?.value === 'license'">
+            <h4>Lizenzmodell - Preiseingaben</h4>
+            <div class="form-group">
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Basispreis pro Jahr</mat-label>
+                <input matInput type="number" formControlName="basePrice">
+                <span matSuffix>€</span>
+                <mat-icon matSuffix matTooltip="Jährliche Lizenzgebühr für das System">info</mat-icon>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <!-- Nutzungsbasiert -->
+          <div class="pricing-section" *ngIf="pricingForm.get('pricingModel')?.value === 'usage'">
+            <h4>Nutzungsbasiert - Preiseingaben</h4>
+            <div class="form-group">
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Preis pro Nutzung</mat-label>
+                <input matInput type="number" formControlName="basePrice">
+                <span matSuffix>€</span>
+                <mat-icon matSuffix matTooltip="Preis pro einzelne Analyse/Nutzung">info</mat-icon>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <!-- Hybrid-Modell -->
+          <div class="pricing-section" *ngIf="pricingForm.get('pricingModel')?.value === 'hybrid'">
+            <h4>Hybrid-Modell - Preiseingaben</h4>
+            <div class="hybrid-inputs">
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Grundgebühr pro Jahr</mat-label>
+                <input matInput type="number" formControlName="hybridBaseFee">
+                <span matSuffix>€</span>
+                <mat-icon matSuffix matTooltip="Feste jährliche Grundgebühr">info</mat-icon>
+              </mat-form-field>
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Nutzungsgebühr pro Fall</mat-label>
+                <input matInput type="number" formControlName="hybridUsageFee">
+                <span matSuffix>€</span>
+                <mat-icon matSuffix matTooltip="Zusätzliche Gebühr pro Analyse">info</mat-icon>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <!-- DACS-Modell -->
+          <div class="pricing-section" *ngIf="pricingForm.get('pricingModel')?.value === 'dacs'">
+            <h4>DACS-Modell - Preiseingaben</h4>
+            <div class="form-group">
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Basispreis (für durchschnittliche Komplexität)</mat-label>
+                <input matInput type="number" formControlName="dacsBasePrice">
+                <span matSuffix>€</span>
+                <mat-icon matSuffix matTooltip="Preis für einen Fall mit durchschnittlicher Komplexität (Score 3)">info</mat-icon>
+              </mat-form-field>
+            </div>
+            
+            <!-- DACS-Preisspanne anzeigen -->
+            <div class="dacs-preview" *ngIf="pricingForm.get('dacsBasePrice')?.value > 0">
+              <mat-card class="preview-card">
+                <mat-card-header>
+                  <mat-card-title>DACS-Preisspanne</mat-card-title>
+                  <mat-card-subtitle>Basierend auf Ihrem Komplexitäts-Score von {{ calculateComplexityScore() }}/20</mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+                  <div class="price-range">
+                    <div class="price-item">
+                      <span class="price-label">Einfache Fälle (Score 1-2):</span>
+                      <span class="price-value">{{ calculateDACSPrices().simple | number:'1.2-2' }} €</span>
+                    </div>
+                    <div class="price-item">
+                      <span class="price-label">Mittlere Fälle (Score 3):</span>
+                      <span class="price-value">{{ calculateDACSPrices().medium | number:'1.2-2' }} €</span>
+                    </div>
+                    <div class="price-item">
+                      <span class="price-label">Komplexe Fälle (Score 4-5):</span>
+                      <span class="price-value">{{ calculateDACSPrices().complex | number:'1.2-2' }} €</span>
+                    </div>
+                  </div>
+                </mat-card-content>
+              </mat-card>
+            </div>
+          </div>
+        </div>
+
+        <!-- Gewinnmarge -->
+        <div class="form-group">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Gewinnmarge</mat-label>
+            <input matInput type="number" formControlName="profitMargin" min="0" max="100">
+            <span matSuffix>%</span>
+            <mat-icon matSuffix matTooltip="Gewünschte Gewinnmarge auf die Selbstkosten">info</mat-icon>
+          </mat-form-field>
+        </div>
+
+        <!-- Automatische Modell-Empfehlung -->
+        <div class="model-recommendation" *ngIf="pricingForm.get('deploymentType')?.value && pricingForm.get('salesChannel')?.value">
+          <mat-card class="recommendation-card">
+            <mat-card-header>
+              <mat-card-title>Modell-Empfehlung</mat-card-title>
+              <mat-card-subtitle>Basierend auf Ihren Eingaben</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+              <div class="recommendation-content">
+                <div class="recommendation-text" *ngIf="getModelRecommendation()">
+                  <mat-icon>lightbulb</mat-icon>
+                  <span>{{ getModelRecommendation() }}</span>
+                </div>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
       </mat-card-content>
     </mat-card>
   </div>
@@ -457,6 +1046,10 @@
           <span class="result-label">Inferenzkosten:</span>
           <span class="result-value">{{ getInferenceCostsLabel(pricingForm.get('inferenceCosts')?.value) }}</span>
         </div>
+        <div class="result-item">
+          <span class="result-label">Komplexitäts-Score:</span>
+          <span class="result-value">{{ calculateComplexityScore() }}/20 ({{ getComplexityLevel() | titlecase }})</span>
+        </div>
 
         <h4>MARKTPOSITIONIERUNG</h4>
         <div class="result-item">
@@ -471,52 +1064,172 @@
           <span class="result-label">Vertriebskomplexität:</span>
           <span class="result-value">{{ getSalesEffortLabel(pricingForm.get('salesEffort')?.value) }}</span>
         </div>
-      </div>
-
-      <div class="recommendation-box">
-        <h4>EMPFOHLENES PREISMODELL</h4>
-        <div class="pricing-details">
-          <div class="pricing-card">
-            <h5>Primäre Metrik</h5>
-            <p>{{ results.primaryMetric }}</p>
-          </div>
-          <div class="pricing-card">
-            <h5>Preisstruktur</h5>
-            <p>{{ results.structure }}</p>
-          </div>
-          <div class="pricing-card">
-            <h5>Billing-Modell</h5>
-            <p>{{ results.billingModel }}</p>
-          </div>
+        <div class="result-item">
+          <span class="result-label">Bereitstellungsart:</span>
+          <span class="result-value">{{ pricingForm.get('deploymentType')?.value === 'cloud' ? 'Cloud-Service' : 'On-Premises' }}</span>
+        </div>
+        <div class="result-item">
+          <span class="result-label">Vertriebskanal:</span>
+          <span class="result-value">{{ pricingForm.get('salesChannel')?.value === 'direct' ? 'Direktvertrieb' : 'Partner/Distributor' }}</span>
         </div>
       </div>
 
+      <!-- Kostenbasis -->
       <div class="result-section">
-        <h4>KONKRETE IMPLEMENTIERUNG</h4>
-        <div class="result-item">
-          <span class="result-label">Basispreis:</span>
-          <span class="result-value">{{ results.basePrice }}</span>
+        <h4>KOSTENBASIS</h4>
+        <div class="cost-breakdown">
+          <div class="cost-item">
+            <span class="cost-label">Selbstkosten pro Fall:</span>
+            <span class="cost-value">{{ calculateCostPerCase() | number:'1.2-2' }} €</span>
+          </div>
+          <div class="cost-breakdown-details">
+            <small>
+              • Amortisierte Entwicklungskosten: {{ (pricingForm.get('developmentCosts')?.value || 0) / ((pricingForm.get('expectedCasesPerYear')?.value || 100) * (pricingForm.get('amortizationPeriod')?.value || 5)) | number:'1.2-2' }} €<br>
+              • Kosten pro Nutzung: {{ pricingForm.get('costPerUsage')?.value || 0 | number:'1.2-2' }} €<br>
+              • Wartungskosten pro Fall: {{ (pricingForm.get('maintenanceCosts')?.value || 0) / (pricingForm.get('expectedCasesPerYear')?.value || 100) | number:'1.2-2' }} €
+            </small>
+          </div>
+          <div class="cost-item">
+            <span class="cost-label">Gewinnmarge:</span>
+            <span class="cost-value">{{ pricingForm.get('profitMargin')?.value || 20 }}%</span>
+          </div>
+          <div class="cost-item">
+            <span class="cost-label">Empfohlener Verkaufspreis:</span>
+            <span class="cost-value">{{ (calculateCostPerCase() * (1 + (pricingForm.get('profitMargin')?.value || 20) / 100)) | number:'1.2-2' }} €</span>
+          </div>
         </div>
-        <div class="result-item">
-          <span class="result-label">Variable Komponente:</span>
-          <span class="result-value">{{ results.variableComponent }}</span>
+      </div>
+
+      <!-- Marktvergleich -->
+      <div class="result-section" *ngIf="competitorsArray.length > 0 || pricingForm.get('alternativeMethodCosts')?.value > 0">
+        <h4>MARKTVERGLEICH</h4>
+        <div class="market-comparison-results">
+          <div class="market-stats-results" *ngIf="competitorsArray.length > 0">
+            <div class="market-stat-item">
+              <span class="market-stat-label">Durchschnittlicher Konkurrenzpreis:</span>
+              <span class="market-stat-value">{{ calculateMarketStats().avg | number:'1.2-2' }} €</span>
+            </div>
+            <div class="market-stat-item">
+              <span class="market-stat-label">Marktpreisspanne:</span>
+              <span class="market-stat-value">{{ calculateMarketStats().min | number:'1.2-2' }} - {{ calculateMarketStats().max | number:'1.2-2' }} €</span>
+            </div>
+            <div class="market-stat-item" [class.warning]="calculateCostPerCase() > calculateMarketStats().max">
+              <span class="market-stat-label">Ihr Preis vs. Markt:</span>
+              <span class="market-stat-value">
+                {{ calculateCostPerCase() | number:'1.2-2' }} € 
+                ({{ ((calculateCostPerCase() / calculateMarketStats().avg - 1) * 100) | number:'+1.0-1' }}% vs. Durchschnitt)
+              </span>
+            </div>
+          </div>
+          <div class="alternative-method" *ngIf="pricingForm.get('alternativeMethodCosts')?.value > 0">
+            <div class="market-stat-item">
+              <span class="market-stat-label">Konventionelle Methode:</span>
+              <span class="market-stat-value">{{ pricingForm.get('alternativeMethodCosts')?.value | number:'1.2-2' }} €</span>
+            </div>
+            <div class="market-stat-item">
+              <span class="market-stat-label">Einsparung für Kunden:</span>
+              <span class="market-stat-value">{{ ((pricingForm.get('alternativeMethodCosts')?.value || 0) - calculateCostPerCase()) | number:'1.2-2' }} € pro Fall</span>
+            </div>
+          </div>
         </div>
-        <div class="result-item" *ngIf="results.implementation?.contractLength">
-          <span class="result-label">Vertragslaufzeit:</span>
-          <span class="result-value">{{ results.implementation.contractLength }}</span>
-        </div>
-        <div class="result-item" *ngIf="results.implementation?.setupFee">
-          <span class="result-label">Setup-Fee:</span>
-          <span class="result-value">{{ results.implementation.setupFee }}</span>
-        </div>
-        <div class="result-item" *ngIf="results.implementation?.tiers">
-          <span class="result-label">Produktstufen:</span>
-          <div class="result-value">
-            <ul style="margin: 0; padding-left: 20px;">
-              <li>Basic: {{ results.implementation.tiers.basic }}</li>
-              <li>Standard: {{ results.implementation.tiers.standard }}</li>
-              <li>Premium: {{ results.implementation.tiers.premium }}</li>
+      </div>
+
+      <!-- Preisempfehlung & Modell -->
+      <div class="recommendation-box">
+        <h4>PREISEMPFEHLUNG & MODELL</h4>
+        <div class="pricing-model-details">
+          <div class="pricing-model-card">
+            <h5>Gewähltes Preismodell</h5>
+            <p>{{ getPricingModelLabel(pricingForm.get('pricingModel')?.value) }}</p>
+          </div>
+          <div class="pricing-model-card" *ngIf="pricingForm.get('pricingModel')?.value === 'license'">
+            <h5>Empfohlener Preis</h5>
+            <p>{{ pricingForm.get('basePrice')?.value | number:'1.2-2' }} € pro Jahr (Festlizenz)</p>
+          </div>
+          <div class="pricing-model-card" *ngIf="pricingForm.get('pricingModel')?.value === 'usage'">
+            <h5>Empfohlener Preis</h5>
+            <p>{{ pricingForm.get('basePrice')?.value | number:'1.2-2' }} € pro Analyse</p>
+          </div>
+          <div class="pricing-model-card" *ngIf="pricingForm.get('pricingModel')?.value === 'hybrid'">
+            <h5>Empfohlener Preis</h5>
+            <p>{{ pricingForm.get('hybridBaseFee')?.value | number:'1.2-2' }} € Grundgebühr/Jahr + {{ pricingForm.get('hybridUsageFee')?.value | number:'1.2-2' }} € pro Nutzung</p>
+          </div>
+          <div class="pricing-model-card" *ngIf="pricingForm.get('pricingModel')?.value === 'dacs'">
+            <h5>Empfohlener Preis (DACS)</h5>
+            <p>Dynamischer Preis pro Fall nach Komplexität:</p>
+            <ul>
+              <li>Einfache Fälle: {{ calculateDACSPrices().simple | number:'1.2-2' }} €</li>
+              <li>Mittlere Fälle: {{ calculateDACSPrices().medium | number:'1.2-2' }} €</li>
+              <li>Komplexe Fälle: {{ calculateDACSPrices().complex | number:'1.2-2' }} €</li>
             </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Zusätzliche Kennzahlen -->
+      <div class="result-section">
+        <h4>ZUSÄTZLICHE KENNZAHLEN</h4>
+        <div class="additional-metrics">
+          <div class="metric-item" *ngIf="pricingForm.get('developmentCosts')?.value > 0 && pricingForm.get('basePrice')?.value > 0">
+            <span class="metric-label">Break-even-Punkt:</span>
+            <span class="metric-value">ca. {{ Math.ceil((pricingForm.get('developmentCosts')?.value || 0) / (pricingForm.get('basePrice')?.value || 1)) }} Nutzungen</span>
+          </div>
+          <div class="metric-item" *ngIf="pricingForm.get('expectedCasesPerYear')?.value > 0 && pricingForm.get('basePrice')?.value > 0">
+            <span class="metric-label">Jährlicher Erlös (bei {{ pricingForm.get('expectedCasesPerYear')?.value }} Fällen):</span>
+            <span class="metric-value">{{ ((pricingForm.get('basePrice')?.value || 0) * (pricingForm.get('expectedCasesPerYear')?.value || 0)) | number:'1.2-2' }} €</span>
+          </div>
+          <div class="metric-item" *ngIf="pricingForm.get('partnerCommission')?.value > 0">
+            <span class="metric-label">Partnerprovision ({{ pricingForm.get('partnerCommission')?.value }}%):</span>
+            <span class="metric-value">{{ ((pricingForm.get('basePrice')?.value || 0) * (pricingForm.get('partnerCommission')?.value || 0) / 100) | number:'1.2-2' }} € pro Verkauf</span>
+          </div>
+          <div class="metric-item" *ngIf="pricingForm.get('installationFee')?.value > 0">
+            <span class="metric-label">Installationsgebühr:</span>
+            <span class="metric-value">{{ pricingForm.get('installationFee')?.value | number:'1.2-2' }} € (einmalig)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- DACS-Erklärung -->
+      <div class="result-section" *ngIf="pricingForm.get('pricingModel')?.value === 'dacs'">
+        <h4>DACS-ERKLÄRUNG</h4>
+        <div class="dacs-explanation">
+          <p>Das DACS-Modell (Dynamic Adaptive Complexity-based Scoring) ermöglicht eine faire Preisgestaltung basierend auf der tatsächlichen Komplexität jedes Falls:</p>
+          
+          <div class="dacs-details">
+            <h5>Ihr aktueller Komplexitätsscore: {{ calculateComplexityScore() }}/20 ({{ getComplexityLevel() }})</h5>
+            <p>Basierend auf Ihrer Eingabe wird der folgende Preis empfohlen:</p>
+            
+            <div class="dacs-price-display">
+              <div class="price-item">
+                <span class="price-label">Empfohlener DACS-Preis:</span>
+                <span class="price-value">{{ calculateDACSPrices().dynamic | number:'1.2-2' }}€</span>
+              </div>
+            </div>
+            
+            <h5>Preisspanne für verschiedene Komplexitätsstufen:</h5>
+            <ul>
+              <li><strong>Einfache Fälle (Score 1-8):</strong> {{ calculateDACSPrices().simple | number:'1.2-2' }}€ - Standard-Diagnosen mit geringem AI-Aufwand</li>
+              <li><strong>Mittlere Fälle (Score 9-12):</strong> {{ calculateDACSPrices().medium | number:'1.2-2' }}€ - Komplexere Analysen mit moderatem AI-Aufwand</li>
+              <li><strong>Komplexe Fälle (Score 13-20):</strong> {{ calculateDACSPrices().complex | number:'1.2-2' }}€ - Hochkomplexe Diagnosen mit hohem AI-Aufwand</li>
+            </ul>
+            
+            <div class="dacs-benefits">
+              <h5>Vorteile des DACS-Modells:</h5>
+              <ul>
+                <li><strong>Faire Preisgestaltung:</strong> Kunden zahlen nur für die tatsächliche Komplexität</li>
+                <li><strong>Transparenz:</strong> Klare Preisstruktur basierend auf objektiven Kriterien</li>
+                <li><strong>Skalierbarkeit:</strong> Automatische Anpassung an verschiedene Anwendungsfälle</li>
+                <li><strong>Wettbewerbsvorteil:</strong> Differenzierung durch intelligente Preisgestaltung</li>
+              </ul>
+            </div>
+            
+            <div class="dacs-calculation">
+              <h5>Berechnungsgrundlage:</h5>
+              <p>Basispreis: {{ calculateDACSPrices().basePrice | number:'1.2-2' }}€</p>
+              <p>Gewinnmarge: {{ pricingForm.get('profitMargin')?.value || 20 }}%</p>
+              <p>Preisspanne: {{ calculateDACSPrices().priceRange.min | number:'1.2-2' }}€ - {{ calculateDACSPrices().priceRange.max | number:'1.2-2' }}€</p>
+              <p>Spannweite: {{ calculateDACSPrices().priceRange.spread | number:'1.2-2' }}€</p>
+            </div>
           </div>
         </div>
       </div>

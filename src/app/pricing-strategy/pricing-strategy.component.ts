@@ -12,7 +12,10 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
-import { ReactiveFormsModule, FormBuilder, FormGroup, Validators, FormsModule } from '@angular/forms';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSelectModule } from '@angular/material/select';
+import { MatTableModule } from '@angular/material/table';
+import { ReactiveFormsModule, FormBuilder, FormGroup, Validators, FormsModule, FormArray, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-pricing-strategy',
@@ -33,6 +36,9 @@ import { ReactiveFormsModule, FormBuilder, FormGroup, Validators, FormsModule } 
     MatChipsModule,
     MatIconModule,
     MatSnackBarModule,
+    MatTooltipModule,
+    MatSelectModule,
+    MatTableModule,
     ReactiveFormsModule,
     FormsModule
   ]
@@ -55,18 +61,53 @@ export class PricingStrategyComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private snackBar: MatSnackBar) {
     this.pricingForm = this.fb.group({
+      // Schritt 1: System-Übersicht (erweitert)
       systemName: ['', [Validators.required, Validators.minLength(3)]],
       autonomy: ['', Validators.required],
+      // Neue Kosteneingaben
+      developmentCosts: [0, [Validators.required, Validators.min(0)]],
+      costPerUsage: [0, [Validators.required, Validators.min(0)]],
+      maintenanceCosts: [0, [Validators.required, Validators.min(0)]],
+      expectedCasesPerYear: [100, [Validators.required, Validators.min(1)]],
+      amortizationPeriod: [5, [Validators.required, Validators.min(1), Validators.max(10)]],
+      
+      // Schritt 2: Technische Komplexität (erweitert)
       measurability: ['', Validators.required],
       inferenceCosts: ['', Validators.required],
+      // Mehrdimensionale Komplexitätsbewertung
+      dataDiversity: [3, [Validators.required, Validators.min(1), Validators.max(5)]],
+      caseComplexity: [3, [Validators.required, Validators.min(1), Validators.max(5)]],
+      clinicalQuestionComplexity: [3, [Validators.required, Validators.min(1), Validators.max(5)]],
+      aiInvolvementLevel: [3, [Validators.required, Validators.min(1), Validators.max(5)]],
+      
+      // Schritt 3: Markt & Wettbewerb (erweitert)
       sector: ['', Validators.required],
       reimbursement: ['', Validators.required],
+      competition: ['', Validators.required],
+      // Wettbewerberdaten
+      competitors: this.fb.array([]),
+      alternativeMethodCosts: [0, [Validators.min(0)]],
+      
+      // Schritt 4: Implementierung & Vertrieb (erweitert)
       salesEffort: ['', Validators.required],
       implementation: ['', Validators.required],
-      competition: ['', Validators.required],
       customerFencing: ['', Validators.required],
+      // Neue Felder
+      deploymentType: ['', Validators.required],
+      installationFee: [0, [Validators.min(0)]],
+      salesChannel: ['', Validators.required],
+      partnerCommission: [0, [Validators.min(0), Validators.max(100)]],
+      
+      // Schritt 5: Geschäftsmodell (erweitert)
       upgradePath: ['', Validators.required],
-      supportIntensity: [3, [Validators.required, Validators.min(1), Validators.max(5)]]
+      supportIntensity: [3, [Validators.required, Validators.min(1), Validators.max(5)]],
+      // Neue Geschäftsmodell-Optionen
+      pricingModel: ['', Validators.required],
+      basePrice: [0, [Validators.min(0)]],
+      hybridBaseFee: [0, [Validators.min(0)]],
+      hybridUsageFee: [0, [Validators.min(0)]],
+      dacsBasePrice: [0, [Validators.min(0)]],
+      profitMargin: [20, [Validators.required, Validators.min(0), Validators.max(100)]]
     });
   }
 
@@ -75,6 +116,174 @@ export class PricingStrategyComponent implements OnInit {
     this.updateProgress();
     this.updateNavigation();
   }
+
+  // Hilfsmethoden für Kostenberechnung
+  calculateCostPerCase(): number {
+    const formValue = this.pricingForm.value;
+    const developmentCosts = formValue.developmentCosts || 0;
+    const costPerUsage = formValue.costPerUsage || 0;
+    const maintenanceCosts = formValue.maintenanceCosts || 0;
+    const expectedCasesPerYear = formValue.expectedCasesPerYear || 100;
+    const amortizationPeriod = formValue.amortizationPeriod || 5;
+
+    // Berechnung der Selbstkosten pro Fall
+    const amortizedDevelopmentCosts = developmentCosts / (expectedCasesPerYear * amortizationPeriod);
+    const maintenanceCostsPerCase = maintenanceCosts / expectedCasesPerYear;
+    
+    return amortizedDevelopmentCosts + costPerUsage + maintenanceCostsPerCase;
+  }
+
+  calculateComplexityScore(): number {
+    const formValue = this.pricingForm.value;
+    const dataDiversity = formValue.dataDiversity || 3;
+    const caseComplexity = formValue.caseComplexity || 3;
+    const clinicalQuestionComplexity = formValue.clinicalQuestionComplexity || 3;
+    const aiInvolvementLevel = formValue.aiInvolvementLevel || 3;
+
+    return dataDiversity + caseComplexity + clinicalQuestionComplexity + aiInvolvementLevel;
+  }
+
+  getComplexityLevel(): string {
+    const score = this.calculateComplexityScore();
+    if (score <= 8) return 'niedrig';
+    if (score <= 12) return 'mittel';
+    if (score <= 16) return 'hoch';
+    return 'sehr hoch';
+  }
+
+  // Wettbewerber-Management
+  get competitorsArray(): FormArray {
+    return this.pricingForm.get('competitors') as FormArray;
+  }
+
+  addCompetitor(): void {
+    const competitorGroup = this.fb.group({
+      name: ['', Validators.required],
+      price: [0, [Validators.required, Validators.min(0)]],
+      features: ['']
+    });
+    this.competitorsArray.push(competitorGroup);
+  }
+
+  removeCompetitor(index: number): void {
+    this.competitorsArray.removeAt(index);
+  }
+
+  calculateMarketStats(): { min: number, max: number, avg: number } {
+    const competitors = this.competitorsArray.value;
+    if (competitors.length === 0) return { min: 0, max: 0, avg: 0 };
+
+    const prices = competitors.map((c: any) => c.price).filter((p: number) => p > 0);
+    if (prices.length === 0) return { min: 0, max: 0, avg: 0 };
+
+    return {
+      min: Math.min(...prices),
+      max: Math.max(...prices),
+      avg: prices.reduce((sum: number, price: number) => sum + price, 0) / prices.length
+    };
+  }
+
+  // DACS-Preisberechnung
+  calculateDACSPrices(): { 
+    simple: number, 
+    medium: number, 
+    complex: number, 
+    dynamic: number,
+    basePrice: number,
+    complexityScore: number,
+    complexityLevel: string,
+    priceRange: { min: number, max: number, spread: number }
+  } {
+    const basePrice = this.pricingForm.get('dacsBasePrice')?.value || 0;
+    const complexityScore = this.calculateComplexityScore();
+    const profitMargin = this.pricingForm.get('profitMargin')?.value || 20;
+    const complexityLevel = this.getComplexityLevel();
+    
+    // DACS-Preise basierend auf Komplexität mit Gewinnmarge
+    const simplePrice = (basePrice * 0.5) * (1 + profitMargin / 100); // 50% des Basispreises für einfache Fälle
+    const mediumPrice = basePrice * (1 + profitMargin / 100); // 100% des Basispreises für mittlere Fälle
+    const complexPrice = (basePrice * 1.5) * (1 + profitMargin / 100); // 150% des Basispreises für komplexe Fälle
+    
+    // Dynamische Preisanpassung basierend auf tatsächlichem Komplexitätsscore
+    let dynamicPrice = basePrice;
+    if (complexityScore <= 8) {
+      dynamicPrice = simplePrice;
+    } else if (complexityScore <= 12) {
+      dynamicPrice = mediumPrice;
+    } else {
+      dynamicPrice = complexPrice;
+    }
+    
+    return {
+      simple: simplePrice,
+      medium: mediumPrice,
+      complex: complexPrice,
+      dynamic: dynamicPrice,
+      basePrice: basePrice,
+      complexityScore: complexityScore,
+      complexityLevel: complexityLevel,
+      priceRange: {
+        min: simplePrice,
+        max: complexPrice,
+        spread: complexPrice - simplePrice
+      }
+    };
+  }
+
+  // Hilfsmethode für Slider-Labels und String-Formatierung
+  formatLabel(value: number | string): string {
+    if (typeof value === 'number') {
+      return value.toString();
+    }
+    return value.charAt(0).toUpperCase() + value.slice(1).replace(/([A-Z])/g, ' $1');
+  }
+
+  // Automatische Modell-Empfehlung
+  getModelRecommendation(): string {
+    const formValue = this.pricingForm.value;
+    const deploymentType = formValue.deploymentType;
+    const salesChannel = formValue.salesChannel;
+    const complexityScore = this.calculateComplexityScore();
+    const costPerCase = this.calculateCostPerCase();
+
+    let recommendation = '';
+
+    // Cloud + viele Nutzer + variable Kosten hoch: → Vorschlag nutzungsbasiert
+    if (deploymentType === 'cloud' && costPerCase > 0) {
+      recommendation = 'Bei Ihrer Cloud-Konstellation bietet sich ein nutzungsabhängiges Modell an.';
+    }
+
+    // On-Premises + wenige große Kunden: → Vorschlag jährliche Lizenz
+    if (deploymentType === 'onpremises') {
+      recommendation = 'Bei On-Premises-Installation empfehlen wir eine jährliche Lizenz oder hohe Einmalzahlung.';
+    }
+
+    // Hohe Komplexitäts-Schwankungen: → Vorschlag DACS
+    if (complexityScore > 14) {
+      recommendation = 'Aufgrund der hohen Komplexitätsschwankungen empfehlen wir das DACS-Modell für eine faire Preisverteilung.';
+    }
+
+    // Partnervertrieb: → Hinweis auf höhere Preise
+    if (salesChannel === 'partner') {
+      recommendation += ' Beachten Sie bei Partnervertrieb die erforderliche Provision in Ihrem Preis.';
+    }
+
+    return recommendation;
+  }
+
+  // Hilfsmethode für Preismodell-Labels
+  getPricingModelLabel(value: string): string {
+    const labels: { [key: string]: string } = {
+      'license': 'Feste Lizenzgebühr',
+      'usage': 'Nutzungsbasiert',
+      'hybrid': 'Hybrid-Modell',
+      'dacs': 'Komplexitätsabhängig (DACS)'
+    };
+    return labels[value] || 'Unbekannt';
+  }
+
+  // Math-Objekt für Template-Zugriff
+  Math = Math;
 
   nextPhase() {
     if (!this.validateCurrentPhase()) {
@@ -214,16 +423,36 @@ export class PricingStrategyComponent implements OnInit {
     const labels: { [key: string]: string } = {
       systemName: 'Name des DDSS-Systems',
       autonomy: 'Autonomie-Level',
+      developmentCosts: 'Entwicklungskosten (einmalig)',
+      costPerUsage: 'Kosten pro Nutzung',
+      maintenanceCosts: 'Wartungs-/Updatekosten (jährlich)',
+      expectedCasesPerYear: 'Erwartete Fallzahl pro Jahr',
+      amortizationPeriod: 'Amortisierungszeitraum (Jahre)',
       measurability: 'Messbarkeit des Nutzens',
       inferenceCosts: 'AI-Inferenzkosten',
+      dataDiversity: 'Datenvielfalt/-qualität',
+      caseComplexity: 'Krankheits-/Fallkomplexität',
+      clinicalQuestionComplexity: 'Komplexität der klinischen Fragestellung',
+      aiInvolvementLevel: 'KI-Beteiligungsgrad',
       sector: 'Primärer Zielsektor',
       reimbursement: 'Erstattungsintegration',
+      competition: 'Wettbewerbsintensität',
+      alternativeMethodCosts: 'Kosten der bisherigen Methode pro Fall',
       salesEffort: 'Vertriebskomplexität',
       implementation: 'Implementierungskomplexität',
-      competition: 'Wettbewerbsintensität',
       customerFencing: 'Kundenbindung',
+      deploymentType: 'Bereitstellungsart',
+      installationFee: 'Installationsgebühr',
+      salesChannel: 'Vertriebskanal',
+      partnerCommission: 'Partnerprovision (%)',
       upgradePath: 'Upgrade-Pfad',
-      supportIntensity: 'Support-Intensität'
+      supportIntensity: 'Support-Intensität',
+      pricingModel: 'Preismodell',
+      basePrice: 'Basispreis',
+      hybridBaseFee: 'Hybrid: Grundgebühr',
+      hybridUsageFee: 'Hybrid: Nutzungsgebühr',
+      dacsBasePrice: 'DACS: Basispreis',
+      profitMargin: 'Gewinnmarge (%)'
     };
     return labels[control] || control;
   }
@@ -231,11 +460,11 @@ export class PricingStrategyComponent implements OnInit {
   private getCurrentPhaseControls(): string[] {
     // Definiere die Formularfelder für jede Phase
     const phaseControls = {
-      0: ['systemName', 'autonomy'],
-      1: ['measurability', 'inferenceCosts'],
+      0: ['systemName', 'autonomy', 'developmentCosts', 'costPerUsage', 'maintenanceCosts', 'expectedCasesPerYear', 'amortizationPeriod'],
+      1: ['measurability', 'inferenceCosts', 'dataDiversity', 'caseComplexity', 'clinicalQuestionComplexity', 'aiInvolvementLevel'],
       2: ['sector', 'reimbursement', 'competition'],
-      3: ['salesEffort', 'implementation'],
-      4: ['customerFencing', 'upgradePath', 'supportIntensity']
+      3: ['salesEffort', 'implementation', 'customerFencing', 'deploymentType', 'salesChannel'],
+      4: ['upgradePath', 'supportIntensity', 'pricingModel']
     };
 
     return phaseControls[this.currentPhase as keyof typeof phaseControls] || [];
@@ -281,138 +510,105 @@ export class PricingStrategyComponent implements OnInit {
   }
 
   calculatePricingRecommendations() {
-    const data = this.pricingForm.value;
-    let recommendations: {
-      systemType: string;
-      pricingModel: string;
-      structure: string;
-      primaryMetric: string;
-      billingModel: string;
-      basePrice: string;
-      variableComponent: string;
-      risks: string[];
-      implementation: {
-        contractLength?: string;
-        billing?: string;
-        reimbursement?: string;
-        scoring?: string;
-        pricing?: string;
-        scalability?: string;
-        setupFee?: string;
-        minimumTerm?: string;
-        deployment?: string;
-        tiers?: {
-          basic: string;
-          standard: string;
-          premium: string;
+    const formValue = this.pricingForm.value;
+    
+    // Grundlegende Berechnungen
+    const basePrice = formValue.basePrice || 0;
+    const profitMargin = formValue.profitMargin || 20;
+    const complexityScore = this.calculateComplexityScore();
+    const costPerCase = this.calculateCostPerCase();
+    const expectedCases = formValue.expectedCasesPerYear || 100;
+    const developmentCosts = formValue.developmentCosts || 0;
+    const maintenanceCosts = formValue.maintenanceCosts || 0;
+    const costPerUsage = formValue.costPerUsage || 0;
+    
+    // Preisempfehlung basierend auf Komplexität und Geschäftsmodell
+    let recommendedPrice = basePrice;
+    let pricingModel = formValue.pricingModel || 'license';
+    
+    // Anpassung basierend auf Geschäftsmodell
+    switch (pricingModel) {
+      case 'usage':
+        recommendedPrice = costPerUsage * (1 + profitMargin / 100);
+        break;
+      case 'hybrid':
+        const hybridBase = formValue.hybridBaseFee || 0;
+        const hybridUsage = formValue.hybridUsageFee || 0;
+        recommendedPrice = {
+          baseFee: hybridBase * (1 + profitMargin / 100),
+          usageFee: hybridUsage * (1 + profitMargin / 100)
         };
-      };
-    } = {
-      systemType: 'Nicht klassifiziert',
-      pricingModel: 'Standard-Modell',
-      structure: 'Hybride Struktur',
-      primaryMetric: 'Nutzer-basiert',
-      billingModel: 'SaaS-Modell',
-      basePrice: 'Individuell',
-      variableComponent: 'Nach Nutzung',
-      risks: [],
-      implementation: {}
+        break;
+      case 'dacs':
+        const dacsBase = formValue.dacsBasePrice || 0;
+        recommendedPrice = this.calculateDACSPrices();
+        break;
+      default: // license
+        if (complexityScore > 15) {
+          recommendedPrice = basePrice * 1.5; // 50% Aufschlag für hohe Komplexität
+        } else if (complexityScore > 10) {
+          recommendedPrice = basePrice * 1.2; // 20% Aufschlag für mittlere Komplexität
+        }
+        recommendedPrice = recommendedPrice * (1 + profitMargin / 100);
+    }
+    
+    // Marktvergleich
+    const marketStats = this.calculateMarketStats();
+    const alternativeCosts = formValue.alternativeMethodCosts || 0;
+    
+    // ROI-Berechnung
+    const totalCosts = developmentCosts + (maintenanceCosts * 5); // 5 Jahre Wartung
+    const annualRevenue = typeof recommendedPrice === 'number' 
+      ? recommendedPrice * expectedCases 
+      : (recommendedPrice as any).baseFee + ((recommendedPrice as any).usageFee * expectedCases);
+    const roi = totalCosts > 0 ? ((annualRevenue - totalCosts) / totalCosts) * 100 : 0;
+    
+    // Break-Even-Punkt
+    const breakEvenCases = totalCosts > 0 
+      ? Math.ceil(totalCosts / (typeof recommendedPrice === 'number' ? recommendedPrice : (recommendedPrice as any).usageFee))
+      : 0;
+    
+    // Marktvergleich
+    const marketComparison = {
+      yourPrice: typeof recommendedPrice === 'number' ? recommendedPrice : (recommendedPrice as any).baseFee,
+      marketMin: marketStats.min,
+      marketMax: marketStats.max,
+      marketAvg: marketStats.avg,
+      isCompetitive: typeof recommendedPrice === 'number' 
+        ? recommendedPrice >= marketStats.min && recommendedPrice <= marketStats.max
+        : (recommendedPrice as any).baseFee >= marketStats.min && (recommendedPrice as any).baseFee <= marketStats.max,
+      alternativeCosts: alternativeCosts,
+      costSavings: alternativeCosts > 0 ? alternativeCosts - (typeof recommendedPrice === 'number' ? recommendedPrice : (recommendedPrice as any).baseFee) : 0
     };
-
-    // Determine system type based on autonomy
-    switch (data.autonomy) {
-      case 'assistive':
-        recommendations.systemType = 'Assistive System (Score 1-2)';
-        recommendations.pricingModel = 'Jahreslizenzen mit Wartung';
-        recommendations.structure = '80% fix, 20% variabel';
-        recommendations.primaryMetric = 'Per-Seat oder Flat-Rate';
-        recommendations.basePrice = '1.000-5.000€ Jahreslizenz';
-        recommendations.variableComponent = '200-500€ Wartung/Jahr';
-        break;
-      case 'augmentative':
-        recommendations.systemType = 'Augmentative System (Score 3-4)';
-        recommendations.pricingModel = 'SaaS mit Volume-Discounts';
-        recommendations.structure = 'User-based oder Case-based';
-        recommendations.primaryMetric = 'Per-User oder Per-Case';
-        recommendations.basePrice = '200-800€ pro Nutzer/Monat';
-        recommendations.variableComponent = 'Volume-basierte Rabatte ab 10+ Nutzer';
-        break;
-      case 'autonomous':
-        recommendations.systemType = 'Autonomous System (Score 5)';
-        recommendations.pricingModel = 'Hybrid aus Per-Case + Performance-Bonus';
-        recommendations.structure = '70% nutzungsbasiert, 30% Performance-basiert';
-        recommendations.primaryMetric = 'Hybrid (Cases + Performance)';
-        recommendations.basePrice = '50-150€ pro Fall';
-        recommendations.variableComponent = '10-30€ Performance-Bonus';
-        recommendations.risks.push('Höhere Haftungsrisiken bei autonomen Entscheidungen');
-        break;
-    }
-
-    // Sector-specific adjustments
-    if (data.sector === 'public') {
-      recommendations.billingModel = 'Enterprise License mit SLAs';
-      recommendations.implementation.contractLength = 'Mehrjährige Verträge (3-5 Jahre)';
-      recommendations.implementation.billing = 'Jährliche Vorauszahlung';
-      recommendations.risks.push('Budgetplanungszyklen beachten');
-      recommendations.risks.push('Ausschreibungsprozesse berücksichtigen');
-    } else if (data.sector === 'private') {
-      recommendations.implementation.contractLength = 'Flexible Laufzeiten';
-      recommendations.implementation.billing = 'Monatlich oder quartalsweise';
-    }
-
-    // Reimbursement considerations
-    if (data.reimbursement === 'yes') {
-      recommendations.implementation.reimbursement = 'Integration in GOÄ/EBM möglich';
-      recommendations.implementation.scoring = 'AI-Score basierte Abrechnung';
-      recommendations.risks.push('Erstattungsrichtlinien beachten');
-    } else {
-      recommendations.risks.push('ROI-Nachweis für Klinikfinanzierung erforderlich');
-    }
-
-    // Sales effort impact
-    if (data.salesEffort === 'high') {
-      recommendations.risks.push('Hohe Vertriebskosten einkalkulieren (>25% vom Umsatz)');
-      recommendations.implementation.pricing = 'Hochpreisige, langfristige Verträge';
-    } else if (data.salesEffort === 'low') {
-      recommendations.implementation.scalability = 'Skalierbare, niedrigpreisige Modelle';
-    }
-
-    // Implementation complexity
-    if (data.implementation === 'extensive') {
-      recommendations.implementation.setupFee = '20-40% des Jahresumsatzes als Setup-Fee';
-      recommendations.implementation.minimumTerm = '3-5 Jahre Mindestvertragslaufzeit';
-      recommendations.risks.push('Hohe Implementierungskosten berücksichtigen');
-    } else if (data.implementation === 'standard') {
-      recommendations.implementation.deployment = 'Plug-and-Play SaaS-Modell';
-    }
-
-    // Additional risk factors
-    if (data.measurability === 'low') {
-      recommendations.risks.push('Schwer quantifizierbarer Nutzen - Service-Komponenten wichtig');
-    }
-
-    if (data.inferenceCosts === 'high') {
-      recommendations.risks.push('Hohe laufende AI-Inferenzkosten berücksichtigen');
-    }
-
-    if (data.competition === 'high') {
-      recommendations.risks.push('Starke Konkurrenz - Preisdruck beachten');
-    }
-
-    if (data.customerFencing === 'weak') {
-      recommendations.risks.push('Arbitrage-Risiko zwischen Kundensegmenten');
-    }
-
-    // Upgrade path considerations
-    if (data.upgradePath === 'tiered') {
-      recommendations.implementation.tiers = {
-        basic: 'AI-101 Level (50 Punkte) - Basis-DDSS',
-        standard: 'AI-201 Level (100 Punkte) - Erweiterte Analyse', 
-        premium: 'AI-301 Level (150 Punkte) - Autonome Systeme'
-      };
-    }
-
-    return recommendations;
+    
+    // DACS-Preise berechnen
+    const dacsPrices = this.calculateDACSPrices();
+    
+    // Implementierungskosten
+    const installationFee = formValue.installationFee || 0;
+    const partnerCommission = formValue.partnerCommission || 0;
+    const totalImplementationCosts = installationFee + (partnerCommission > 0 ? (typeof recommendedPrice === 'number' ? recommendedPrice : (recommendedPrice as any).baseFee) * partnerCommission / 100 : 0);
+    
+    return {
+      recommendedPrice: recommendedPrice,
+      basePrice: basePrice,
+      complexityScore: complexityScore,
+      costPerCase: costPerCase,
+      marketComparison: marketComparison,
+      dacsPrices: dacsPrices,
+      profitMargin: profitMargin,
+      modelRecommendation: this.getModelRecommendation(),
+      pricingModel: pricingModel,
+      roi: roi,
+      breakEvenCases: breakEvenCases,
+      totalCosts: totalCosts,
+      annualRevenue: annualRevenue,
+      implementationCosts: totalImplementationCosts,
+      expectedCases: expectedCases,
+      developmentCosts: developmentCosts,
+      maintenanceCosts: maintenanceCosts,
+      costPerUsage: costPerUsage
+    };
   }
 
   // Helper methods for labels
@@ -621,9 +817,6 @@ export class PricingStrategyComponent implements OnInit {
     `;
   }
 
-  private formatLabel(key: string): string {
-    return key.charAt(0).toUpperCase() + key.slice(1).replace(/([A-Z])/g, ' $1');
-  }
 
   exportJSON() {
     if (!this.results || !this.pricingForm.valid) {
