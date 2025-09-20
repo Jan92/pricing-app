@@ -123,4 +123,42 @@ export class DataInputComponent implements OnInit {
   translate(key: string): string {
     return this.languageService.translate(key);
   }
+
+  // Helper method to get translated dimension name
+  getTranslatedDimensionName(dimensionId: string): string {
+    const dimensionTranslations: { [key: string]: string } = {
+      'dataComplexity': this.translate('input.dataComplexity'),
+      'diseaseComplexity': this.translate('input.diseaseComplexity'),
+      'questionDifficulty': this.translate('input.questionComplexity'),
+      'aiSupportExtent': this.translate('input.aiSupport')
+    };
+    return dimensionTranslations[dimensionId] || dimensionId;
+  }
+
+  // Helper method to get translated criterion name and description
+  getTranslatedCriterionInfo(criterionId: string): { name: string, description: string } {
+    const criterionTranslations: { [key: string]: { name: string, description: string } } = {
+      'sourceVariety': { name: this.translate('input.dataSourceDiversity'), description: '' },
+      'dataIntegrity': { name: this.translate('input.dataIntegrity'), description: '' },
+      'dataComplexityLevel': { name: this.translate('input.dataComplexityLevel'), description: '' },
+      'dataLinking': { name: this.translate('input.dataLinking'), description: '' },
+      'dataVolume': { name: this.translate('input.dataVolume'), description: '' },
+      'diseaseRarity': { name: this.translate('input.diseaseRarity'), description: '' },
+      'diagnosticAmbiguity': { name: this.translate('input.diagnosticAmbiguity'), description: '' },
+      'prognosticUncertainty': { name: this.translate('input.prognosticUncertainty'), description: '' },
+      'multimorbidity': { name: this.translate('input.multimorbidity'), description: '' },
+      'diseaseSeverity': { name: this.translate('input.diseaseSeverity'), description: '' },
+      'differentialDepth': { name: this.translate('input.differentialDiagnosticDepth'), description: '' },
+      'prognosticPrecision': { name: this.translate('input.prognosticPrecision'), description: '' },
+      'realtimeRequirement': { name: this.translate('input.realTimeRequirement'), description: '' },
+      'interdisciplinaryRelevance': { name: this.translate('input.interdisciplinaryRelevance'), description: '' },
+      'dynamicAdaptability': { name: this.translate('input.dynamicAdaptability'), description: '' },
+      'automationLevel': { name: this.translate('input.automationLevel'), description: '' },
+      'analysisLevel': { name: this.translate('input.analysisDepth'), description: '' },
+      'recommendationComplexity': { name: this.translate('input.recommendationComplexity'), description: '' },
+      'guidelineIntegration': { name: this.translate('input.guidelineIntegration'), description: '' },
+      'patientIndividualization': { name: this.translate('input.patientSpecificIndividualization'), description: '' }
+    };
+    return criterionTranslations[criterionId] || { name: criterionId, description: '' };
+  }
 }

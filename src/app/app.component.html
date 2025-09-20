@@ -33,14 +33,14 @@
       
       <!-- Language Selection -->
       <mat-divider></mat-divider>
-      <mat-list-item>
+      <div class="language-selection-container">
         <mat-icon matListIcon>language</mat-icon>
-        <span>{{ translate('nav.language') }}</span>
+        <span class="language-label">{{ translate('nav.language') }}</span>
         <mat-select [value]="currentLanguage" (selectionChange)="changeLanguage($event.value)" class="language-select">
           <mat-option value="de">{{ translate('nav.german') }}</mat-option>
           <mat-option value="en">{{ translate('nav.english') }}</mat-option>
         </mat-select>
-      </mat-list-item>
+      </div>
     </mat-nav-list>
   </mat-sidenav>
 

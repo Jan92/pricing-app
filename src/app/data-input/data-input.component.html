@@ -12,15 +12,15 @@
 
   <ng-container *ngFor="let dim of dimensions">
     <div class="dimension-group" *ngIf="scoreForm.get(dim.id)">
-      <h3>{{ dim.name }}</h3>
+      <h3>{{ getTranslatedDimensionName(dim.id) }}</h3>
       <div [formGroupName]="dim.id">
         <ng-container *ngFor="let crit of dim.criteria">
           <div class="criterion-group" *ngIf="scoreForm.get(dim.id)?.get(crit.id)">
-            <h4>{{ crit.name }} <small>({{ crit.description }})</small></h4>
+            <h4>{{ getTranslatedCriterionInfo(crit.id).name }} <small>({{ getTranslatedCriterionInfo(crit.id).description }})</small></h4>
             <div class="score-options">
               <label *ngFor="let score of [1, 2, 3, 4, 5]" class="score-label">
                 <input type="radio" [formControlName]="crit.id" [value]="score">
-                <span>{{ score }} - {{ getScoreLabel(dim.id, crit.id, score) }}</span>
+                <span>{{ getScoreLabel(dim.id, crit.id, score) }}</span>
               </label>
             </div>
           </div>

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Dimension, ScoreInput, ScoreResult, Criterion, SCORING_DIMENSIONS, SeriesScenarioResult, SeriesSimulationRun } from './models/score.model';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { LanguageService } from './language.service';
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +26,7 @@ export class ScoreService {
     5: 'Hoch'
   };
 
-  constructor() { 
+  constructor(private languageService: LanguageService) { 
     // Preconfigured scores
     const preconfiguredScores: ScoreInput[] = [
       {
@@ -596,6 +597,26 @@ export class ScoreService {
     const dimensions = this.dimensionsSubject.getValue();
     const dimension = dimensions.find(d => d.id === dimensionId);
     const criterion = dimension?.criteria.find((c: Criterion) => c.id === criterionId);
+    
+    // Try to get translated label first
+    const translatedLabel = this.getTranslatedScoreLabel(dimensionId, criterionId, score);
+    if (translatedLabel) {
+      return translatedLabel;
+    }
+    
+    // Fallback to original scale or default labels
     return criterion?.scale[score] || this.defaultScaleLabels[score as keyof typeof this.defaultScaleLabels] || `Score ${score}`;
+  }
+
+  // Helper to get translated score labels
+  private getTranslatedScoreLabel(dimensionId: string, criterionId: string, score: number): string | null {
+    const currentLang = this.languageService.getCurrentLanguage();
+    const scoreLabels = this.languageService.translate('input.scoreLabels') as any;
+    
+    if (scoreLabels && typeof scoreLabels === 'object' && scoreLabels[score.toString()]) {
+      return scoreLabels[score.toString()];
+    }
+    
+    return null;
   }
 }
