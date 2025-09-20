@@ -1250,23 +1250,25 @@
   margin-top: 15px;
 }
 
-/* Radio-Button Gruppen */
+/* Radio-Button Gruppen - Exakt wie Live-Website */
 .radio-group {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 4px;
   margin: 10px 0;
   width: 100%;
 }
 
 .radio-option {
   border: 1px solid #e0e0e0;
-  border-radius: 6px;
-  padding: 12px;
+  border-radius: 4px;
+  padding: 8px 12px;
   transition: all 0.2s ease;
   margin: 0 !important;
   width: 100%;
-  display: block;
+  display: flex;
+  align-items: center;
+  min-height: 48px;
   position: relative;
 }
 
@@ -1280,10 +1282,12 @@
   border-color: #1976d2;
 }
 
-/* Angular Material Radio Button Override */
+/* Angular Material Radio Button komplett überschreiben */
 .radio-option .mat-radio-button {
   width: 100%;
-  display: block;
+  display: flex;
+  align-items: center;
+  height: 100%;
 }
 
 .radio-option .mat-radio-container {
@@ -1293,11 +1297,19 @@
 .radio-option .mat-radio-label {
   width: 100%;
   padding-left: 0 !important;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  margin: 0 !important;
 }
 
 .radio-option .mat-radio-label-content {
   width: 100%;
   padding-left: 0 !important;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  margin: 0 !important;
 }
 
 .radio-content {
@@ -1307,43 +1319,47 @@
   width: 100%;
   cursor: pointer;
   pointer-events: none;
+  height: 100%;
 }
 
 .radio-value {
   background: #1976d2;
   color: white;
-  width: 28px;
-  height: 28px;
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: bold;
-  font-size: 1em;
+  font-size: 0.9em;
   flex-shrink: 0;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 }
 
 .radio-option.mat-radio-checked .radio-value {
   background: #0d47a1;
-  box-shadow: 0 2px 6px rgba(13,71,161,0.3);
+  box-shadow: 0 2px 4px rgba(13,71,161,0.3);
 }
 
 .radio-text {
   flex: 1;
-  font-size: 0.95em;
-  line-height: 1.4;
+  font-size: 0.9em;
+  line-height: 1.3;
   color: #333;
+  display: flex;
+  align-items: center;
 }
 
 /* Responsive Anpassungen für Radio-Buttons */
 @media (max-width: 768px) {
   .radio-group {
-    gap: 6px;
+    gap: 3px;
   }
   
   .radio-option {
-    padding: 10px;
+    padding: 6px 10px;
+    min-height: 44px;
   }
   
   .radio-content {
@@ -1351,12 +1367,12 @@
   }
   
   .radio-value {
-    width: 24px;
-    height: 24px;
-    font-size: 0.9em;
+    width: 22px;
+    height: 22px;
+    font-size: 0.85em;
   }
   
   .radio-text {
-    font-size: 0.9em;
+    font-size: 0.85em;
   }
 }
