@@ -35,7 +35,7 @@
           <div formArrayName="scaleLabels">
             <div *ngFor="let score of scoreRange; let i = index" class="scale-item">
               <mat-form-field appearance="outline" class="full-width">
-                <mat-label>{{ translate('properties.scoreLabel') }} {{ score }}</mat-label>
+                <mat-label>Score {{ score }}</mat-label>
                 <input matInput [formControlName]="i" [placeholder]="translate('properties.placeholder') + ' ' + score">
                 <mat-hint>{{ translate('properties.hint') }}</mat-hint>
               </mat-form-field>
@@ -87,7 +87,7 @@
             <div formArrayName="scaleLabels">
               <div *ngFor="let score of scoreRange; let i = index" class="scale-item">
                 <mat-form-field appearance="outline" class="full-width">
-                  <mat-label>{{ translate('properties.scoreLabel') }} {{ score }}</mat-label>
+                  <mat-label>Score {{ score }}</mat-label>
                   <input matInput [formControlName]="i" [placeholder]="translate('properties.placeholder') + ' ' + score">
                   <mat-hint>{{ translate('properties.hint') }}</mat-hint>
                 </mat-form-field>

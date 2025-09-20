@@ -389,6 +389,147 @@ export class LanguageService {
         '3': 'Durchschnittlich',
         '4': 'Überdurchschnittlich',
         '5': 'Sofortige Antwort erwartet.'
+      },
+      
+      // Datenkomplexität Score-Labels
+      'properties.dataSourceDiversity.scoreLabels': {
+        '1': '1 - Nur ein Datentyp (z.B. Labordaten).',
+        '2': '2 - Unterdurchschnittlich',
+        '3': '3 - Durchschnittlich',
+        '4': '4 - Überdurchschnittlich',
+        '5': '5 - Fünf oder mehr Datentypen (z.B. Bild-, Text-, und Genomdaten).'
+      },
+      'properties.dataIntegrity.scoreLabels': {
+        '1': '1 - Nur ein Teil der Eingangsdaten kann verarbeitet werden.',
+        '2': '2 - Unterdurchschnittlich',
+        '3': '3 - Durchschnittlich',
+        '4': '4 - Überdurchschnittlich',
+        '5': '5 - Daten sind nahezu vollständig und konsistent verarbeitbar.'
+      },
+      'properties.dataComplexity.scoreLabels': {
+        '1': '1 - Strukturiert, leicht interpretierbar (z.B. numerische Labordaten).',
+        '2': '2 - Unterdurchschnittlich',
+        '3': '3 - Durchschnittlich',
+        '4': '4 - Überdurchschnittlich',
+        '5': '5 - Unstrukturierte oder hochkomplexe Daten (z.B. freier Text oder verrauschte Daten).'
+      },
+      'properties.dataLinking.scoreLabels': {
+        '1': '1 - Keine Verknüpfung unterschiedlicher Quellen.',
+        '2': '2 - Unterdurchschnittlich',
+        '3': '3 - Durchschnittlich',
+        '4': '4 - Überdurchschnittlich',
+        '5': '5 - Vollständig integrierte Analyse aus mehreren Quellen.'
+      },
+      'properties.dataVolume.scoreLabels': {
+        '1': '1 - Gering (z.B. ein einzelner Parameter).',
+        '2': '2 - Unterdurchschnittlich',
+        '3': '3 - Durchschnittlich',
+        '4': '4 - Überdurchschnittlich',
+        '5': '5 - Sehr groß (z.B. Millionen von Parametern pro Patient).'
+      },
+      
+      // Krankheitskomplexität Score-Labels
+      'properties.diseaseRarity.scoreLabels': {
+        '1': '1 - Häufig (z.B. Anämie).',
+        '2': '2 - Unterdurchschnittlich',
+        '3': '3 - Durchschnittlich',
+        '4': '4 - Überdurchschnittlich',
+        '5': '5 - Sehr selten (z.B. Morbus Gaucher).'
+      },
+      'properties.diagnosticAmbiguity.scoreLabels': {
+        '1': '1 - Einfach abzugrenzen (z.B. Grippe).',
+        '2': '2 - Unterdurchschnittlich',
+        '3': '3 - Durchschnittlich',
+        '4': '4 - Überdurchschnittlich',
+        '5': '5 - Hochgradig mehrdeutig (z.B. systemischer Lupus erythematodes).'
+      },
+      'properties.prognosticUncertainty.scoreLabels': {
+        '1': '1 - Gut vorhersagbar (z.B. unkomplizierte bakterielle Infektion).',
+        '2': '2 - Unterdurchschnittlich',
+        '3': '3 - Durchschnittlich',
+        '4': '4 - Überdurchschnittlich',
+        '5': '5 - Unvorhersehbar und individuell unterschiedlich (z.B. aggressive Krebsarten).'
+      },
+      'properties.multimorbidity.scoreLabels': {
+        '1': '1 - Kaum beeinflusst durch Komorbiditäten.',
+        '2': '2 - Unterdurchschnittlich',
+        '3': '3 - Durchschnittlich',
+        '4': '4 - Überdurchschnittlich',
+        '5': '5 - Stark beeinflusst durch zahlreiche Komorbiditäten.'
+      },
+      'properties.diseaseSeverity.scoreLabels': {
+        '1': '1 - Geringe Lethalität und wenig Einfluss auf Patienten.',
+        '2': '2 - Unterdurchschnittlich',
+        '3': '3 - Durchschnittlich',
+        '4': '4 - Überdurchschnittlich',
+        '5': '5 - Hohe Letalität wie z.B. Krebs.'
+      },
+      
+      // Fragestellungs-Schwierigkeit Score-Labels
+      'properties.differentialDiagnosticDepth.scoreLabels': {
+        '1': '1 - Wenige Differenzialdiagnosen (< 3).',
+        '2': '2 - Unterdurchschnittlich',
+        '3': '3 - Durchschnittlich',
+        '4': '4 - Überdurchschnittlich',
+        '5': '5 - Viele Differenzialdiagnosen (> 10).'
+      },
+      'properties.prognosticPrecision.scoreLabels': {
+        '1': '1 - Nur kurzfristige Trends (z.B. einfache Risikoabschätzung).',
+        '2': '2 - Unterdurchschnittlich',
+        '3': '3 - Durchschnittlich',
+        '4': '4 - Überdurchschnittlich',
+        '5': '5 - Hochpräzise, langfristige Vorhersagen (z.B. Krankheitsprogression).'
+      },
+      'properties.interdisciplinaryRelevance.scoreLabels': {
+        '1': '1 - Nur ein Fachbereich.',
+        '2': '2 - Unterdurchschnittlich',
+        '3': '3 - Durchschnittlich',
+        '4': '4 - Überdurchschnittlich',
+        '5': '5 - Mehrere Fachbereiche (> 3).'
+      },
+      'properties.dynamicAdaptability.scoreLabels': {
+        '1': '1 - Keine Anpassung an dynamische Parameter.',
+        '2': '2 - Unterdurchschnittlich',
+        '3': '3 - Durchschnittlich',
+        '4': '4 - Überdurchschnittlich',
+        '5': '5 - Echtzeit-Anpassung an klinische Änderungen.'
+      },
+      
+      // KI-Unterstützung Score-Labels
+      'properties.automationLevel.scoreLabels': {
+        '1': '1 - Nur unterstützend, keine eigenständigen Analysen.',
+        '2': '2 - Unterdurchschnittlich',
+        '3': '3 - Durchschnittlich',
+        '4': '4 - Überdurchschnittlich',
+        '5': '5 - Vollautomatisierte Analysen und Entscheidungen.'
+      },
+      'properties.analysisLevel.scoreLabels': {
+        '1': '1 - Einfacher Vorschlag.',
+        '2': '2 - Unterdurchschnittlich',
+        '3': '3 - Durchschnittlich',
+        '4': '4 - Überdurchschnittlich',
+        '5': '5 - Hochdimensionale, integrative Analysen.'
+      },
+      'properties.recommendationComplexity.scoreLabels': {
+        '1': '1 - Einfache, generische Vorschläge.',
+        '2': '2 - Unterdurchschnittlich',
+        '3': '3 - Durchschnittlich',
+        '4': '4 - Überdurchschnittlich',
+        '5': '5 - Detaillierte, umsetzungsfähige Handlungspläne.'
+      },
+      'properties.guidelineIntegration.scoreLabels': {
+        '1': '1 - Keine Berücksichtigung von Leitlinien.',
+        '2': '2 - Unterdurchschnittlich',
+        '3': '3 - Durchschnittlich',
+        '4': '4 - Überdurchschnittlich',
+        '5': '5 - Vollständige Integration aktueller Leitlinien.'
+      },
+      'properties.patientSpecificIndividualization.scoreLabels': {
+        '1': '1 - Keine Individualisierung.',
+        '2': '2 - Unterdurchschnittlich',
+        '3': '3 - Durchschnittlich',
+        '4': '4 - Überdurchschnittlich',
+        '5': '5 - Höchstgradig patientenspezifische Analysen.'
       }
     },
     en: {
@@ -769,6 +910,147 @@ export class LanguageService {
         '3': 'Average',
         '4': 'Above average',
         '5': 'Immediate response expected.'
+      },
+      
+      // Datenkomplexität Score-Labels
+      'properties.dataSourceDiversity.scoreLabels': {
+        '1': '1 - Only one data type (e.g., lab data).',
+        '2': '2 - Below average',
+        '3': '3 - Average',
+        '4': '4 - Above average',
+        '5': '5 - Five or more data types (e.g., image, text, and genome data).'
+      },
+      'properties.dataIntegrity.scoreLabels': {
+        '1': '1 - Only part of the input data can be processed.',
+        '2': '2 - Below average',
+        '3': '3 - Average',
+        '4': '4 - Above average',
+        '5': '5 - Data is almost completely and consistently processable.'
+      },
+      'properties.dataComplexity.scoreLabels': {
+        '1': '1 - Structured, easily interpretable (e.g., numerical lab data).',
+        '2': '2 - Below average',
+        '3': '3 - Average',
+        '4': '4 - Above average',
+        '5': '5 - Unstructured or highly complex data (e.g., free text or noisy data).'
+      },
+      'properties.dataLinking.scoreLabels': {
+        '1': '1 - No linking of different sources.',
+        '2': '2 - Below average',
+        '3': '3 - Average',
+        '4': '4 - Above average',
+        '5': '5 - Fully integrated analysis from multiple sources.'
+      },
+      'properties.dataVolume.scoreLabels': {
+        '1': '1 - Low (e.g., a single parameter).',
+        '2': '2 - Below average',
+        '3': '3 - Average',
+        '4': '4 - Above average',
+        '5': '5 - Very large (e.g., millions of parameters per patient).'
+      },
+      
+      // Krankheitskomplexität Score-Labels
+      'properties.diseaseRarity.scoreLabels': {
+        '1': '1 - Common (e.g., anemia).',
+        '2': '2 - Below average',
+        '3': '3 - Average',
+        '4': '4 - Above average',
+        '5': '5 - Very rare (e.g., Gaucher disease).'
+      },
+      'properties.diagnosticAmbiguity.scoreLabels': {
+        '1': '1 - Easy to distinguish (e.g., flu).',
+        '2': '2 - Below average',
+        '3': '3 - Average',
+        '4': '4 - Above average',
+        '5': '5 - Highly ambiguous (e.g., systemic lupus erythematosus).'
+      },
+      'properties.prognosticUncertainty.scoreLabels': {
+        '1': '1 - Well predictable (e.g., uncomplicated bacterial infection).',
+        '2': '2 - Below average',
+        '3': '3 - Average',
+        '4': '4 - Above average',
+        '5': '5 - Unpredictable and individually different (e.g., aggressive cancers).'
+      },
+      'properties.multimorbidity.scoreLabels': {
+        '1': '1 - Hardly influenced by comorbidities.',
+        '2': '2 - Below average',
+        '3': '3 - Average',
+        '4': '4 - Above average',
+        '5': '5 - Strongly influenced by numerous comorbidities.'
+      },
+      'properties.diseaseSeverity.scoreLabels': {
+        '1': '1 - Low lethality and little impact on patients.',
+        '2': '2 - Below average',
+        '3': '3 - Average',
+        '4': '4 - Above average',
+        '5': '5 - High lethality such as cancer.'
+      },
+      
+      // Fragestellungs-Schwierigkeit Score-Labels
+      'properties.differentialDiagnosticDepth.scoreLabels': {
+        '1': '1 - Few differential diagnoses (< 3).',
+        '2': '2 - Below average',
+        '3': '3 - Average',
+        '4': '4 - Above average',
+        '5': '5 - Many differential diagnoses (> 10).'
+      },
+      'properties.prognosticPrecision.scoreLabels': {
+        '1': '1 - Only short-term trends (e.g., simple risk assessment).',
+        '2': '2 - Below average',
+        '3': '3 - Average',
+        '4': '4 - Above average',
+        '5': '5 - Highly precise, long-term predictions (e.g., disease progression).'
+      },
+      'properties.interdisciplinaryRelevance.scoreLabels': {
+        '1': '1 - Only one specialty.',
+        '2': '2 - Below average',
+        '3': '3 - Average',
+        '4': '4 - Above average',
+        '5': '5 - Multiple specialties (> 3).'
+      },
+      'properties.dynamicAdaptability.scoreLabels': {
+        '1': '1 - No adaptation to dynamic parameters.',
+        '2': '2 - Below average',
+        '3': '3 - Average',
+        '4': '4 - Above average',
+        '5': '5 - Real-time adaptation to clinical changes.'
+      },
+      
+      // KI-Unterstützung Score-Labels
+      'properties.automationLevel.scoreLabels': {
+        '1': '1 - Only supportive, no independent analyses.',
+        '2': '2 - Below average',
+        '3': '3 - Average',
+        '4': '4 - Above average',
+        '5': '5 - Fully automated analyses and decisions.'
+      },
+      'properties.analysisLevel.scoreLabels': {
+        '1': '1 - Simple suggestion.',
+        '2': '2 - Below average',
+        '3': '3 - Average',
+        '4': '4 - Above average',
+        '5': '5 - High-dimensional, integrative analyses.'
+      },
+      'properties.recommendationComplexity.scoreLabels': {
+        '1': '1 - Simple, generic suggestions.',
+        '2': '2 - Below average',
+        '3': '3 - Average',
+        '4': '4 - Above average',
+        '5': '5 - Detailed, implementable action plans.'
+      },
+      'properties.guidelineIntegration.scoreLabels': {
+        '1': '1 - No consideration of guidelines.',
+        '2': '2 - Below average',
+        '3': '3 - Average',
+        '4': '4 - Above average',
+        '5': '5 - Complete integration of current guidelines.'
+      },
+      'properties.patientSpecificIndividualization.scoreLabels': {
+        '1': '1 - No individualization.',
+        '2': '2 - Below average',
+        '3': '3 - Average',
+        '4': '4 - Above average',
+        '5': '5 - Highly patient-specific analyses.'
       }
     }
   };

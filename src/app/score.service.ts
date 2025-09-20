@@ -611,8 +611,15 @@ export class ScoreService {
   // Helper to get translated score labels
   private getTranslatedScoreLabel(dimensionId: string, criterionId: string, score: number): string | null {
     const currentLang = this.languageService.getCurrentLanguage();
-    const scoreLabels = this.languageService.translate('input.scoreLabels') as any;
     
+    // Try to get criterion-specific score labels first
+    const criterionScoreLabels = this.languageService.translate(`properties.${criterionId}.scoreLabels`) as any;
+    if (criterionScoreLabels && typeof criterionScoreLabels === 'object' && criterionScoreLabels[score.toString()]) {
+      return criterionScoreLabels[score.toString()];
+    }
+    
+    // Fallback to generic score labels
+    const scoreLabels = this.languageService.translate('input.scoreLabels') as any;
     if (scoreLabels && typeof scoreLabels === 'object' && scoreLabels[score.toString()]) {
       return scoreLabels[score.toString()];
     }
