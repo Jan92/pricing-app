@@ -20,8 +20,8 @@ export class LanguageService {
       'nav.pricingStrategy': 'Pricing Strategie',
       'nav.simulationResults': 'Simulation Ergebnisse',
       'nav.language': 'Sprache',
-      'nav.german': 'Deutsch',
-      'nav.english': 'English',
+      'nav.german': 'DE',
+      'nav.english': 'EN',
       
       // Common
       'common.save': 'Speichern',
@@ -86,6 +86,18 @@ export class LanguageService {
       // Score Properties
       'properties.title': 'Score Einstellungen',
       'properties.description': 'Konfigurieren Sie die Einstellungen für die Score-Berechnung.',
+      'properties.dimensions': 'Dimensionen',
+      'properties.criteria': 'Kriterien für',
+      'properties.scaleLabels': 'Skalenbeschriftungen',
+      'properties.scoreLabel': 'Score',
+      'properties.placeholder': 'Bezeichnung für Score',
+      'properties.hint': 'Geben Sie eine aussagekräftige Bezeichnung für diesen Scorewert ein',
+      'properties.resetDefaults': 'Standardwerte',
+      'properties.save': 'Speichern',
+      'properties.selectDimension': 'Bitte wählen Sie eine Dimension aus der Liste links aus.',
+      'properties.selectCriterion': 'Bitte wählen Sie ein Kriterium aus der Liste aus.',
+      'properties.backToDimensions': 'Zurück zu Dimensionen',
+      'properties.backToCriteria': 'Zurück zu Kriterien',
       
       // Results
       'results.title': 'Simulation Ergebnisse',
@@ -119,8 +131,8 @@ export class LanguageService {
       'nav.pricingStrategy': 'Pricing Strategy',
       'nav.simulationResults': 'Simulation Results',
       'nav.language': 'Language',
-      'nav.german': 'Deutsch',
-      'nav.english': 'English',
+      'nav.german': 'DE',
+      'nav.english': 'EN',
       
       // Common
       'common.save': 'Save',
@@ -185,6 +197,18 @@ export class LanguageService {
       // Score Properties
       'properties.title': 'Score Settings',
       'properties.description': 'Configure the settings for score calculation.',
+      'properties.dimensions': 'Dimensions',
+      'properties.criteria': 'Criteria for',
+      'properties.scaleLabels': 'Scale Labels',
+      'properties.scoreLabel': 'Score',
+      'properties.placeholder': 'Label for Score',
+      'properties.hint': 'Enter a meaningful label for this score value',
+      'properties.resetDefaults': 'Reset to Defaults',
+      'properties.save': 'Save',
+      'properties.selectDimension': 'Please select a dimension from the list on the left.',
+      'properties.selectCriterion': 'Please select a criterion from the list.',
+      'properties.backToDimensions': 'Back to Dimensions',
+      'properties.backToCriteria': 'Back to Criteria',
       
       // Results
       'results.title': 'Simulation Results',

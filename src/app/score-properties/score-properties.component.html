@@ -1,9 +1,9 @@
-<h2>Score Einstellungen</h2>
+<h2>{{ translate('properties.title') }}</h2>
 
 <!-- Mobile Step-by-Step Ansicht -->
 <div *ngIf="isMobile; else desktopView">
   <div *ngIf="mobileStep === 0">
-    <h3>Dimensionen</h3>
+    <h3>{{ translate('properties.dimensions') }}</h3>
     <mat-nav-list>
       <mat-list-item *ngFor="let dimension of dimensions$ | async" 
                     (click)="onSelectDimension(dimension)" 
@@ -13,8 +13,8 @@
     </mat-nav-list>
   </div>
   <div *ngIf="mobileStep === 1">
-    <button mat-stroked-button (click)="goBackMobileStep()" style="margin-bottom: 12px;">Zurück zu Dimensionen</button>
-    <h3>Kriterien für {{ selectedDimension?.name }}</h3>
+    <button mat-stroked-button (click)="goBackMobileStep()" style="margin-bottom: 12px;">{{ translate('properties.backToDimensions') }}</button>
+    <h3>{{ translate('properties.criteria') }} {{ selectedDimension?.name }}</h3>
     <mat-nav-list>
       <mat-list-item *ngFor="let criterion of selectedDimension?.criteria" 
                     (click)="onSelectCriterion(criterion)"
@@ -24,10 +24,10 @@
     </mat-nav-list>
   </div>
   <div *ngIf="mobileStep === 2 && selectedCriterion && scaleForm && scaleLabels?.length === scoreRange.length">
-    <button mat-stroked-button (click)="goBackMobileStep()" style="margin-bottom: 12px;">Zurück zu Kriterien</button>
+    <button mat-stroked-button (click)="goBackMobileStep()" style="margin-bottom: 12px;">{{ translate('properties.backToCriteria') }}</button>
     <mat-card class="mat-elevation-z4">
       <mat-card-header>
-        <mat-card-title>Skalenbeschriftungen - {{ selectedCriterion.name }}</mat-card-title>
+        <mat-card-title>{{ translate('properties.scaleLabels') }} - {{ selectedCriterion.name }}</mat-card-title>
         <mat-card-subtitle>{{ selectedCriterion.description }}</mat-card-subtitle>
       </mat-card-header>
       <mat-card-content>
@@ -35,17 +35,17 @@
           <div formArrayName="scaleLabels">
             <div *ngFor="let score of scoreRange; let i = index" class="scale-item">
               <mat-form-field appearance="outline" class="full-width">
-                <mat-label>Score {{ score }}</mat-label>
-                <input matInput [formControlName]="i" placeholder="Bezeichnung für Score {{ score }}">
-                <mat-hint>Geben Sie eine aussagekräftige Bezeichnung für diesen Scorewert ein</mat-hint>
+                <mat-label>{{ translate('properties.scoreLabel') }} {{ score }}</mat-label>
+                <input matInput [formControlName]="i" [placeholder]="translate('properties.placeholder') + ' ' + score">
+                <mat-hint>{{ translate('properties.hint') }}</mat-hint>
               </mat-form-field>
             </div>
           </div>
         </form>
       </mat-card-content>
       <mat-card-actions align="end">
-        <button mat-button (click)="resetToDefaults()">Standardwerte</button>
-        <button mat-raised-button color="primary" (click)="saveScaleLabels()">Speichern</button>
+        <button mat-button (click)="resetToDefaults()">{{ translate('properties.resetDefaults') }}</button>
+        <button mat-raised-button color="primary" (click)="saveScaleLabels()">{{ translate('properties.save') }}</button>
       </mat-card-actions>
     </mat-card>
   </div>
@@ -55,7 +55,7 @@
 <ng-template #desktopView>
   <div class="score-properties-container">
     <div class="dimension-list">
-      <h3>Dimensionen</h3>
+      <h3>{{ translate('properties.dimensions') }}</h3>
       <mat-nav-list>
         <mat-list-item *ngFor="let dimension of dimensions$ | async" 
                       (click)="onSelectDimension(dimension)" 
@@ -66,7 +66,7 @@
     </div>
 
     <div class="criteria-list" *ngIf="selectedDimension">
-      <h3>Kriterien für {{ selectedDimension.name }}</h3>
+      <h3>{{ translate('properties.criteria') }} {{ selectedDimension.name }}</h3>
       <mat-nav-list>
         <mat-list-item *ngFor="let criterion of selectedDimension.criteria" 
                       (click)="onSelectCriterion(criterion)"
@@ -79,7 +79,7 @@
     <div class="scale-editor" *ngIf="selectedCriterion && scaleForm && scaleLabels?.length === scoreRange.length">
       <mat-card class="mat-elevation-z4">
         <mat-card-header>
-          <mat-card-title>Skalenbeschriftungen - {{ selectedCriterion.name }}</mat-card-title>
+          <mat-card-title>{{ translate('properties.scaleLabels') }} - {{ selectedCriterion.name }}</mat-card-title>
           <mat-card-subtitle>{{ selectedCriterion.description }}</mat-card-subtitle>
         </mat-card-header>
         <mat-card-content>
@@ -87,17 +87,17 @@
             <div formArrayName="scaleLabels">
               <div *ngFor="let score of scoreRange; let i = index" class="scale-item">
                 <mat-form-field appearance="outline" class="full-width">
-                  <mat-label>Score {{ score }}</mat-label>
-                  <input matInput [formControlName]="i" placeholder="Bezeichnung für Score {{ score }}">
-                  <mat-hint>Geben Sie eine aussagekräftige Bezeichnung für diesen Scorewert ein</mat-hint>
+                  <mat-label>{{ translate('properties.scoreLabel') }} {{ score }}</mat-label>
+                  <input matInput [formControlName]="i" [placeholder]="translate('properties.placeholder') + ' ' + score">
+                  <mat-hint>{{ translate('properties.hint') }}</mat-hint>
                 </mat-form-field>
               </div>
             </div>
           </form>
         </mat-card-content>
         <mat-card-actions align="end">
-          <button mat-button (click)="resetToDefaults()">Standardwerte</button>
-          <button mat-raised-button color="primary" (click)="saveScaleLabels()">Speichern</button>
+          <button mat-button (click)="resetToDefaults()">{{ translate('properties.resetDefaults') }}</button>
+          <button mat-raised-button color="primary" (click)="saveScaleLabels()">{{ translate('properties.save') }}</button>
         </mat-card-actions>
       </mat-card>
     </div>
@@ -105,9 +105,9 @@
 </ng-template>
 
 <div *ngIf="!selectedDimension && !isMobile" class="select-prompt">
-  <p>Bitte wählen Sie eine Dimension aus der Liste links aus.</p>
+  <p>{{ translate('properties.selectDimension') }}</p>
 </div>
 
 <div *ngIf="selectedDimension && !selectedCriterion && !isMobile" class="select-prompt">
-  <p>Bitte wählen Sie ein Kriterium aus der Liste aus.</p>
+  <p>{{ translate('properties.selectCriterion') }}</p>
 </div>

@@ -4,6 +4,7 @@ import { Dimension, Criterion } from '../models/score.model';
 import { FormBuilder, FormGroup, FormArray, FormControl } from '@angular/forms';
 import { Observable, switchMap, of } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { LanguageService } from '../language.service';
 
 @Component({
   selector: 'app-score-properties',
@@ -25,7 +26,8 @@ export class ScorePropertiesComponent implements OnInit {
 
   constructor(
     private scoreService: ScoreService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private languageService: LanguageService
   ) {
     this.dimensions$ = this.scoreService.getDimensions();
     // FormArray direkt mit leeren Controls für die Score-Range initialisieren
@@ -124,6 +126,10 @@ export class ScorePropertiesComponent implements OnInit {
     // Update the form with new values
     this.resetScaleForm(this.selectedCriterion);
     
-    alert('Skalenbeschriftungen wurden auf Standardwerte zurückgesetzt.');
+    alert(this.languageService.translate('properties.resetDefaults') + ' - ' + this.languageService.translate('common.dataSaved'));
+  }
+
+  translate(key: string): string {
+    return this.languageService.translate(key);
   }
 }
