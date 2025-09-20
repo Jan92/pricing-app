@@ -3,6 +3,7 @@ import { ScoreService } from '../score.service';
 import { ScoreResult } from '../models/score.model'; // We'll display results here
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { LanguageService } from '../language.service';
 
 @Component({
   selector: 'app-score-management',
@@ -16,7 +17,8 @@ export class ScoreManagementComponent implements OnInit {
 
   constructor(
     private scoreService: ScoreService,
-    private router: Router
+    private router: Router,
+    private languageService: LanguageService
   ) { 
     this.scoreResults$ = this.scoreService.getScoreResults();
   }
@@ -36,10 +38,14 @@ export class ScoreManagementComponent implements OnInit {
   }
 
   deleteEvaluation(evaluationId: string): void {
-    if (confirm(`Sind Sie sicher, dass Sie die Bewertung ${evaluationId} löschen möchten?`)) {
+    if (confirm(this.languageService.translate('common.confirmDelete') + ' ' + evaluationId + '?')) {
       this.scoreService.deleteScore(evaluationId);
-      alert(`Bewertung ${evaluationId} gelöscht.`);
+      alert(this.languageService.translate('common.deleted') + ' ' + evaluationId + '.');
     }
+  }
+
+  translate(key: string): string {
+    return this.languageService.translate(key);
   }
 
   editScore(evaluationId: string): void {

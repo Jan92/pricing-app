@@ -16,6 +16,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators, FormsModule, FormArray, FormControl } from '@angular/forms';
+import { LanguageService } from '../language.service';
 
 @Component({
   selector: 'app-pricing-strategy',
@@ -54,15 +55,15 @@ export class PricingStrategyComponent implements OnInit {
   Number = Number;
   
   phases = [
-    'System-Übersicht',
-    'Komplexität',
-    'Markt & Wettbewerb',
-    'Implementierung & Vertrieb',
-    'Geschäftsmodell',
-    'Ergebnisse'
+    'pricing.phases.systemOverview',
+    'pricing.phases.complexity',
+    'pricing.phases.marketCompetition',
+    'pricing.phases.implementation',
+    'pricing.phases.businessModel',
+    'pricing.phases.results'
   ];
 
-  constructor(private fb: FormBuilder, private snackBar: MatSnackBar) {
+  constructor(private fb: FormBuilder, private snackBar: MatSnackBar, private languageService: LanguageService) {
     this.pricingForm = this.fb.group({
       // Schritt 1: System-Übersicht (erweitert)
       systemName: ['', [Validators.required, Validators.minLength(3)]],
@@ -346,6 +347,10 @@ export class PricingStrategyComponent implements OnInit {
   // Math-Objekt für Template-Zugriff
   Math = Math;
 
+  translate(key: string): string {
+    return this.languageService.translate(key);
+  }
+
   nextPhase() {
     if (!this.validateCurrentPhase()) {
       return;
@@ -426,9 +431,9 @@ export class PricingStrategyComponent implements OnInit {
 
   getNextButtonText(): string {
     if (this.currentPhase === this.totalPhases - 2) {
-      return 'Empfehlung generieren';
+      return this.translate('pricing.generateRecommendation');
     }
-    return 'Weiter →';
+    return this.translate('pricing.next');
   }
 
   updateNavigation() {
@@ -574,7 +579,7 @@ export class PricingStrategyComponent implements OnInit {
     // Speichere die Formulardaten aus dem ReactiveForm
     if (this.pricingForm.valid) {
       this.formData = { ...this.pricingForm.value };
-      this.snackBar.open('Daten erfolgreich gespeichert', 'OK', {
+      this.snackBar.open(this.translate('pricing.dataSaved'), 'OK', {
         duration: 2000,
         horizontalPosition: 'center',
         verticalPosition: 'bottom',
@@ -598,7 +603,7 @@ export class PricingStrategyComponent implements OnInit {
       this.updateNavigation();
 
       // Bestätige die erfolgreiche Generierung
-      this.snackBar.open('Pricing-Empfehlung wurde erfolgreich generiert!', 'OK', {
+      this.snackBar.open(this.translate('pricing.recommendationGenerated'), 'OK', {
         duration: 3000,
         horizontalPosition: 'center',
         verticalPosition: 'bottom',
@@ -757,7 +762,7 @@ export class PricingStrategyComponent implements OnInit {
 
   exportPDF() {
     if (!this.results || !this.pricingForm.valid) {
-      this.snackBar.open('Keine Ergebnisse zum Exportieren verfügbar.', 'OK', {
+      this.snackBar.open(this.translate('pricing.noResultsToExport'), 'OK', {
         duration: 5000,
         horizontalPosition: 'center',
         verticalPosition: 'bottom',
@@ -774,7 +779,7 @@ export class PricingStrategyComponent implements OnInit {
         printWindow.document.close();
         setTimeout(() => {
           printWindow.print();
-          this.snackBar.open('PDF-Export erfolgreich gestartet', 'OK', {
+          this.snackBar.open(this.translate('pricing.pdfExportStarted'), 'OK', {
             duration: 2000,
             horizontalPosition: 'center',
             verticalPosition: 'bottom',
@@ -782,10 +787,10 @@ export class PricingStrategyComponent implements OnInit {
           });
         }, 500);
       } else {
-        throw new Error('Popup wurde blockiert');
+        throw new Error(this.translate('pricing.popupBlocked'));
       }
     } catch (error) {
-      this.snackBar.open('Fehler beim PDF-Export: ' + (error instanceof Error ? error.message : 'Unbekannter Fehler'), 'OK', {
+      this.snackBar.open(this.translate('pricing.exportError') + ': ' + (error instanceof Error ? error.message : this.translate('pricing.unknownError')), 'OK', {
         duration: 5000,
         horizontalPosition: 'center',
         verticalPosition: 'bottom',
@@ -918,7 +923,7 @@ export class PricingStrategyComponent implements OnInit {
 
   exportJSON() {
     if (!this.results || !this.pricingForm.valid) {
-      this.snackBar.open('Keine Ergebnisse zum Exportieren verfügbar.', 'OK', {
+      this.snackBar.open(this.translate('pricing.noResultsToExport'), 'OK', {
         duration: 5000,
         horizontalPosition: 'center',
         verticalPosition: 'bottom',
@@ -948,14 +953,14 @@ export class PricingStrategyComponent implements OnInit {
       
       URL.revokeObjectURL(url);
 
-      this.snackBar.open('JSON-Export erfolgreich', 'OK', {
+      this.snackBar.open(this.translate('pricing.jsonExportSuccessful'), 'OK', {
         duration: 2000,
         horizontalPosition: 'center',
         verticalPosition: 'bottom',
         panelClass: ['success-snackbar']
       });
     } catch (error) {
-      this.snackBar.open('Fehler beim JSON-Export: ' + (error instanceof Error ? error.message : 'Unbekannter Fehler'), 'OK', {
+      this.snackBar.open(this.translate('pricing.exportError') + ': ' + (error instanceof Error ? error.message : this.translate('pricing.unknownError')), 'OK', {
         duration: 5000,
         horizontalPosition: 'center',
         verticalPosition: 'bottom',

@@ -7,29 +7,40 @@
     <mat-nav-list>
       <a mat-list-item routerLink="/manage" routerLinkActive="active-link" (click)="isMobile ? drawer.close() : null">
         <mat-icon matListIcon>list_alt</mat-icon>
-        <span>Übersicht Scores</span>
+        <span>{{ translate('nav.overview') }}</span>
       </a>
       <a mat-list-item routerLink="/input" routerLinkActive="active-link" (click)="isMobile ? drawer.close() : null">
         <mat-icon matListIcon>add_circle</mat-icon>
-        <span>Neuen Score berechnen</span>
+        <span>{{ translate('nav.newScore') }}</span>
       </a>
       <a mat-list-item routerLink="/properties" routerLinkActive="active-link" (click)="isMobile ? drawer.close() : null">
         <mat-icon matListIcon>settings</mat-icon>
-        <span>Score Einstellungen</span>
+        <span>{{ translate('nav.scoreSettings') }}</span>
       </a>
       <mat-divider></mat-divider>
       <a mat-list-item routerLink="/pricing" routerLinkActive="active-link" (click)="isMobile ? drawer.close() : null">
         <mat-icon matListIcon>euro_symbol</mat-icon>
-        <span>Preissimulation</span>
+        <span>{{ translate('nav.priceSimulation') }}</span>
       </a>
       <a mat-list-item routerLink="/pricing-strategy" routerLinkActive="active-link" (click)="isMobile ? drawer.close() : null">
         <mat-icon matListIcon>trending_up</mat-icon>
-        <span>Pricing Strategie</span>
+        <span>{{ translate('nav.pricingStrategy') }}</span>
       </a>
       <a mat-list-item routerLink="/series-results" routerLinkActive="active-link" (click)="isMobile ? drawer.close() : null">
         <mat-icon matListIcon>bar_chart</mat-icon>
-        <span>Simulation Ergebnisse</span>
+        <span>{{ translate('nav.simulationResults') }}</span>
       </a>
+      
+      <!-- Language Selection -->
+      <mat-divider></mat-divider>
+      <mat-list-item>
+        <mat-icon matListIcon>language</mat-icon>
+        <span>{{ translate('nav.language') }}</span>
+        <mat-select [value]="currentLanguage" (selectionChange)="changeLanguage($event.value)" class="language-select">
+          <mat-option value="de">{{ translate('nav.german') }}</mat-option>
+          <mat-option value="en">{{ translate('nav.english') }}</mat-option>
+        </mat-select>
+      </mat-list-item>
     </mat-nav-list>
   </mat-sidenav>
 

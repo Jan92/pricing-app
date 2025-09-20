@@ -1,14 +1,14 @@
-<h2>Berechnung einzelner AI Score</h2>
+<h2>{{ translate('score.calculateSingle') }}</h2>
 
 <form [formGroup]="scoreForm" (ngSubmit)="onSubmit()" *ngIf="dimensions$ | async as dimensions">
   
   <mat-form-field appearance="outline" class="w-100">
-    <mat-label>Score-Name</mat-label>
-    <input matInput formControlName="name" placeholder="z.B. Projekt XY oder Patient 123">
+    <mat-label>{{ translate('score.name') }}</mat-label>
+    <input matInput formControlName="name" [placeholder]="translate('score.placeholder')">
   </mat-form-field>
 
   <input type="hidden" formControlName="evaluationId">
-  <p>Aktuelle Evaluations-ID: {{ evaluationId }}</p>
+  <p>{{ translate('score.currentEvaluationId') }}: {{ evaluationId }}</p>
 
   <ng-container *ngFor="let dim of dimensions">
     <div class="dimension-group" *ngIf="scoreForm.get(dim.id)">
@@ -29,5 +29,5 @@
     </div>
   </ng-container>
 
-  <button type="submit" [disabled]="!scoreForm.valid">Speichern</button>
+  <button type="submit" [disabled]="!scoreForm.valid">{{ translate('common.save') }}</button>
 </form>

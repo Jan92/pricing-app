@@ -4,6 +4,7 @@ import { ScoreService } from '../score.service';
 import { Dimension, ScoreInput, Criterion } from '../models/score.model';
 import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import { LanguageService } from '../language.service';
 
 @Component({
   selector: 'app-data-input',
@@ -19,7 +20,8 @@ export class DataInputComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private scoreService: ScoreService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private languageService: LanguageService
   ) {
     this.scoreForm = this.fb.group({ // Initialize with an empty group
         evaluationId: [this.evaluationId, Validators.required],
@@ -100,7 +102,7 @@ export class DataInputComponent implements OnInit {
 
       this.scoreService.saveScoreInput(scoreInput);
       console.log('Score Input Saved:', scoreInput);
-      alert('Daten gespeichert für Evaluation ID: ' + this.evaluationId);
+      alert(this.languageService.translate('common.dataSaved') + ' ' + this.evaluationId);
       
       // Reset form for a new evaluation
       this.evaluationId = 'eval_' + Date.now();
@@ -109,12 +111,16 @@ export class DataInputComponent implements OnInit {
 
     } else {
       console.error('Form is invalid');
-      alert('Bitte füllen Sie alle Felder aus.');
+      alert(this.languageService.translate('common.fillAllFields'));
     }
   }
 
   // Helper to get score labels for radio buttons
   getScoreLabel(dimensionId: string, criterionId: string, score: number): string {
       return this.scoreService.getScoreLabel(dimensionId, criterionId, score);
+  }
+
+  translate(key: string): string {
+    return this.languageService.translate(key);
   }
 }
