@@ -294,182 +294,132 @@
         <div class="complexity-grid">
           <div class="form-group">
             <label class="form-label">Datenquellenvielfalt (Anzahl der genutzten Datentypen.) *</label>
-            <mat-radio-group formControlName="dataSourceDiversity" class="radio-group">
-              <mat-radio-button value="1" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">1</span>
-                  <span class="radio-text">Nur ein Datentyp (z.B. Labordaten).</span>
-                </div>
-              </mat-radio-button>
-              <mat-radio-button value="2" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">2</span>
-                  <span class="radio-text">Unterdurchschnittlich</span>
-                </div>
-              </mat-radio-button>
-              <mat-radio-button value="3" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">3</span>
-                  <span class="radio-text">Durchschnittlich</span>
-                </div>
-              </mat-radio-button>
-              <mat-radio-button value="4" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">4</span>
-                  <span class="radio-text">Überdurchschnittlich</span>
-                </div>
-              </mat-radio-button>
-              <mat-radio-button value="5" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">5</span>
-                  <span class="radio-text">Fünf oder mehr Datentypen (z.B. Bild-, Text-, und Genomdaten).</span>
-                </div>
-              </mat-radio-button>
-            </mat-radio-group>
+            <div class="score-options flex">
+              <label class="score-label" [class.selected]="pricingForm.get('dataSourceDiversity')?.value === '1'">
+                <input type="radio" formControlName="dataSourceDiversity" value="1" class="ng-untouched ng-pristine ng-valid">
+                <span>1 Nur ein Datentyp (z.B. Labordaten).</span>
+              </label>
+              <label class="score-label" [class.selected]="pricingForm.get('dataSourceDiversity')?.value === '2'">
+                <input type="radio" formControlName="dataSourceDiversity" value="2" class="ng-untouched ng-pristine ng-valid">
+                <span>2 Unterdurchschnittlich</span>
+              </label>
+              <label class="score-label" [class.selected]="pricingForm.get('dataSourceDiversity')?.value === '3'">
+                <input type="radio" formControlName="dataSourceDiversity" value="3" class="ng-untouched ng-pristine ng-valid">
+                <span>3 Durchschnittlich</span>
+              </label>
+              <label class="score-label" [class.selected]="pricingForm.get('dataSourceDiversity')?.value === '4'">
+                <input type="radio" formControlName="dataSourceDiversity" value="4" class="ng-untouched ng-pristine ng-valid">
+                <span>4 Überdurchschnittlich</span>
+              </label>
+              <label class="score-label" [class.selected]="pricingForm.get('dataSourceDiversity')?.value === '5'">
+                <input type="radio" formControlName="dataSourceDiversity" value="5" class="ng-untouched ng-pristine ng-valid">
+                <span>5 Fünf oder mehr Datentypen (z.B. Bild-, Text-, und Genomdaten).</span>
+              </label>
+            </div>
           </div>
 
           <div class="form-group">
             <label class="form-label">Datenintegrität (Grad der Vollständigkeit und Konsistenz der verarbeitbaren Eingangsdaten.) *</label>
-            <mat-radio-group formControlName="dataIntegrity" class="radio-group">
-              <mat-radio-button value="1" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">1</span>
-                  <span class="radio-text">Nur ein Teil der Eingangsdaten kann verarbeitet werden.</span>
-                </div>
-              </mat-radio-button>
-              <mat-radio-button value="2" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">2</span>
-                  <span class="radio-text">Unterdurchschnittlich</span>
-                </div>
-              </mat-radio-button>
-              <mat-radio-button value="3" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">3</span>
-                  <span class="radio-text">Durchschnittlich</span>
-                </div>
-              </mat-radio-button>
-              <mat-radio-button value="4" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">4</span>
-                  <span class="radio-text">Überdurchschnittlich</span>
-                </div>
-              </mat-radio-button>
-              <mat-radio-button value="5" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">5</span>
-                  <span class="radio-text">Daten sind nahezu vollständig und konsistent verarbeitbar.</span>
-                </div>
-              </mat-radio-button>
-            </mat-radio-group>
+            <div class="score-options flex">
+              <label class="score-label" [class.selected]="pricingForm.get('dataIntegrity')?.value === '1'">
+                <input type="radio" formControlName="dataIntegrity" value="1" class="ng-untouched ng-pristine ng-valid">
+                <span>1 Nur ein Teil der Eingangsdaten kann verarbeitet werden.</span>
+              </label>
+              <label class="score-label" [class.selected]="pricingForm.get('dataIntegrity')?.value === '2'">
+                <input type="radio" formControlName="dataIntegrity" value="2" class="ng-untouched ng-pristine ng-valid">
+                <span>2 Unterdurchschnittlich</span>
+              </label>
+              <label class="score-label" [class.selected]="pricingForm.get('dataIntegrity')?.value === '3'">
+                <input type="radio" formControlName="dataIntegrity" value="3" class="ng-untouched ng-pristine ng-valid">
+                <span>3 Durchschnittlich</span>
+              </label>
+              <label class="score-label" [class.selected]="pricingForm.get('dataIntegrity')?.value === '4'">
+                <input type="radio" formControlName="dataIntegrity" value="4" class="ng-untouched ng-pristine ng-valid">
+                <span>4 Überdurchschnittlich</span>
+              </label>
+              <label class="score-label" [class.selected]="pricingForm.get('dataIntegrity')?.value === '5'">
+                <input type="radio" formControlName="dataIntegrity" value="5" class="ng-untouched ng-pristine ng-valid">
+                <span>5 Daten sind nahezu vollständig und konsistent verarbeitbar.</span>
+              </label>
+            </div>
           </div>
 
           <div class="form-group">
             <label class="form-label">Datenkomplexität (Schwierigkeitsgrad bei der Interpretation der Daten.) *</label>
-            <mat-radio-group formControlName="dataComplexity" class="radio-group">
-              <mat-radio-button value="1" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">1</span>
-                  <span class="radio-text">Strukturiert, leicht interpretierbar (z.B. numerische Labordaten).</span>
-                </div>
-              </mat-radio-button>
-              <mat-radio-button value="2" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">2</span>
-                  <span class="radio-text">Unterdurchschnittlich</span>
-                </div>
-              </mat-radio-button>
-              <mat-radio-button value="3" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">3</span>
-                  <span class="radio-text">Durchschnittlich</span>
-                </div>
-              </mat-radio-button>
-              <mat-radio-button value="4" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">4</span>
-                  <span class="radio-text">Überdurchschnittlich</span>
-                </div>
-              </mat-radio-button>
-              <mat-radio-button value="5" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">5</span>
-                  <span class="radio-text">Unstrukturierte oder hochkomplexe Daten (z.B. freier Text oder verrauschte Daten).</span>
-                </div>
-              </mat-radio-button>
-            </mat-radio-group>
+            <div class="score-options flex">
+              <label class="score-label" [class.selected]="pricingForm.get('dataComplexity')?.value === '1'">
+                <input type="radio" formControlName="dataComplexity" value="1" class="ng-untouched ng-pristine ng-valid">
+                <span>1 Strukturiert, leicht interpretierbar (z.B. numerische Labordaten).</span>
+              </label>
+              <label class="score-label" [class.selected]="pricingForm.get('dataComplexity')?.value === '2'">
+                <input type="radio" formControlName="dataComplexity" value="2" class="ng-untouched ng-pristine ng-valid">
+                <span>2 Unterdurchschnittlich</span>
+              </label>
+              <label class="score-label" [class.selected]="pricingForm.get('dataComplexity')?.value === '3'">
+                <input type="radio" formControlName="dataComplexity" value="3" class="ng-untouched ng-pristine ng-valid">
+                <span>3 Durchschnittlich</span>
+              </label>
+              <label class="score-label" [class.selected]="pricingForm.get('dataComplexity')?.value === '4'">
+                <input type="radio" formControlName="dataComplexity" value="4" class="ng-untouched ng-pristine ng-valid">
+                <span>4 Überdurchschnittlich</span>
+              </label>
+              <label class="score-label" [class.selected]="pricingForm.get('dataComplexity')?.value === '5'">
+                <input type="radio" formControlName="dataComplexity" value="5" class="ng-untouched ng-pristine ng-valid">
+                <span>5 Unstrukturierte oder hochkomplexe Daten (z.B. freier Text oder verrauschte Daten).</span>
+              </label>
+            </div>
           </div>
 
           <div class="form-group">
             <label class="form-label">Datenverknüpfung (Fähigkeit, mehrere Datenquellen in einer Analyse zu kombinieren.) *</label>
-            <mat-radio-group formControlName="dataLinking" class="radio-group">
-              <mat-radio-button value="1" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">1</span>
-                  <span class="radio-text">Keine Verknüpfung unterschiedlicher Quellen.</span>
-                </div>
-              </mat-radio-button>
-              <mat-radio-button value="2" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">2</span>
-                  <span class="radio-text">Unterdurchschnittlich</span>
-                </div>
-              </mat-radio-button>
-              <mat-radio-button value="3" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">3</span>
-                  <span class="radio-text">Durchschnittlich</span>
-                </div>
-              </mat-radio-button>
-              <mat-radio-button value="4" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">4</span>
-                  <span class="radio-text">Überdurchschnittlich</span>
-                </div>
-              </mat-radio-button>
-              <mat-radio-button value="5" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">5</span>
-                  <span class="radio-text">Vollständig integrierte Analyse aus mehreren Quellen.</span>
-                </div>
-              </mat-radio-button>
-            </mat-radio-group>
+            <div class="score-options flex">
+              <label class="score-label" [class.selected]="pricingForm.get('dataLinking')?.value === '1'">
+                <input type="radio" formControlName="dataLinking" value="1" class="ng-untouched ng-pristine ng-valid">
+                <span>1 Keine Verknüpfung unterschiedlicher Quellen.</span>
+              </label>
+              <label class="score-label" [class.selected]="pricingForm.get('dataLinking')?.value === '2'">
+                <input type="radio" formControlName="dataLinking" value="2" class="ng-untouched ng-pristine ng-valid">
+                <span>2 Unterdurchschnittlich</span>
+              </label>
+              <label class="score-label" [class.selected]="pricingForm.get('dataLinking')?.value === '3'">
+                <input type="radio" formControlName="dataLinking" value="3" class="ng-untouched ng-pristine ng-valid">
+                <span>3 Durchschnittlich</span>
+              </label>
+              <label class="score-label" [class.selected]="pricingForm.get('dataLinking')?.value === '4'">
+                <input type="radio" formControlName="dataLinking" value="4" class="ng-untouched ng-pristine ng-valid">
+                <span>4 Überdurchschnittlich</span>
+              </label>
+              <label class="score-label" [class.selected]="pricingForm.get('dataLinking')?.value === '5'">
+                <input type="radio" formControlName="dataLinking" value="5" class="ng-untouched ng-pristine ng-valid">
+                <span>5 Vollständig integrierte Analyse aus mehreren Quellen.</span>
+              </label>
+            </div>
           </div>
 
           <div class="form-group">
             <label class="form-label">Datenvolumen (Menge der Daten pro Analyse.) *</label>
-            <mat-radio-group formControlName="dataVolume" class="radio-group">
-              <mat-radio-button value="1" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">1</span>
-                  <span class="radio-text">Gering (z.B. ein einzelner Parameter).</span>
-                </div>
-              </mat-radio-button>
-              <mat-radio-button value="2" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">2</span>
-                  <span class="radio-text">Unterdurchschnittlich</span>
-                </div>
-              </mat-radio-button>
-              <mat-radio-button value="3" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">3</span>
-                  <span class="radio-text">Durchschnittlich</span>
-                </div>
-              </mat-radio-button>
-              <mat-radio-button value="4" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">4</span>
-                  <span class="radio-text">Überdurchschnittlich</span>
-                </div>
-              </mat-radio-button>
-              <mat-radio-button value="5" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">5</span>
-                  <span class="radio-text">Sehr groß (z.B. Millionen von Parametern pro Patient).</span>
-                </div>
-              </mat-radio-button>
-            </mat-radio-group>
+            <div class="score-options flex">
+              <label class="score-label" [class.selected]="pricingForm.get('dataVolume')?.value === '1'">
+                <input type="radio" formControlName="dataVolume" value="1" class="ng-untouched ng-pristine ng-valid">
+                <span>1 Gering (z.B. ein einzelner Parameter).</span>
+              </label>
+              <label class="score-label" [class.selected]="pricingForm.get('dataVolume')?.value === '2'">
+                <input type="radio" formControlName="dataVolume" value="2" class="ng-untouched ng-pristine ng-valid">
+                <span>2 Unterdurchschnittlich</span>
+              </label>
+              <label class="score-label" [class.selected]="pricingForm.get('dataVolume')?.value === '3'">
+                <input type="radio" formControlName="dataVolume" value="3" class="ng-untouched ng-pristine ng-valid">
+                <span>3 Durchschnittlich</span>
+              </label>
+              <label class="score-label" [class.selected]="pricingForm.get('dataVolume')?.value === '4'">
+                <input type="radio" formControlName="dataVolume" value="4" class="ng-untouched ng-pristine ng-valid">
+                <span>4 Überdurchschnittlich</span>
+              </label>
+              <label class="score-label" [class.selected]="pricingForm.get('dataVolume')?.value === '5'">
+                <input type="radio" formControlName="dataVolume" value="5" class="ng-untouched ng-pristine ng-valid">
+                <span>5 Sehr groß (z.B. Millionen von Parametern pro Patient).</span>
+              </label>
+            </div>
           </div>
         </div>
 
@@ -478,182 +428,132 @@
         <div class="complexity-grid">
           <div class="form-group">
             <label class="form-label">Seltenheit der Erkrankung (Prävalenz in der Bevölkerung.) *</label>
-            <mat-radio-group formControlName="diseaseRarity" class="radio-group">
-              <mat-radio-button value="1" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">1</span>
-                  <span class="radio-text">Häufig (z.B. Anämie).</span>
-                </div>
-              </mat-radio-button>
-              <mat-radio-button value="2" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">2</span>
-                  <span class="radio-text">Unterdurchschnittlich</span>
-                </div>
-              </mat-radio-button>
-              <mat-radio-button value="3" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">3</span>
-                  <span class="radio-text">Durchschnittlich</span>
-                </div>
-              </mat-radio-button>
-              <mat-radio-button value="4" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">4</span>
-                  <span class="radio-text">Überdurchschnittlich</span>
-                </div>
-              </mat-radio-button>
-              <mat-radio-button value="5" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">5</span>
-                  <span class="radio-text">Sehr selten (z.B. Morbus Gaucher).</span>
-                </div>
-              </mat-radio-button>
-            </mat-radio-group>
+            <div class="score-options flex">
+              <label class="score-label" [class.selected]="pricingForm.get('diseaseRarity')?.value === '1'">
+                <input type="radio" formControlName="diseaseRarity" value="1" class="ng-untouched ng-pristine ng-valid">
+                <span>1 Häufig (z.B. Anämie).</span>
+              </label>
+              <label class="score-label" [class.selected]="pricingForm.get('diseaseRarity')?.value === '2'">
+                <input type="radio" formControlName="diseaseRarity" value="2" class="ng-untouched ng-pristine ng-valid">
+                <span>2 Unterdurchschnittlich</span>
+              </label>
+              <label class="score-label" [class.selected]="pricingForm.get('diseaseRarity')?.value === '3'">
+                <input type="radio" formControlName="diseaseRarity" value="3" class="ng-untouched ng-pristine ng-valid">
+                <span>3 Durchschnittlich</span>
+              </label>
+              <label class="score-label" [class.selected]="pricingForm.get('diseaseRarity')?.value === '4'">
+                <input type="radio" formControlName="diseaseRarity" value="4" class="ng-untouched ng-pristine ng-valid">
+                <span>4 Überdurchschnittlich</span>
+              </label>
+              <label class="score-label" [class.selected]="pricingForm.get('diseaseRarity')?.value === '5'">
+                <input type="radio" formControlName="diseaseRarity" value="5" class="ng-untouched ng-pristine ng-valid">
+                <span>5 Sehr selten (z.B. Morbus Gaucher).</span>
+              </label>
+            </div>
           </div>
 
           <div class="form-group">
             <label class="form-label">Diagnostische Mehrdeutigkeit (Schwierigkeit der Abgrenzung von anderen Krankheitsbildern.) *</label>
-            <mat-radio-group formControlName="diagnosticAmbiguity" class="radio-group">
-              <mat-radio-button value="1" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">1</span>
-                  <span class="radio-text">Einfach abzugrenzen (z.B. Grippe).</span>
-                </div>
-              </mat-radio-button>
-              <mat-radio-button value="2" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">2</span>
-                  <span class="radio-text">Unterdurchschnittlich</span>
-                </div>
-              </mat-radio-button>
-              <mat-radio-button value="3" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">3</span>
-                  <span class="radio-text">Durchschnittlich</span>
-                </div>
-              </mat-radio-button>
-              <mat-radio-button value="4" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">4</span>
-                  <span class="radio-text">Überdurchschnittlich</span>
-                </div>
-              </mat-radio-button>
-              <mat-radio-button value="5" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">5</span>
-                  <span class="radio-text">Hochgradig mehrdeutig (z.B. systemischer Lupus erythematodes).</span>
-                </div>
-              </mat-radio-button>
-            </mat-radio-group>
+            <div class="score-options flex">
+              <label class="score-label" [class.selected]="pricingForm.get('diagnosticAmbiguity')?.value === '1'">
+                <input type="radio" formControlName="diagnosticAmbiguity" value="1" class="ng-untouched ng-pristine ng-valid">
+                <span>1 Einfach abzugrenzen (z.B. Grippe).</span>
+              </label>
+              <label class="score-label" [class.selected]="pricingForm.get('diagnosticAmbiguity')?.value === '2'">
+                <input type="radio" formControlName="diagnosticAmbiguity" value="2" class="ng-untouched ng-pristine ng-valid">
+                <span>2 Unterdurchschnittlich</span>
+              </label>
+              <label class="score-label" [class.selected]="pricingForm.get('diagnosticAmbiguity')?.value === '3'">
+                <input type="radio" formControlName="diagnosticAmbiguity" value="3" class="ng-untouched ng-pristine ng-valid">
+                <span>3 Durchschnittlich</span>
+              </label>
+              <label class="score-label" [class.selected]="pricingForm.get('diagnosticAmbiguity')?.value === '4'">
+                <input type="radio" formControlName="diagnosticAmbiguity" value="4" class="ng-untouched ng-pristine ng-valid">
+                <span>4 Überdurchschnittlich</span>
+              </label>
+              <label class="score-label" [class.selected]="pricingForm.get('diagnosticAmbiguity')?.value === '5'">
+                <input type="radio" formControlName="diagnosticAmbiguity" value="5" class="ng-untouched ng-pristine ng-valid">
+                <span>5 Hochgradig mehrdeutig (z.B. systemischer Lupus erythematodes).</span>
+              </label>
+            </div>
           </div>
 
           <div class="form-group">
             <label class="form-label">Prognostische Unsicherheit (Vorhersehbarkeit des Krankheitsverlaufs.) *</label>
-            <mat-radio-group formControlName="prognosticUncertainty" class="radio-group">
-              <mat-radio-button value="1" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">1</span>
-                  <span class="radio-text">Gut vorhersagbar (z.B. unkomplizierte bakterielle Infektion).</span>
-                </div>
-              </mat-radio-button>
-              <mat-radio-button value="2" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">2</span>
-                  <span class="radio-text">Unterdurchschnittlich</span>
-                </div>
-              </mat-radio-button>
-              <mat-radio-button value="3" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">3</span>
-                  <span class="radio-text">Durchschnittlich</span>
-                </div>
-              </mat-radio-button>
-              <mat-radio-button value="4" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">4</span>
-                  <span class="radio-text">Überdurchschnittlich</span>
-                </div>
-              </mat-radio-button>
-              <mat-radio-button value="5" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">5</span>
-                  <span class="radio-text">Unvorhersehbar und individuell unterschiedlich (z.B. aggressive Krebsarten).</span>
-                </div>
-              </mat-radio-button>
-            </mat-radio-group>
+            <div class="score-options flex">
+              <label class="score-label" [class.selected]="pricingForm.get('prognosticUncertainty')?.value === '1'">
+                <input type="radio" formControlName="prognosticUncertainty" value="1" class="ng-untouched ng-pristine ng-valid">
+                <span>1 Gut vorhersagbar (z.B. unkomplizierte bakterielle Infektion).</span>
+              </label>
+              <label class="score-label" [class.selected]="pricingForm.get('prognosticUncertainty')?.value === '2'">
+                <input type="radio" formControlName="prognosticUncertainty" value="2" class="ng-untouched ng-pristine ng-valid">
+                <span>2 Unterdurchschnittlich</span>
+              </label>
+              <label class="score-label" [class.selected]="pricingForm.get('prognosticUncertainty')?.value === '3'">
+                <input type="radio" formControlName="prognosticUncertainty" value="3" class="ng-untouched ng-pristine ng-valid">
+                <span>3 Durchschnittlich</span>
+              </label>
+              <label class="score-label" [class.selected]="pricingForm.get('prognosticUncertainty')?.value === '4'">
+                <input type="radio" formControlName="prognosticUncertainty" value="4" class="ng-untouched ng-pristine ng-valid">
+                <span>4 Überdurchschnittlich</span>
+              </label>
+              <label class="score-label" [class.selected]="pricingForm.get('prognosticUncertainty')?.value === '5'">
+                <input type="radio" formControlName="prognosticUncertainty" value="5" class="ng-untouched ng-pristine ng-valid">
+                <span>5 Unvorhersehbar und individuell unterschiedlich (z.B. aggressive Krebsarten).</span>
+              </label>
+            </div>
           </div>
 
           <div class="form-group">
             <label class="form-label">Multimorbidität (Einfluss anderer Erkrankungen auf die Zielerkrankung.) *</label>
-            <mat-radio-group formControlName="multimorbidity" class="radio-group">
-              <mat-radio-button value="1" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">1</span>
-                  <span class="radio-text">Kaum beeinflusst durch Komorbiditäten.</span>
-                </div>
-              </mat-radio-button>
-              <mat-radio-button value="2" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">2</span>
-                  <span class="radio-text">Unterdurchschnittlich</span>
-                </div>
-              </mat-radio-button>
-              <mat-radio-button value="3" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">3</span>
-                  <span class="radio-text">Durchschnittlich</span>
-                </div>
-              </mat-radio-button>
-              <mat-radio-button value="4" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">4</span>
-                  <span class="radio-text">Überdurchschnittlich</span>
-                </div>
-              </mat-radio-button>
-              <mat-radio-button value="5" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">5</span>
-                  <span class="radio-text">Stark beeinflusst durch zahlreiche Komorbiditäten.</span>
-                </div>
-              </mat-radio-button>
-            </mat-radio-group>
+            <div class="score-options flex">
+              <label class="score-label" [class.selected]="pricingForm.get('multimorbidity')?.value === '1'">
+                <input type="radio" formControlName="multimorbidity" value="1" class="ng-untouched ng-pristine ng-valid">
+                <span>1 Kaum beeinflusst durch Komorbiditäten.</span>
+              </label>
+              <label class="score-label" [class.selected]="pricingForm.get('multimorbidity')?.value === '2'">
+                <input type="radio" formControlName="multimorbidity" value="2" class="ng-untouched ng-pristine ng-valid">
+                <span>2 Unterdurchschnittlich</span>
+              </label>
+              <label class="score-label" [class.selected]="pricingForm.get('multimorbidity')?.value === '3'">
+                <input type="radio" formControlName="multimorbidity" value="3" class="ng-untouched ng-pristine ng-valid">
+                <span>3 Durchschnittlich</span>
+              </label>
+              <label class="score-label" [class.selected]="pricingForm.get('multimorbidity')?.value === '4'">
+                <input type="radio" formControlName="multimorbidity" value="4" class="ng-untouched ng-pristine ng-valid">
+                <span>4 Überdurchschnittlich</span>
+              </label>
+              <label class="score-label" [class.selected]="pricingForm.get('multimorbidity')?.value === '5'">
+                <input type="radio" formControlName="multimorbidity" value="5" class="ng-untouched ng-pristine ng-valid">
+                <span>5 Stark beeinflusst durch zahlreiche Komorbiditäten.</span>
+              </label>
+            </div>
           </div>
 
           <div class="form-group">
             <label class="form-label">Schweregrad der Erkrankung (Lethalität und Bedeutung einer frühen Entdeckung.) *</label>
-            <mat-radio-group formControlName="diseaseSeverity" class="radio-group">
-              <mat-radio-button value="1" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">1</span>
-                  <span class="radio-text">Geringe Lethalität und wenig Einfluss auf Patienten.</span>
-                </div>
-              </mat-radio-button>
-              <mat-radio-button value="2" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">2</span>
-                  <span class="radio-text">Unterdurchschnittlich</span>
-                </div>
-              </mat-radio-button>
-              <mat-radio-button value="3" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">3</span>
-                  <span class="radio-text">Durchschnittlich</span>
-                </div>
-              </mat-radio-button>
-              <mat-radio-button value="4" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">4</span>
-                  <span class="radio-text">Überdurchschnittlich</span>
-                </div>
-              </mat-radio-button>
-              <mat-radio-button value="5" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">5</span>
-                  <span class="radio-text">Hohe Letalität wie z.B. Krebs.</span>
-                </div>
-              </mat-radio-button>
-            </mat-radio-group>
+            <div class="score-options flex">
+              <label class="score-label" [class.selected]="pricingForm.get('diseaseSeverity')?.value === '1'">
+                <input type="radio" formControlName="diseaseSeverity" value="1" class="ng-untouched ng-pristine ng-valid">
+                <span>1 Geringe Lethalität und wenig Einfluss auf Patienten.</span>
+              </label>
+              <label class="score-label" [class.selected]="pricingForm.get('diseaseSeverity')?.value === '2'">
+                <input type="radio" formControlName="diseaseSeverity" value="2" class="ng-untouched ng-pristine ng-valid">
+                <span>2 Unterdurchschnittlich</span>
+              </label>
+              <label class="score-label" [class.selected]="pricingForm.get('diseaseSeverity')?.value === '3'">
+                <input type="radio" formControlName="diseaseSeverity" value="3" class="ng-untouched ng-pristine ng-valid">
+                <span>3 Durchschnittlich</span>
+              </label>
+              <label class="score-label" [class.selected]="pricingForm.get('diseaseSeverity')?.value === '4'">
+                <input type="radio" formControlName="diseaseSeverity" value="4" class="ng-untouched ng-pristine ng-valid">
+                <span>4 Überdurchschnittlich</span>
+              </label>
+              <label class="score-label" [class.selected]="pricingForm.get('diseaseSeverity')?.value === '5'">
+                <input type="radio" formControlName="diseaseSeverity" value="5" class="ng-untouched ng-pristine ng-valid">
+                <span>5 Hohe Letalität wie z.B. Krebs.</span>
+              </label>
+            </div>
           </div>
         </div>
 
@@ -662,182 +562,132 @@
         <div class="complexity-grid">
           <div class="form-group">
             <label class="form-label">Differenzialdiagnostische Tiefe (Anzahl möglicher Diagnosen, die in der Anfrage berücksichtigt werden müssen.) *</label>
-            <mat-radio-group formControlName="differentialDiagnosticDepth" class="radio-group">
-              <mat-radio-button value="1" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">1</span>
-                  <span class="radio-text">Wenige Differenzialdiagnosen (< 3).</span>
-                </div>
-              </mat-radio-button>
-              <mat-radio-button value="2" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">2</span>
-                  <span class="radio-text">Unterdurchschnittlich</span>
-                </div>
-              </mat-radio-button>
-              <mat-radio-button value="3" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">3</span>
-                  <span class="radio-text">Durchschnittlich</span>
-                </div>
-              </mat-radio-button>
-              <mat-radio-button value="4" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">4</span>
-                  <span class="radio-text">Überdurchschnittlich</span>
-                </div>
-              </mat-radio-button>
-              <mat-radio-button value="5" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">5</span>
-                  <span class="radio-text">Viele Differenzialdiagnosen (> 10).</span>
-                </div>
-              </mat-radio-button>
-            </mat-radio-group>
+            <div class="score-options flex">
+              <label class="score-label" [class.selected]="pricingForm.get('differentialDiagnosticDepth')?.value === '1'">
+                <input type="radio" formControlName="differentialDiagnosticDepth" value="1" class="ng-untouched ng-pristine ng-valid">
+                <span>1 Wenige Differenzialdiagnosen (< 3).</span>
+              </label>
+              <label class="score-label" [class.selected]="pricingForm.get('differentialDiagnosticDepth')?.value === '2'">
+                <input type="radio" formControlName="differentialDiagnosticDepth" value="2" class="ng-untouched ng-pristine ng-valid">
+                <span>2 Unterdurchschnittlich</span>
+              </label>
+              <label class="score-label" [class.selected]="pricingForm.get('differentialDiagnosticDepth')?.value === '3'">
+                <input type="radio" formControlName="differentialDiagnosticDepth" value="3" class="ng-untouched ng-pristine ng-valid">
+                <span>3 Durchschnittlich</span>
+              </label>
+              <label class="score-label" [class.selected]="pricingForm.get('differentialDiagnosticDepth')?.value === '4'">
+                <input type="radio" formControlName="differentialDiagnosticDepth" value="4" class="ng-untouched ng-pristine ng-valid">
+                <span>4 Überdurchschnittlich</span>
+              </label>
+              <label class="score-label" [class.selected]="pricingForm.get('differentialDiagnosticDepth')?.value === '5'">
+                <input type="radio" formControlName="differentialDiagnosticDepth" value="5" class="ng-untouched ng-pristine ng-valid">
+                <span>5 Viele Differenzialdiagnosen (> 10).</span>
+              </label>
+            </div>
           </div>
 
           <div class="form-group">
             <label class="form-label">Prognostische Präzision (Grad der Genauigkeit und Langfristigkeit der Vorhersage.) *</label>
-            <mat-radio-group formControlName="prognosticPrecision" class="radio-group">
-              <mat-radio-button value="1" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">1</span>
-                  <span class="radio-text">Nur kurzfristige Trends (z.B. einfache Risikoabschätzung).</span>
-                </div>
-              </mat-radio-button>
-              <mat-radio-button value="2" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">2</span>
-                  <span class="radio-text">Unterdurchschnittlich</span>
-                </div>
-              </mat-radio-button>
-              <mat-radio-button value="3" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">3</span>
-                  <span class="radio-text">Durchschnittlich</span>
-                </div>
-              </mat-radio-button>
-              <mat-radio-button value="4" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">4</span>
-                  <span class="radio-text">Überdurchschnittlich</span>
-                </div>
-              </mat-radio-button>
-              <mat-radio-button value="5" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">5</span>
-                  <span class="radio-text">Hochpräzise, langfristige Vorhersagen (z.B. Krankheitsprogression).</span>
-                </div>
-              </mat-radio-button>
-            </mat-radio-group>
+            <div class="score-options flex">
+              <label class="score-label" [class.selected]="pricingForm.get('prognosticPrecision')?.value === '1'">
+                <input type="radio" formControlName="prognosticPrecision" value="1" class="ng-untouched ng-pristine ng-valid">
+                <span>1 Nur kurzfristige Trends (z.B. einfache Risikoabschätzung).</span>
+              </label>
+              <label class="score-label" [class.selected]="pricingForm.get('prognosticPrecision')?.value === '2'">
+                <input type="radio" formControlName="prognosticPrecision" value="2" class="ng-untouched ng-pristine ng-valid">
+                <span>2 Unterdurchschnittlich</span>
+              </label>
+              <label class="score-label" [class.selected]="pricingForm.get('prognosticPrecision')?.value === '3'">
+                <input type="radio" formControlName="prognosticPrecision" value="3" class="ng-untouched ng-pristine ng-valid">
+                <span>3 Durchschnittlich</span>
+              </label>
+              <label class="score-label" [class.selected]="pricingForm.get('prognosticPrecision')?.value === '4'">
+                <input type="radio" formControlName="prognosticPrecision" value="4" class="ng-untouched ng-pristine ng-valid">
+                <span>4 Überdurchschnittlich</span>
+              </label>
+              <label class="score-label" [class.selected]="pricingForm.get('prognosticPrecision')?.value === '5'">
+                <input type="radio" formControlName="prognosticPrecision" value="5" class="ng-untouched ng-pristine ng-valid">
+                <span>5 Hochpräzise, langfristige Vorhersagen (z.B. Krankheitsprogression).</span>
+              </label>
+            </div>
           </div>
 
           <div class="form-group">
             <label class="form-label">Anforderung an die Echtzeit (Erwartung an die Geschwindigkeit des Systems.) *</label>
-            <mat-radio-group formControlName="realTimeRequirement" class="radio-group">
-              <mat-radio-button value="1" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">1</span>
-                  <span class="radio-text">Nächtliche Batch Prozessierung ausreichend.</span>
-                </div>
-              </mat-radio-button>
-              <mat-radio-button value="2" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">2</span>
-                  <span class="radio-text">Unterdurchschnittlich</span>
-                </div>
-              </mat-radio-button>
-              <mat-radio-button value="3" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">3</span>
-                  <span class="radio-text">Durchschnittlich</span>
-                </div>
-              </mat-radio-button>
-              <mat-radio-button value="4" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">4</span>
-                  <span class="radio-text">Überdurchschnittlich</span>
-                </div>
-              </mat-radio-button>
-              <mat-radio-button value="5" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">5</span>
-                  <span class="radio-text">Sofortige Antwort erwartet.</span>
-                </div>
-              </mat-radio-button>
-            </mat-radio-group>
+            <div class="score-options flex">
+              <label class="score-label" [class.selected]="pricingForm.get('realTimeRequirement')?.value === '1'">
+                <input type="radio" formControlName="realTimeRequirement" value="1" class="ng-untouched ng-pristine ng-valid">
+                <span>1 Nächtliche Batch Prozessierung ausreichend.</span>
+              </label>
+              <label class="score-label" [class.selected]="pricingForm.get('realTimeRequirement')?.value === '2'">
+                <input type="radio" formControlName="realTimeRequirement" value="2" class="ng-untouched ng-pristine ng-valid">
+                <span>2 Unterdurchschnittlich</span>
+              </label>
+              <label class="score-label" [class.selected]="pricingForm.get('realTimeRequirement')?.value === '3'">
+                <input type="radio" formControlName="realTimeRequirement" value="3" class="ng-untouched ng-pristine ng-valid">
+                <span>3 Durchschnittlich</span>
+              </label>
+              <label class="score-label" [class.selected]="pricingForm.get('realTimeRequirement')?.value === '4'">
+                <input type="radio" formControlName="realTimeRequirement" value="4" class="ng-untouched ng-pristine ng-valid">
+                <span>4 Überdurchschnittlich</span>
+              </label>
+              <label class="score-label" [class.selected]="pricingForm.get('realTimeRequirement')?.value === '5'">
+                <input type="radio" formControlName="realTimeRequirement" value="5" class="ng-untouched ng-pristine ng-valid">
+                <span>5 Sofortige Antwort erwartet.</span>
+              </label>
+            </div>
           </div>
 
           <div class="form-group">
             <label class="form-label">Interdisziplinäre Relevanz (Anzahl der Fachbereiche, die in die Analyse einfließen.) *</label>
-            <mat-radio-group formControlName="interdisciplinaryRelevance" class="radio-group">
-              <mat-radio-button value="1" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">1</span>
-                  <span class="radio-text">Nur ein Fachbereich.</span>
-                </div>
-              </mat-radio-button>
-              <mat-radio-button value="2" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">2</span>
-                  <span class="radio-text">Unterdurchschnittlich</span>
-                </div>
-              </mat-radio-button>
-              <mat-radio-button value="3" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">3</span>
-                  <span class="radio-text">Durchschnittlich</span>
-                </div>
-              </mat-radio-button>
-              <mat-radio-button value="4" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">4</span>
-                  <span class="radio-text">Überdurchschnittlich</span>
-                </div>
-              </mat-radio-button>
-              <mat-radio-button value="5" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">5</span>
-                  <span class="radio-text">Mehrere Fachbereiche (> 3).</span>
-                </div>
-              </mat-radio-button>
-            </mat-radio-group>
+            <div class="score-options flex">
+              <label class="score-label" [class.selected]="pricingForm.get('interdisciplinaryRelevance')?.value === '1'">
+                <input type="radio" formControlName="interdisciplinaryRelevance" value="1" class="ng-untouched ng-pristine ng-valid">
+                <span>1 Nur ein Fachbereich.</span>
+              </label>
+              <label class="score-label" [class.selected]="pricingForm.get('interdisciplinaryRelevance')?.value === '2'">
+                <input type="radio" formControlName="interdisciplinaryRelevance" value="2" class="ng-untouched ng-pristine ng-valid">
+                <span>2 Unterdurchschnittlich</span>
+              </label>
+              <label class="score-label" [class.selected]="pricingForm.get('interdisciplinaryRelevance')?.value === '3'">
+                <input type="radio" formControlName="interdisciplinaryRelevance" value="3" class="ng-untouched ng-pristine ng-valid">
+                <span>3 Durchschnittlich</span>
+              </label>
+              <label class="score-label" [class.selected]="pricingForm.get('interdisciplinaryRelevance')?.value === '4'">
+                <input type="radio" formControlName="interdisciplinaryRelevance" value="4" class="ng-untouched ng-pristine ng-valid">
+                <span>4 Überdurchschnittlich</span>
+              </label>
+              <label class="score-label" [class.selected]="pricingForm.get('interdisciplinaryRelevance')?.value === '5'">
+                <input type="radio" formControlName="interdisciplinaryRelevance" value="5" class="ng-untouched ng-pristine ng-valid">
+                <span>5 Mehrere Fachbereiche (> 3).</span>
+              </label>
+            </div>
           </div>
 
           <div class="form-group">
             <label class="form-label">Dynamische Anpassungsfähigkeit (Fähigkeit des Systems, auf Änderungen klinischer Parameter zu reagieren.) *</label>
-            <mat-radio-group formControlName="dynamicAdaptability" class="radio-group">
-              <mat-radio-button value="1" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">1</span>
-                  <span class="radio-text">Keine Anpassung an dynamische Parameter.</span>
-                </div>
-              </mat-radio-button>
-              <mat-radio-button value="2" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">2</span>
-                  <span class="radio-text">Unterdurchschnittlich</span>
-                </div>
-              </mat-radio-button>
-              <mat-radio-button value="3" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">3</span>
-                  <span class="radio-text">Durchschnittlich</span>
-                </div>
-              </mat-radio-button>
-              <mat-radio-button value="4" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">4</span>
-                  <span class="radio-text">Überdurchschnittlich</span>
-                </div>
-              </mat-radio-button>
-              <mat-radio-button value="5" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">5</span>
-                  <span class="radio-text">Echtzeit-Anpassung an klinische Änderungen.</span>
-                </div>
-              </mat-radio-button>
-            </mat-radio-group>
+            <div class="score-options flex">
+              <label class="score-label" [class.selected]="pricingForm.get('dynamicAdaptability')?.value === '1'">
+                <input type="radio" formControlName="dynamicAdaptability" value="1" class="ng-untouched ng-pristine ng-valid">
+                <span>1 Keine Anpassung an dynamische Parameter.</span>
+              </label>
+              <label class="score-label" [class.selected]="pricingForm.get('dynamicAdaptability')?.value === '2'">
+                <input type="radio" formControlName="dynamicAdaptability" value="2" class="ng-untouched ng-pristine ng-valid">
+                <span>2 Unterdurchschnittlich</span>
+              </label>
+              <label class="score-label" [class.selected]="pricingForm.get('dynamicAdaptability')?.value === '3'">
+                <input type="radio" formControlName="dynamicAdaptability" value="3" class="ng-untouched ng-pristine ng-valid">
+                <span>3 Durchschnittlich</span>
+              </label>
+              <label class="score-label" [class.selected]="pricingForm.get('dynamicAdaptability')?.value === '4'">
+                <input type="radio" formControlName="dynamicAdaptability" value="4" class="ng-untouched ng-pristine ng-valid">
+                <span>4 Überdurchschnittlich</span>
+              </label>
+              <label class="score-label" [class.selected]="pricingForm.get('dynamicAdaptability')?.value === '5'">
+                <input type="radio" formControlName="dynamicAdaptability" value="5" class="ng-untouched ng-pristine ng-valid">
+                <span>5 Echtzeit-Anpassung an klinische Änderungen.</span>
+              </label>
+            </div>
           </div>
         </div>
 
@@ -846,182 +696,132 @@
         <div class="complexity-grid">
           <div class="form-group">
             <label class="form-label">Automatisierungsgrad (Grad der Autonomie der KI.) *</label>
-            <mat-radio-group formControlName="automationLevel" class="radio-group">
-              <mat-radio-button value="1" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">1</span>
-                  <span class="radio-text">Nur unterstützend, keine eigenständigen Analysen.</span>
-                </div>
-              </mat-radio-button>
-              <mat-radio-button value="2" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">2</span>
-                  <span class="radio-text">Unterdurchschnittlich</span>
-                </div>
-              </mat-radio-button>
-              <mat-radio-button value="3" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">3</span>
-                  <span class="radio-text">Durchschnittlich</span>
-                </div>
-              </mat-radio-button>
-              <mat-radio-button value="4" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">4</span>
-                  <span class="radio-text">Überdurchschnittlich</span>
-                </div>
-              </mat-radio-button>
-              <mat-radio-button value="5" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">5</span>
-                  <span class="radio-text">Vollautomatisierte Analysen und Entscheidungen.</span>
-                </div>
-              </mat-radio-button>
-            </mat-radio-group>
+            <div class="score-options flex">
+              <label class="score-label" [class.selected]="pricingForm.get('automationLevel')?.value === '1'">
+                <input type="radio" formControlName="automationLevel" value="1" class="ng-untouched ng-pristine ng-valid">
+                <span>1 Nur unterstützend, keine eigenständigen Analysen.</span>
+              </label>
+              <label class="score-label" [class.selected]="pricingForm.get('automationLevel')?.value === '2'">
+                <input type="radio" formControlName="automationLevel" value="2" class="ng-untouched ng-pristine ng-valid">
+                <span>2 Unterdurchschnittlich</span>
+              </label>
+              <label class="score-label" [class.selected]="pricingForm.get('automationLevel')?.value === '3'">
+                <input type="radio" formControlName="automationLevel" value="3" class="ng-untouched ng-pristine ng-valid">
+                <span>3 Durchschnittlich</span>
+              </label>
+              <label class="score-label" [class.selected]="pricingForm.get('automationLevel')?.value === '4'">
+                <input type="radio" formControlName="automationLevel" value="4" class="ng-untouched ng-pristine ng-valid">
+                <span>4 Überdurchschnittlich</span>
+              </label>
+              <label class="score-label" [class.selected]="pricingForm.get('automationLevel')?.value === '5'">
+                <input type="radio" formControlName="automationLevel" value="5" class="ng-untouched ng-pristine ng-valid">
+                <span>5 Vollautomatisierte Analysen und Entscheidungen.</span>
+              </label>
+            </div>
           </div>
 
           <div class="form-group">
             <label class="form-label">Analyseebene (Tiefe der durchgeführten Analyse.) *</label>
-            <mat-radio-group formControlName="analysisDepth" class="radio-group">
-              <mat-radio-button value="1" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">1</span>
-                  <span class="radio-text">Einfacher Vorschlag.</span>
-                </div>
-              </mat-radio-button>
-              <mat-radio-button value="2" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">2</span>
-                  <span class="radio-text">Unterdurchschnittlich</span>
-                </div>
-              </mat-radio-button>
-              <mat-radio-button value="3" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">3</span>
-                  <span class="radio-text">Durchschnittlich</span>
-                </div>
-              </mat-radio-button>
-              <mat-radio-button value="4" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">4</span>
-                  <span class="radio-text">Überdurchschnittlich</span>
-                </div>
-              </mat-radio-button>
-              <mat-radio-button value="5" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">5</span>
-                  <span class="radio-text">Hochdimensionale, integrative Analysen.</span>
-                </div>
-              </mat-radio-button>
-            </mat-radio-group>
+            <div class="score-options flex">
+              <label class="score-label" [class.selected]="pricingForm.get('analysisDepth')?.value === '1'">
+                <input type="radio" formControlName="analysisDepth" value="1" class="ng-untouched ng-pristine ng-valid">
+                <span>1 Einfacher Vorschlag.</span>
+              </label>
+              <label class="score-label" [class.selected]="pricingForm.get('analysisDepth')?.value === '2'">
+                <input type="radio" formControlName="analysisDepth" value="2" class="ng-untouched ng-pristine ng-valid">
+                <span>2 Unterdurchschnittlich</span>
+              </label>
+              <label class="score-label" [class.selected]="pricingForm.get('analysisDepth')?.value === '3'">
+                <input type="radio" formControlName="analysisDepth" value="3" class="ng-untouched ng-pristine ng-valid">
+                <span>3 Durchschnittlich</span>
+              </label>
+              <label class="score-label" [class.selected]="pricingForm.get('analysisDepth')?.value === '4'">
+                <input type="radio" formControlName="analysisDepth" value="4" class="ng-untouched ng-pristine ng-valid">
+                <span>4 Überdurchschnittlich</span>
+              </label>
+              <label class="score-label" [class.selected]="pricingForm.get('analysisDepth')?.value === '5'">
+                <input type="radio" formControlName="analysisDepth" value="5" class="ng-untouched ng-pristine ng-valid">
+                <span>5 Hochdimensionale, integrative Analysen.</span>
+              </label>
+            </div>
           </div>
 
           <div class="form-group">
             <label class="form-label">Empfehlungskomplexität (Umfang der Vorschläge oder Handlungspläne.) *</label>
-            <mat-radio-group formControlName="recommendationComplexity" class="radio-group">
-              <mat-radio-button value="1" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">1</span>
-                  <span class="radio-text">Einfache, generische Vorschläge.</span>
-                </div>
-              </mat-radio-button>
-              <mat-radio-button value="2" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">2</span>
-                  <span class="radio-text">Unterdurchschnittlich</span>
-                </div>
-              </mat-radio-button>
-              <mat-radio-button value="3" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">3</span>
-                  <span class="radio-text">Durchschnittlich</span>
-                </div>
-              </mat-radio-button>
-              <mat-radio-button value="4" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">4</span>
-                  <span class="radio-text">Überdurchschnittlich</span>
-                </div>
-              </mat-radio-button>
-              <mat-radio-button value="5" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">5</span>
-                  <span class="radio-text">Detaillierte, umsetzungsfähige Handlungspläne.</span>
-                </div>
-              </mat-radio-button>
-            </mat-radio-group>
+            <div class="score-options flex">
+              <label class="score-label" [class.selected]="pricingForm.get('recommendationComplexity')?.value === '1'">
+                <input type="radio" formControlName="recommendationComplexity" value="1" class="ng-untouched ng-pristine ng-valid">
+                <span>1 Einfache, generische Vorschläge.</span>
+              </label>
+              <label class="score-label" [class.selected]="pricingForm.get('recommendationComplexity')?.value === '2'">
+                <input type="radio" formControlName="recommendationComplexity" value="2" class="ng-untouched ng-pristine ng-valid">
+                <span>2 Unterdurchschnittlich</span>
+              </label>
+              <label class="score-label" [class.selected]="pricingForm.get('recommendationComplexity')?.value === '3'">
+                <input type="radio" formControlName="recommendationComplexity" value="3" class="ng-untouched ng-pristine ng-valid">
+                <span>3 Durchschnittlich</span>
+              </label>
+              <label class="score-label" [class.selected]="pricingForm.get('recommendationComplexity')?.value === '4'">
+                <input type="radio" formControlName="recommendationComplexity" value="4" class="ng-untouched ng-pristine ng-valid">
+                <span>4 Überdurchschnittlich</span>
+              </label>
+              <label class="score-label" [class.selected]="pricingForm.get('recommendationComplexity')?.value === '5'">
+                <input type="radio" formControlName="recommendationComplexity" value="5" class="ng-untouched ng-pristine ng-valid">
+                <span>5 Detaillierte, umsetzungsfähige Handlungspläne.</span>
+              </label>
+            </div>
           </div>
 
           <div class="form-group">
             <label class="form-label">Integration von Leitlinien (Umfang der Einbindung medizinischer Standards.) *</label>
-            <mat-radio-group formControlName="guidelineIntegration" class="radio-group">
-              <mat-radio-button value="1" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">1</span>
-                  <span class="radio-text">Keine Berücksichtigung von Leitlinien.</span>
-                </div>
-              </mat-radio-button>
-              <mat-radio-button value="2" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">2</span>
-                  <span class="radio-text">Unterdurchschnittlich</span>
-                </div>
-              </mat-radio-button>
-              <mat-radio-button value="3" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">3</span>
-                  <span class="radio-text">Durchschnittlich</span>
-                </div>
-              </mat-radio-button>
-              <mat-radio-button value="4" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">4</span>
-                  <span class="radio-text">Überdurchschnittlich</span>
-                </div>
-              </mat-radio-button>
-              <mat-radio-button value="5" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">5</span>
-                  <span class="radio-text">Vollständige Integration aktueller Leitlinien.</span>
-                </div>
-              </mat-radio-button>
-            </mat-radio-group>
+            <div class="score-options flex">
+              <label class="score-label" [class.selected]="pricingForm.get('guidelineIntegration')?.value === '1'">
+                <input type="radio" formControlName="guidelineIntegration" value="1" class="ng-untouched ng-pristine ng-valid">
+                <span>1 Keine Berücksichtigung von Leitlinien.</span>
+              </label>
+              <label class="score-label" [class.selected]="pricingForm.get('guidelineIntegration')?.value === '2'">
+                <input type="radio" formControlName="guidelineIntegration" value="2" class="ng-untouched ng-pristine ng-valid">
+                <span>2 Unterdurchschnittlich</span>
+              </label>
+              <label class="score-label" [class.selected]="pricingForm.get('guidelineIntegration')?.value === '3'">
+                <input type="radio" formControlName="guidelineIntegration" value="3" class="ng-untouched ng-pristine ng-valid">
+                <span>3 Durchschnittlich</span>
+              </label>
+              <label class="score-label" [class.selected]="pricingForm.get('guidelineIntegration')?.value === '4'">
+                <input type="radio" formControlName="guidelineIntegration" value="4" class="ng-untouched ng-pristine ng-valid">
+                <span>4 Überdurchschnittlich</span>
+              </label>
+              <label class="score-label" [class.selected]="pricingForm.get('guidelineIntegration')?.value === '5'">
+                <input type="radio" formControlName="guidelineIntegration" value="5" class="ng-untouched ng-pristine ng-valid">
+                <span>5 Vollständige Integration aktueller Leitlinien.</span>
+              </label>
+            </div>
           </div>
 
           <div class="form-group">
             <label class="form-label">Patientenspezifische Individualisierung (Berücksichtigung individueller Patientenmerkmale.) *</label>
-            <mat-radio-group formControlName="patientSpecificIndividualization" class="radio-group">
-              <mat-radio-button value="1" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">1</span>
-                  <span class="radio-text">Keine Individualisierung.</span>
-                </div>
-              </mat-radio-button>
-              <mat-radio-button value="2" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">2</span>
-                  <span class="radio-text">Unterdurchschnittlich</span>
-                </div>
-              </mat-radio-button>
-              <mat-radio-button value="3" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">3</span>
-                  <span class="radio-text">Durchschnittlich</span>
-                </div>
-              </mat-radio-button>
-              <mat-radio-button value="4" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">4</span>
-                  <span class="radio-text">Überdurchschnittlich</span>
-                </div>
-              </mat-radio-button>
-              <mat-radio-button value="5" class="radio-option">
-                <div class="radio-content">
-                  <span class="radio-value">5</span>
-                  <span class="radio-text">Höchstgradig patientenspezifische Analysen.</span>
-                </div>
-              </mat-radio-button>
-            </mat-radio-group>
+            <div class="score-options flex">
+              <label class="score-label" [class.selected]="pricingForm.get('patientSpecificIndividualization')?.value === '1'">
+                <input type="radio" formControlName="patientSpecificIndividualization" value="1" class="ng-untouched ng-pristine ng-valid">
+                <span>1 Keine Individualisierung.</span>
+              </label>
+              <label class="score-label" [class.selected]="pricingForm.get('patientSpecificIndividualization')?.value === '2'">
+                <input type="radio" formControlName="patientSpecificIndividualization" value="2" class="ng-untouched ng-pristine ng-valid">
+                <span>2 Unterdurchschnittlich</span>
+              </label>
+              <label class="score-label" [class.selected]="pricingForm.get('patientSpecificIndividualization')?.value === '3'">
+                <input type="radio" formControlName="patientSpecificIndividualization" value="3" class="ng-untouched ng-pristine ng-valid">
+                <span>3 Durchschnittlich</span>
+              </label>
+              <label class="score-label" [class.selected]="pricingForm.get('patientSpecificIndividualization')?.value === '4'">
+                <input type="radio" formControlName="patientSpecificIndividualization" value="4" class="ng-untouched ng-pristine ng-valid">
+                <span>4 Überdurchschnittlich</span>
+              </label>
+              <label class="score-label" [class.selected]="pricingForm.get('patientSpecificIndividualization')?.value === '5'">
+                <input type="radio" formControlName="patientSpecificIndividualization" value="5" class="ng-untouched ng-pristine ng-valid">
+                <span>5 Höchstgradig patientenspezifische Analysen.</span>
+              </label>
+            </div>
           </div>
         </div>
 
