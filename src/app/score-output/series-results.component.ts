@@ -39,6 +39,17 @@ export class SeriesResultsComponent implements OnInit {
     return dimension ? dimension.name : 'Unknown Dimension';
   }
 
+  // Helper to get translated dimension name
+  getTranslatedDimensionName(dimensionId: string): string {
+    const dimensionTranslations: { [key: string]: string } = {
+      'dataComplexity': this.translate('dimensions.dataComplexity'),
+      'diseaseComplexity': this.translate('dimensions.diseaseComplexity'),
+      'questionDifficulty': this.translate('dimensions.questionDifficulty'),
+      'aiSupportExtent': this.translate('dimensions.aiSupportExtent')
+    };
+    return dimensionTranslations[dimensionId] || this.getDimensionName(dimensionId);
+  }
+
   // Translation helper
   translate(key: string): string {
     return this.languageService.translate(key);

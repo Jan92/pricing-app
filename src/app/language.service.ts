@@ -209,6 +209,12 @@ export class LanguageService {
       'series.startSimulation': 'Simulation starten',
       'series.parameterVariation': 'Parameter-Variation',
       'series.results': 'Simulationsergebnisse',
+      'series.originalValue': 'Ursprünglicher Wert',
+      'series.scenarioType': 'Szenario-Typ',
+      'series.scenarioValue': 'Szenario-Wert',
+      'series.totalScore': 'Gesamtpunktzahl',
+      'series.score': 'Score',
+      'series.originalValues': 'Ursprüngliche Werte',
       
       // Simulation Parameters (erweiterte Übersetzungen)
       'simulation.seriesSettings': 'Einstellungen für Seriensimulation',
@@ -754,6 +760,12 @@ export class LanguageService {
       'series.startSimulation': 'Start Simulation',
       'series.parameterVariation': 'Parameter Variation',
       'series.results': 'Simulation Results',
+      'series.originalValue': 'Original Value',
+      'series.scenarioType': 'Scenario Type',
+      'series.scenarioValue': 'Scenario Value',
+      'series.totalScore': 'Total Score',
+      'series.score': 'Score',
+      'series.originalValues': 'Original Values',
       
       // Price Simulation
       'simulation.title': 'Price Simulation',

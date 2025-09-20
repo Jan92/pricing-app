@@ -7,18 +7,18 @@
     <div *ngFor="let run of seriesRuns; let i = index" class="series-run-card">
       <h3>{{ translate('series.title') }} #{{ i + 1 }} (ID: {{ run.seriesRunId }})</h3>
       <p><strong>{{ translate('series.parameterVariation') }}:</strong> {{ getCriterionName(run.seriesParameterDimensionId, run.seriesParameterCriterionId) }} (Dimension: {{ getDimensionName(run.seriesParameterDimensionId) }})</p>
-      <p><strong>Original Values:</strong> {{ run.inputSeriesValues.join(', ') }}</p>
+      <p><strong>{{ translate('series.originalValues') }}:</strong> {{ run.inputSeriesValues.join(', ') }}</p>
       
       <h4>{{ translate('series.results') }}:</h4>
       <table class="results-table">
         <thead>
           <tr>
-            <th>Ursprünglicher Wert</th>
-            <th>Szenario-Typ</th>
-            <th>Szenario-Wert</th>
-            <th>Gesamtpunktzahl</th>
+            <th>{{ translate('series.originalValue') }}</th>
+            <th>{{ translate('series.scenarioType') }}</th>
+            <th>{{ translate('series.scenarioValue') }}</th>
+            <th>{{ translate('series.totalScore') }}</th>
             <!-- Optional: Add dimension scores here -->
-            <th *ngFor="let dim of dimensions">{{ dim.name }} Score</th>
+            <th *ngFor="let dim of dimensions">{{ getTranslatedDimensionName(dim.id) }} {{ translate('series.score') }}</th>
           </tr>
         </thead>
         <tbody>

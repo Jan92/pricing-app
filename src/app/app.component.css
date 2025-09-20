@@ -17,7 +17,7 @@
 }
 
 .sidenav {
-  width: 250px;
+  width: 280px;
   background: #f5f6fa;
   border-right: 1px solid #e0e0e0;
   padding: 0;
@@ -49,6 +49,17 @@
   font-size: 1.05rem;
   display: flex;
   align-items: center;
+  padding: 8px 16px;
+  min-height: 48px;
+  white-space: nowrap;
+  overflow: visible;
+}
+
+.mat-nav-list .mat-list-item span {
+  flex: 1;
+  white-space: nowrap;
+  overflow: visible;
+  text-overflow: clip;
 }
 
 .mat-list-icon, .mat-icon[matListIcon] {
@@ -96,12 +107,17 @@
 
 @media (max-width: 900px) {
   .sidenav {
-    width: 200px;
+    width: 240px;
   }
   .content-container {
     padding: 16px 8px;
     min-height: 100vh;
     width: 100vw;
+  }
+  
+  .mat-nav-list .mat-list-item {
+    padding: 6px 12px;
+    font-size: 1rem;
   }
 }
 
@@ -139,6 +155,8 @@
   background: rgba(0, 0, 0, 0.02);
   border-radius: 4px;
   min-height: 48px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .language-selection-container mat-icon {
@@ -156,8 +174,10 @@
 }
 
 .language-select {
-  min-width: 120px;
+  min-width: 80px;
+  max-width: 120px;
   font-size: 0.9rem;
+  flex-shrink: 0;
 }
 
 .language-select .mat-select-trigger {
@@ -166,6 +186,16 @@
   border: 1px solid #ddd;
   border-radius: 4px;
   background: white;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 8px;
+}
+
+.language-select .mat-select-value {
+  font-size: 0.9rem;
+  color: #333;
 }
 
 .language-select .mat-select-trigger:hover {
