@@ -39,29 +39,29 @@
         </div>
 
         <div class="form-group">
-          <label class="form-label">Autonomie-Level des Systems *</label>
+          <label class="form-label">{{ translate('pricing.autonomyLevel') }} *</label>
           <mat-radio-group formControlName="autonomy" class="radio-group" required>
             <div class="radio-option" [class.selected]="pricingForm.get('autonomy')?.value === 'assistive'" (click)="pricingForm.get('autonomy')?.setValue('assistive')">
               <mat-radio-button value="assistive" (click)="$event.stopPropagation()">
                 <div class="radio-text" (click)="pricingForm.get('autonomy')?.setValue('assistive')">
-                  <strong>Assistive (Score 1-2)</strong>
-                  <small>Unterstützt Ärzte bei der Entscheidungsfindung, trifft keine autonomen Entscheidungen</small>
+                  <strong>{{ translate('pricing.autonomy.assistive') }}</strong>
+                  <small>{{ translate('pricing.autonomy.assistiveDesc') }}</small>
                 </div>
               </mat-radio-button>
             </div>
             <div class="radio-option" [class.selected]="pricingForm.get('autonomy')?.value === 'augmentative'" (click)="pricingForm.get('autonomy')?.setValue('augmentative')">
               <mat-radio-button value="augmentative" (click)="$event.stopPropagation()">
                 <div class="radio-text" (click)="pricingForm.get('autonomy')?.setValue('augmentative')">
-                  <strong>Augmentative (Score 3-4)</strong>
-                  <small>Erweitert die Fähigkeiten des Arztes, kann Vorschläge machen</small>
+                  <strong>{{ translate('pricing.autonomy.augmentative') }}</strong>
+                  <small>{{ translate('pricing.autonomy.augmentativeDesc') }}</small>
                 </div>
               </mat-radio-button>
             </div>
             <div class="radio-option" [class.selected]="pricingForm.get('autonomy')?.value === 'autonomous'" (click)="pricingForm.get('autonomy')?.setValue('autonomous')">
               <mat-radio-button value="autonomous" (click)="$event.stopPropagation()">
                 <div class="radio-text" (click)="pricingForm.get('autonomy')?.setValue('autonomous')">
-                  <strong>Autonomous (Score 5)</strong>
-                  <small>Kann autonom Entscheidungen treffen, hohe KI-Beteiligung</small>
+                  <strong>{{ translate('pricing.autonomy.autonomous') }}</strong>
+                  <small>{{ translate('pricing.autonomy.autonomousDesc') }}</small>
                 </div>
               </mat-radio-button>
             </div>
@@ -73,12 +73,12 @@
 
         <!-- Kosteneingaben -->
         <mat-divider style="margin: 20px 0;"></mat-divider>
-        <h3>Kosteneingaben</h3>
+        <h3>{{ translate('pricing.costInputs') }}</h3>
         
         <div class="costs-grid">
           <div class="form-group">
             <mat-form-field appearance="outline" class="full-width">
-              <mat-label>Entwicklungskosten (einmalig) *</mat-label>
+              <mat-label>{{ translate('pricing.developmentCosts') }} *</mat-label>
               <input matInput type="number" formControlName="developmentCosts" required>
               <span matSuffix>€</span>
               <mat-icon matSuffix matTooltip="Einmalige Kosten für die Entwicklung des Systems">info</mat-icon>
@@ -90,7 +90,7 @@
 
           <div class="form-group">
             <mat-form-field appearance="outline" class="full-width">
-              <mat-label>Kosten pro Nutzung *</mat-label>
+              <mat-label>{{ translate('pricing.costPerUsage') }} *</mat-label>
               <input matInput type="number" formControlName="costPerUsage" required>
               <span matSuffix>€</span>
               <mat-icon matSuffix matTooltip="Variable Kosten pro Analyse (z.B. Cloud-Infrastruktur)">info</mat-icon>
@@ -102,7 +102,7 @@
 
           <div class="form-group">
             <mat-form-field appearance="outline" class="full-width">
-              <mat-label>Wartungs-/Updatekosten (jährlich) *</mat-label>
+              <mat-label>{{ translate('pricing.maintenanceCosts') }} *</mat-label>
               <input matInput type="number" formControlName="maintenanceCosts" required>
               <span matSuffix>€</span>
               <mat-icon matSuffix matTooltip="Laufende Kosten für Modellpflege, Support und Updates">info</mat-icon>
@@ -114,7 +114,7 @@
 
           <div class="form-group">
             <mat-form-field appearance="outline" class="full-width">
-              <mat-label>Erwartete Fallzahl pro Jahr *</mat-label>
+              <mat-label>{{ translate('pricing.expectedCases') }} *</mat-label>
               <input matInput type="number" formControlName="expectedCasesPerYear" required>
               <mat-icon matSuffix matTooltip="Anzahl der erwarteten Analysen pro Jahr für die Amortisierung">info</mat-icon>
               <mat-error *ngIf="pricingForm.get('expectedCasesPerYear')?.invalid && pricingForm.get('expectedCasesPerYear')?.touched">
@@ -125,9 +125,9 @@
 
           <div class="form-group">
             <mat-form-field appearance="outline" class="full-width">
-              <mat-label>Amortisierungszeitraum (Jahre) *</mat-label>
+              <mat-label>{{ translate('pricing.amortizationPeriod') }} *</mat-label>
               <input matInput type="number" formControlName="amortizationPeriod" required>
-              <span matSuffix>Jahre</span>
+              <span matSuffix>{{ translate('pricing.years') }}</span>
               <mat-icon matSuffix matTooltip="Zeitraum über den die Entwicklungskosten verteilt werden">info</mat-icon>
               <mat-error *ngIf="pricingForm.get('amortizationPeriod')?.invalid && pricingForm.get('amortizationPeriod')?.touched">
                 Bitte geben Sie den Amortisierungszeitraum ein
@@ -857,8 +857,8 @@
   <div class="phase" *ngIf="currentPhase === 2">
     <mat-card class="strategy-card">
       <mat-card-header>
-        <mat-card-title>Markt & Wettbewerb</mat-card-title>
-        <mat-card-subtitle>Erweiterte Markt- und Wettbewerbsanalyse</mat-card-subtitle>
+        <mat-card-title>{{ translate('pricing.market.title') }}</mat-card-title>
+        <mat-card-subtitle>{{ translate('pricing.market.subtitle') }}</mat-card-subtitle>
       </mat-card-header>
       <mat-card-content [formGroup]="pricingForm">
         <div class="form-group">
@@ -999,21 +999,21 @@
           <div class="market-stats" *ngIf="competitorsArray.length > 0">
             <mat-card class="stats-card">
               <mat-card-header>
-                <mat-card-title>Marktstatistiken</mat-card-title>
-                <mat-card-subtitle>Berechnete Kennzahlen aus den Wettbewerberdaten</mat-card-subtitle>
+                <mat-card-title>{{ translate('pricing.market.marketStats') }}</mat-card-title>
+                <mat-card-subtitle>{{ translate('pricing.market.marketStatsSubtitle') }}</mat-card-subtitle>
               </mat-card-header>
               <mat-card-content>
                 <div class="stats-grid">
                   <div class="stat-item">
-                    <span class="stat-label">Minimalpreis:</span>
+                    <span class="stat-label">{{ translate('pricing.market.minPrice') }}:</span>
                     <span class="stat-value">{{ calculateMarketStats().min | number:'1.2-2' }} €</span>
                   </div>
                   <div class="stat-item">
-                    <span class="stat-label">Maximalpreis:</span>
+                    <span class="stat-label">{{ translate('pricing.market.maxPrice') }}:</span>
                     <span class="stat-value">{{ calculateMarketStats().max | number:'1.2-2' }} €</span>
                   </div>
                   <div class="stat-item">
-                    <span class="stat-label">Durchschnittspreis:</span>
+                    <span class="stat-label">{{ translate('pricing.market.avgPrice') }}:</span>
                     <span class="stat-value">{{ calculateMarketStats().avg | number:'1.2-2' }} €</span>
                   </div>
                 </div>
@@ -1025,10 +1025,10 @@
         <!-- Alternative Referenz -->
         <div class="form-group">
           <mat-form-field appearance="outline" class="full-width">
-            <mat-label>Kosten der bisherigen Methode pro Fall (optional)</mat-label>
+            <mat-label>{{ translate('pricing.market.alternativeMethod') }}</mat-label>
             <input matInput type="number" formControlName="alternativeMethodCosts">
             <span matSuffix>€</span>
-            <mat-icon matSuffix matTooltip="Falls kein direkter Wettbewerber vorhanden ist, können Sie hier die Kosten der manuellen/konventionellen Methode eingeben">info</mat-icon>
+            <mat-icon matSuffix [matTooltip]="translate('pricing.market.alternativeMethodTooltip')">info</mat-icon>
           </mat-form-field>
         </div>
 
@@ -1036,30 +1036,30 @@
         <div class="market-feedback" *ngIf="calculateCostPerCase() > 0 && (competitorsArray.length > 0 || pricingForm.get('alternativeMethodCosts')?.value > 0)">
           <mat-card class="feedback-card">
             <mat-card-header>
-              <mat-card-title>Marktvergleich</mat-card-title>
-              <mat-card-subtitle>Ihr Preis im Vergleich zum Markt</mat-card-subtitle>
+              <mat-card-title>{{ translate('pricing.market.marketComparison') }}</mat-card-title>
+              <mat-card-subtitle>{{ translate('pricing.market.marketComparisonSubtitle') }}</mat-card-subtitle>
             </mat-card-header>
             <mat-card-content>
               <div class="price-comparison">
                 <div class="your-price">
-                  <span class="price-label">Ihre Selbstkosten pro Fall:</span>
+                  <span class="price-label">{{ translate('pricing.market.yourCosts') }}:</span>
                   <span class="price-value">{{ calculateCostPerCase() | number:'1.2-2' }} €</span>
                 </div>
                 
                 <div class="market-comparison" *ngIf="competitorsArray.length > 0">
                   <div class="comparison-item" [class.warning]="calculateCostPerCase() > calculateMarketStats().max">
-                    <span class="comparison-label">Marktpreise:</span>
+                    <span class="comparison-label">{{ translate('pricing.market.marketPrices') }}:</span>
                     <span class="comparison-value">{{ calculateMarketStats().min | number:'1.2-2' }} - {{ calculateMarketStats().max | number:'1.2-2' }} €</span>
                   </div>
                   <div class="comparison-item" [class.warning]="calculateCostPerCase() > calculateMarketStats().avg">
-                    <span class="comparison-label">Marktdurchschnitt:</span>
+                    <span class="comparison-label">{{ translate('pricing.market.marketAverage') }}:</span>
                     <span class="comparison-value">{{ calculateMarketStats().avg | number:'1.2-2' }} €</span>
                   </div>
                 </div>
 
                 <div class="alternative-comparison" *ngIf="pricingForm.get('alternativeMethodCosts')?.value > 0">
                   <div class="comparison-item">
-                    <span class="comparison-label">Konventionelle Methode:</span>
+                    <span class="comparison-label">{{ translate('pricing.market.conventionalMethod') }}:</span>
                     <span class="comparison-value">{{ pricingForm.get('alternativeMethodCosts')?.value | number:'1.2-2' }} €</span>
                   </div>
                 </div>
@@ -1068,15 +1068,15 @@
                 <div class="market-hints" *ngIf="competitorsArray.length > 0">
                   <div class="hint warning" *ngIf="calculateCostPerCase() > calculateMarketStats().max">
                     <mat-icon>warning</mat-icon>
-                    <span>Achtung: Ihr Preis liegt über dem höchsten Marktpreis um {{ ((calculateCostPerCase() / calculateMarketStats().max - 1) * 100) | number:'1.0-1' }}%. Stellen Sie sicher, dass der Mehrwert dies rechtfertigt.</span>
+                    <span>{{ translate('pricing.market.warningAboveMax') }} {{ ((calculateCostPerCase() / calculateMarketStats().max - 1) * 100) | number:'1.0-1' }}{{ translate('pricing.market.warningAboveMaxEnd') }}</span>
                   </div>
                   <div class="hint info" *ngIf="calculateCostPerCase() < calculateMarketStats().min">
                     <mat-icon>info</mat-icon>
-                    <span>Ihr Preis liegt unter dem günstigsten Wettbewerber. Dies kann eine aggressiv niedrige Strategie sein – prüfen Sie, ob alle Kosten gedeckt sind.</span>
+                    <span>{{ translate('pricing.market.infoBelowMin') }}</span>
                   </div>
                   <div class="hint success" *ngIf="calculateCostPerCase() >= calculateMarketStats().min && calculateCostPerCase() <= calculateMarketStats().max">
                     <mat-icon>check_circle</mat-icon>
-                    <span>Ihr Preis liegt im Marktband. Sie positionieren sich {{ calculateCostPerCase() > calculateMarketStats().avg ? 'im oberen' : 'im unteren' }} Drittel des Marktsegments.</span>
+                    <span>{{ translate('pricing.market.successInRange') }} {{ calculateCostPerCase() > calculateMarketStats().avg ? translate('pricing.market.successUpper') : translate('pricing.market.successLower') }} {{ translate('pricing.market.successEnd') }}</span>
                   </div>
                 </div>
               </div>
@@ -1091,34 +1091,34 @@
   <div class="phase" *ngIf="currentPhase === 3">
     <mat-card class="strategy-card">
       <mat-card-header>
-        <mat-card-title>Implementierung & Vertrieb</mat-card-title>
-        <mat-card-subtitle>Berücksichtigung von Implementierung und Vertriebsweg</mat-card-subtitle>
+        <mat-card-title>{{ translate('pricing.implementation.title') }}</mat-card-title>
+        <mat-card-subtitle>{{ translate('pricing.implementation.subtitle') }}</mat-card-subtitle>
       </mat-card-header>
       <mat-card-content [formGroup]="pricingForm">
         <div class="form-group">
-          <label class="form-label">Vertriebskomplexität *</label>
+          <label class="form-label">{{ translate('pricing.implementation.salesComplexity') }} *</label>
           <mat-radio-group formControlName="salesEffort" class="radio-group" required>
             <div class="radio-option" [class.selected]="pricingForm.get('salesEffort')?.value === 'low'" (click)="pricingForm.get('salesEffort')?.setValue('low')">
               <mat-radio-button value="low">
                 <div class="radio-text">
-                  <strong>Niedrig (&lt;10%)</strong>
-                  <small>Einfacher Vertrieb, geringe Kosten</small>
+                  <strong>{{ translate('pricing.implementation.salesComplexity.low') }}</strong>
+                  <small>{{ translate('pricing.implementation.salesComplexity.lowDesc') }}</small>
                 </div>
               </mat-radio-button>
             </div>
             <div class="radio-option" [class.selected]="pricingForm.get('salesEffort')?.value === 'medium'" (click)="pricingForm.get('salesEffort')?.setValue('medium')">
               <mat-radio-button value="medium">
                 <div class="radio-text">
-                  <strong>Mittel (10-25%)</strong>
-                  <small>Moderate Vertriebskosten</small>
+                  <strong>{{ translate('pricing.implementation.salesComplexity.medium') }}</strong>
+                  <small>{{ translate('pricing.implementation.salesComplexity.mediumDesc') }}</small>
                 </div>
               </mat-radio-button>
             </div>
             <div class="radio-option" [class.selected]="pricingForm.get('salesEffort')?.value === 'high'" (click)="pricingForm.get('salesEffort')?.setValue('high')">
               <mat-radio-button value="high">
                 <div class="radio-text">
-                  <strong>Hoch (&gt;25%)</strong>
-                  <small>Hohe Vertriebskosten, komplexe Verkaufsprozesse</small>
+                  <strong>{{ translate('pricing.implementation.salesComplexity.high') }}</strong>
+                  <small>{{ translate('pricing.implementation.salesComplexity.highDesc') }}</small>
                 </div>
               </mat-radio-button>
             </div>
@@ -1129,21 +1129,21 @@
         </div>
 
         <div class="form-group">
-          <label class="form-label">Implementierungskomplexität *</label>
+          <label class="form-label">{{ translate('pricing.implementation.implementationComplexity') }} *</label>
           <mat-radio-group formControlName="implementation" class="radio-group" required>
             <div class="radio-option" [class.selected]="pricingForm.get('implementation')?.value === 'standard'" (click)="pricingForm.get('implementation')?.setValue('standard')">
               <mat-radio-button value="standard">
                 <div class="radio-text">
-                  <strong>Standard</strong>
-                  <small>Plug-and-Play, geringe Anpassungen</small>
+                  <strong>{{ translate('pricing.implementation.implementationComplexity.low') }}</strong>
+                  <small>{{ translate('pricing.implementation.implementationComplexity.lowDesc') }}</small>
                 </div>
               </mat-radio-button>
             </div>
             <div class="radio-option" [class.selected]="pricingForm.get('implementation')?.value === 'extensive'" (click)="pricingForm.get('implementation')?.setValue('extensive')">
               <mat-radio-button value="extensive">
                 <div class="radio-text">
-                  <strong>Umfangreich</strong>
-                  <small>Hohe Anpassungen, Integration, Schulungen</small>
+                  <strong>{{ translate('pricing.implementation.implementationComplexity.high') }}</strong>
+                  <small>{{ translate('pricing.implementation.implementationComplexity.highDesc') }}</small>
                 </div>
               </mat-radio-button>
             </div>

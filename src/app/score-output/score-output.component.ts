@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ScoreService } from '../score.service';
+import { LanguageService } from '../language.service';
 import { ScoreResult, Dimension, ScoreInput, Criterion } from '../models/score.model';
 import { Observable, switchMap, of, combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -28,7 +29,8 @@ export class ScoreOutputComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private scoreService: ScoreService
+    private scoreService: ScoreService,
+    private languageService: LanguageService
   ) { }
 
   ngOnInit(): void {
@@ -109,5 +111,10 @@ export class ScoreOutputComponent implements OnInit {
         };
       })
     }));
+  }
+
+  // Translation helper
+  translate(key: string): string {
+    return this.languageService.translate(key);
   }
 }

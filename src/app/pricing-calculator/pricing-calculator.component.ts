@@ -13,6 +13,7 @@ import * as XLSX from 'xlsx'; // Import the xlsx library
 
 import { PricingSimulationService, SimulationResult, SimulationInput } from './pricing-simulation.service';
 import { FindCostPipe } from './find-cost.pipe';
+import { LanguageService } from '../language.service';
 
 @Component({
   selector: 'app-pricing-calculator',
@@ -60,7 +61,8 @@ export class PricingCalculatorComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private simulationService: PricingSimulationService
+    private simulationService: PricingSimulationService,
+    private languageService: LanguageService
   ) {
     this.simulationForm = this.fb.group({
       // Inputs
@@ -277,5 +279,10 @@ export class PricingCalculatorComponent implements OnInit {
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'Seriensimulation Ergebnisse');
     XLSX.writeFile(wb, `Pricing_Series_Simulation_${new Date().toISOString().substring(0,10)}.xlsx`);
+  }
+
+  // Translation helper
+  translate(key: string): string {
+    return this.languageService.translate(key);
   }
 }

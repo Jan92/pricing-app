@@ -1,23 +1,23 @@
-<h2>Score-Detailansicht</h2>
+<h2>{{ translate('output.title') }}</h2>
 
 <div *ngIf="scoreDetails$ | async as details; else loadingOrError">
   <mat-card class="score-card mat-elevation-z4" *ngIf="details !== null">
     <mat-card-header>
-      <mat-card-title>Bewertung für ID: {{ details.result.evaluationId }}</mat-card-title>
-      <mat-card-subtitle>Gesamtscore: {{ details.result.totalScore }}</mat-card-subtitle>
+      <mat-card-title>{{ translate('output.evaluationForId') }}: {{ details.result.evaluationId }}</mat-card-title>
+      <mat-card-subtitle>{{ translate('output.totalScore') }}: {{ details.result.totalScore }}</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
       <mat-accordion>
         <mat-expansion-panel *ngFor="let dim of details.dimensions" class="dimension-panel">
           <mat-expansion-panel-header>
             <mat-panel-title>{{ dim.name }}</mat-panel-title>
-            <mat-panel-description>Score: {{ dim.dimensionScore }}</mat-panel-description>
+            <mat-panel-description>{{ translate('output.score') }}: {{ dim.dimensionScore }}</mat-panel-description>
           </mat-expansion-panel-header>
           
           <mat-list>
             <mat-list-item *ngFor="let crit of dim.criteria">
               <div matListItemTitle>{{ crit.name }}</div>
-              <div matListItemLine>Score: {{ crit.scoreValue }} - {{ crit.scoreLabel }}</div>
+              <div matListItemLine>{{ translate('output.score') }}: {{ crit.scoreValue }} - {{ crit.scoreLabel }}</div>
               <div matListItemLine class="criterion-description">{{ crit.description }}</div>
             </mat-list-item>
           </mat-list>
@@ -30,8 +30,8 @@
     <mat-card-content>
       <div class="no-data-message">
         <mat-icon color="warn" class="large-icon">info</mat-icon>
-        <h3>Keine Bewertungsdaten gefunden</h3>
-        <p>Erstellen Sie eine neue Bewertung über die Dateneingabe oder wählen Sie eine vorhandene Bewertung aus der Score-Verwaltung.</p>
+        <h3>{{ translate('output.noDataFound') }}</h3>
+        <p>{{ translate('output.noDataMessage') }}</p>
       </div>
     </mat-card-content>
   </mat-card>
@@ -42,7 +42,7 @@
     <mat-card-content>
       <div class="loading-indicator">
         <mat-spinner diameter="40"></mat-spinner>
-        <p>Lade Bewertungsdaten...</p>
+        <p>{{ translate('output.loadingData') }}</p>
       </div>
     </mat-card-content>
   </mat-card>

@@ -1,14 +1,14 @@
 <div class="container mt-4">
-  <h2>Preissimulation</h2>
+  <h2>{{ translate('simulation.title') }}</h2>
 
   <!-- Simulation Input Form -->
   <form [formGroup]="simulationForm" (ngSubmit)="onSubmit()" class="mb-4 p-4 border rounded bg-light">
-    <h4>Simulationsparameter</h4>
+    <h4>{{ translate('simulation.parameters') }}</h4>
 
     <!-- Series Simulation Toggle -->
     <div class="mb-3">
       <mat-checkbox [(ngModel)]="isSeriesMode" [ngModelOptions]="{standalone: true}">
-        Seriensimulation durchführen?
+        {{ translate('simulation.seriesSimulation') }}
       </mat-checkbox>
     </div>
 
@@ -38,7 +38,7 @@
     <div class="row mb-3">
       <div class="col-md-4">
         <mat-form-field appearance="outline" class="w-100">
-          <mat-label>Anzahl Nutzer</mat-label>
+          <mat-label>{{ translate('simulation.numberOfUsers') }}</mat-label>
           <input matInput type="number" formControlName="numberOfUsers">
           <mat-error *ngIf="f['numberOfUsers'].errors?.['required']">Anzahl Nutzer ist erforderlich.</mat-error>
           <mat-error *ngIf="f['numberOfUsers'].errors?.['min']">Mindestens 1 Nutzer erforderlich.</mat-error>
@@ -46,7 +46,7 @@
       </div>
       <div class="col-md-4">
         <mat-form-field appearance="outline" class="w-100">
-          <mat-label>Anzahl Anfragen pro Monat</mat-label>
+          <mat-label>{{ translate('simulation.requestsPerMonth') }}</mat-label>
           <input matInput type="number" formControlName="numberOfRequests">
            <mat-error *ngIf="f['numberOfRequests'].errors?.['required']">Anzahl Anfragen ist erforderlich.</mat-error>
            <mat-error *ngIf="f['numberOfRequests'].errors?.['min']">Mindestens 0 Anfragen erforderlich.</mat-error>
@@ -54,7 +54,7 @@
       </div>
       <div class="col-md-4">
         <mat-form-field appearance="outline" class="w-100">
-          <mat-label>KI-Score (0-100)</mat-label>
+          <mat-label>{{ translate('simulation.aiScore') }}</mat-label>
           <input matInput type="number" formControlName="aiScore">
           <mat-error *ngIf="f['aiScore'].errors?.['required']">KI-Score ist erforderlich.</mat-error>
           <mat-error *ngIf="f['aiScore'].errors?.['min'] || f['aiScore'].errors?.['max']">Score muss zwischen 0 und 100 liegen.</mat-error>
@@ -66,7 +66,7 @@
     <div class="row mb-3">
         <div class="col-md-4">
             <mat-form-field appearance="outline" class="w-100">
-              <mat-label>Monatlicher Preis pro Nutzer (€)</mat-label>
+              <mat-label>{{ translate('simulation.monthlyPricePerUser') }}</mat-label>
               <input matInput type="number" formControlName="pricePerUser" min="0" step="0.01">
               <mat-error *ngIf="f['pricePerUser'].errors?.['required']">Preis pro Nutzer ist erforderlich.</mat-error>
               <mat-error *ngIf="f['pricePerUser'].errors?.['min']">Preis darf nicht negativ sein.</mat-error>
@@ -74,7 +74,7 @@
           </div>
           <div class="col-md-4">
             <mat-form-field appearance="outline" class="w-100">
-              <mat-label>Preis pro Anfrage (€)</mat-label>
+              <mat-label>{{ translate('simulation.pricePerRequest') }}</mat-label>
               <input matInput type="number" formControlName="pricePerRequest" min="0" step="0.001">
               <mat-error *ngIf="f['pricePerRequest'].errors?.['required']">Preis pro Anfrage ist erforderlich.</mat-error>
               <mat-error *ngIf="f['pricePerRequest'].errors?.['min']">Preis darf nicht negativ sein.</mat-error>
@@ -83,7 +83,7 @@
            <div class="col-md-4">
              <!-- Placeholder for AI Score Multiplier Input if needed later -->
              <mat-form-field appearance="outline" class="w-100">
-                <mat-label>KI Score Referenzpreis (€)</mat-label>
+                <mat-label>{{ translate('simulation.aiScoreReferencePrice') }}</mat-label>
                 <input matInput type="number" formControlName="aiScoreReferencePrice" min="0" step="0.0001">
                 <mat-error *ngIf="f['aiScoreReferencePrice'].errors?.['required']">Referenzpreis ist erforderlich.</mat-error>
                 <mat-error *ngIf="f['aiScoreReferencePrice'].errors?.['min']">Preis darf nicht negativ sein.</mat-error>
@@ -93,21 +93,21 @@
 
     <div class="mb-3">
       <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Beschreibung (Optional)</mat-label>
+        <mat-label>{{ translate('simulation.description') }}</mat-label>
         <textarea matInput formControlName="description" rows="2"></textarea>
       </mat-form-field>
     </div>
 
     <div class="mb-4">
-      <h5>Modelle zur Berechnung auswählen</h5>
+      <h5>{{ translate('simulation.models') }}</h5>
       <div class="d-flex flex-wrap gap-3">
-        <mat-checkbox formControlName="calculateMonthly">Monatliche Miete</mat-checkbox>
-        <mat-checkbox formControlName="calculateVolume">Volumenbasiert</mat-checkbox>
-        <mat-checkbox formControlName="calculateAiScore">KI-Score-basiert</mat-checkbox>
+        <mat-checkbox formControlName="calculateMonthly">{{ translate('simulation.monthlyRent') }}</mat-checkbox>
+        <mat-checkbox formControlName="calculateVolume">{{ translate('simulation.volumeBased') }}</mat-checkbox>
+        <mat-checkbox formControlName="calculateAiScore">{{ translate('simulation.aiScoreBased') }}</mat-checkbox>
       </div>
     </div>
 
-    <button mat-raised-button color="primary" type="submit" [disabled]="simulationForm.invalid">Simulation starten</button>
+    <button mat-raised-button color="primary" type="submit" [disabled]="simulationForm.invalid">{{ translate('simulation.startSimulation') }}</button>
   </form>
 
   <!-- Display Area for Series Simulation Results -->
