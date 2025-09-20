@@ -166,34 +166,34 @@
   <div class="phase" *ngIf="currentPhase === 1">
     <mat-card class="strategy-card">
       <mat-card-header>
-        <mat-card-title>Komplexität</mat-card-title>
-        <mat-card-subtitle>Mehrdimensionale Bewertung der Komplexität Ihres Systems</mat-card-subtitle>
+        <mat-card-title>{{ translate('pricing.complexity.title') }}</mat-card-title>
+        <mat-card-subtitle>{{ translate('pricing.complexity.subtitle') }}</mat-card-subtitle>
       </mat-card-header>
       <mat-card-content [formGroup]="pricingForm">
         <div class="form-group">
-          <label class="form-label">Messbarkeit des Nutzens *</label>
+          <label class="form-label">{{ translate('pricing.complexity.benefitMeasurability') }} *</label>
           <mat-radio-group formControlName="measurability" class="radio-group" required>
             <div class="radio-option" [class.selected]="pricingForm.get('measurability')?.value === 'high'" (click)="pricingForm.get('measurability')?.setValue('high')">
               <mat-radio-button value="high">
                 <div class="radio-text">
-                  <strong>Hoch messbar</strong>
-                  <small>Nutzen kann klar in Euro, Zeit oder Qualität gemessen werden</small>
+                  <strong>{{ translate('pricing.complexity.benefit.high') }}</strong>
+                  <small>{{ translate('pricing.complexity.benefit.highDesc') }}</small>
                 </div>
               </mat-radio-button>
             </div>
             <div class="radio-option" [class.selected]="pricingForm.get('measurability')?.value === 'medium'" (click)="pricingForm.get('measurability')?.setValue('medium')">
               <mat-radio-button value="medium">
                 <div class="radio-text">
-                  <strong>Mittel messbar</strong>
-                  <small>Teilweise messbar, aber mit Unsicherheiten</small>
+                  <strong>{{ translate('pricing.complexity.benefit.medium') }}</strong>
+                  <small>{{ translate('pricing.complexity.benefit.mediumDesc') }}</small>
                 </div>
               </mat-radio-button>
             </div>
             <div class="radio-option" [class.selected]="pricingForm.get('measurability')?.value === 'low'" (click)="pricingForm.get('measurability')?.setValue('low')">
               <mat-radio-button value="low">
                 <div class="radio-text">
-                  <strong>Schwer messbar</strong>
-                  <small>Nutzen ist qualitativ, schwer zu quantifizieren</small>
+                  <strong>{{ translate('pricing.complexity.benefit.low') }}</strong>
+                  <small>{{ translate('pricing.complexity.benefit.lowDesc') }}</small>
                 </div>
               </mat-radio-button>
             </div>
@@ -204,29 +204,29 @@
         </div>
 
         <div class="form-group">
-          <label class="form-label">AI-Inferenzkosten *</label>
+          <label class="form-label">{{ translate('pricing.complexity.aiInferenceCosts') }} *</label>
           <mat-radio-group formControlName="inferenceCosts" class="radio-group" required>
             <div class="radio-option" [class.selected]="pricingForm.get('inferenceCosts')?.value === 'low'" (click)="pricingForm.get('inferenceCosts')?.setValue('low')">
               <mat-radio-button value="low">
                 <div class="radio-text">
-                  <strong>Niedrig</strong>
-                  <small>Geringe laufende Kosten für AI-Verarbeitung</small>
+                  <strong>{{ translate('pricing.complexity.costs.low') }}</strong>
+                  <small>{{ translate('pricing.complexity.costs.lowDesc') }}</small>
                 </div>
               </mat-radio-button>
             </div>
             <div class="radio-option" [class.selected]="pricingForm.get('inferenceCosts')?.value === 'medium'" (click)="pricingForm.get('inferenceCosts')?.setValue('medium')">
               <mat-radio-button value="medium">
                 <div class="radio-text">
-                  <strong>Mittel</strong>
-                  <small>Moderate laufende Kosten</small>
+                  <strong>{{ translate('pricing.complexity.costs.medium') }}</strong>
+                  <small>{{ translate('pricing.complexity.costs.mediumDesc') }}</small>
                 </div>
               </mat-radio-button>
             </div>
             <div class="radio-option" [class.selected]="pricingForm.get('inferenceCosts')?.value === 'high'" (click)="pricingForm.get('inferenceCosts')?.setValue('high')">
               <mat-radio-button value="high">
                 <div class="radio-text">
-                  <strong>Hoch</strong>
-                  <small>Hohe laufende Kosten für AI-Verarbeitung</small>
+                  <strong>{{ translate('pricing.complexity.costs.high') }}</strong>
+                  <small>{{ translate('pricing.complexity.costs.highDesc') }}</small>
                 </div>
               </mat-radio-button>
             </div>
@@ -238,22 +238,22 @@
 
         <!-- Komplexitätsbewertung - Eingabemethode -->
         <mat-divider style="margin: 20px 0;"></mat-divider>
-        <h3>Komplexitätsbewertung</h3>
+        <h3>{{ translate('pricing.complexity.evaluation') }}</h3>
         
         <!-- Eingabemethode wählen -->
         <div class="form-group">
-          <label class="form-label">Wie möchten Sie die Komplexität bewerten? *</label>
+          <label class="form-label">{{ translate('pricing.complexity.evaluationMethod') }} *</label>
           <mat-radio-group formControlName="complexityInputMethod" class="input-method-group">
             <mat-radio-button value="detailed" class="input-method-option">
               <div class="option-content">
-                <strong>Detaillierte Bewertung</strong>
-                <small>Alle 20 Kriterien einzeln bewerten (wie in der AI-Score Berechnung)</small>
+                <strong>{{ translate('pricing.complexity.detailed') }}</strong>
+                <small>{{ translate('pricing.complexity.detailedDesc') }}</small>
               </div>
             </mat-radio-button>
             <mat-radio-button value="direct" class="input-method-option">
               <div class="option-content">
-                <strong>Direkte Score-Eingabe</strong>
-                <small>AI-Score direkt eingeben (z.B. aus vorheriger Berechnung)</small>
+                <strong>{{ translate('pricing.complexity.direct') }}</strong>
+                <small>{{ translate('pricing.complexity.directDesc') }}</small>
               </div>
             </mat-radio-button>
           </mat-radio-group>
@@ -263,11 +263,11 @@
         <div *ngIf="pricingForm.get('complexityInputMethod')?.value === 'direct'" class="direct-score-section">
           <div class="form-group">
             <mat-form-field appearance="outline" class="full-width">
-              <mat-label>AI-Score (20-100) *</mat-label>
+              <mat-label>{{ translate('pricing.complexity.aiScore') }} *</mat-label>
               <input matInput type="number" formControlName="directComplexityScore" min="20" max="100" required>
-              <mat-icon matSuffix matTooltip="Geben Sie den bereits berechneten AI-Score ein">info</mat-icon>
+              <mat-icon matSuffix [matTooltip]="translate('pricing.complexity.aiScoreTooltip')">info</mat-icon>
               <mat-error *ngIf="pricingForm.get('directComplexityScore')?.invalid && pricingForm.get('directComplexityScore')?.touched">
-                Bitte geben Sie einen gültigen Score zwischen 20 und 100 ein
+                {{ translate('pricing.complexity.aiScoreError') }}
               </mat-error>
             </mat-form-field>
           </div>

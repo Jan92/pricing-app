@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ScoreService } from '../score.service';
+import { LanguageService } from '../language.service';
 import { SeriesSimulationRun, Dimension, Criterion } from '../models/score.model';
 
 @Component({
@@ -13,7 +14,7 @@ export class SeriesResultsComponent implements OnInit {
   seriesRuns$: Observable<SeriesSimulationRun[]>;
   dimensions: Dimension[] = []; // To hold dimensions for easy lookup
 
-  constructor(private scoreService: ScoreService) {
+  constructor(private scoreService: ScoreService, private languageService: LanguageService) {
     this.seriesRuns$ = this.scoreService.getSeriesSimulationRuns();
     this.scoreService.getDimensions().subscribe(dims => this.dimensions = dims);
   }
@@ -36,6 +37,11 @@ export class SeriesResultsComponent implements OnInit {
   getDimensionName(dimensionId: string): string {
     const dimension = this.dimensions.find(d => d.id === dimensionId);
     return dimension ? dimension.name : 'Unknown Dimension';
+  }
+
+  // Translation helper
+  translate(key: string): string {
+    return this.languageService.translate(key);
   }
 
 } 

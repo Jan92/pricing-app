@@ -1,6 +1,6 @@
 <div class="series-results-container" *ngIf="seriesRuns$ | async as seriesRuns; else noData">
   <div *ngIf="seriesRuns.length === 0; else showData">
-    <p>Noch keine Seriensimulationen durchgeführt oder vorhanden.</p>
+    <p>{{ translate('series.noSimulations') }}</p>
   </div>
 
   <ng-template #showData>

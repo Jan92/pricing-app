@@ -167,7 +167,44 @@ export class LanguageService {
       'pricing.costPerUsage': 'Kosten pro Nutzung',
       'pricing.maintenanceCosts': 'Wartungs-/Updatekosten (jährlich)',
       'pricing.expectedCases': 'Erwartete Fallzahl pro Jahr',
-      'pricing.amortizationPeriod': 'Amortisierungszeitraum (Jahre)'
+      'pricing.amortizationPeriod': 'Amortisierungszeitraum (Jahre)',
+      
+      // Pricing Strategy - Complexity Phase
+      'pricing.complexity.title': 'Komplexität',
+      'pricing.complexity.subtitle': 'Mehrdimensionale Bewertung der Komplexität Ihres Systems',
+      'pricing.complexity.benefitMeasurability': 'Messbarkeit des Nutzens',
+      'pricing.complexity.benefit.high': 'Hoch messbar',
+      'pricing.complexity.benefit.highDesc': 'Nutzen kann klar in Euro, Zeit oder Qualität gemessen werden',
+      'pricing.complexity.benefit.medium': 'Mittel messbar',
+      'pricing.complexity.benefit.mediumDesc': 'Teilweise messbar, aber mit Unsicherheiten',
+      'pricing.complexity.benefit.low': 'Schwer messbar',
+      'pricing.complexity.benefit.lowDesc': 'Nutzen ist qualitativ, schwer zu quantifizieren',
+      'pricing.complexity.aiInferenceCosts': 'AI-Inferenzkosten',
+      'pricing.complexity.costs.low': 'Niedrig',
+      'pricing.complexity.costs.lowDesc': 'Geringe laufende Kosten für AI-Verarbeitung',
+      'pricing.complexity.costs.medium': 'Mittel',
+      'pricing.complexity.costs.mediumDesc': 'Moderate laufende Kosten',
+      'pricing.complexity.costs.high': 'Hoch',
+      'pricing.complexity.costs.highDesc': 'Hohe laufende Kosten für AI-Verarbeitung',
+      'pricing.complexity.evaluation': 'Komplexitätsbewertung',
+      'pricing.complexity.evaluationMethod': 'Wie möchten Sie die Komplexität bewerten?',
+      'pricing.complexity.detailed': 'Detaillierte Bewertung',
+      'pricing.complexity.detailedDesc': 'Alle 20 Kriterien einzeln bewerten (wie in der AI-Score Berechnung)',
+      'pricing.complexity.direct': 'Direkte Score-Eingabe',
+      'pricing.complexity.directDesc': 'AI-Score direkt eingeben (z.B. aus vorheriger Berechnung)',
+      'pricing.complexity.aiScore': 'AI-Score (20-100)',
+      'pricing.complexity.aiScoreTooltip': 'Geben Sie den bereits berechneten AI-Score ein',
+      'pricing.complexity.aiScoreError': 'Bitte geben Sie einen gültigen Score zwischen 20 und 100 ein',
+      'pricing.complexity.score': 'Komplexitäts-Score',
+      'pricing.complexity.scoreSubtitle': 'Gesamtbewertung der Komplexität',
+      
+      // Series Simulation
+      'series.noSimulations': 'Noch keine Seriensimulationen durchgeführt oder vorhanden.',
+      'series.title': 'Seriensimulation',
+      'series.description': 'Führen Sie Parameter-Variationen durch, um optimale Pricing-Strategien zu finden.',
+      'series.startSimulation': 'Simulation starten',
+      'series.parameterVariation': 'Parameter-Variation',
+      'series.results': 'Simulationsergebnisse'
     },
     en: {
       // Navigation
@@ -325,7 +362,44 @@ export class LanguageService {
       'pricing.costPerUsage': 'Cost per Usage',
       'pricing.maintenanceCosts': 'Maintenance/Update Costs (annually)',
       'pricing.expectedCases': 'Expected Cases per Year',
-      'pricing.amortizationPeriod': 'Amortization Period (Years)'
+      'pricing.amortizationPeriod': 'Amortization Period (Years)',
+      
+      // Pricing Strategy - Complexity Phase
+      'pricing.complexity.title': 'Complexity',
+      'pricing.complexity.subtitle': 'Multidimensional evaluation of your system complexity',
+      'pricing.complexity.benefitMeasurability': 'Benefit Measurability',
+      'pricing.complexity.benefit.high': 'Highly Measurable',
+      'pricing.complexity.benefit.highDesc': 'Benefit can be clearly measured in Euro, time or quality',
+      'pricing.complexity.benefit.medium': 'Moderately Measurable',
+      'pricing.complexity.benefit.mediumDesc': 'Partially measurable, but with uncertainties',
+      'pricing.complexity.benefit.low': 'Hard to Measure',
+      'pricing.complexity.benefit.lowDesc': 'Benefit is qualitative, hard to quantify',
+      'pricing.complexity.aiInferenceCosts': 'AI Inference Costs',
+      'pricing.complexity.costs.low': 'Low',
+      'pricing.complexity.costs.lowDesc': 'Low running costs for AI processing',
+      'pricing.complexity.costs.medium': 'Medium',
+      'pricing.complexity.costs.mediumDesc': 'Moderate running costs',
+      'pricing.complexity.costs.high': 'High',
+      'pricing.complexity.costs.highDesc': 'High running costs for AI processing',
+      'pricing.complexity.evaluation': 'Complexity Evaluation',
+      'pricing.complexity.evaluationMethod': 'How would you like to evaluate the complexity?',
+      'pricing.complexity.detailed': 'Detailed Evaluation',
+      'pricing.complexity.detailedDesc': 'Evaluate all 20 criteria individually (as in AI-Score calculation)',
+      'pricing.complexity.direct': 'Direct Score Input',
+      'pricing.complexity.directDesc': 'Enter AI-Score directly (e.g., from previous calculation)',
+      'pricing.complexity.aiScore': 'AI-Score (20-100)',
+      'pricing.complexity.aiScoreTooltip': 'Enter the already calculated AI-Score',
+      'pricing.complexity.aiScoreError': 'Please enter a valid score between 20 and 100',
+      'pricing.complexity.score': 'Complexity Score',
+      'pricing.complexity.scoreSubtitle': 'Overall complexity assessment',
+      
+      // Series Simulation
+      'series.noSimulations': 'No series simulations performed or available yet.',
+      'series.title': 'Series Simulation',
+      'series.description': 'Perform parameter variations to find optimal pricing strategies.',
+      'series.startSimulation': 'Start Simulation',
+      'series.parameterVariation': 'Parameter Variation',
+      'series.results': 'Simulation Results'
     }
   };
 
