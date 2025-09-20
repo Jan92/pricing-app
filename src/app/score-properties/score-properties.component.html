@@ -8,18 +8,18 @@
       <mat-list-item *ngFor="let dimension of dimensions$ | async" 
                     (click)="onSelectDimension(dimension)" 
                     [class.selected]="selectedDimension?.id === dimension.id">
-        {{ dimension.name }}
+        {{ getTranslatedDimensionName(dimension.id) }}
       </mat-list-item>
     </mat-nav-list>
   </div>
   <div *ngIf="mobileStep === 1">
     <button mat-stroked-button (click)="goBackMobileStep()" style="margin-bottom: 12px;">{{ translate('properties.backToDimensions') }}</button>
-    <h3>{{ translate('properties.criteria') }} {{ selectedDimension?.name }}</h3>
+    <h3>{{ translate('properties.criteria') }} {{ getTranslatedDimensionName(selectedDimension?.id || '') }}</h3>
     <mat-nav-list>
       <mat-list-item *ngFor="let criterion of selectedDimension?.criteria" 
                     (click)="onSelectCriterion(criterion)"
                     [class.selected]="selectedCriterion?.id === criterion.id">
-        {{ criterion.name }}
+        {{ getTranslatedCriterionName(criterion.id) }}
       </mat-list-item>
     </mat-nav-list>
   </div>
@@ -60,18 +60,18 @@
         <mat-list-item *ngFor="let dimension of dimensions$ | async" 
                       (click)="onSelectDimension(dimension)" 
                       [class.selected]="selectedDimension?.id === dimension.id">
-          {{ dimension.name }}
+          {{ getTranslatedDimensionName(dimension.id) }}
         </mat-list-item>
       </mat-nav-list>
     </div>
 
     <div class="criteria-list" *ngIf="selectedDimension">
-      <h3>{{ translate('properties.criteria') }} {{ selectedDimension.name }}</h3>
+      <h3>{{ translate('properties.criteria') }} {{ getTranslatedDimensionName(selectedDimension.id) }}</h3>
       <mat-nav-list>
         <mat-list-item *ngFor="let criterion of selectedDimension.criteria" 
                       (click)="onSelectCriterion(criterion)"
                       [class.selected]="selectedCriterion?.id === criterion.id">
-          {{ criterion.name }}
+          {{ getTranslatedCriterionName(criterion.id) }}
         </mat-list-item>
       </mat-nav-list>
     </div>

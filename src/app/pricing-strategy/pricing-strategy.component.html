@@ -1,7 +1,7 @@
 <div class="pricing-strategy-container">
   <div class="header">
-    <h1>Pricing Strategie</h1>
-    <p>Entwickeln und verwalten Sie Ihre Pricing-Strategien für DDSS effizient</p>
+    <h1>{{ translate('pricing.title') }}</h1>
+    <p>{{ translate('pricing.subtitle') }}</p>
   </div>
 
   <!-- Progress Indicator -->
@@ -12,7 +12,7 @@
            [class.completed]="isPhaseCompleted(i)"
            (click)="jumpToPhase(i)">
         <div class="step-number">{{ i + 1 }}</div>
-        <div class="step-label">{{ phase }}</div>
+        <div class="step-label">{{ translate(phase) }}</div>
       </div>
     </div>
     <div class="progress-bar">
@@ -24,16 +24,16 @@
   <div class="phase" *ngIf="currentPhase === 0">
     <mat-card class="strategy-card">
       <mat-card-header>
-        <mat-card-title>System-Übersicht</mat-card-title>
-        <mat-card-subtitle>Grundlegende Informationen über Ihr DDSS-System und Kosteneingaben</mat-card-subtitle>
+        <mat-card-title>{{ translate('pricing.systemOverview.title') }}</mat-card-title>
+        <mat-card-subtitle>{{ translate('pricing.systemOverview.subtitle') }}</mat-card-subtitle>
       </mat-card-header>
       <mat-card-content [formGroup]="pricingForm">
         <div class="form-group">
           <mat-form-field appearance="outline" class="full-width">
-            <mat-label>Name des DDSS-Systems</mat-label>
+            <mat-label>{{ translate('pricing.systemName') }}</mat-label>
             <input matInput formControlName="systemName" required>
             <mat-error *ngIf="pricingForm.get('systemName')?.invalid && pricingForm.get('systemName')?.touched">
-              Bitte geben Sie einen Namen ein
+              {{ translate('pricing.systemNameError') }}
             </mat-error>
           </mat-form-field>
         </div>

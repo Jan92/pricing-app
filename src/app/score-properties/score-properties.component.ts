@@ -132,4 +132,42 @@ export class ScorePropertiesComponent implements OnInit {
   translate(key: string): string {
     return this.languageService.translate(key);
   }
+
+  // Helper method to get translated dimension name
+  getTranslatedDimensionName(dimensionId: string): string {
+    const dimensionTranslations: { [key: string]: string } = {
+      'dataComplexity': this.translate('dimensions.dataComplexity'),
+      'diseaseComplexity': this.translate('dimensions.diseaseComplexity'),
+      'questionDifficulty': this.translate('dimensions.questionDifficulty'),
+      'aiSupportExtent': this.translate('dimensions.aiSupportExtent')
+    };
+    return dimensionTranslations[dimensionId] || dimensionId;
+  }
+
+  // Helper method to get translated criterion name
+  getTranslatedCriterionName(criterionId: string): string {
+    const criterionTranslations: { [key: string]: string } = {
+      'sourceVariety': this.translate('criteria.sourceVariety'),
+      'dataIntegrity': this.translate('criteria.dataIntegrity'),
+      'dataComplexityLevel': this.translate('criteria.dataComplexityLevel'),
+      'dataLinking': this.translate('criteria.dataLinking'),
+      'dataVolume': this.translate('criteria.dataVolume'),
+      'diseaseRarity': this.translate('criteria.diseaseRarity'),
+      'diagnosticAmbiguity': this.translate('criteria.diagnosticAmbiguity'),
+      'prognosticUncertainty': this.translate('criteria.prognosticUncertainty'),
+      'multimorbidity': this.translate('criteria.multimorbidity'),
+      'diseaseSeverity': this.translate('criteria.diseaseSeverity'),
+      'differentialDepth': this.translate('criteria.differentialDepth'),
+      'prognosticPrecision': this.translate('criteria.prognosticPrecision'),
+      'realtimeRequirement': this.translate('criteria.realtimeRequirement'),
+      'interdisciplinaryRelevance': this.translate('criteria.interdisciplinaryRelevance'),
+      'dynamicAdaptability': this.translate('criteria.dynamicAdaptability'),
+      'automationLevel': this.translate('criteria.automationLevel'),
+      'analysisLevel': this.translate('criteria.analysisLevel'),
+      'recommendationComplexity': this.translate('criteria.recommendationComplexity'),
+      'guidelineIntegration': this.translate('criteria.guidelineIntegration'),
+      'patientIndividualization': this.translate('criteria.patientIndividualization')
+    };
+    return criterionTranslations[criterionId] || criterionId;
+  }
 }

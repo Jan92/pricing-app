@@ -99,6 +99,34 @@ export class LanguageService {
       'properties.backToDimensions': 'Zurück zu Dimensionen',
       'properties.backToCriteria': 'Zurück zu Kriterien',
       
+      // Dimension Names
+      'dimensions.dataComplexity': 'Datenkomplexität und -vielfalt',
+      'dimensions.diseaseComplexity': 'Komplexität der Erkrankung',
+      'dimensions.questionDifficulty': 'Schwierigkeitsgrad der Fragestellung',
+      'dimensions.aiSupportExtent': 'Ausmaß der KI-Unterstützung',
+      
+      // Criterion Names
+      'criteria.sourceVariety': 'Datenquellenvielfalt',
+      'criteria.dataIntegrity': 'Datenintegrität',
+      'criteria.dataComplexityLevel': 'Datenkomplexität',
+      'criteria.dataLinking': 'Datenverknüpfung',
+      'criteria.dataVolume': 'Datenvolumen',
+      'criteria.diseaseRarity': 'Seltenheit der Erkrankung',
+      'criteria.diagnosticAmbiguity': 'Diagnostische Mehrdeutigkeit',
+      'criteria.prognosticUncertainty': 'Prognostische Unsicherheit',
+      'criteria.multimorbidity': 'Multimorbidität',
+      'criteria.diseaseSeverity': 'Schweregrad der Erkrankung',
+      'criteria.differentialDepth': 'Differenzialdiagnostische Tiefe',
+      'criteria.prognosticPrecision': 'Prognostische Präzision',
+      'criteria.realtimeRequirement': 'Anforderung an die Echtzeit',
+      'criteria.interdisciplinaryRelevance': 'Interdisziplinäre Relevanz',
+      'criteria.dynamicAdaptability': 'Dynamische Anpassungsfähigkeit',
+      'criteria.automationLevel': 'Automatisierungsgrad',
+      'criteria.analysisLevel': 'Analyseebene',
+      'criteria.recommendationComplexity': 'Empfehlungskomplexität',
+      'criteria.guidelineIntegration': 'Integration von Leitlinien',
+      'criteria.patientIndividualization': 'Patientenspezifische Individualisierung',
+      
       // Results
       'results.title': 'Simulation Ergebnisse',
       'results.description': 'Hier werden die Ergebnisse Ihrer Simulationen angezeigt.',
@@ -120,7 +148,26 @@ export class LanguageService {
       'pricing.jsonExportSuccessful': 'JSON-Export erfolgreich',
       'pricing.exportError': 'Fehler beim Export',
       'pricing.popupBlocked': 'Popup wurde blockiert',
-      'pricing.unknownError': 'Unbekannter Fehler'
+      'pricing.unknownError': 'Unbekannter Fehler',
+      
+      // Pricing Strategy Content
+      'pricing.subtitle': 'Entwickeln und verwalten Sie Ihre Pricing-Strategien für DDSS effizient',
+      'pricing.systemOverview.title': 'System-Übersicht',
+      'pricing.systemOverview.subtitle': 'Grundlegende Informationen über Ihr DDSS-System und Kosteneingaben',
+      'pricing.systemName': 'Name des DDSS-Systems',
+      'pricing.systemNameError': 'Bitte geben Sie einen Namen ein',
+      'pricing.autonomyLevel': 'Autonomie-Level des Systems',
+      'pricing.autonomy.assistive': 'Assistive (Score 1-2)',
+      'pricing.autonomy.assistiveDesc': 'Unterstützt Ärzte bei der Entscheidungsfindung, trifft keine autonomen Entscheidungen',
+      'pricing.autonomy.augmentative': 'Augmentative (Score 3-4)',
+      'pricing.autonomy.augmentativeDesc': 'Erweitert die Fähigkeiten des Arztes, kann teilweise autonome Entscheidungen treffen',
+      'pricing.autonomy.autonomous': 'Autonomous (Score 5)',
+      'pricing.autonomy.autonomousDesc': 'Kann vollständig autonome medizinische Entscheidungen treffen',
+      'pricing.developmentCosts': 'Entwicklungskosten (einmalig)',
+      'pricing.costPerUsage': 'Kosten pro Nutzung',
+      'pricing.maintenanceCosts': 'Wartungs-/Updatekosten (jährlich)',
+      'pricing.expectedCases': 'Erwartete Fallzahl pro Jahr',
+      'pricing.amortizationPeriod': 'Amortisierungszeitraum (Jahre)'
     },
     en: {
       // Navigation
@@ -210,6 +257,34 @@ export class LanguageService {
       'properties.backToDimensions': 'Back to Dimensions',
       'properties.backToCriteria': 'Back to Criteria',
       
+      // Dimension Names
+      'dimensions.dataComplexity': 'Data Complexity and Diversity',
+      'dimensions.diseaseComplexity': 'Disease Complexity',
+      'dimensions.questionDifficulty': 'Question Complexity Level',
+      'dimensions.aiSupportExtent': 'Extent of AI Support',
+      
+      // Criterion Names
+      'criteria.sourceVariety': 'Data Source Diversity',
+      'criteria.dataIntegrity': 'Data Integrity',
+      'criteria.dataComplexityLevel': 'Data Complexity',
+      'criteria.dataLinking': 'Data Linkage',
+      'criteria.dataVolume': 'Data Volume',
+      'criteria.diseaseRarity': 'Disease Rarity',
+      'criteria.diagnosticAmbiguity': 'Diagnostic Ambiguity',
+      'criteria.prognosticUncertainty': 'Prognostic Uncertainty',
+      'criteria.multimorbidity': 'Multimorbidity',
+      'criteria.diseaseSeverity': 'Disease Severity',
+      'criteria.differentialDepth': 'Differential Diagnostic Depth',
+      'criteria.prognosticPrecision': 'Prognostic Precision',
+      'criteria.realtimeRequirement': 'Real-time Requirement',
+      'criteria.interdisciplinaryRelevance': 'Interdisciplinary Relevance',
+      'criteria.dynamicAdaptability': 'Dynamic Adaptability',
+      'criteria.automationLevel': 'Automation Level',
+      'criteria.analysisLevel': 'Analysis Level',
+      'criteria.recommendationComplexity': 'Recommendation Complexity',
+      'criteria.guidelineIntegration': 'Guideline Integration',
+      'criteria.patientIndividualization': 'Patient-Specific Individualization',
+      
       // Results
       'results.title': 'Simulation Results',
       'results.description': 'Here you can view the results of your simulations.',
@@ -231,7 +306,26 @@ export class LanguageService {
       'pricing.jsonExportSuccessful': 'JSON export successful',
       'pricing.exportError': 'Error during export',
       'pricing.popupBlocked': 'Popup was blocked',
-      'pricing.unknownError': 'Unknown error'
+      'pricing.unknownError': 'Unknown error',
+      
+      // Pricing Strategy Content
+      'pricing.subtitle': 'Develop and manage your pricing strategies for DDSS efficiently',
+      'pricing.systemOverview.title': 'System Overview',
+      'pricing.systemOverview.subtitle': 'Basic information about your DDSS system and cost inputs',
+      'pricing.systemName': 'Name of the DDSS System',
+      'pricing.systemNameError': 'Please enter a name',
+      'pricing.autonomyLevel': 'System Autonomy Level',
+      'pricing.autonomy.assistive': 'Assistive (Score 1-2)',
+      'pricing.autonomy.assistiveDesc': 'Supports physicians in decision-making, makes no autonomous decisions',
+      'pricing.autonomy.augmentative': 'Augmentative (Score 3-4)',
+      'pricing.autonomy.augmentativeDesc': 'Extends physician capabilities, can make partially autonomous decisions',
+      'pricing.autonomy.autonomous': 'Autonomous (Score 5)',
+      'pricing.autonomy.autonomousDesc': 'Can make fully autonomous medical decisions',
+      'pricing.developmentCosts': 'Development Costs (one-time)',
+      'pricing.costPerUsage': 'Cost per Usage',
+      'pricing.maintenanceCosts': 'Maintenance/Update Costs (annually)',
+      'pricing.expectedCases': 'Expected Cases per Year',
+      'pricing.amortizationPeriod': 'Amortization Period (Years)'
     }
   };
 

@@ -83,7 +83,7 @@ The application evaluates AI systems across four main dimensions:
 
 ## Contributing
 
-This is a research project in development. For questions or contributions, please contact the development team.
+This is a research project in development. For questions or contributions, please contact the developer Jan Kirchhoff (jan.kirchhoff@medicalvalues.de).
 
 ---
 
