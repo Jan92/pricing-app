@@ -16,6 +16,7 @@ export class DataInputComponent implements OnInit {
   dimensions$: Observable<Dimension[]>;
   scoreForm: FormGroup;
   evaluationId: string = 'eval_' + Date.now(); // Simple unique ID for this session
+  showSuccessMessage: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -43,7 +44,11 @@ export class DataInputComponent implements OnInit {
             this.dimensions$.subscribe(dims => {
               this.buildForm(dims);
               // Patch form with existing values
-              this.scoreForm.patchValue({ evaluationId: existing.evaluationId, ...existing.dimensionValues });
+              this.scoreForm.patchValue({ 
+                evaluationId: existing.evaluationId, 
+                name: existing.name,
+                ...existing.dimensionValues 
+              });
               // Patch each dimension group
               Object.keys(existing.dimensionValues).forEach(dimId => {
                 if (this.scoreForm.get(dimId)) {
@@ -90,6 +95,7 @@ export class DataInputComponent implements OnInit {
       const formValue = this.scoreForm.value;
       const scoreInput: ScoreInput = {
         evaluationId: formValue.evaluationId,
+        name: formValue.name, // Include the name in the score input
         dimensionValues: {}
       };
 
@@ -102,7 +108,12 @@ export class DataInputComponent implements OnInit {
 
       this.scoreService.saveScoreInput(scoreInput);
       console.log('Score Input Saved:', scoreInput);
-      alert(this.languageService.translate('common.dataSaved') + ' ' + this.evaluationId);
+      
+      // Show success message
+      this.showSuccessMessage = true;
+      setTimeout(() => {
+        this.showSuccessMessage = false;
+      }, 3000); // Hide after 3 seconds
       
       // Reset form for a new evaluation
       this.evaluationId = 'eval_' + Date.now();

@@ -65,9 +65,8 @@ To switch languages, use the language selector in the main navigation sidebar. Y
 1. **Score Management** (`/manage`) - Overview and management of calculated scores
 2. **Data Input** (`/input`) - Multi-dimensional scoring form with 20+ criteria
 3. **Score Properties** (`/properties`) - Customizable scoring criteria and scale labels
-4. **Price Simulation** (`/pricing`) - Interactive pricing calculator with cost analysis
-5. **Simulation Results** (`/series-results`) - Series simulation visualization and analysis
-6. **Pricing Strategy** (`/pricing-strategy`) - 6-step pricing wizard with multiple models
+4. **Simulation Results** (`/series-results`) - Series simulation visualization and analysis
+5. **Pricing Strategy** (`/pricing-strategy`) - 6-step pricing wizard with multiple models
 
 ### Scoring Dimensions
 

@@ -29,5 +29,14 @@
     </div>
   </ng-container>
 
-  <button type="submit" [disabled]="!scoreForm.valid">{{ translate('common.save') }}</button>
+  <button mat-raised-button color="primary" type="submit" [disabled]="!scoreForm.valid" class="save-button">
+    <mat-icon>save</mat-icon>
+    {{ translate('common.save') }}
+  </button>
+  
+  <!-- Success Message -->
+  <div *ngIf="showSuccessMessage" class="success-message">
+    <mat-icon class="success-icon">check_circle</mat-icon>
+    <span>{{ translate('common.dataSaved') }} {{ evaluationId }}</span>
+  </div>
 </form>
