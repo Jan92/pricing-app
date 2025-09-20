@@ -5,11 +5,11 @@
 
   <ng-template #showData>
     <div *ngFor="let run of seriesRuns; let i = index" class="series-run-card">
-      <h3>Seriensimulation #{{ i + 1 }} (ID: {{ run.seriesRunId }})</h3>
-      <p><strong>Variiertes Kriterium:</strong> {{ getCriterionName(run.seriesParameterDimensionId, run.seriesParameterCriterionId) }} (Dimension: {{ getDimensionName(run.seriesParameterDimensionId) }})</p>
-      <p><strong>Ursprüngliche Eingabewerte für Serie:</strong> {{ run.inputSeriesValues.join(', ') }}</p>
+      <h3>{{ translate('series.title') }} #{{ i + 1 }} (ID: {{ run.seriesRunId }})</h3>
+      <p><strong>{{ translate('series.parameterVariation') }}:</strong> {{ getCriterionName(run.seriesParameterDimensionId, run.seriesParameterCriterionId) }} (Dimension: {{ getDimensionName(run.seriesParameterDimensionId) }})</p>
+      <p><strong>Original Values:</strong> {{ run.inputSeriesValues.join(', ') }}</p>
       
-      <h4>Ergebnisse:</h4>
+      <h4>{{ translate('series.results') }}:</h4>
       <table class="results-table">
         <thead>
           <tr>
@@ -40,7 +40,7 @@
 </div>
 
 <ng-template #noData>
-  <p>Lade Seriensimulationsdaten...</p>
+  <p>{{ translate('output.loadingData') }}</p>
 </ng-template>
 
 <!-- TODO: Create a Pipe named 'filterByOriginalValue' -->

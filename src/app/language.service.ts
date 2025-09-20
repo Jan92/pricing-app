@@ -210,6 +210,30 @@ export class LanguageService {
       'series.parameterVariation': 'Parameter-Variation',
       'series.results': 'Simulationsergebnisse',
       
+      // Simulation Parameters (erweiterte Übersetzungen)
+      'simulation.seriesSettings': 'Einstellungen für Seriensimulation',
+      'simulation.varyingParameter': 'Variierender Parameter',
+      'simulation.values': 'Werte (kommagetrennt, z.B. 10,50,100)',
+      
+      // Simulation History
+      'simulationHistory.title': 'Simulationsverlauf',
+      'simulationHistory.id': 'ID',
+      'simulationHistory.timestamp': 'Zeitstempel',
+      'simulationHistory.description': 'Beschreibung',
+      'simulationHistory.inputs': 'Eingaben (Nutzer/Anfragen/Score)',
+      'simulationHistory.annualRentCosts': 'Jahreskosten Miete',
+      'simulationHistory.annualVolumeCosts': 'Jahreskosten Volumen',
+      'simulationHistory.annualAIScoreCosts': 'Jahreskosten KI-Score',
+      'simulationHistory.mySimulation': 'Meine Simulation',
+      'simulationHistory.noSimulations': 'Noch keine Simulationen durchgeführt oder vorhanden.',
+      
+      // Cost Inputs Tooltips
+      'pricing.developmentCostsTooltip': 'Einmalige Entwicklungskosten für das System',
+      'pricing.costPerUsageTooltip': 'Kosten pro Nutzung des Systems',
+      'pricing.maintenanceCostsTooltip': 'Jährliche Wartungs- und Updatekosten',
+      'pricing.expectedCasesTooltip': 'Erwartete Anzahl der Fälle pro Jahr',
+      'pricing.amortizationPeriodTooltip': 'Zeitraum für die Amortisation der Entwicklungskosten',
+      
       // Price Simulation
       'simulation.title': 'Preissimulation',
       'simulation.parameters': 'Simulationsparameter',
@@ -1051,7 +1075,31 @@ export class LanguageService {
         '3': '3 - Average',
         '4': '4 - Above average',
         '5': '5 - Highly patient-specific analyses.'
-      }
+      },
+      
+      // Simulation Parameters (extended translations)
+      'simulation.seriesSettings': 'Series Simulation Settings',
+      'simulation.varyingParameter': 'Varying Parameter',
+      'simulation.values': 'Values (comma-separated, e.g. 10,50,100)',
+      
+      // Simulation History
+      'simulationHistory.title': 'Simulation History',
+      'simulationHistory.id': 'ID',
+      'simulationHistory.timestamp': 'Timestamp',
+      'simulationHistory.description': 'Description',
+      'simulationHistory.inputs': 'Inputs (Users/Requests/Score)',
+      'simulationHistory.annualRentCosts': 'Annual Rental Costs',
+      'simulationHistory.annualVolumeCosts': 'Annual Volume Costs',
+      'simulationHistory.annualAIScoreCosts': 'Annual AI Score Costs',
+      'simulationHistory.mySimulation': 'My Simulation',
+      'simulationHistory.noSimulations': 'No simulations performed or available yet.',
+      
+      // Cost Inputs Tooltips
+      'pricing.developmentCostsTooltip': 'One-time development costs for the system',
+      'pricing.costPerUsageTooltip': 'Costs per usage of the system',
+      'pricing.maintenanceCostsTooltip': 'Annual maintenance and update costs',
+      'pricing.expectedCasesTooltip': 'Expected number of cases per year',
+      'pricing.amortizationPeriodTooltip': 'Period for amortization of development costs'
     }
   };
 

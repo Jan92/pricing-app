@@ -105,7 +105,7 @@
               <mat-label>{{ translate('pricing.maintenanceCosts') }} *</mat-label>
               <input matInput type="number" formControlName="maintenanceCosts" required>
               <span matSuffix>€</span>
-              <mat-icon matSuffix matTooltip="Laufende Kosten für Modellpflege, Support und Updates">info</mat-icon>
+              <mat-icon matSuffix [matTooltip]="translate('pricing.maintenanceCostsTooltip')">info</mat-icon>
               <mat-error *ngIf="pricingForm.get('maintenanceCosts')?.invalid && pricingForm.get('maintenanceCosts')?.touched">
                 Bitte geben Sie die Wartungskosten ein
               </mat-error>
@@ -116,7 +116,7 @@
             <mat-form-field appearance="outline" class="full-width">
               <mat-label>{{ translate('pricing.expectedCases') }} *</mat-label>
               <input matInput type="number" formControlName="expectedCasesPerYear" required>
-              <mat-icon matSuffix matTooltip="Anzahl der erwarteten Analysen pro Jahr für die Amortisierung">info</mat-icon>
+              <mat-icon matSuffix [matTooltip]="translate('pricing.expectedCasesTooltip')">info</mat-icon>
               <mat-error *ngIf="pricingForm.get('expectedCasesPerYear')?.invalid && pricingForm.get('expectedCasesPerYear')?.touched">
                 Bitte geben Sie die erwartete Fallzahl ein
               </mat-error>
@@ -128,7 +128,7 @@
               <mat-label>{{ translate('pricing.amortizationPeriod') }} *</mat-label>
               <input matInput type="number" formControlName="amortizationPeriod" required>
               <span matSuffix>{{ translate('pricing.years') }}</span>
-              <mat-icon matSuffix matTooltip="Zeitraum über den die Entwicklungskosten verteilt werden">info</mat-icon>
+              <mat-icon matSuffix [matTooltip]="translate('pricing.amortizationPeriodTooltip')">info</mat-icon>
               <mat-error *ngIf="pricingForm.get('amortizationPeriod')?.invalid && pricingForm.get('amortizationPeriod')?.touched">
                 Bitte geben Sie den Amortisierungszeitraum ein
               </mat-error>

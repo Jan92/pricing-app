@@ -14,11 +14,11 @@
 
     <!-- Series Simulation Inputs (Conditional) -->
     <div *ngIf="isSeriesMode" class="mb-3 p-3 border rounded bg-white">
-      <h5>Einstellungen für Seriensimulation</h5>
+      <h5>{{ translate('simulation.seriesSettings') }}</h5>
       <div class="row">
         <div class="col-md-6">
           <mat-form-field appearance="outline" class="w-100">
-            <mat-label>Variierender Parameter</mat-label>
+            <mat-label>{{ translate('simulation.varyingParameter') }}</mat-label>
             <mat-select [(ngModel)]="selectedSeriesParameter" [ngModelOptions]="{standalone: true}">
               <mat-option *ngFor="let param of seriesParameterOptions" [value]="param.value">
                 {{ param.label }}
@@ -28,7 +28,7 @@
         </div>
         <div class="col-md-6">
           <mat-form-field appearance="outline" class="w-100">
-            <mat-label>Werte (kommagetrennt, z.B. 10,50,100)</mat-label>
+            <mat-label>{{ translate('simulation.values') }}</mat-label>
             <input matInput type="text" [(ngModel)]="seriesValuesString" [ngModelOptions]="{standalone: true}" placeholder="z.B. 10,50,100">
           </mat-form-field>
         </div>
@@ -196,17 +196,17 @@
 
   <!-- Simulation History -->
   <div *ngIf="simulationHistory.length > 0">
-    <h4>Simulationsverlauf</h4>
+    <h4>{{ translate('simulationHistory.title') }}</h4>
     <table class="table table-striped table-hover">
       <thead>
         <tr>
-          <th>ID</th>
-          <th>Zeitstempel</th>
-          <th>Beschreibung</th>
-          <th>Eingaben (Nutzer/Anfragen/Score)</th>
-          <th>Jahreskosten Miete</th>
-          <th>Jahreskosten Volumen</th>
-          <th>Jahreskosten KI-Score</th>
+          <th>{{ translate('simulationHistory.id') }}</th>
+          <th>{{ translate('simulationHistory.timestamp') }}</th>
+          <th>{{ translate('simulationHistory.description') }}</th>
+          <th>{{ translate('simulationHistory.inputs') }}</th>
+          <th>{{ translate('simulationHistory.annualRentCosts') }}</th>
+          <th>{{ translate('simulationHistory.annualVolumeCosts') }}</th>
+          <th>{{ translate('simulationHistory.annualAIScoreCosts') }}</th>
         </tr>
       </thead>
       <tbody>
