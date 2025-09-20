@@ -862,29 +862,29 @@
       </mat-card-header>
       <mat-card-content [formGroup]="pricingForm">
         <div class="form-group">
-          <label class="form-label">Primärer Zielsektor *</label>
+          <label class="form-label">{{ translate('pricing.sector') }} *</label>
           <mat-radio-group formControlName="sector" class="radio-group" required>
             <div class="radio-option" [class.selected]="pricingForm.get('sector')?.value === 'public'" (click)="pricingForm.get('sector')?.setValue('public')">
               <mat-radio-button value="public">
                 <div class="radio-text">
-                  <strong>Öffentlich</strong>
-                  <small>Krankenhäuser, Universitätskliniken, öffentliche Einrichtungen</small>
+                  <strong>{{ translate('pricing.sector.public') }}</strong>
+                  <small>{{ translate('pricing.sector.publicDesc') }}</small>
                 </div>
               </mat-radio-button>
             </div>
             <div class="radio-option" [class.selected]="pricingForm.get('sector')?.value === 'private'" (click)="pricingForm.get('sector')?.setValue('private')">
               <mat-radio-button value="private">
                 <div class="radio-text">
-                  <strong>Privat</strong>
-                  <small>Private Praxen, Privatkliniken, kommerzielle Einrichtungen</small>
+                  <strong>{{ translate('pricing.sector.private') }}</strong>
+                  <small>{{ translate('pricing.sector.privateDesc') }}</small>
                 </div>
               </mat-radio-button>
             </div>
             <div class="radio-option" [class.selected]="pricingForm.get('sector')?.value === 'hybrid'" (click)="pricingForm.get('sector')?.setValue('hybrid')">
               <mat-radio-button value="hybrid">
                 <div class="radio-text">
-                  <strong>Hybrid</strong>
-                  <small>Gemischte Kundenstruktur</small>
+                  <strong>{{ translate('pricing.sector.hybrid') }}</strong>
+                  <small>{{ translate('pricing.sector.hybridDesc') }}</small>
                 </div>
               </mat-radio-button>
             </div>
@@ -895,21 +895,21 @@
         </div>
 
         <div class="form-group">
-          <label class="form-label">Erstattungsintegration möglich? *</label>
+          <label class="form-label">{{ translate('pricing.reimbursement') }} *</label>
           <mat-radio-group formControlName="reimbursement" class="radio-group" required>
             <div class="radio-option" [class.selected]="pricingForm.get('reimbursement')?.value === 'yes'" (click)="pricingForm.get('reimbursement')?.setValue('yes')">
               <mat-radio-button value="yes">
                 <div class="radio-text">
-                  <strong>Ja</strong>
-                  <small>Integration in GOÄ/EBM möglich</small>
+                  <strong>{{ translate('pricing.reimbursement.yes') }}</strong>
+                  <small>{{ translate('pricing.reimbursement.yesDesc') }}</small>
                 </div>
               </mat-radio-button>
             </div>
             <div class="radio-option" [class.selected]="pricingForm.get('reimbursement')?.value === 'no'" (click)="pricingForm.get('reimbursement')?.setValue('no')">
               <mat-radio-button value="no">
                 <div class="radio-text">
-                  <strong>Nein</strong>
-                  <small>Keine direkte Erstattung möglich</small>
+                  <strong>{{ translate('pricing.reimbursement.no') }}</strong>
+                  <small>{{ translate('pricing.reimbursement.noDesc') }}</small>
                 </div>
               </mat-radio-button>
             </div>
@@ -920,29 +920,29 @@
         </div>
 
         <div class="form-group">
-          <label class="form-label">Wettbewerbsintensität *</label>
+          <label class="form-label">{{ translate('pricing.competition') }} *</label>
           <mat-radio-group formControlName="competition" class="radio-group" required>
             <div class="radio-option" [class.selected]="pricingForm.get('competition')?.value === 'low'" (click)="pricingForm.get('competition')?.setValue('low')">
               <mat-radio-button value="low">
                 <div class="radio-text">
-                  <strong>Niedrig</strong>
-                  <small>Wenige direkte Konkurrenten</small>
+                  <strong>{{ translate('pricing.competition.low') }}</strong>
+                  <small>{{ translate('pricing.competition.lowDesc') }}</small>
                 </div>
               </mat-radio-button>
             </div>
             <div class="radio-option" [class.selected]="pricingForm.get('competition')?.value === 'medium'" (click)="pricingForm.get('competition')?.setValue('medium')">
               <mat-radio-button value="medium">
                 <div class="radio-text">
-                  <strong>Mittel</strong>
-                  <small>Moderate Konkurrenz</small>
+                  <strong>{{ translate('pricing.competition.medium') }}</strong>
+                  <small>{{ translate('pricing.competition.mediumDesc') }}</small>
                 </div>
               </mat-radio-button>
             </div>
             <div class="radio-option" [class.selected]="pricingForm.get('competition')?.value === 'high'" (click)="pricingForm.get('competition')?.setValue('high')">
               <mat-radio-button value="high">
                 <div class="radio-text">
-                  <strong>Hoch</strong>
-                  <small>Starke Konkurrenz, etablierte Anbieter</small>
+                  <strong>{{ translate('pricing.competition.high') }}</strong>
+                  <small>{{ translate('pricing.competition.highDesc') }}</small>
                 </div>
               </mat-radio-button>
             </div>
@@ -954,14 +954,14 @@
 
         <!-- Wettbewerberdaten -->
         <mat-divider style="margin: 20px 0;"></mat-divider>
-        <h3>Wettbewerberdaten</h3>
-        <p class="competitors-description">Fügen Sie Informationen zu Ihren Wettbewerbern hinzu:</p>
+        <h3>{{ translate('competitor.title') }}</h3>
+        <p class="competitors-description">{{ translate('competitor.subtitle') }}</p>
 
         <div class="competitors-section">
           <div class="competitors-header">
             <button mat-raised-button color="primary" (click)="addCompetitor()">
               <mat-icon>add</mat-icon>
-              Wettbewerber hinzufügen
+              {{ translate('competitor.addCompetitor') }}
             </button>
           </div>
 
@@ -971,18 +971,18 @@
                 <mat-card-content>
                   <div class="competitor-fields">
                     <mat-form-field appearance="outline">
-                      <mat-label>Name des Wettbewerbers</mat-label>
+                      <mat-label>{{ translate('competitor.name') }}</mat-label>
                       <input matInput formControlName="name" required>
                     </mat-form-field>
                     
                     <mat-form-field appearance="outline">
-                      <mat-label>Preis pro Fall</mat-label>
+                      <mat-label>{{ translate('competitor.pricePerCase') }}</mat-label>
                       <input matInput type="number" formControlName="price" required>
                       <span matSuffix>€</span>
                     </mat-form-field>
                     
                     <mat-form-field appearance="outline">
-                      <mat-label>Besonderheiten (optional)</mat-label>
+                      <mat-label>{{ translate('competitor.specialFeatures') }}</mat-label>
                       <input matInput formControlName="features" placeholder="z.B. besondere Features, Zielgruppe">
                     </mat-form-field>
                     

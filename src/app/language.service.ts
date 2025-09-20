@@ -319,7 +319,77 @@ export class LanguageService {
       'output.score': 'Score',
       'output.noDataFound': 'Keine Bewertungsdaten gefunden',
       'output.noDataMessage': 'Erstellen Sie eine neue Bewertung über die Dateneingabe oder wählen Sie eine vorhandene Bewertung aus der Score-Verwaltung.',
-      'output.loadingData': 'Lade Bewertungsdaten...'
+      'output.loadingData': 'Lade Bewertungsdaten...',
+      
+      // Wettbewerberdaten (Competitor Data)
+      'competitor.title': 'Wettbewerberdaten',
+      'competitor.subtitle': 'Fügen Sie Informationen zu Ihren Wettbewerbern hinzu:',
+      'competitor.addCompetitor': '+ Wettbewerber hinzufügen',
+      'competitor.name': 'Name des Wettbewerbers',
+      'competitor.pricePerCase': 'Preis pro Fall',
+      'competitor.specialFeatures': 'Besonderheiten (optional)',
+      'competitor.delete': 'Löschen',
+      
+      // Markt & Wettbewerb - Zusätzliche Felder
+      'pricing.sector': 'Primärer Zielsektor',
+      'pricing.sector.public': 'Öffentlich',
+      'pricing.sector.publicDesc': 'Krankenhäuser, Universitätskliniken, öffentliche Einrichtungen',
+      'pricing.sector.private': 'Privat',
+      'pricing.sector.privateDesc': 'Private Praxen, Privatkliniken, kommerzielle Einrichtungen',
+      'pricing.sector.hybrid': 'Hybrid',
+      'pricing.sector.hybridDesc': 'Gemischte Kundenstruktur',
+      'pricing.reimbursement': 'Erstattungsintegration möglich?',
+      'pricing.reimbursement.yes': 'Ja',
+      'pricing.reimbursement.yesDesc': 'Integration in GOÄ/EBM möglich',
+      'pricing.reimbursement.no': 'Nein',
+      'pricing.reimbursement.noDesc': 'Keine direkte Erstattung möglich',
+      'pricing.competition': 'Wettbewerbsintensität',
+      'pricing.competition.low': 'Niedrig',
+      'pricing.competition.lowDesc': 'Wenige direkte Konkurrenten',
+      'pricing.competition.medium': 'Mittel',
+      'pricing.competition.mediumDesc': 'Moderate Konkurrenz',
+      'pricing.competition.high': 'Hoch',
+      'pricing.competition.highDesc': 'Starke Konkurrenz, etablierte Anbieter',
+      
+      // Datenkomplexität - Erweiterte Score-Labels
+      'input.scoreLabels.extended': {
+        '1': '1 - Nur ein Datentyp (z.B. Labordaten).',
+        '2': '2 - Unterdurchschnittlich',
+        '3': '3 - Durchschnittlich',
+        '4': '4 - Überdurchschnittlich',
+        '5': '5 - Sehr vielfältig (z.B. multimodale Daten).'
+      },
+      'input.dataIntegrityLabels': {
+        '1': '1 - Nur ein Teil der Eingangsdaten kann verarbeitet werden.',
+        '2': '2 - Unterdurchschnittlich',
+        '3': '3 - Durchschnittlich',
+        '4': '4 - Überdurchschnittlich',
+        '5': '5 - Daten sind nahezu vollständig und konsistent verarbeitbar.'
+      },
+      'input.dataComplexityLabels': {
+        '1': '1 - Strukturiert, leicht interpretierbar (z.B. numerische Labordaten).',
+        '2': '2 - Unterdurchschnittlich',
+        '3': '3 - Durchschnittlich',
+        '4': '4 - Überdurchschnittlich',
+        '5': '5 - Unstrukturierte oder hochkomplexe Daten (z.B. freier Text oder verrauschte Daten).'
+      },
+      'input.dataLinkingLabels': {
+        '1': '1 - Keine Verknüpfung unterschiedlicher Quellen.',
+        '2': '2 - Unterdurchschnittlich',
+        '3': '3 - Durchschnittlich',
+        '4': '4 - Überdurchschnittlich',
+        '5': '5 - Vollständig integrierte Analyse aus mehreren Quellen.'
+      },
+      
+      // Score Properties - Kriterien-spezifische Beschreibungen
+      'properties.realtimeRequirement.description': 'Erwartung an die Geschwindigkeit des Systems.',
+      'properties.realtimeRequirement.scoreLabels': {
+        '1': 'Nächtliche Batch Prozessierung ausreichend.',
+        '2': 'Unterdurchschnittlich',
+        '3': 'Durchschnittlich',
+        '4': 'Überdurchschnittlich',
+        '5': 'Sofortige Antwort erwartet.'
+      }
     },
     en: {
       // Navigation
@@ -629,7 +699,77 @@ export class LanguageService {
       'output.score': 'Score',
       'output.noDataFound': 'No evaluation data found',
       'output.noDataMessage': 'Create a new evaluation via data input or select an existing evaluation from score management.',
-      'output.loadingData': 'Loading evaluation data...'
+      'output.loadingData': 'Loading evaluation data...',
+      
+      // Wettbewerberdaten (Competitor Data)
+      'competitor.title': 'Competitor Data',
+      'competitor.subtitle': 'Add information about your competitors:',
+      'competitor.addCompetitor': '+ Add Competitor',
+      'competitor.name': 'Competitor Name',
+      'competitor.pricePerCase': 'Price per Case',
+      'competitor.specialFeatures': 'Special Features (optional)',
+      'competitor.delete': 'Delete',
+      
+      // Markt & Wettbewerb - Zusätzliche Felder
+      'pricing.sector': 'Primary Target Sector',
+      'pricing.sector.public': 'Public',
+      'pricing.sector.publicDesc': 'Hospitals, university clinics, public institutions',
+      'pricing.sector.private': 'Private',
+      'pricing.sector.privateDesc': 'Private practices, private clinics, commercial institutions',
+      'pricing.sector.hybrid': 'Hybrid',
+      'pricing.sector.hybridDesc': 'Mixed customer structure',
+      'pricing.reimbursement': 'Reimbursement integration possible?',
+      'pricing.reimbursement.yes': 'Yes',
+      'pricing.reimbursement.yesDesc': 'Integration into GOÄ/EBM possible',
+      'pricing.reimbursement.no': 'No',
+      'pricing.reimbursement.noDesc': 'No direct reimbursement possible',
+      'pricing.competition': 'Competitive Intensity',
+      'pricing.competition.low': 'Low',
+      'pricing.competition.lowDesc': 'Few direct competitors',
+      'pricing.competition.medium': 'Medium',
+      'pricing.competition.mediumDesc': 'Moderate competition',
+      'pricing.competition.high': 'High',
+      'pricing.competition.highDesc': 'Strong competition, established providers',
+      
+      // Datenkomplexität - Erweiterte Score-Labels
+      'input.scoreLabels.extended': {
+        '1': '1 - Only one data type (e.g., lab data).',
+        '2': '2 - Below average',
+        '3': '3 - Average',
+        '4': '4 - Above average',
+        '5': '5 - Very diverse (e.g., multimodal data).'
+      },
+      'input.dataIntegrityLabels': {
+        '1': '1 - Only part of the input data can be processed.',
+        '2': '2 - Below average',
+        '3': '3 - Average',
+        '4': '4 - Above average',
+        '5': '5 - Data is almost completely and consistently processable.'
+      },
+      'input.dataComplexityLabels': {
+        '1': '1 - Structured, easily interpretable (e.g., numerical lab data).',
+        '2': '2 - Below average',
+        '3': '3 - Average',
+        '4': '4 - Above average',
+        '5': '5 - Unstructured or highly complex data (e.g., free text or noisy data).'
+      },
+      'input.dataLinkingLabels': {
+        '1': '1 - No linking of different sources.',
+        '2': '2 - Below average',
+        '3': '3 - Average',
+        '4': '4 - Above average',
+        '5': '5 - Fully integrated analysis from multiple sources.'
+      },
+      
+      // Score Properties - Kriterien-spezifische Beschreibungen
+      'properties.realtimeRequirement.description': 'Expectation of system speed.',
+      'properties.realtimeRequirement.scoreLabels': {
+        '1': 'Nightly batch processing sufficient.',
+        '2': 'Below average',
+        '3': 'Average',
+        '4': 'Above average',
+        '5': 'Immediate response expected.'
+      }
     }
   };
 
