@@ -50,9 +50,12 @@ export class PricingStrategyComponent implements OnInit {
   results: any = {};
   pricingForm: FormGroup;
   
+  // Make Number function available in template
+  Number = Number;
+  
   phases = [
     'System-Übersicht',
-    'Technische Komplexität',
+    'Komplexität',
     'Markt & Wettbewerb',
     'Implementierung & Vertrieb',
     'Geschäftsmodell',
@@ -163,37 +166,37 @@ export class PricingStrategyComponent implements OnInit {
     
     // Direkte Score-Eingabe
     if (inputMethod === 'direct') {
-      return formValue.directComplexityScore || 60;
+      return Number(formValue.directComplexityScore) || 60;
     }
     
-    // Detaillierte Bewertung (5 Dimensionen, 20 Unterkriterien)
+    // Detaillierte Bewertung (4 Dimensionen, 20 Unterkriterien)
     // 1. Datenkomplexität und -vielfalt (5 Kriterien)
-    const dataSourceDiversity = formValue.dataSourceDiversity || 3;
-    const dataIntegrity = formValue.dataIntegrity || 3;
-    const dataComplexity = formValue.dataComplexity || 3;
-    const dataLinking = formValue.dataLinking || 3;
-    const dataVolume = formValue.dataVolume || 3;
+    const dataSourceDiversity = Number(formValue.dataSourceDiversity) || 3;
+    const dataIntegrity = Number(formValue.dataIntegrity) || 3;
+    const dataComplexity = Number(formValue.dataComplexity) || 3;
+    const dataLinking = Number(formValue.dataLinking) || 3;
+    const dataVolume = Number(formValue.dataVolume) || 3;
     
     // 2. Komplexität der Erkrankung (5 Kriterien)
-    const diseaseRarity = formValue.diseaseRarity || 3;
-    const diagnosticAmbiguity = formValue.diagnosticAmbiguity || 3;
-    const prognosticUncertainty = formValue.prognosticUncertainty || 3;
-    const multimorbidity = formValue.multimorbidity || 3;
-    const diseaseSeverity = formValue.diseaseSeverity || 3;
+    const diseaseRarity = Number(formValue.diseaseRarity) || 3;
+    const diagnosticAmbiguity = Number(formValue.diagnosticAmbiguity) || 3;
+    const prognosticUncertainty = Number(formValue.prognosticUncertainty) || 3;
+    const multimorbidity = Number(formValue.multimorbidity) || 3;
+    const diseaseSeverity = Number(formValue.diseaseSeverity) || 3;
     
     // 3. Schwierigkeitsgrad der Fragestellung (5 Kriterien)
-    const differentialDiagnosticDepth = formValue.differentialDiagnosticDepth || 3;
-    const prognosticPrecision = formValue.prognosticPrecision || 3;
-    const realTimeRequirement = formValue.realTimeRequirement || 3;
-    const interdisciplinaryRelevance = formValue.interdisciplinaryRelevance || 3;
-    const dynamicAdaptability = formValue.dynamicAdaptability || 3;
+    const differentialDiagnosticDepth = Number(formValue.differentialDiagnosticDepth) || 3;
+    const prognosticPrecision = Number(formValue.prognosticPrecision) || 3;
+    const realTimeRequirement = Number(formValue.realTimeRequirement) || 3;
+    const interdisciplinaryRelevance = Number(formValue.interdisciplinaryRelevance) || 3;
+    const dynamicAdaptability = Number(formValue.dynamicAdaptability) || 3;
     
     // 4. Ausmaß der KI-Unterstützung (5 Kriterien)
-    const automationLevel = formValue.automationLevel || 3;
-    const analysisDepth = formValue.analysisDepth || 3;
-    const recommendationComplexity = formValue.recommendationComplexity || 3;
-    const guidelineIntegration = formValue.guidelineIntegration || 3;
-    const patientSpecificIndividualization = formValue.patientSpecificIndividualization || 3;
+    const automationLevel = Number(formValue.automationLevel) || 3;
+    const analysisDepth = Number(formValue.analysisDepth) || 3;
+    const recommendationComplexity = Number(formValue.recommendationComplexity) || 3;
+    const guidelineIntegration = Number(formValue.guidelineIntegration) || 3;
+    const patientSpecificIndividualization = Number(formValue.patientSpecificIndividualization) || 3;
 
     return dataSourceDiversity + dataIntegrity + dataComplexity + dataLinking + dataVolume +
            diseaseRarity + diagnosticAmbiguity + prognosticUncertainty + multimorbidity + diseaseSeverity +
