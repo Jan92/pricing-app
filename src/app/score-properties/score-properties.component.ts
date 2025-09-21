@@ -99,11 +99,8 @@ export class ScorePropertiesComponent implements OnInit {
 
   // Helper method to get translated score labels for a criterion
   private getTranslatedScoreLabel(criterionId: string, score: number): string | null {
-    const scoreLabels = this.languageService.translate(`properties.${criterionId}.scoreLabels`) as any;
-    if (scoreLabels && typeof scoreLabels === 'object' && scoreLabels[score.toString()]) {
-      return scoreLabels[score.toString()];
-    }
-    return null;
+    // Use common score labels for all criteria
+    return this.languageService.translate(`common.scoreLabels.${score}`);
   }
 
   // Save the form values to the criterion

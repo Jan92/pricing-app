@@ -352,7 +352,14 @@ export class PricingStrategyComponent implements OnInit {
   }
 
   getScoreLabel(criterionId: string, score: number): string {
-    return this.languageService.translate(`properties.${criterionId}.scoreLabels.${score}`);
+    // Use common score labels for scores 2-4, and specific labels for 1 and 5
+    if (score === 1) {
+      return this.languageService.translate(`common.scoreLabels.1`);
+    } else if (score === 5) {
+      return this.languageService.translate(`common.scoreLabels.5`);
+    } else {
+      return this.languageService.translate(`common.scoreLabels.${score}`);
+    }
   }
 
 

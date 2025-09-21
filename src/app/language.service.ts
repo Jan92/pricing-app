@@ -41,9 +41,11 @@ export class LanguageService {
       'common.back': 'Zurück',
       
       // Common Score Labels
+      'common.scoreLabels.1': 'Niedrig',
       'common.scoreLabels.2': 'Unterdurchschnittlich',
       'common.scoreLabels.3': 'Durchschnittlich',
       'common.scoreLabels.4': 'Überdurchschnittlich',
+      'common.scoreLabels.5': 'Hoch',
       
       // Score Management
       'score.name': 'Score-Name',
@@ -729,9 +731,11 @@ export class LanguageService {
       'common.back': 'Back',
       
       // Common Score Labels
+      'common.scoreLabels.1': 'Low',
       'common.scoreLabels.2': 'Below average',
       'common.scoreLabels.3': 'Average',
       'common.scoreLabels.4': 'Above average',
+      'common.scoreLabels.5': 'High',
       
       // Score Management
       'score.name': 'Score Name',
