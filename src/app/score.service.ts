@@ -598,7 +598,21 @@ export class ScoreService {
 
 
   private getTranslatedScoreName(evaluationId: string): string {
-    const translationKey = `examples.${evaluationId.replace(/-/g, '')}`;
+    // Map evaluation IDs to correct translation keys
+    const translationKeyMap: { [key: string]: string } = {
+      'ct-befundung': 'examples.ctBefundung',
+      'befundung-endokrinologie': 'examples.befundungendokrinologie',
+      'befundung-gerinnung': 'examples.befundunggerinnung',
+      'befundung-mikrobiologie': 'examples.befundungmikrobiologie',
+      'befundung-kardiologie': 'examples.befundungkardiologie',
+      'radiologische-tumorbefundung': 'examples.radiologischetumorbefundung',
+      'genetische-diagnostik': 'examples.genetischediagnostik',
+      'allergiediagnostik': 'examples.allergiediagnostik',
+      'infektionsdiagnostik': 'examples.infektionsdiagnostik',
+      'neurologische-befundung': 'examples.neurologischebefundung'
+    };
+    
+    const translationKey = translationKeyMap[evaluationId] || `examples.${evaluationId.replace(/-/g, '')}`;
     return this.languageService.translate(translationKey);
   }
 }

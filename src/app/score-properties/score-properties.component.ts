@@ -178,4 +178,31 @@ export class ScorePropertiesComponent implements OnInit {
     };
     return criterionTranslations[criterionId] || criterionId;
   }
+
+  // Helper method to get translated criterion description
+  getTranslatedCriterionDescription(criterionId: string): string {
+    const criterionDescriptionTranslations: { [key: string]: string } = {
+      'sourceVariety': this.translate('criteria.sourceVarietyDesc'),
+      'dataIntegrity': this.translate('criteria.dataIntegrityDesc'),
+      'dataComplexityLevel': this.translate('criteria.dataComplexityLevelDesc'),
+      'dataLinking': this.translate('criteria.dataLinkingDesc'),
+      'dataVolume': this.translate('criteria.dataVolumeDesc'),
+      'diseaseRarity': this.translate('criteria.diseaseRarityDesc'),
+      'diagnosticAmbiguity': this.translate('criteria.diagnosticAmbiguityDesc'),
+      'prognosticUncertainty': this.translate('criteria.prognosticUncertaintyDesc'),
+      'multimorbidity': this.translate('criteria.multimorbidityDesc'),
+      'diseaseSeverity': this.translate('criteria.diseaseSeverityDesc'),
+      'differentialDepth': this.translate('criteria.differentialDepthDesc'),
+      'prognosticPrecision': this.translate('criteria.prognosticPrecisionDesc'),
+      'realtimeRequirement': this.translate('criteria.realtimeRequirementDesc'),
+      'interdisciplinaryRelevance': this.translate('criteria.interdisciplinaryRelevanceDesc'),
+      'dynamicAdaptability': this.translate('criteria.dynamicAdaptabilityDesc'),
+      'automationLevel': this.translate('criteria.automationLevelDesc'),
+      'analysisLevel': this.translate('criteria.analysisLevelDesc'),
+      'recommendationComplexity': this.translate('criteria.recommendationComplexityDesc'),
+      'guidelineIntegration': this.translate('criteria.guidelineIntegrationDesc'),
+      'patientIndividualization': this.translate('criteria.patientIndividualizationDesc')
+    };
+    return criterionDescriptionTranslations[criterionId] || '';
+  }
 }
