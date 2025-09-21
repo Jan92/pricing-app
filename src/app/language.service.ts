@@ -40,6 +40,11 @@ export class LanguageService {
       'common.fillAllFields': 'Bitte füllen Sie alle Felder aus.',
       'common.back': 'Zurück',
       
+      // Common Score Labels
+      'common.scoreLabels.2': 'Unterdurchschnittlich',
+      'common.scoreLabels.3': 'Durchschnittlich',
+      'common.scoreLabels.4': 'Überdurchschnittlich',
+      
       // Score Management
       'score.name': 'Score-Name',
       'score.totalScore': 'Gesamtscore',
@@ -189,9 +194,9 @@ export class LanguageService {
       'pricing.complexity.benefit.high': 'Hoch',
       'pricing.complexity.benefit.highDesc': 'Nutzen ist klar messbar und quantifizierbar',
       'pricing.complexity.benefit.medium': 'Mittel',
-      'pricing.complexity.benefit.mediumDesc': 'Nutzen ist teilweise messbar, erfordert aber Annahmen',
+      'pricing.complexity.benefit.mediumDesc': 'Nutzen ist teilweise messbar',
       'pricing.complexity.benefit.low': 'Niedrig',
-      'pricing.complexity.benefit.lowDesc': 'Nutzen ist schwer messbar oder nur qualitativ erfassbar',
+      'pricing.complexity.benefit.lowDesc': 'Nutzen ist schwer messbar',
       'pricing.complexity.aiInferenceCosts': 'AI-Inferenzkosten',
       'pricing.complexity.costs.low': 'Niedrig',
       'pricing.complexity.costs.lowDesc': 'Geringe laufende Kosten für AI-Verarbeitung',
@@ -401,6 +406,7 @@ export class LanguageService {
       'pricing.market.successUpper': 'im oberen',
       'pricing.market.successLower': 'im unteren',
       'pricing.market.successEnd': 'Drittel des Marktsegments.',
+      'pricing.market.customerSavings': 'Einsparung für Kunden',
       
       // Pricing Strategy - Implementation Phase
       'pricing.implementation.title': 'Implementierung & Vertrieb',
@@ -446,8 +452,23 @@ export class LanguageService {
       'pricing.businessModel.dacsPreview': 'DACS-Preisspanne',
       'pricing.businessModel.dacsPreviewSubtitle': 'Basierend auf Ihrem Komplexitäts-Score von',
       'pricing.businessModel.simpleCases': 'Einfache Fälle (Score 1-2)',
+      'pricing.businessModel.simpleCasesDesc': 'Standard-Diagnosen mit geringem AI-Aufwand',
       'pricing.businessModel.mediumCases': 'Mittlere Fälle (Score 3-4)',
+      'pricing.businessModel.mediumCasesDesc': 'Komplexere Analysen mit moderatem AI-Aufwand',
       'pricing.businessModel.complexCases': 'Komplexe Fälle (Score 5)',
+      'pricing.businessModel.complexCasesDesc': 'Hochkomplexe Diagnosen mit hohem AI-Aufwand',
+      'pricing.businessModel.dacsBenefits': 'Vorteile des DACS-Modells',
+      'pricing.businessModel.dacsBenefit1': 'Faire Preisgestaltung',
+      'pricing.businessModel.dacsBenefit1Desc': 'Kunden zahlen nur für die tatsächliche Komplexität',
+      'pricing.businessModel.dacsBenefit2': 'Transparenz',
+      'pricing.businessModel.dacsBenefit2Desc': 'Klare Preisstruktur basierend auf objektiven Kriterien',
+      'pricing.businessModel.dacsBenefit3': 'Skalierbarkeit',
+      'pricing.businessModel.dacsBenefit3Desc': 'Automatische Anpassung an verschiedene Anwendungsfälle',
+      'pricing.businessModel.dacsBenefit4': 'Wettbewerbsvorteil',
+      'pricing.businessModel.dacsBenefit4Desc': 'Differenzierung durch intelligente Preisgestaltung',
+      'pricing.businessModel.dacsCalculation': 'Berechnungsgrundlage',
+      'pricing.businessModel.dacsDescription': 'Das DACS-Modell (Dynamic Adaptive Complexity-based Scoring) ermöglicht eine faire Preisgestaltung basierend auf der tatsächlichen Komplexität jedes Falls',
+      'pricing.businessModel.dacsRange': 'Spannweite',
       
       // Pricing Strategy - Results Phase
       'pricing.results.title': 'Ergebnisse',
@@ -707,6 +728,11 @@ export class LanguageService {
       'common.fillAllFields': 'Please fill in all fields.',
       'common.back': 'Back',
       
+      // Common Score Labels
+      'common.scoreLabels.2': 'Below average',
+      'common.scoreLabels.3': 'Average',
+      'common.scoreLabels.4': 'Above average',
+      
       // Score Management
       'score.name': 'Score Name',
       'score.totalScore': 'Total Score',
@@ -853,12 +879,12 @@ export class LanguageService {
       'pricing.complexity.title': 'Complexity',
       'pricing.complexity.subtitle': 'Multidimensional evaluation of your system complexity',
       'pricing.complexity.benefitMeasurability': 'Benefit Measurability',
-      'pricing.complexity.benefit.high': 'Highly Measurable',
-      'pricing.complexity.benefit.highDesc': 'Benefit can be clearly measured in Euro, time or quality',
-      'pricing.complexity.benefit.medium': 'Moderately Measurable',
-      'pricing.complexity.benefit.mediumDesc': 'Partially measurable, but with uncertainties',
-      'pricing.complexity.benefit.low': 'Hard to Measure',
-      'pricing.complexity.benefit.lowDesc': 'Benefit is qualitative, hard to quantify',
+      'pricing.complexity.benefit.high': 'High',
+      'pricing.complexity.benefit.highDesc': 'Benefit is clearly measurable and quantifiable',
+      'pricing.complexity.benefit.medium': 'Medium',
+      'pricing.complexity.benefit.mediumDesc': 'Benefit is partially measurable',
+      'pricing.complexity.benefit.low': 'Low',
+      'pricing.complexity.benefit.lowDesc': 'Benefit is difficult to measure',
       'pricing.complexity.aiInferenceCosts': 'AI Inference Costs',
       'pricing.complexity.costs.low': 'Low',
       'pricing.complexity.costs.lowDesc': 'Low running costs for AI processing',
@@ -996,6 +1022,7 @@ export class LanguageService {
       'pricing.market.successUpper': 'upper',
       'pricing.market.successLower': 'lower',
       'pricing.market.successEnd': 'third of the market segment.',
+      'pricing.market.customerSavings': 'Customer Savings',
       
       // Pricing Strategy - Implementation Phase
       'pricing.implementation.title': 'Implementation & Sales',
@@ -1041,8 +1068,23 @@ export class LanguageService {
       'pricing.businessModel.dacsPreview': 'DACS Price Range',
       'pricing.businessModel.dacsPreviewSubtitle': 'Based on your complexity score of',
       'pricing.businessModel.simpleCases': 'Simple Cases (Score 1-2)',
+      'pricing.businessModel.simpleCasesDesc': 'Standard diagnoses with low AI effort',
       'pricing.businessModel.mediumCases': 'Medium Cases (Score 3-4)',
+      'pricing.businessModel.mediumCasesDesc': 'More complex analyses with moderate AI effort',
       'pricing.businessModel.complexCases': 'Complex Cases (Score 5)',
+      'pricing.businessModel.complexCasesDesc': 'Highly complex diagnoses with high AI effort',
+      'pricing.businessModel.dacsBenefits': 'DACS Model Benefits',
+      'pricing.businessModel.dacsBenefit1': 'Fair Pricing',
+      'pricing.businessModel.dacsBenefit1Desc': 'Customers pay only for actual complexity',
+      'pricing.businessModel.dacsBenefit2': 'Transparency',
+      'pricing.businessModel.dacsBenefit2Desc': 'Clear pricing structure based on objective criteria',
+      'pricing.businessModel.dacsBenefit3': 'Scalability',
+      'pricing.businessModel.dacsBenefit3Desc': 'Automatic adaptation to different use cases',
+      'pricing.businessModel.dacsBenefit4': 'Competitive Advantage',
+      'pricing.businessModel.dacsBenefit4Desc': 'Differentiation through intelligent pricing',
+      'pricing.businessModel.dacsCalculation': 'Calculation Basis',
+      'pricing.businessModel.dacsDescription': 'The DACS model (Dynamic Adaptive Complexity-based Scoring) enables fair pricing based on the actual complexity of each case',
+      'pricing.businessModel.dacsRange': 'Range',
       
       // Pricing Strategy - Results Phase
       'pricing.results.title': 'Results',
