@@ -26,6 +26,10 @@
         <mat-icon matListIcon>trending_up</mat-icon>
         <span>{{ translate('nav.pricingStrategy') }}</span>
       </a>
+      <a mat-list-item routerLink="/series-results" routerLinkActive="active-link" (click)="isMobile ? drawer.close() : null">
+        <mat-icon matListIcon>bar_chart</mat-icon>
+        <span>{{ translate('nav.simulationResults') }}</span>
+      </a>
       
       <!-- Language Selection -->
       <mat-divider></mat-divider>
