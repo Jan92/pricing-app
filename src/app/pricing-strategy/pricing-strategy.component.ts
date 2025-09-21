@@ -573,8 +573,8 @@ export class PricingStrategyComponent implements OnInit {
       maintenanceCosts: 'Wartungs-/Updatekosten (jährlich)',
       expectedCasesPerYear: 'Erwartete Fallzahl pro Jahr',
       amortizationPeriod: 'Amortisierungszeitraum (Jahre)',
-      measurability: 'Messbarkeit des Nutzens',
-      inferenceCosts: 'AI-Inferenzkosten',
+      measurability: this.languageService.translate('pricing.complexity.benefitMeasurability'),
+      inferenceCosts: this.languageService.translate('pricing.complexity.aiInferenceCosts'),
       complexityInputMethod: 'Eingabemethode für Komplexitätsbewertung',
       directComplexityScore: 'Direkter AI-Score',
       // 1. Datenkomplexität und -vielfalt
@@ -772,6 +772,7 @@ export class PricingStrategyComponent implements OnInit {
     const totalImplementationCosts = installationFee + (partnerCommission > 0 ? (typeof recommendedPrice === 'number' ? recommendedPrice : (recommendedPrice as any).baseFee) * partnerCommission / 100 : 0);
     
     return {
+      systemType: formValue.autonomy || 'assistive',
       recommendedPrice: recommendedPrice,
       basePrice: basePrice,
       complexityScore: complexityScore,
@@ -791,6 +792,11 @@ export class PricingStrategyComponent implements OnInit {
       maintenanceCosts: maintenanceCosts,
       costPerUsage: costPerUsage
     };
+  }
+
+  // Helper methods
+  hasResults(): boolean {
+    return this.results && Object.keys(this.results).length > 0;
   }
 
   // Helper methods for labels

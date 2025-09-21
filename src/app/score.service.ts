@@ -31,7 +31,7 @@ export class ScoreService {
     const preconfiguredScores: ScoreInput[] = [
       {
         evaluationId: 'ct-befundung',
-        name: 'CT-Befundung',
+        name: this.getTranslatedScoreName('ct-befundung'),
         dimensionValues: {
           dataComplexity: {
             sourceVariety: 3,
@@ -65,7 +65,7 @@ export class ScoreService {
       },
       {
         evaluationId: 'befundung-endokrinologie',
-        name: 'Befundung Endokrinologie',
+        name: this.getTranslatedScoreName('befundung-endokrinologie'),
         dimensionValues: {
           dataComplexity: {
             sourceVariety: 2,
@@ -99,7 +99,7 @@ export class ScoreService {
       },
       {
         evaluationId: 'befundung-gerinnung',
-        name: 'Befundung Gerinnung',
+        name: this.getTranslatedScoreName('befundung-gerinnung'),
         dimensionValues: {
           dataComplexity: {
             sourceVariety: 2,
@@ -133,7 +133,7 @@ export class ScoreService {
       },
       {
         evaluationId: 'befundung-mikrobiologie',
-        name: 'Befundung Mikrobiologie (Sepsisdiagnostik)',
+        name: this.getTranslatedScoreName('befundung-mikrobiologie'),
         dimensionValues: {
           dataComplexity: {
             sourceVariety: 3,
@@ -167,7 +167,7 @@ export class ScoreService {
       },
       {
         evaluationId: 'befundung-kardiologie',
-        name: 'Befundung Kardiologie (EKG-Analyse)',
+        name: this.getTranslatedScoreName('befundung-kardiologie'),
         dimensionValues: {
           dataComplexity: {
             sourceVariety: 2,
@@ -201,7 +201,7 @@ export class ScoreService {
       },
       {
         evaluationId: 'radiologische-tumorbefundung',
-        name: 'Radiologische Tumorbefundung',
+        name: this.getTranslatedScoreName('radiologische-tumorbefundung'),
         dimensionValues: {
           dataComplexity: {
             sourceVariety: 4,
@@ -235,7 +235,7 @@ export class ScoreService {
       },
       {
         evaluationId: 'genetische-diagnostik',
-        name: 'Genetische Diagnostik (z.B. Erbkrankheiten)',
+        name: this.getTranslatedScoreName('genetische-diagnostik'),
         dimensionValues: {
           dataComplexity: {
             sourceVariety: 5,
@@ -269,7 +269,7 @@ export class ScoreService {
       },
       {
         evaluationId: 'allergiediagnostik',
-        name: 'Allergiediagnostik',
+        name: this.getTranslatedScoreName('allergiediagnostik'),
         dimensionValues: {
           dataComplexity: {
             sourceVariety: 2,
@@ -303,7 +303,7 @@ export class ScoreService {
       },
       {
         evaluationId: 'infektionsdiagnostik-covid19',
-        name: 'Infektionsdiagnostik (Covid-19-PCR)',
+        name: this.getTranslatedScoreName('infektionsdiagnostik'),
         dimensionValues: {
           dataComplexity: {
             sourceVariety: 1,
@@ -337,7 +337,7 @@ export class ScoreService {
       },
       {
         evaluationId: 'neurologische-befundung',
-        name: 'Neurologische Befundung (z.B. Schlaganfall)',
+        name: this.getTranslatedScoreName('neurologische-befundung'),
         dimensionValues: {
           dataComplexity: {
             sourceVariety: 4,
@@ -425,12 +425,18 @@ export class ScoreService {
 
   // Reset a criterion's scale labels to defaults
   resetCriterionScaleLabels(dimensionId: string, criterionId: string): void {
-    this.updateCriterionScaleLabels(dimensionId, criterionId, {...this.defaultScaleLabels});
+    this.updateCriterionScaleLabels(dimensionId, criterionId, this.getDefaultScaleLabels());
   }
 
   // Get the default scale labels
   getDefaultScaleLabels(): {[key: number]: string} {
-    return {...this.defaultScaleLabels};
+    return {
+      1: this.languageService.translate('common.scoreLabels.1'),
+      2: this.languageService.translate('common.scoreLabels.2'),
+      3: this.languageService.translate('common.scoreLabels.3'),
+      4: this.languageService.translate('common.scoreLabels.4'),
+      5: this.languageService.translate('common.scoreLabels.5')
+    };
   }
 
   saveScoreInput(input: ScoreInput): void {
@@ -625,5 +631,10 @@ export class ScoreService {
     }
     
     return null;
+  }
+
+  private getTranslatedScoreName(evaluationId: string): string {
+    const translationKey = `examples.${evaluationId.replace(/-/g, '')}`;
+    return this.languageService.translate(translationKey);
   }
 }

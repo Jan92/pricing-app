@@ -90,7 +90,7 @@ export class ScorePropertiesComponent implements OnInit {
     
     // Add controls for each score in the range
     this.scoreRange.forEach(score => {
-      // Try to get translated label first, then fallback to criterion scale, then default
+      // Use translated label first, then fallback to criterion scale, then default
       const translatedLabel = this.getTranslatedScoreLabel(criterion.id, score);
       const label = translatedLabel || criterion.scale[score] || this.scoreService.getDefaultScaleLabels()[score] || `Score ${score}`;
       formArray.push(new FormControl(label));

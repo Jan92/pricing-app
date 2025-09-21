@@ -1267,80 +1267,80 @@
   <div class="phase" *ngIf="currentPhase === 4">
     <mat-card class="strategy-card">
       <mat-card-header>
-        <mat-card-title>Geschäftsmodell</mat-card-title>
-        <mat-card-subtitle>Erweiterte Geschäftsmodell-Optionen und Preismodelle</mat-card-subtitle>
+        <mat-card-title>{{ translate('pricing.businessModel.title') }}</mat-card-title>
+        <mat-card-subtitle>{{ translate('pricing.businessModel.subtitle') }}</mat-card-subtitle>
       </mat-card-header>
       <mat-card-content [formGroup]="pricingForm">
         <div class="form-group">
-          <label class="form-label">Upgrade-Pfad *</label>
+          <label class="form-label">{{ translate('pricing.businessModel.upgradePath') }} *</label>
           <mat-radio-group formControlName="upgradePath" class="radio-group" required>
             <div class="radio-option" [class.selected]="pricingForm.get('upgradePath')?.value === 'tiered'" (click)="pricingForm.get('upgradePath')?.setValue('tiered')">
               <mat-radio-button value="tiered">
                 <div class="radio-text">
-                  <strong>Gestaffelt</strong>
-                  <small>Verschiedene Produktstufen mit Upgrade-Möglichkeiten</small>
+                  <strong>{{ translate('pricing.businessModel.upgradePath.tiered') }}</strong>
+                  <small>{{ translate('pricing.businessModel.upgradePath.tieredDesc') }}</small>
                 </div>
               </mat-radio-button>
             </div>
             <div class="radio-option" [class.selected]="pricingForm.get('upgradePath')?.value === 'flat'" (click)="pricingForm.get('upgradePath')?.setValue('flat')">
               <mat-radio-button value="flat">
                 <div class="radio-text">
-                  <strong>Flach</strong>
-                  <small>Einheitliches Produkt ohne Stufen</small>
+                  <strong>{{ translate('pricing.businessModel.upgradePath.flat') }}</strong>
+                  <small>{{ translate('pricing.businessModel.upgradePath.flatDesc') }}</small>
                 </div>
               </mat-radio-button>
             </div>
           </mat-radio-group>
           <mat-error *ngIf="pricingForm.get('upgradePath')?.invalid && pricingForm.get('upgradePath')?.touched">
-            Bitte wählen Sie den Upgrade-Pfad
+            {{ translate('pricing.businessModel.upgradePath') }} {{ translate('common.fillAllFields') }}
           </mat-error>
         </div>
 
                  <div class="form-group">
-           <label class="form-label">Support-Intensität</label>
+           <label class="form-label">{{ translate('pricing.businessModel.supportIntensity') }}</label>
            <div class="slider-container">
              <div class="slider-labels">
-               <span>Minimal</span>
-               <span>Maximal</span>
+               <span>{{ translate('pricing.businessModel.supportIntensity.minimal') }}</span>
+               <span>{{ translate('pricing.businessModel.supportIntensity.maximal') }}</span>
              </div>
              <div class="radio-group">
                <div class="radio-option" [class.selected]="pricingForm.get('supportIntensity')?.value === 1" (click)="pricingForm.get('supportIntensity')?.setValue(1)">
                  <mat-radio-button value="1" (click)="$event.stopPropagation()">
                    <div class="radio-text">
-                     <strong>Level 1 - Minimal</strong>
-                     <small>Grundlegender Support, Selbstbedienung</small>
+                     <strong>{{ translate('pricing.businessModel.supportIntensity.level1') }}</strong>
+                     <small>{{ translate('pricing.businessModel.supportIntensity.level1Desc') }}</small>
                    </div>
                  </mat-radio-button>
                </div>
                <div class="radio-option" [class.selected]="pricingForm.get('supportIntensity')?.value === 2" (click)="pricingForm.get('supportIntensity')?.setValue(2)">
                  <mat-radio-button value="2" (click)="$event.stopPropagation()">
                    <div class="radio-text">
-                     <strong>Level 2 - Basis</strong>
-                     <small>E-Mail Support, Dokumentation</small>
+                     <strong>{{ translate('pricing.businessModel.supportIntensity.level2') }}</strong>
+                     <small>{{ translate('pricing.businessModel.supportIntensity.level2Desc') }}</small>
                    </div>
                  </mat-radio-button>
                </div>
                <div class="radio-option" [class.selected]="pricingForm.get('supportIntensity')?.value === 3" (click)="pricingForm.get('supportIntensity')?.setValue(3)">
                  <mat-radio-button value="3" (click)="$event.stopPropagation()">
                    <div class="radio-text">
-                     <strong>Level 3 - Standard</strong>
-                     <small>Telefon Support, Schulungen</small>
+                     <strong>{{ translate('pricing.businessModel.supportIntensity.level3') }}</strong>
+                     <small>{{ translate('pricing.businessModel.supportIntensity.level3Desc') }}</small>
                    </div>
                  </mat-radio-button>
                </div>
                <div class="radio-option" [class.selected]="pricingForm.get('supportIntensity')?.value === 4" (click)="pricingForm.get('supportIntensity')?.setValue(4)">
                  <mat-radio-button value="4" (click)="$event.stopPropagation()">
                    <div class="radio-text">
-                     <strong>Level 4 - Premium</strong>
-                     <small>Dedizierter Support, 24/7 Verfügbarkeit</small>
+                     <strong>{{ translate('pricing.businessModel.supportIntensity.level4') }}</strong>
+                     <small>{{ translate('pricing.businessModel.supportIntensity.level4Desc') }}</small>
                    </div>
                  </mat-radio-button>
                </div>
                <div class="radio-option" [class.selected]="pricingForm.get('supportIntensity')?.value === 5" (click)="pricingForm.get('supportIntensity')?.setValue(5)">
                  <mat-radio-button value="5" (click)="$event.stopPropagation()">
                    <div class="radio-text">
-                     <strong>Level 5 - Maximal</strong>
-                     <small>Persönlicher Account Manager, On-Site Support</small>
+                     <strong>{{ translate('pricing.businessModel.supportIntensity.level5') }}</strong>
+                     <small>{{ translate('pricing.businessModel.supportIntensity.level5Desc') }}</small>
                    </div>
                  </mat-radio-button>
                </div>
@@ -1513,7 +1513,7 @@
 
   <!-- Phase 6: Ergebnisse -->
   <div class="phase" *ngIf="currentPhase === 5">
-    <div class="results-container" *ngIf="results.systemType">
+    <div class="results-container" *ngIf="results && hasResults()">
       <div class="result-section">
         <span class="system-type-badge" [class]="pricingForm.get('autonomy')?.value || 'assistive'">
           {{ results.systemType }}
