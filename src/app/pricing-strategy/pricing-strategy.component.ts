@@ -15,9 +15,8 @@ import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
-import { MatMenuModule } from '@angular/material/menu';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators, FormsModule, FormArray, FormControl } from '@angular/forms';
-import { LanguageService } from '../services/language.service';
+import { LanguageService } from '../language.service';
 
 @Component({
   selector: 'app-pricing-strategy',
@@ -41,7 +40,6 @@ import { LanguageService } from '../services/language.service';
     MatTooltipModule,
     MatSelectModule,
     MatTableModule,
-    MatMenuModule,
     ReactiveFormsModule,
     FormsModule
   ]
@@ -354,19 +352,7 @@ export class PricingStrategyComponent implements OnInit {
   }
 
   getScoreLabel(criterionId: string, score: number): string {
-    return this.languageService.getScoreLabel(criterionId, score);
-  }
-
-  getAvailableLanguages() {
-    return this.languageService.getAvailableLanguages();
-  }
-
-  setLanguage(language: string) {
-    this.languageService.setLanguage(language);
-  }
-
-  getCurrentLanguage() {
-    return this.languageService.getCurrentLanguage();
+    return this.languageService.translate(`properties.${criterionId}.scoreLabels.${score}`);
   }
 
 

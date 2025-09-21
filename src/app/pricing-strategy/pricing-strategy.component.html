@@ -1,26 +1,7 @@
 <div class="pricing-strategy-container">
   <div class="header">
-    <div class="header-content">
-      <div class="title-section">
-        <h1>{{ translate('pricing.title') }}</h1>
-        <p>{{ translate('pricing.subtitle') }}</p>
-      </div>
-      <div class="language-selector">
-        <button mat-button [matMenuTriggerFor]="languageMenu" class="language-button">
-          <mat-icon>language</mat-icon>
-          {{ getCurrentLanguage() === 'de' ? 'Deutsch' : 'English' }}
-          <mat-icon>arrow_drop_down</mat-icon>
-        </button>
-        <mat-menu #languageMenu="matMenu">
-          <button mat-menu-item (click)="setLanguage('de')" [class.selected]="getCurrentLanguage() === 'de'">
-            <span>🇩🇪 Deutsch</span>
-          </button>
-          <button mat-menu-item (click)="setLanguage('en')" [class.selected]="getCurrentLanguage() === 'en'">
-            <span>🇺🇸 English</span>
-          </button>
-        </mat-menu>
-      </div>
-    </div>
+    <h1>{{ translate('pricing.title') }}</h1>
+    <p>{{ translate('pricing.subtitle') }}</p>
   </div>
 
   <!-- Progress Indicator -->

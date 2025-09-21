@@ -5,69 +5,8 @@
 }
 
 .header {
-  margin-bottom: 30px;
-}
-
-.header-content {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 20px;
-}
-
-.title-section {
-  flex: 1;
   text-align: center;
-}
-
-.language-selector {
-  display: flex;
-  align-items: center;
-}
-
-.language-button {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 16px;
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
-  background: white;
-  color: #1976d2;
-  font-weight: 500;
-  transition: all 0.2s ease;
-}
-
-.language-button:hover {
-  background: #f5f5f5;
-  border-color: #1976d2;
-}
-
-.language-button mat-icon {
-  font-size: 20px;
-  width: 20px;
-  height: 20px;
-}
-
-.mat-menu-item.selected {
-  background: #e3f2fd;
-  color: #1976d2;
-}
-
-@media (max-width: 768px) {
-  .header-content {
-    flex-direction: column;
-    text-align: center;
-  }
-  
-  .title-section {
-    order: 1;
-  }
-  
-  .language-selector {
-    order: 2;
-  }
+  margin-bottom: 30px;
 }
 
 .header h1 {
