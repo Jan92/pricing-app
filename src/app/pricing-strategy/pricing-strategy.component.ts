@@ -207,10 +207,10 @@ export class PricingStrategyComponent implements OnInit {
 
   getComplexityLevel(): string {
     const score = this.calculateComplexityScore();
-    if (score <= 40) return 'niedrig';
-    if (score <= 60) return 'mittel';
-    if (score <= 80) return 'hoch';
-    return 'sehr hoch';
+    if (score <= 40) return this.translate('pricing.complexity.level.low');
+    if (score <= 60) return this.translate('pricing.complexity.level.medium');
+    if (score <= 80) return this.translate('pricing.complexity.level.high');
+    return this.translate('pricing.complexity.level.veryHigh');
   }
 
   // Wettbewerber-Management
@@ -312,22 +312,22 @@ export class PricingStrategyComponent implements OnInit {
 
     // Cloud + viele Nutzer + variable Kosten hoch: → Vorschlag nutzungsbasiert
     if (deploymentType === 'cloud' && costPerCase > 0) {
-      recommendation = 'Bei Ihrer Cloud-Konstellation bietet sich ein nutzungsabhängiges Modell an.';
+      recommendation = this.translate('pricing.modelRecommendation.cloud');
     }
 
     // On-Premises + wenige große Kunden: → Vorschlag jährliche Lizenz
     if (deploymentType === 'onpremises') {
-      recommendation = 'Bei On-Premises-Installation empfehlen wir eine jährliche Lizenz oder hohe Einmalzahlung.';
+      recommendation = this.translate('pricing.modelRecommendation.onPremises');
     }
 
     // Hohe Komplexitäts-Schwankungen: → Vorschlag DACS
     if (complexityScore > 14) {
-      recommendation = 'Aufgrund der hohen Komplexitätsschwankungen empfehlen wir das DACS-Modell für eine faire Preisverteilung.';
+      recommendation = this.translate('pricing.modelRecommendation.dacs');
     }
 
     // Partnervertrieb: → Hinweis auf höhere Preise
     if (salesChannel === 'partner') {
-      recommendation += ' Beachten Sie bei Partnervertrieb die erforderliche Provision in Ihrem Preis.';
+      recommendation += ' ' + this.translate('pricing.modelRecommendation.partner');
     }
 
     return recommendation;
@@ -451,6 +451,11 @@ export class PricingStrategyComponent implements OnInit {
       return true;
     }
 
+    // Spezielle Validierung für Business Model Phase (Phase 4)
+    if (this.currentPhase === 4) {
+      return this.validateBusinessModelPhase();
+    }
+
     // Prüfe die Validität des Formulars für die aktuelle Phase
     const currentPhaseControls = this.getCurrentPhaseControls();
     const invalidControls = currentPhaseControls.filter(control => {
@@ -488,6 +493,68 @@ export class PricingStrategyComponent implements OnInit {
     }
 
     return true;
+  }
+
+  private validateBusinessModelPhase(): boolean {
+    const formValue = this.pricingForm.value;
+    const pricingModel = formValue.pricingModel;
+    
+    // Basisvalidierung für erforderliche Felder
+    if (!pricingModel) {
+      this.snackBar.open('Bitte wählen Sie ein Preismodell aus', 'OK', {
+        duration: 3000,
+        horizontalPosition: 'center',
+        verticalPosition: 'bottom',
+        panelClass: ['error-snackbar']
+      });
+      return false;
+    }
+
+    // Modell-spezifische Validierung
+    let isValid = true;
+    let errorMessage = '';
+
+    switch (pricingModel) {
+      case 'license':
+        if (!formValue.basePrice || formValue.basePrice <= 0) {
+          errorMessage = 'Bitte geben Sie einen gültigen Basispreis für das Lizenzmodell ein';
+          isValid = false;
+        }
+        break;
+      case 'usage':
+        if (!formValue.basePrice || formValue.basePrice <= 0) {
+          errorMessage = 'Bitte geben Sie einen gültigen Preis pro Nutzung ein';
+          isValid = false;
+        }
+        break;
+      case 'hybrid':
+        if (!formValue.hybridBaseFee || formValue.hybridBaseFee <= 0) {
+          errorMessage = 'Bitte geben Sie eine gültige Grundgebühr für das Hybrid-Modell ein';
+          isValid = false;
+        }
+        if (!formValue.hybridUsageFee || formValue.hybridUsageFee <= 0) {
+          errorMessage = 'Bitte geben Sie eine gültige Nutzungsgebühr für das Hybrid-Modell ein';
+          isValid = false;
+        }
+        break;
+      case 'dacs':
+        if (!formValue.dacsBasePrice || formValue.dacsBasePrice <= 0) {
+          errorMessage = 'Bitte geben Sie einen gültigen Basispreis für das DACS-Modell ein';
+          isValid = false;
+        }
+        break;
+    }
+
+    if (!isValid) {
+      this.snackBar.open(errorMessage, 'OK', {
+        duration: 3000,
+        horizontalPosition: 'center',
+        verticalPosition: 'bottom',
+        panelClass: ['error-snackbar']
+      });
+    }
+
+    return isValid;
   }
 
   private getFieldLabel(control: string): string {
@@ -557,7 +624,7 @@ export class PricingStrategyComponent implements OnInit {
       1: this.getComplexityPhaseControls(),
       2: ['sector', 'reimbursement', 'competition'],
       3: ['salesEffort', 'implementation', 'customerFencing', 'deploymentType', 'salesChannel'],
-      4: ['upgradePath', 'supportIntensity', 'pricingModel']
+      4: ['upgradePath', 'supportIntensity', 'pricingModel', 'basePrice', 'hybridBaseFee', 'hybridUsageFee', 'dacsBasePrice', 'profitMargin']
     };
 
     return phaseControls[this.currentPhase as keyof typeof phaseControls] || [];

@@ -297,23 +297,23 @@
             <div class="score-options flex">
               <label class="score-label" [class.selected]="pricingForm.get('dataSourceDiversity')?.value === '1'">
                 <input type="radio" formControlName="dataSourceDiversity" value="1" class="ng-untouched ng-pristine ng-valid">
-                <span>1 {{ translate('properties.dataSourceDiversity.scoreLabels.1') }}</span>
+                <span>1 {{ getScoreLabel('dataSourceDiversity', 1) }}</span>
               </label>
               <label class="score-label" [class.selected]="pricingForm.get('dataSourceDiversity')?.value === '2'">
                 <input type="radio" formControlName="dataSourceDiversity" value="2" class="ng-untouched ng-pristine ng-valid">
-                <span>2 {{ translate('properties.dataSourceDiversity.scoreLabels.2') }}</span>
+                <span>2 {{ getScoreLabel('dataSourceDiversity', 2) }}</span>
               </label>
               <label class="score-label" [class.selected]="pricingForm.get('dataSourceDiversity')?.value === '3'">
                 <input type="radio" formControlName="dataSourceDiversity" value="3" class="ng-untouched ng-pristine ng-valid">
-                <span>3 {{ translate('properties.dataSourceDiversity.scoreLabels.3') }}</span>
+                <span>3 {{ getScoreLabel('dataSourceDiversity', 3) }}</span>
               </label>
               <label class="score-label" [class.selected]="pricingForm.get('dataSourceDiversity')?.value === '4'">
                 <input type="radio" formControlName="dataSourceDiversity" value="4" class="ng-untouched ng-pristine ng-valid">
-                <span>4 {{ translate('properties.dataSourceDiversity.scoreLabels.4') }}</span>
+                <span>4 {{ getScoreLabel('dataSourceDiversity', 4) }}</span>
               </label>
               <label class="score-label" [class.selected]="pricingForm.get('dataSourceDiversity')?.value === '5'">
                 <input type="radio" formControlName="dataSourceDiversity" value="5" class="ng-untouched ng-pristine ng-valid">
-                <span>5 {{ translate('properties.dataSourceDiversity.scoreLabels.5') }}</span>
+                <span>5 {{ getScoreLabel('dataSourceDiversity', 5) }}</span>
               </label>
             </div>
           </div>
@@ -355,53 +355,53 @@
           </div>
 
           <div class="form-group">
-            <label class="form-label">Datenverknüpfung (Fähigkeit, mehrere Datenquellen in einer Analyse zu kombinieren.) *</label>
+            <label class="form-label">{{ translate('criteria.dataLinking') }} ({{ translate('criteria.dataLinkingDesc') }}) *</label>
             <div class="score-options flex">
               <label class="score-label" [class.selected]="pricingForm.get('dataLinking')?.value === '1'">
                 <input type="radio" formControlName="dataLinking" value="1" class="ng-untouched ng-pristine ng-valid">
-                <span>1 Keine Verknüpfung unterschiedlicher Quellen.</span>
+                <span>1 {{ getScoreLabel('dataLinking', 1) }}</span>
               </label>
               <label class="score-label" [class.selected]="pricingForm.get('dataLinking')?.value === '2'">
                 <input type="radio" formControlName="dataLinking" value="2" class="ng-untouched ng-pristine ng-valid">
-                <span>2 Unterdurchschnittlich</span>
+                <span>2 {{ getScoreLabel('dataLinking', 2) }}</span>
               </label>
               <label class="score-label" [class.selected]="pricingForm.get('dataLinking')?.value === '3'">
                 <input type="radio" formControlName="dataLinking" value="3" class="ng-untouched ng-pristine ng-valid">
-                <span>3 Durchschnittlich</span>
+                <span>3 {{ getScoreLabel('dataLinking', 3) }}</span>
               </label>
               <label class="score-label" [class.selected]="pricingForm.get('dataLinking')?.value === '4'">
                 <input type="radio" formControlName="dataLinking" value="4" class="ng-untouched ng-pristine ng-valid">
-                <span>4 Überdurchschnittlich</span>
+                <span>4 {{ getScoreLabel('dataLinking', 4) }}</span>
               </label>
               <label class="score-label" [class.selected]="pricingForm.get('dataLinking')?.value === '5'">
                 <input type="radio" formControlName="dataLinking" value="5" class="ng-untouched ng-pristine ng-valid">
-                <span>5 Vollständig integrierte Analyse aus mehreren Quellen.</span>
+                <span>5 {{ getScoreLabel('dataLinking', 5) }}</span>
               </label>
             </div>
           </div>
 
           <div class="form-group">
-            <label class="form-label">Datenvolumen (Menge der Daten pro Analyse.) *</label>
+            <label class="form-label">{{ translate('criteria.dataVolume') }} ({{ translate('criteria.dataVolumeDesc') }}) *</label>
             <div class="score-options flex">
               <label class="score-label" [class.selected]="pricingForm.get('dataVolume')?.value === '1'">
                 <input type="radio" formControlName="dataVolume" value="1" class="ng-untouched ng-pristine ng-valid">
-                <span>1 Gering (z.B. ein einzelner Parameter).</span>
+                <span>1 {{ getScoreLabel('dataVolume', 1) }}</span>
               </label>
               <label class="score-label" [class.selected]="pricingForm.get('dataVolume')?.value === '2'">
                 <input type="radio" formControlName="dataVolume" value="2" class="ng-untouched ng-pristine ng-valid">
-                <span>2 Unterdurchschnittlich</span>
+                <span>2 {{ getScoreLabel('dataVolume', 2) }}</span>
               </label>
               <label class="score-label" [class.selected]="pricingForm.get('dataVolume')?.value === '3'">
                 <input type="radio" formControlName="dataVolume" value="3" class="ng-untouched ng-pristine ng-valid">
-                <span>3 Durchschnittlich</span>
+                <span>3 {{ getScoreLabel('dataVolume', 3) }}</span>
               </label>
               <label class="score-label" [class.selected]="pricingForm.get('dataVolume')?.value === '4'">
                 <input type="radio" formControlName="dataVolume" value="4" class="ng-untouched ng-pristine ng-valid">
-                <span>4 Überdurchschnittlich</span>
+                <span>4 {{ getScoreLabel('dataVolume', 4) }}</span>
               </label>
               <label class="score-label" [class.selected]="pricingForm.get('dataVolume')?.value === '5'">
                 <input type="radio" formControlName="dataVolume" value="5" class="ng-untouched ng-pristine ng-valid">
-                <span>5 Sehr groß (z.B. Millionen von Parametern pro Patient).</span>
+                <span>5 {{ getScoreLabel('dataVolume', 5) }}</span>
               </label>
             </div>
           </div>
@@ -813,8 +813,8 @@
           <div class="complexity-feedback">
             <mat-card class="feedback-card">
               <mat-card-header>
-                <mat-card-title>Komplexitäts-Score</mat-card-title>
-                <mat-card-subtitle>Gesamtbewertung der Komplexität</mat-card-subtitle>
+                <mat-card-title>{{ translate('pricing.complexity.score') }}</mat-card-title>
+                <mat-card-subtitle>{{ translate('pricing.complexity.scoreSubtitle') }}</mat-card-subtitle>
               </mat-card-header>
               <mat-card-content>
                 <div class="score-display">
@@ -823,10 +823,10 @@
                 </div>
                 <div class="score-breakdown">
                   <small>
-                    <strong>1. Datenkomplexität und -vielfalt:</strong> {{ (Number(pricingForm.get('dataSourceDiversity')?.value) || 3) + (Number(pricingForm.get('dataIntegrity')?.value) || 3) + (Number(pricingForm.get('dataComplexity')?.value) || 3) + (Number(pricingForm.get('dataLinking')?.value) || 3) + (Number(pricingForm.get('dataVolume')?.value) || 3) }}/25<br>
-                    <strong>2. Komplexität der Erkrankung:</strong> {{ (Number(pricingForm.get('diseaseRarity')?.value) || 3) + (Number(pricingForm.get('diagnosticAmbiguity')?.value) || 3) + (Number(pricingForm.get('prognosticUncertainty')?.value) || 3) + (Number(pricingForm.get('multimorbidity')?.value) || 3) + (Number(pricingForm.get('diseaseSeverity')?.value) || 3) }}/25<br>
-                    <strong>3. Schwierigkeitsgrad der Fragestellung:</strong> {{ (Number(pricingForm.get('differentialDiagnosticDepth')?.value) || 3) + (Number(pricingForm.get('prognosticPrecision')?.value) || 3) + (Number(pricingForm.get('realTimeRequirement')?.value) || 3) + (Number(pricingForm.get('interdisciplinaryRelevance')?.value) || 3) + (Number(pricingForm.get('dynamicAdaptability')?.value) || 3) }}/25<br>
-                    <strong>4. Ausmaß der KI-Unterstützung:</strong> {{ (Number(pricingForm.get('automationLevel')?.value) || 3) + (Number(pricingForm.get('analysisDepth')?.value) || 3) + (Number(pricingForm.get('recommendationComplexity')?.value) || 3) + (Number(pricingForm.get('guidelineIntegration')?.value) || 3) + (Number(pricingForm.get('patientSpecificIndividualization')?.value) || 3) }}/25
+                    <strong>1. {{ translate('dimensions.dataComplexity') }}:</strong> {{ (Number(pricingForm.get('dataSourceDiversity')?.value) || 3) + (Number(pricingForm.get('dataIntegrity')?.value) || 3) + (Number(pricingForm.get('dataComplexity')?.value) || 3) + (Number(pricingForm.get('dataLinking')?.value) || 3) + (Number(pricingForm.get('dataVolume')?.value) || 3) }}/25<br>
+                    <strong>2. {{ translate('dimensions.diseaseComplexity') }}:</strong> {{ (Number(pricingForm.get('diseaseRarity')?.value) || 3) + (Number(pricingForm.get('diagnosticAmbiguity')?.value) || 3) + (Number(pricingForm.get('prognosticUncertainty')?.value) || 3) + (Number(pricingForm.get('multimorbidity')?.value) || 3) + (Number(pricingForm.get('diseaseSeverity')?.value) || 3) }}/25<br>
+                    <strong>3. {{ translate('dimensions.questionDifficulty') }}:</strong> {{ (Number(pricingForm.get('differentialDiagnosticDepth')?.value) || 3) + (Number(pricingForm.get('prognosticPrecision')?.value) || 3) + (Number(pricingForm.get('realTimeRequirement')?.value) || 3) + (Number(pricingForm.get('interdisciplinaryRelevance')?.value) || 3) + (Number(pricingForm.get('dynamicAdaptability')?.value) || 3) }}/25<br>
+                    <strong>4. {{ translate('dimensions.aiSupportExtent') }}:</strong> {{ (Number(pricingForm.get('automationLevel')?.value) || 3) + (Number(pricingForm.get('analysisDepth')?.value) || 3) + (Number(pricingForm.get('recommendationComplexity')?.value) || 3) + (Number(pricingForm.get('guidelineIntegration')?.value) || 3) + (Number(pricingForm.get('patientSpecificIndividualization')?.value) || 3) }}/25
                   </small>
                 </div>
               </mat-card-content>
@@ -1164,24 +1164,24 @@
 
         <!-- Bereitstellungsart -->
         <mat-divider style="margin: 20px 0;"></mat-divider>
-        <h3>Bereitstellungsart</h3>
+        <h3>{{ translate('pricing.deploymentType') }}</h3>
         
         <div class="form-group">
-          <label class="form-label">Bereitstellungsart *</label>
+          <label class="form-label">{{ translate('pricing.deploymentType') }} *</label>
           <mat-radio-group formControlName="deploymentType" class="radio-group" required>
             <div class="radio-option" [class.selected]="pricingForm.get('deploymentType')?.value === 'cloud'" (click)="pricingForm.get('deploymentType')?.setValue('cloud')">
               <mat-radio-button value="cloud">
                 <div class="radio-text">
-                  <strong>Cloud-Service</strong>
-                  <small>Software-as-a-Service, kontinuierliche Cloud-Kosten</small>
+                  <strong>{{ translate('pricing.deployment.cloud') }}</strong>
+                  <small>{{ translate('pricing.deployment.cloudDesc') }}</small>
                 </div>
               </mat-radio-button>
             </div>
             <div class="radio-option" [class.selected]="pricingForm.get('deploymentType')?.value === 'onpremises'" (click)="pricingForm.get('deploymentType')?.setValue('onpremises')">
               <mat-radio-button value="onpremises">
                 <div class="radio-text">
-                  <strong>On-Premises</strong>
-                  <small>Vor-Ort Installation, hohe Initialkosten</small>
+                  <strong>{{ translate('pricing.deployment.onPremises') }}</strong>
+                  <small>{{ translate('pricing.deployment.onPremisesDesc') }}</small>
                 </div>
               </mat-radio-button>
             </div>
@@ -1203,21 +1203,21 @@
 
         <!-- Vertriebskanal -->
         <div class="form-group">
-          <label class="form-label">Vertriebskanal *</label>
+          <label class="form-label">{{ translate('pricing.salesChannel') }} *</label>
           <mat-radio-group formControlName="salesChannel" class="radio-group" required>
             <div class="radio-option" [class.selected]="pricingForm.get('salesChannel')?.value === 'direct'" (click)="pricingForm.get('salesChannel')?.setValue('direct')">
               <mat-radio-button value="direct">
                 <div class="radio-text">
-                  <strong>Direktvertrieb</strong>
-                  <small>Verkauf direkt an Endkunden</small>
+                  <strong>{{ translate('pricing.sales.direct') }}</strong>
+                  <small>{{ translate('pricing.sales.directDesc') }}</small>
                 </div>
               </mat-radio-button>
             </div>
             <div class="radio-option" [class.selected]="pricingForm.get('salesChannel')?.value === 'partner'" (click)="pricingForm.get('salesChannel')?.setValue('partner')">
               <mat-radio-button value="partner">
                 <div class="radio-text">
-                  <strong>Partner/Distributor</strong>
-                  <small>Verkauf über Partner, Provision erforderlich</small>
+                  <strong>{{ translate('pricing.sales.partner') }}</strong>
+                  <small>{{ translate('pricing.sales.partnerDesc') }}</small>
                 </div>
               </mat-radio-button>
             </div>
@@ -1230,10 +1230,10 @@
         <!-- Partnerprovision (nur bei Partnervertrieb) -->
         <div class="form-group" *ngIf="pricingForm.get('salesChannel')?.value === 'partner'">
           <mat-form-field appearance="outline" class="full-width">
-            <mat-label>Partnerprovision</mat-label>
+            <mat-label>{{ translate('pricing.partnerCommission') }}</mat-label>
             <input matInput type="number" formControlName="partnerCommission" min="0" max="100">
             <span matSuffix>%</span>
-            <mat-icon matSuffix matTooltip="Prozentsatz des Umsatzes, der als Provision an den Partner geht (Standard: ~20%)">info</mat-icon>
+            <mat-icon matSuffix [matTooltip]="translate('pricing.partnerCommissionTooltip')">info</mat-icon>
           </mat-form-field>
         </div>
 
@@ -1241,20 +1241,20 @@
         <div class="implementation-hints">
           <mat-card class="hints-card" *ngIf="pricingForm.get('deploymentType')?.value">
             <mat-card-header>
-              <mat-card-title>Hinweise zur Bereitstellungsart</mat-card-title>
+              <mat-card-title>{{ translate('pricing.deploymentHints.title') }}</mat-card-title>
             </mat-card-header>
             <mat-card-content>
               <div class="hint" *ngIf="pricingForm.get('deploymentType')?.value === 'cloud'">
                 <mat-icon>cloud</mat-icon>
-                <span>Hinweis: Laufender Cloud-Betrieb verursacht pro Nutzung Kosten – ein nutzungsabhängiger Preis ist daher oft angebracht.</span>
+                <span>{{ translate('pricing.deploymentHints.cloud') }}</span>
               </div>
               <div class="hint" *ngIf="pricingForm.get('deploymentType')?.value === 'onpremises'">
                 <mat-icon>computer</mat-icon>
-                <span>Hinweis: Vor-Ort-Installation bedeutet hohen Initialaufwand – häufig wird eine Einrichtungsgebühr oder hohe Startzahlung vereinbart.</span>
+                <span>{{ translate('pricing.deploymentHints.onPremises') }}</span>
               </div>
               <div class="hint" *ngIf="pricingForm.get('salesChannel')?.value === 'partner'">
                 <mat-icon>handshake</mat-icon>
-                <span>Hinweis: Bei Vertrieb über Partner sollten Sie die Marge des Partners in Ihrem Preis berücksichtigen (z.B. 20% Aufschlag einplanen).</span>
+                <span>{{ translate('pricing.deploymentHints.partner') }}</span>
               </div>
             </mat-card-content>
           </mat-card>
@@ -1483,10 +1483,10 @@
         <!-- Gewinnmarge -->
         <div class="form-group">
           <mat-form-field appearance="outline" class="full-width">
-            <mat-label>Gewinnmarge</mat-label>
+            <mat-label>{{ translate('pricing.profitMargin') }}</mat-label>
             <input matInput type="number" formControlName="profitMargin" min="0" max="100">
             <span matSuffix>%</span>
-            <mat-icon matSuffix matTooltip="Gewünschte Gewinnmarge auf die Selbstkosten">info</mat-icon>
+            <mat-icon matSuffix [matTooltip]="translate('pricing.profitMarginTooltip')">info</mat-icon>
           </mat-form-field>
         </div>
 
@@ -1494,8 +1494,8 @@
         <div class="model-recommendation" *ngIf="pricingForm.get('deploymentType')?.value && pricingForm.get('salesChannel')?.value">
           <mat-card class="recommendation-card">
             <mat-card-header>
-              <mat-card-title>Modell-Empfehlung</mat-card-title>
-              <mat-card-subtitle>Basierend auf Ihren Eingaben</mat-card-subtitle>
+              <mat-card-title>{{ translate('pricing.modelRecommendation.title') }}</mat-card-title>
+              <mat-card-subtitle>{{ translate('pricing.modelRecommendation.subtitle') }}</mat-card-subtitle>
             </mat-card-header>
             <mat-card-content>
               <div class="recommendation-content">
@@ -1742,7 +1742,7 @@
   <!-- Navigation -->
   <div class="form-navigation">
     <button mat-button (click)="previousPhase()" class="btn btn--outline" *ngIf="isPrevButtonVisible()">
-      ← Zurück
+      ← {{ translate('common.back') }}
     </button>
     <button mat-raised-button color="primary" (click)="nextPhase()" class="btn btn--primary" *ngIf="isNextButtonVisible()">
       {{ getNextButtonText() }}

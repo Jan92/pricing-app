@@ -35,6 +35,7 @@ export class LanguageService {
       'common.deleted': 'Bewertung',
       'common.dataSaved': 'Daten gespeichert für Evaluation ID',
       'common.fillAllFields': 'Bitte füllen Sie alle Felder aus.',
+      'common.back': 'Zurück',
       
       // Score Management
       'score.name': 'Score-Name',
@@ -207,6 +208,46 @@ export class LanguageService {
       'pricing.complexity.score': 'Komplexitäts-Score',
       'pricing.complexity.scoreSubtitle': 'Gesamtbewertung der Komplexität',
       'pricing.complexity.evaluationDescription': 'Bewerten Sie die folgenden Aspekte auf einer Skala von 1 (niedrig) bis 5 (hoch):',
+      'pricing.complexity.level.low': 'Niedrig',
+      'pricing.complexity.level.medium': 'Mittel',
+      'pricing.complexity.level.high': 'Hoch',
+      'pricing.complexity.level.veryHigh': 'Sehr hoch',
+      
+      // Deployment Type
+      'pricing.deploymentType': 'Bereitstellungsart',
+      'pricing.deployment.cloud': 'Cloud-Service',
+      'pricing.deployment.cloudDesc': 'Software-as-a-Service, kontinuierliche Cloud-Kosten',
+      'pricing.deployment.onPremises': 'On-Premises',
+      'pricing.deployment.onPremisesDesc': 'Vor-Ort Installation, hohe Initialkosten',
+      
+      // Sales Channel
+      'pricing.salesChannel': 'Vertriebskanal',
+      'pricing.sales.direct': 'Direktvertrieb',
+      'pricing.sales.directDesc': 'Verkauf direkt an Endkunden',
+      'pricing.sales.partner': 'Partner/Distributor',
+      'pricing.sales.partnerDesc': 'Verkauf über Partner, Provision erforderlich',
+      
+      // Partner Commission
+      'pricing.partnerCommission': 'Partnerprovision',
+      'pricing.partnerCommissionTooltip': 'Prozentsatz des Umsatzes, der als Provision an den Partner geht (Standard: ~20%)',
+      
+      // Deployment Hints
+      'pricing.deploymentHints.title': 'Hinweise zur Bereitstellungsart',
+      'pricing.deploymentHints.cloud': 'Hinweis: Laufender Cloud-Betrieb verursacht pro Nutzung Kosten – ein nutzungsabhängiger Preis ist daher oft angebracht.',
+      'pricing.deploymentHints.onPremises': 'Hinweis: Vor-Ort-Installation bedeutet hohen Initialaufwand – häufig wird eine Einrichtungsgebühr oder hohe Startzahlung vereinbart.',
+      'pricing.deploymentHints.partner': 'Hinweis: Bei Vertrieb über Partner sollten Sie die Marge des Partners in Ihrem Preis berücksichtigen (z.B. 20% Aufschlag einplanen).',
+      
+      // Profit Margin
+      'pricing.profitMargin': 'Gewinnmarge',
+      'pricing.profitMarginTooltip': 'Gewünschte Gewinnmarge auf die Selbstkosten',
+      
+      // Model Recommendation
+      'pricing.modelRecommendation.title': 'Modell-Empfehlung',
+      'pricing.modelRecommendation.subtitle': 'Basierend auf Ihren Eingaben',
+      'pricing.modelRecommendation.cloud': 'Bei Ihrer Cloud-Konstellation bietet sich ein nutzungsabhängiges Modell an.',
+      'pricing.modelRecommendation.onPremises': 'Bei On-Premises-Installation empfehlen wir eine jährliche Lizenz oder hohe Einmalzahlung.',
+      'pricing.modelRecommendation.dacs': 'Aufgrund der hohen Komplexitätsschwankungen empfehlen wir das DACS-Modell für eine faire Preisverteilung.',
+      'pricing.modelRecommendation.partner': 'Beachten Sie bei Partnervertrieb die erforderliche Provision in Ihrem Preis.',
       
       // Series Simulation
       'series.noSimulations': 'Noch keine Seriensimulationen durchgeführt oder vorhanden.',
@@ -270,6 +311,16 @@ export class LanguageService {
       'simulation.volumeBased': 'Volumenbasiert',
       'simulation.aiScoreBased': 'KI-Score-basiert',
       'simulation.startSimulation': 'Simulation starten',
+      'simulation.numberOfUsersRequired': 'Anzahl Nutzer ist erforderlich',
+      'simulation.numberOfUsersMin': 'Mindestens 1 Nutzer erforderlich',
+      'simulation.numberOfRequestsRequired': 'Anzahl Anfragen ist erforderlich',
+      'simulation.numberOfRequestsMin': 'Mindestens 0 Anfragen erforderlich',
+      'simulation.aiScoreRequired': 'KI-Score ist erforderlich',
+      'simulation.aiScoreRange': 'Score muss zwischen 0 und 100 liegen',
+      'simulation.pricePerUserRequired': 'Preis pro Nutzer ist erforderlich',
+      'simulation.pricePerRequestRequired': 'Preis pro Anfrage ist erforderlich',
+      'simulation.aiScoreReferencePriceRequired': 'Referenzpreis ist erforderlich',
+      'simulation.priceNonNegative': 'Preis darf nicht negativ sein',
       
       // Pricing Strategy - Market & Competition Phase
       'pricing.market.title': 'Markt & Wettbewerb',
@@ -600,6 +651,7 @@ export class LanguageService {
       'common.deleted': 'Evaluation',
       'common.dataSaved': 'Data saved for Evaluation ID',
       'common.fillAllFields': 'Please fill in all fields.',
+      'common.back': 'Back',
       
       // Score Management
       'score.name': 'Score Name',
@@ -772,6 +824,46 @@ export class LanguageService {
       'pricing.complexity.score': 'Complexity Score',
       'pricing.complexity.scoreSubtitle': 'Overall complexity assessment',
       'pricing.complexity.evaluationDescription': 'Rate the following aspects on a scale from 1 (low) to 5 (high):',
+      'pricing.complexity.level.low': 'Low',
+      'pricing.complexity.level.medium': 'Medium',
+      'pricing.complexity.level.high': 'High',
+      'pricing.complexity.level.veryHigh': 'Very High',
+      
+      // Deployment Type
+      'pricing.deploymentType': 'Deployment Type',
+      'pricing.deployment.cloud': 'Cloud Service',
+      'pricing.deployment.cloudDesc': 'Software-as-a-Service, continuous cloud costs',
+      'pricing.deployment.onPremises': 'On-Premises',
+      'pricing.deployment.onPremisesDesc': 'On-site installation, high initial costs',
+      
+      // Sales Channel
+      'pricing.salesChannel': 'Sales Channel',
+      'pricing.sales.direct': 'Direct Sales',
+      'pricing.sales.directDesc': 'Direct sales to end customers',
+      'pricing.sales.partner': 'Partner/Distributor',
+      'pricing.sales.partnerDesc': 'Sales via partners, commission required',
+      
+      // Partner Commission
+      'pricing.partnerCommission': 'Partner Commission',
+      'pricing.partnerCommissionTooltip': 'Percentage of revenue that goes to the partner as commission (Standard: ~20%)',
+      
+      // Deployment Hints
+      'pricing.deploymentHints.title': 'Deployment Type Notes',
+      'pricing.deploymentHints.cloud': 'Note: Ongoing cloud operation incurs costs per usage - a usage-dependent price is therefore often appropriate.',
+      'pricing.deploymentHints.onPremises': 'Note: On-site installation means high initial effort - often a setup fee or high initial payment is agreed upon.',
+      'pricing.deploymentHints.partner': 'Note: When selling through partners, you should consider the partner\'s margin in your price (e.g., plan for a 20% markup).',
+      
+      // Profit Margin
+      'pricing.profitMargin': 'Profit Margin',
+      'pricing.profitMarginTooltip': 'Desired profit margin on cost of goods sold',
+      
+      // Model Recommendation
+      'pricing.modelRecommendation.title': 'Model Recommendation',
+      'pricing.modelRecommendation.subtitle': 'Based on your inputs',
+      'pricing.modelRecommendation.cloud': 'For your cloud setup, a usage-based model is recommended.',
+      'pricing.modelRecommendation.onPremises': 'For on-premises installation, we recommend an annual license or high one-time payment.',
+      'pricing.modelRecommendation.dacs': 'Due to high complexity fluctuations, we recommend the DACS model for fair price distribution.',
+      'pricing.modelRecommendation.partner': 'Please note the required commission in your price for partner sales.',
       
       // Series Simulation
       'series.noSimulations': 'No series simulations performed or available yet.',
@@ -811,6 +903,16 @@ export class LanguageService {
       'simulation.volumeBased': 'Volume-based',
       'simulation.aiScoreBased': 'AI-Score-based',
       'simulation.startSimulation': 'Start Simulation',
+      'simulation.numberOfUsersRequired': 'Number of users is required',
+      'simulation.numberOfUsersMin': 'At least 1 user required',
+      'simulation.numberOfRequestsRequired': 'Number of requests is required',
+      'simulation.numberOfRequestsMin': 'At least 0 requests required',
+      'simulation.aiScoreRequired': 'AI-Score is required',
+      'simulation.aiScoreRange': 'Score must be between 0 and 100',
+      'simulation.pricePerUserRequired': 'Price per user is required',
+      'simulation.pricePerRequestRequired': 'Price per request is required',
+      'simulation.aiScoreReferencePriceRequired': 'Reference price is required',
+      'simulation.priceNonNegative': 'Price cannot be negative',
       
       // Pricing Strategy - Market & Competition Phase
       'pricing.market.title': 'Market & Competition',

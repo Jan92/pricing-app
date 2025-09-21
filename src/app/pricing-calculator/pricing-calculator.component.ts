@@ -105,21 +105,31 @@ export class PricingCalculatorComponent implements OnInit {
 
   updateValidation(): void {
     if (this.isSeriesMode && this.selectedSeriesParameter) {
-      // Remove required validation from the field that's being varied
+      // Remove ALL validators from the field that's being varied
       const fieldToDisable = this.simulationForm.get(this.selectedSeriesParameter);
       if (fieldToDisable) {
         fieldToDisable.clearValidators();
-        // Keep min validators but remove required
-        if (this.selectedSeriesParameter === 'numberOfUsers') {
-          fieldToDisable.setValidators([Validators.min(1)]);
-        } else if (this.selectedSeriesParameter === 'aiScore') {
-          fieldToDisable.setValidators([Validators.min(0), Validators.max(100)]);
-        } else {
-          fieldToDisable.setValidators([Validators.min(0)]);
-        }
         fieldToDisable.setValue(0); // Set a default value
         fieldToDisable.updateValueAndValidity();
       }
+      
+      // Ensure all other fields have required validation
+      const allFields = ['numberOfUsers', 'numberOfRequests', 'aiScore', 'pricePerUser', 'pricePerRequest', 'aiScoreReferencePrice'];
+      allFields.forEach(fieldName => {
+        if (fieldName !== this.selectedSeriesParameter) {
+          const field = this.simulationForm.get(fieldName);
+          if (field) {
+            if (fieldName === 'numberOfUsers') {
+              field.setValidators([Validators.required, Validators.min(1)]);
+            } else if (fieldName === 'aiScore') {
+              field.setValidators([Validators.required, Validators.min(0), Validators.max(100)]);
+            } else {
+              field.setValidators([Validators.required, Validators.min(0)]);
+            }
+            field.updateValueAndValidity();
+          }
+        }
+      });
     } else {
       // Restore required validation for all fields
       this.simulationForm.get('numberOfUsers')?.setValidators([Validators.required, Validators.min(1)]);

@@ -41,8 +41,8 @@
           <mat-label>{{ translate('simulation.numberOfUsers') }}<span *ngIf="!(isSeriesMode && selectedSeriesParameter === 'numberOfUsers')">*</span></mat-label>
           <input matInput type="number" formControlName="numberOfUsers" 
                  [disabled]="isSeriesMode && selectedSeriesParameter === 'numberOfUsers'">
-          <mat-error *ngIf="f['numberOfUsers'].errors?.['required']">Anzahl Nutzer ist erforderlich.</mat-error>
-          <mat-error *ngIf="f['numberOfUsers'].errors?.['min']">Mindestens 1 Nutzer erforderlich.</mat-error>
+           <mat-error *ngIf="f['numberOfUsers'].errors?.['required']">{{ translate('simulation.numberOfUsersRequired') }}</mat-error>
+           <mat-error *ngIf="f['numberOfUsers'].errors?.['min']">{{ translate('simulation.numberOfUsersMin') }}</mat-error>
         </mat-form-field>
       </div>
       <div class="col-md-4">
@@ -50,8 +50,8 @@
           <mat-label>{{ translate('simulation.requestsPerMonth') }}<span *ngIf="!(isSeriesMode && selectedSeriesParameter === 'numberOfRequests')">*</span></mat-label>
           <input matInput type="number" formControlName="numberOfRequests"
                  [disabled]="isSeriesMode && selectedSeriesParameter === 'numberOfRequests'">
-           <mat-error *ngIf="f['numberOfRequests'].errors?.['required']">Anzahl Anfragen ist erforderlich.</mat-error>
-           <mat-error *ngIf="f['numberOfRequests'].errors?.['min']">Mindestens 0 Anfragen erforderlich.</mat-error>
+           <mat-error *ngIf="f['numberOfRequests'].errors?.['required']">{{ translate('simulation.numberOfRequestsRequired') }}</mat-error>
+           <mat-error *ngIf="f['numberOfRequests'].errors?.['min']">{{ translate('simulation.numberOfRequestsMin') }}</mat-error>
         </mat-form-field>
       </div>
       <div class="col-md-4">
@@ -59,8 +59,8 @@
           <mat-label>{{ translate('simulation.aiScore') }}<span *ngIf="!(isSeriesMode && selectedSeriesParameter === 'aiScore')">*</span></mat-label>
           <input matInput type="number" formControlName="aiScore"
                  [disabled]="isSeriesMode && selectedSeriesParameter === 'aiScore'">
-          <mat-error *ngIf="f['aiScore'].errors?.['required']">KI-Score ist erforderlich.</mat-error>
-          <mat-error *ngIf="f['aiScore'].errors?.['min'] || f['aiScore'].errors?.['max']">Score muss zwischen 0 und 100 liegen.</mat-error>
+          <mat-error *ngIf="f['aiScore'].errors?.['required']">{{ translate('simulation.aiScoreRequired') }}</mat-error>
+          <mat-error *ngIf="f['aiScore'].errors?.['min'] || f['aiScore'].errors?.['max']">{{ translate('simulation.aiScoreRange') }}</mat-error>
         </mat-form-field>
       </div>
     </div>
@@ -72,8 +72,8 @@
               <mat-label>{{ translate('simulation.monthlyPricePerUser') }}<span *ngIf="!(isSeriesMode && selectedSeriesParameter === 'pricePerUser')">*</span></mat-label>
               <input matInput type="number" formControlName="pricePerUser" min="0" step="0.01"
                      [disabled]="isSeriesMode && selectedSeriesParameter === 'pricePerUser'">
-              <mat-error *ngIf="f['pricePerUser'].errors?.['required']">Preis pro Nutzer ist erforderlich.</mat-error>
-              <mat-error *ngIf="f['pricePerUser'].errors?.['min']">Preis darf nicht negativ sein.</mat-error>
+              <mat-error *ngIf="f['pricePerUser'].errors?.['required']">{{ translate('simulation.pricePerUserRequired') }}</mat-error>
+              <mat-error *ngIf="f['pricePerUser'].errors?.['min']">{{ translate('simulation.priceNonNegative') }}</mat-error>
             </mat-form-field>
           </div>
           <div class="col-md-4">
@@ -81,8 +81,8 @@
               <mat-label>{{ translate('simulation.pricePerRequest') }}<span *ngIf="!(isSeriesMode && selectedSeriesParameter === 'pricePerRequest')">*</span></mat-label>
               <input matInput type="number" formControlName="pricePerRequest" min="0" step="0.001"
                      [disabled]="isSeriesMode && selectedSeriesParameter === 'pricePerRequest'">
-              <mat-error *ngIf="f['pricePerRequest'].errors?.['required']">Preis pro Anfrage ist erforderlich.</mat-error>
-              <mat-error *ngIf="f['pricePerRequest'].errors?.['min']">Preis darf nicht negativ sein.</mat-error>
+              <mat-error *ngIf="f['pricePerRequest'].errors?.['required']">{{ translate('simulation.pricePerRequestRequired') }}</mat-error>
+              <mat-error *ngIf="f['pricePerRequest'].errors?.['min']">{{ translate('simulation.priceNonNegative') }}</mat-error>
             </mat-form-field>
           </div>
            <div class="col-md-4">
@@ -91,8 +91,8 @@
                 <mat-label>{{ translate('simulation.aiScoreReferencePrice') }}<span *ngIf="!(isSeriesMode && selectedSeriesParameter === 'aiScoreReferencePrice')">*</span></mat-label>
                 <input matInput type="number" formControlName="aiScoreReferencePrice" min="0" step="0.0001"
                        [disabled]="isSeriesMode && selectedSeriesParameter === 'aiScoreReferencePrice'">
-                <mat-error *ngIf="f['aiScoreReferencePrice'].errors?.['required']">Referenzpreis ist erforderlich.</mat-error>
-                <mat-error *ngIf="f['aiScoreReferencePrice'].errors?.['min']">Preis darf nicht negativ sein.</mat-error>
+                <mat-error *ngIf="f['aiScoreReferencePrice'].errors?.['required']">{{ translate('simulation.aiScoreReferencePriceRequired') }}</mat-error>
+                <mat-error *ngIf="f['aiScoreReferencePrice'].errors?.['min']">{{ translate('simulation.priceNonNegative') }}</mat-error>
               </mat-form-field>
            </div>
     </div>

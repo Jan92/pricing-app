@@ -40,6 +40,18 @@ table tbody tr:hover {
   background-color: #e9ecef;
 }
 
+/* Fix mat-error spacing to prevent overlap */
+mat-form-field {
+  margin-bottom: 1.5rem;
+}
+
+mat-error {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  display: block;
+  min-height: 1.2rem;
+}
+
 /* Removed styles specific to old form elements like .text-danger.small */
 
 @media (max-width: 600px) {
