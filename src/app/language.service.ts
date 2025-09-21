@@ -107,10 +107,15 @@ export class LanguageService {
       
       // Criterion Names
       'criteria.sourceVariety': 'Datenquellenvielfalt',
+      'criteria.sourceVarietyDesc': 'Anzahl der genutzten Datentypen',
       'criteria.dataIntegrity': 'Datenintegrität',
+      'criteria.dataIntegrityDesc': 'Grad der Vollständigkeit und Konsistenz der verarbeitbaren Eingangsdaten',
       'criteria.dataComplexityLevel': 'Datenkomplexität',
+      'criteria.dataComplexityLevelDesc': 'Schwierigkeitsgrad bei der Interpretation der Daten',
       'criteria.dataLinking': 'Datenverknüpfung',
+      'criteria.dataLinkingDesc': 'Fähigkeit, mehrere Datenquellen in einer Analyse zu kombinieren',
       'criteria.dataVolume': 'Datenvolumen',
+      'criteria.dataVolumeDesc': 'Menge der Daten pro Analyse',
       'criteria.diseaseRarity': 'Seltenheit der Erkrankung',
       'criteria.diagnosticAmbiguity': 'Diagnostische Mehrdeutigkeit',
       'criteria.prognosticUncertainty': 'Prognostische Unsicherheit',
@@ -201,6 +206,7 @@ export class LanguageService {
       'pricing.complexity.aiScoreError': 'Bitte geben Sie einen gültigen Score zwischen 20 und 100 ein',
       'pricing.complexity.score': 'Komplexitäts-Score',
       'pricing.complexity.scoreSubtitle': 'Gesamtbewertung der Komplexität',
+      'pricing.complexity.evaluationDescription': 'Bewerten Sie die folgenden Aspekte auf einer Skala von 1 (niedrig) bis 5 (hoch):',
       
       // Series Simulation
       'series.noSimulations': 'Noch keine Seriensimulationen durchgeführt oder vorhanden.',
@@ -215,6 +221,14 @@ export class LanguageService {
       'series.totalScore': 'Gesamtpunktzahl',
       'series.score': 'Score',
       'series.originalValues': 'Ursprüngliche Werte',
+      
+      // Series Parameter Options
+      'series.numberOfUsers': 'Anzahl Nutzer',
+      'series.numberOfRequests': 'Anzahl Anfragen pro Monat',
+      'series.aiScore': 'KI-Score',
+      'series.pricePerUser': 'Monatlicher Preis pro Nutzer (€)',
+      'series.pricePerRequest': 'Preis pro Anfrage (€)',
+      'series.aiScoreReferencePrice': 'KI Score Referenzpreis (€)',
       
       // Simulation Parameters (erweiterte Übersetzungen)
       'simulation.seriesSettings': 'Einstellungen für Seriensimulation',
@@ -658,10 +672,15 @@ export class LanguageService {
       
       // Criterion Names
       'criteria.sourceVariety': 'Data Source Diversity',
+      'criteria.sourceVarietyDesc': 'Number of data types used',
       'criteria.dataIntegrity': 'Data Integrity',
+      'criteria.dataIntegrityDesc': 'Degree of completeness and consistency of processable input data',
       'criteria.dataComplexityLevel': 'Data Complexity',
+      'criteria.dataComplexityLevelDesc': 'Difficulty level in interpreting the data',
       'criteria.dataLinking': 'Data Linkage',
+      'criteria.dataLinkingDesc': 'Ability to combine multiple data sources in an analysis',
       'criteria.dataVolume': 'Data Volume',
+      'criteria.dataVolumeDesc': 'Amount of data per analysis',
       'criteria.diseaseRarity': 'Disease Rarity',
       'criteria.diagnosticAmbiguity': 'Diagnostic Ambiguity',
       'criteria.prognosticUncertainty': 'Prognostic Uncertainty',
@@ -752,6 +771,7 @@ export class LanguageService {
       'pricing.complexity.aiScoreError': 'Please enter a valid score between 20 and 100',
       'pricing.complexity.score': 'Complexity Score',
       'pricing.complexity.scoreSubtitle': 'Overall complexity assessment',
+      'pricing.complexity.evaluationDescription': 'Rate the following aspects on a scale from 1 (low) to 5 (high):',
       
       // Series Simulation
       'series.noSimulations': 'No series simulations performed or available yet.',
@@ -766,6 +786,14 @@ export class LanguageService {
       'series.totalScore': 'Total Score',
       'series.score': 'Score',
       'series.originalValues': 'Original Values',
+      
+      // Series Parameter Options
+      'series.numberOfUsers': 'Number of Users',
+      'series.numberOfRequests': 'Number of Requests per Month',
+      'series.aiScore': 'AI-Score',
+      'series.pricePerUser': 'Monthly Price per User (€)',
+      'series.pricePerRequest': 'Price per Request (€)',
+      'series.aiScoreReferencePrice': 'AI Score Reference Price (€)',
       
       // Price Simulation
       'simulation.title': 'Price Simulation',

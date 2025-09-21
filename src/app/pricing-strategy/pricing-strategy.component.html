@@ -81,7 +81,7 @@
               <mat-label>{{ translate('pricing.developmentCosts') }} *</mat-label>
               <input matInput type="number" formControlName="developmentCosts" required>
               <span matSuffix>€</span>
-              <mat-icon matSuffix matTooltip="Einmalige Kosten für die Entwicklung des Systems">info</mat-icon>
+              <mat-icon matSuffix [matTooltip]="translate('pricing.developmentCostsTooltip')">info</mat-icon>
               <mat-error *ngIf="pricingForm.get('developmentCosts')?.invalid && pricingForm.get('developmentCosts')?.touched">
                 Bitte geben Sie die Entwicklungskosten ein
               </mat-error>
@@ -93,7 +93,7 @@
               <mat-label>{{ translate('pricing.costPerUsage') }} *</mat-label>
               <input matInput type="number" formControlName="costPerUsage" required>
               <span matSuffix>€</span>
-              <mat-icon matSuffix matTooltip="Variable Kosten pro Analyse (z.B. Cloud-Infrastruktur)">info</mat-icon>
+              <mat-icon matSuffix [matTooltip]="translate('pricing.costPerUsageTooltip')">info</mat-icon>
               <mat-error *ngIf="pricingForm.get('costPerUsage')?.invalid && pricingForm.get('costPerUsage')?.touched">
                 Bitte geben Sie die Kosten pro Nutzung ein
               </mat-error>
@@ -287,85 +287,69 @@
 
         <!-- Detaillierte Bewertung -->
         <div *ngIf="pricingForm.get('complexityInputMethod')?.value === 'detailed'">
-          <p class="complexity-description">Bewerten Sie die folgenden Aspekte auf einer Skala von 1 (niedrig) bis 5 (hoch):</p>
+          <p class="complexity-description">{{ translate('pricing.complexity.evaluationDescription') }}</p>
 
         <!-- 1. Datenkomplexität und -vielfalt -->
-        <h4>1. Datenkomplexität und -vielfalt</h4>
+        <h4>1. {{ translate('dimensions.dataComplexity') }}</h4>
         <div class="complexity-grid">
           <div class="form-group">
-            <label class="form-label">Datenquellenvielfalt (Anzahl der genutzten Datentypen.) *</label>
+            <label class="form-label">{{ translate('criteria.sourceVariety') }} ({{ translate('criteria.sourceVarietyDesc') }}) *</label>
             <div class="score-options flex">
               <label class="score-label" [class.selected]="pricingForm.get('dataSourceDiversity')?.value === '1'">
                 <input type="radio" formControlName="dataSourceDiversity" value="1" class="ng-untouched ng-pristine ng-valid">
-                <span>1 Nur ein Datentyp (z.B. Labordaten).</span>
+                <span>1 {{ translate('properties.dataSourceDiversity.scoreLabels.1') }}</span>
               </label>
               <label class="score-label" [class.selected]="pricingForm.get('dataSourceDiversity')?.value === '2'">
                 <input type="radio" formControlName="dataSourceDiversity" value="2" class="ng-untouched ng-pristine ng-valid">
-                <span>2 Unterdurchschnittlich</span>
+                <span>2 {{ translate('properties.dataSourceDiversity.scoreLabels.2') }}</span>
               </label>
               <label class="score-label" [class.selected]="pricingForm.get('dataSourceDiversity')?.value === '3'">
                 <input type="radio" formControlName="dataSourceDiversity" value="3" class="ng-untouched ng-pristine ng-valid">
-                <span>3 Durchschnittlich</span>
+                <span>3 {{ translate('properties.dataSourceDiversity.scoreLabels.3') }}</span>
               </label>
               <label class="score-label" [class.selected]="pricingForm.get('dataSourceDiversity')?.value === '4'">
                 <input type="radio" formControlName="dataSourceDiversity" value="4" class="ng-untouched ng-pristine ng-valid">
-                <span>4 Überdurchschnittlich</span>
+                <span>4 {{ translate('properties.dataSourceDiversity.scoreLabels.4') }}</span>
               </label>
               <label class="score-label" [class.selected]="pricingForm.get('dataSourceDiversity')?.value === '5'">
                 <input type="radio" formControlName="dataSourceDiversity" value="5" class="ng-untouched ng-pristine ng-valid">
-                <span>5 Fünf oder mehr Datentypen (z.B. Bild-, Text-, und Genomdaten).</span>
+                <span>5 {{ translate('properties.dataSourceDiversity.scoreLabels.5') }}</span>
               </label>
             </div>
           </div>
 
           <div class="form-group">
-            <label class="form-label">Datenintegrität (Grad der Vollständigkeit und Konsistenz der verarbeitbaren Eingangsdaten.) *</label>
+            <label class="form-label">{{ translate('criteria.dataIntegrity') }} ({{ translate('criteria.dataIntegrityDesc') }}) *</label>
             <div class="score-options flex">
               <label class="score-label" [class.selected]="pricingForm.get('dataIntegrity')?.value === '1'">
                 <input type="radio" formControlName="dataIntegrity" value="1" class="ng-untouched ng-pristine ng-valid">
-                <span>1 Nur ein Teil der Eingangsdaten kann verarbeitet werden.</span>
+                <span>1 {{ getScoreLabel('dataIntegrity', 1) }}</span>
               </label>
               <label class="score-label" [class.selected]="pricingForm.get('dataIntegrity')?.value === '2'">
                 <input type="radio" formControlName="dataIntegrity" value="2" class="ng-untouched ng-pristine ng-valid">
-                <span>2 Unterdurchschnittlich</span>
+                <span>2 {{ getScoreLabel('dataIntegrity', 2) }}</span>
               </label>
               <label class="score-label" [class.selected]="pricingForm.get('dataIntegrity')?.value === '3'">
                 <input type="radio" formControlName="dataIntegrity" value="3" class="ng-untouched ng-pristine ng-valid">
-                <span>3 Durchschnittlich</span>
+                <span>3 {{ getScoreLabel('dataIntegrity', 3) }}</span>
               </label>
               <label class="score-label" [class.selected]="pricingForm.get('dataIntegrity')?.value === '4'">
                 <input type="radio" formControlName="dataIntegrity" value="4" class="ng-untouched ng-pristine ng-valid">
-                <span>4 Überdurchschnittlich</span>
+                <span>4 {{ getScoreLabel('dataIntegrity', 4) }}</span>
               </label>
               <label class="score-label" [class.selected]="pricingForm.get('dataIntegrity')?.value === '5'">
                 <input type="radio" formControlName="dataIntegrity" value="5" class="ng-untouched ng-pristine ng-valid">
-                <span>5 Daten sind nahezu vollständig und konsistent verarbeitbar.</span>
+                <span>5 {{ getScoreLabel('dataIntegrity', 5) }}</span>
               </label>
             </div>
           </div>
 
           <div class="form-group">
-            <label class="form-label">Datenkomplexität (Schwierigkeitsgrad bei der Interpretation der Daten.) *</label>
+            <label class="form-label">{{ translate('criteria.dataComplexityLevel') }} ({{ translate('criteria.dataComplexityLevelDesc') }}) *</label>
             <div class="score-options flex">
-              <label class="score-label" [class.selected]="pricingForm.get('dataComplexity')?.value === '1'">
-                <input type="radio" formControlName="dataComplexity" value="1" class="ng-untouched ng-pristine ng-valid">
-                <span>1 Strukturiert, leicht interpretierbar (z.B. numerische Labordaten).</span>
-              </label>
-              <label class="score-label" [class.selected]="pricingForm.get('dataComplexity')?.value === '2'">
-                <input type="radio" formControlName="dataComplexity" value="2" class="ng-untouched ng-pristine ng-valid">
-                <span>2 Unterdurchschnittlich</span>
-              </label>
-              <label class="score-label" [class.selected]="pricingForm.get('dataComplexity')?.value === '3'">
-                <input type="radio" formControlName="dataComplexity" value="3" class="ng-untouched ng-pristine ng-valid">
-                <span>3 Durchschnittlich</span>
-              </label>
-              <label class="score-label" [class.selected]="pricingForm.get('dataComplexity')?.value === '4'">
-                <input type="radio" formControlName="dataComplexity" value="4" class="ng-untouched ng-pristine ng-valid">
-                <span>4 Überdurchschnittlich</span>
-              </label>
-              <label class="score-label" [class.selected]="pricingForm.get('dataComplexity')?.value === '5'">
-                <input type="radio" formControlName="dataComplexity" value="5" class="ng-untouched ng-pristine ng-valid">
-                <span>5 Unstrukturierte oder hochkomplexe Daten (z.B. freier Text oder verrauschte Daten).</span>
+              <label *ngFor="let score of [1,2,3,4,5]" class="score-label" [class.selected]="pricingForm.get('dataComplexity')?.value === score.toString()">
+                <input type="radio" formControlName="dataComplexity" [value]="score" class="ng-untouched ng-pristine ng-valid">
+                <span>{{ score }} {{ getScoreLabel('dataComplexityLevel', score) }}</span>
               </label>
             </div>
           </div>

@@ -351,6 +351,11 @@ export class PricingStrategyComponent implements OnInit {
     return this.languageService.translate(key);
   }
 
+  // Helper method to get score labels for complexity evaluation
+  getScoreLabel(criterionId: string, score: number): string {
+    return this.languageService.translate(`properties.${criterionId}.scoreLabels.${score}`);
+  }
+
   nextPhase() {
     if (!this.validateCurrentPhase()) {
       return;

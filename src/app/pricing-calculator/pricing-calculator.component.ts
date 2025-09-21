@@ -41,14 +41,7 @@ export class PricingCalculatorComponent implements OnInit {
 
   // Series Simulation Properties for PricingCalculator
   isSeriesMode: boolean = false;
-  seriesParameterOptions: { value: string, label: string }[] = [
-    { value: 'numberOfUsers', label: 'Anzahl Nutzer' },
-    { value: 'numberOfRequests', label: 'Anzahl Anfragen pro Monat' },
-    { value: 'aiScore', label: 'KI-Score' },
-    { value: 'pricePerUser', label: 'Monatlicher Preis pro Nutzer (€)' },
-    { value: 'pricePerRequest', label: 'Preis pro Anfrage (€)' },
-    { value: 'aiScoreReferencePrice', label: 'KI Score Referenzpreis (€)' }
-  ];
+  seriesParameterOptions: { value: string, label: string }[] = [];
   selectedSeriesParameter: string = 'numberOfUsers'; // Default selection
   seriesValuesString: string = ''; // e.g., "10, 50, 100"
   
@@ -82,10 +75,65 @@ export class PricingCalculatorComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadHistory();
+    this.initializeSeriesParameterOptions();
+  }
+
+  initializeSeriesParameterOptions(): void {
+    this.seriesParameterOptions = [
+      { value: 'numberOfUsers', label: this.translate('series.numberOfUsers') },
+      { value: 'numberOfRequests', label: this.translate('series.numberOfRequests') },
+      { value: 'aiScore', label: this.translate('series.aiScore') },
+      { value: 'pricePerUser', label: this.translate('series.pricePerUser') },
+      { value: 'pricePerRequest', label: this.translate('series.pricePerRequest') },
+      { value: 'aiScoreReferencePrice', label: this.translate('series.aiScoreReferencePrice') }
+    ];
+  }
+
+  // Method to handle series mode toggle
+  onSeriesModeToggle(): void {
+    this.updateValidation();
+  }
+
+  // Method to handle series parameter change
+  onSeriesParameterChange(): void {
+    this.updateValidation();
   }
 
   loadHistory(): void {
     this.simulationHistory = this.simulationService.getSimulationHistory();
+  }
+
+  updateValidation(): void {
+    if (this.isSeriesMode && this.selectedSeriesParameter) {
+      // Remove required validation from the field that's being varied
+      const fieldToDisable = this.simulationForm.get(this.selectedSeriesParameter);
+      if (fieldToDisable) {
+        fieldToDisable.clearValidators();
+        // Keep min validators but remove required
+        if (this.selectedSeriesParameter === 'numberOfUsers') {
+          fieldToDisable.setValidators([Validators.min(1)]);
+        } else if (this.selectedSeriesParameter === 'aiScore') {
+          fieldToDisable.setValidators([Validators.min(0), Validators.max(100)]);
+        } else {
+          fieldToDisable.setValidators([Validators.min(0)]);
+        }
+        fieldToDisable.setValue(0); // Set a default value
+        fieldToDisable.updateValueAndValidity();
+      }
+    } else {
+      // Restore required validation for all fields
+      this.simulationForm.get('numberOfUsers')?.setValidators([Validators.required, Validators.min(1)]);
+      this.simulationForm.get('numberOfRequests')?.setValidators([Validators.required, Validators.min(0)]);
+      this.simulationForm.get('aiScore')?.setValidators([Validators.required, Validators.min(0), Validators.max(100)]);
+      this.simulationForm.get('pricePerUser')?.setValidators([Validators.required, Validators.min(0)]);
+      this.simulationForm.get('pricePerRequest')?.setValidators([Validators.required, Validators.min(0)]);
+      this.simulationForm.get('aiScoreReferencePrice')?.setValidators([Validators.required, Validators.min(0)]);
+      
+      // Update validity for all fields
+      Object.keys(this.simulationForm.controls).forEach(key => {
+        this.simulationForm.get(key)?.updateValueAndValidity();
+      });
+    }
   }
 
   onSubmit(): void {
@@ -120,25 +168,35 @@ export class PricingCalculatorComponent implements OnInit {
                                   Math.max(0, Math.min(100, Math.round(val * scenario.multiplier))) :
                                   Math.max(0, Math.round(val * scenario.multiplier)); // Ensure aiScore is within 0-100, others >= 0
 
-            const tempFormValue = { ...formValue }; // Create a copy of base form values
-            tempFormValue[this.selectedSeriesParameter] = scenarioValue;
+            // Create base input with current form values, but override the varying parameter
+            const baseInput: SimulationInput = {
+              numberOfUsers: formValue.numberOfUsers,
+              numberOfRequests: formValue.numberOfRequests,
+              aiScore: formValue.aiScore,
+              pricePerUser: formValue.pricePerUser,
+              pricePerRequest: formValue.pricePerRequest,
+              aiScoreReferencePrice: formValue.aiScoreReferencePrice,
+              description: formValue.description
+            };
+
+            // Override the varying parameter with the scenario value
+            (baseInput as any)[this.selectedSeriesParameter] = scenarioValue;
 
             const input: SimulationInput = {
-              numberOfUsers: tempFormValue.numberOfUsers,
-              numberOfRequests: tempFormValue.numberOfRequests,
-              aiScore: tempFormValue.aiScore,
-              pricePerUser: tempFormValue.pricePerUser,
-              pricePerRequest: tempFormValue.pricePerRequest,
-              aiScoreReferencePrice: tempFormValue.aiScoreReferencePrice,
-              // Description for series runs could be auto-generated or omitted for simplicity here
+              numberOfUsers: baseInput.numberOfUsers,
+              numberOfRequests: baseInput.numberOfRequests,
+              aiScore: baseInput.aiScore,
+              pricePerUser: baseInput.pricePerUser,
+              pricePerRequest: baseInput.pricePerRequest,
+              aiScoreReferencePrice: baseInput.aiScoreReferencePrice,
               description: `${formValue.description || 'Series'} (${this.seriesParameterOptions.find(p=>p.value === this.selectedSeriesParameter)?.label}: ${scenarioValue}, ${scenario.type})` 
             };
 
             const simResult = this.simulationService.runSimulation(
               input,
-              tempFormValue.calculateMonthly,
-              tempFormValue.calculateVolume,
-              tempFormValue.calculateAiScore
+              formValue.calculateMonthly,
+              formValue.calculateVolume,
+              formValue.calculateAiScore
             );
             scenariosForValue.push({ type: scenario.type, value: scenarioValue, result: simResult });
           });
