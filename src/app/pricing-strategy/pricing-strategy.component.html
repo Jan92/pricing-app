@@ -12,7 +12,7 @@
            [class.completed]="isPhaseCompleted(i)"
            (click)="jumpToPhase(i)">
         <div class="step-number">{{ i + 1 }}</div>
-        <div class="step-label">{{ phase }}</div>
+        <div class="step-label">{{ translate(phase) }}</div>
       </div>
     </div>
     <div class="progress-bar">
