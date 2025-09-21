@@ -48,6 +48,12 @@ export class ScoreManagementComponent implements OnInit {
     return this.languageService.translate(key);
   }
 
+  getTranslatedScoreName(scoreName: string): string {
+    // Try to translate the score name, fallback to original if no translation exists
+    const translated = this.languageService.translate(scoreName);
+    return translated !== scoreName ? translated : scoreName;
+  }
+
   editScore(evaluationId: string): void {
     this.router.navigate(['/input', { evaluationId }]);
   }

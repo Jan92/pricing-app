@@ -6,7 +6,7 @@
     <div *ngIf="results.length > 0; else noResults">
       <div *ngFor="let result of results" class="score-mobile-card mat-elevation-z2">
         <div class="score-mobile-row">
-          <strong>{{ translate('score.name') }}:</strong> <span>{{ result.name || result.evaluationId }}</span>
+          <strong>{{ translate('score.name') }}:</strong> <span>{{ getTranslatedScoreName(result.name || result.evaluationId) }}</span>
         </div>
         <div class="score-mobile-row">
           <strong>{{ translate('score.totalScore') }}:</strong> <span>{{ result.totalScore }}</span>
@@ -42,7 +42,7 @@
         <!-- Evaluation ID Column -->
         <ng-container matColumnDef="evaluationId">
           <th mat-header-cell *matHeaderCellDef>{{ translate('score.name') }}</th>
-          <td mat-cell *matCellDef="let result">{{ result.name || result.evaluationId }}</td>
+          <td mat-cell *matCellDef="let result">{{ getTranslatedScoreName(result.name || result.evaluationId) }}</td>
         </ng-container>
 
         <!-- Total Score Column -->

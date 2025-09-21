@@ -17,14 +17,6 @@ export class ScoreService {
   private scoreResults = new BehaviorSubject<ScoreResult[]>([]);
   private seriesSimulationRuns = new BehaviorSubject<SeriesSimulationRun[]>([]);
 
-  // Default scale labels used when no custom labels are defined
-  private defaultScaleLabels = {
-    1: 'Niedrig',
-    2: 'Unterdurchschnittlich',
-    3: 'Durchschnittlich',
-    4: 'Überdurchschnittlich',
-    5: 'Hoch'
-  };
 
   constructor(private languageService: LanguageService) { 
     // Preconfigured scores
@@ -600,38 +592,10 @@ export class ScoreService {
 
   // Helper to get a descriptive label for a score value
   getScoreLabel(dimensionId: string, criterionId: string, score: number): string {
-    const dimensions = this.dimensionsSubject.getValue();
-    const dimension = dimensions.find(d => d.id === dimensionId);
-    const criterion = dimension?.criteria.find((c: Criterion) => c.id === criterionId);
-    
-    // Try to get translated label first
-    const translatedLabel = this.getTranslatedScoreLabel(dimensionId, criterionId, score);
-    if (translatedLabel) {
-      return translatedLabel;
-    }
-    
-    // Fallback to original scale or default labels
-    return criterion?.scale[score] || this.defaultScaleLabels[score as keyof typeof this.defaultScaleLabels] || `Score ${score}`;
+    // Always use translated score labels
+    return this.languageService.translate(`common.scoreLabels.${score}`);
   }
 
-  // Helper to get translated score labels
-  private getTranslatedScoreLabel(dimensionId: string, criterionId: string, score: number): string | null {
-    const currentLang = this.languageService.getCurrentLanguage();
-    
-    // Try to get criterion-specific score labels first
-    const criterionScoreLabels = this.languageService.translate(`properties.${criterionId}.scoreLabels`) as any;
-    if (criterionScoreLabels && typeof criterionScoreLabels === 'object' && criterionScoreLabels[score.toString()]) {
-      return criterionScoreLabels[score.toString()];
-    }
-    
-    // Fallback to generic score labels
-    const scoreLabels = this.languageService.translate('input.scoreLabels') as any;
-    if (scoreLabels && typeof scoreLabels === 'object' && scoreLabels[score.toString()]) {
-      return scoreLabels[score.toString()];
-    }
-    
-    return null;
-  }
 
   private getTranslatedScoreName(evaluationId: string): string {
     const translationKey = `examples.${evaluationId.replace(/-/g, '')}`;

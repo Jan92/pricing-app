@@ -486,7 +486,7 @@ export class PricingStrategyComponent implements OnInit {
         } else if (formControl?.hasError('max')) {
           return `${this.getFieldLabel(control)} darf maximal ${formControl.errors?.['max'].max} sein`;
         }
-        return `${this.getFieldLabel(control)} ist ungültig`;
+        return `${this.getFieldLabel(control)} ${this.translate('pricing.validation.invalidField')}`;
       });
 
       this.snackBar.open(errorMessages.join('\n'), 'OK', {
@@ -524,29 +524,29 @@ export class PricingStrategyComponent implements OnInit {
     switch (pricingModel) {
       case 'license':
         if (!formValue.basePrice || formValue.basePrice <= 0) {
-          errorMessage = 'Bitte geben Sie einen gültigen Basispreis für das Lizenzmodell ein';
+          errorMessage = this.translate('pricing.validation.validBasePrice');
           isValid = false;
         }
         break;
       case 'usage':
         if (!formValue.basePrice || formValue.basePrice <= 0) {
-          errorMessage = 'Bitte geben Sie einen gültigen Preis pro Nutzung ein';
+          errorMessage = this.translate('pricing.validation.validUsagePrice');
           isValid = false;
         }
         break;
       case 'hybrid':
         if (!formValue.hybridBaseFee || formValue.hybridBaseFee <= 0) {
-          errorMessage = 'Bitte geben Sie eine gültige Grundgebühr für das Hybrid-Modell ein';
+          errorMessage = this.translate('pricing.validation.validHybridBaseFee');
           isValid = false;
         }
         if (!formValue.hybridUsageFee || formValue.hybridUsageFee <= 0) {
-          errorMessage = 'Bitte geben Sie eine gültige Nutzungsgebühr für das Hybrid-Modell ein';
+          errorMessage = this.translate('pricing.validation.validHybridUsageFee');
           isValid = false;
         }
         break;
       case 'dacs':
         if (!formValue.dacsBasePrice || formValue.dacsBasePrice <= 0) {
-          errorMessage = 'Bitte geben Sie einen gültigen Basispreis für das DACS-Modell ein';
+          errorMessage = this.translate('pricing.validation.validDacsBasePrice');
           isValid = false;
         }
         break;

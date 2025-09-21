@@ -1350,23 +1350,23 @@
 
         <!-- Preismodell-Auswahl -->
         <mat-divider style="margin: 20px 0;"></mat-divider>
-        <h3>Preismodell</h3>
+        <h3>{{ translate('pricing.businessModel.pricingModel') }}</h3>
         
         <div class="form-group">
-          <label class="form-label">Preismodell *</label>
+          <label class="form-label">{{ translate('pricing.businessModel.pricingModel') }} *</label>
           <mat-radio-group formControlName="pricingModel" class="radio-group" required>
             <div class="radio-option" [class.selected]="pricingForm.get('pricingModel')?.value === 'license'" (click)="pricingForm.get('pricingModel')?.setValue('license')">
               <mat-radio-button value="license">
                 <div class="radio-text">
-                  <strong>Feste Lizenzgebühr</strong>
-                  <small>Jährliche oder monatliche Pauschalgebühr</small>
+                  <strong>{{ translate('pricing.businessModel.pricingModel.fixed') }}</strong>
+                  <small>{{ translate('pricing.businessModel.pricingModel.fixedDesc') }}</small>
                 </div>
               </mat-radio-button>
             </div>
             <div class="radio-option" [class.selected]="pricingForm.get('pricingModel')?.value === 'usage'" (click)="pricingForm.get('pricingModel')?.setValue('usage')">
               <mat-radio-button value="usage">
                 <div class="radio-text">
-                  <strong>Nutzungsbasiert</strong>
+                  <strong>{{ translate('pricing.businessModel.pricingModel.usage') }}</strong>
                   <small>{{ translate('pricing.businessModel.pricingModel.usageDesc') }}</small>
                 </div>
               </mat-radio-button>
@@ -1374,7 +1374,7 @@
             <div class="radio-option" [class.selected]="pricingForm.get('pricingModel')?.value === 'hybrid'" (click)="pricingForm.get('pricingModel')?.setValue('hybrid')">
               <mat-radio-button value="hybrid">
                 <div class="radio-text">
-                  <strong>Hybrid-Modell</strong>
+                  <strong>{{ translate('pricing.businessModel.pricingModel.hybrid') }}</strong>
                   <small>{{ translate('pricing.businessModel.pricingModel.hybridDesc') }}</small>
                 </div>
               </mat-radio-button>
@@ -1382,14 +1382,14 @@
             <div class="radio-option" [class.selected]="pricingForm.get('pricingModel')?.value === 'dacs'" (click)="pricingForm.get('pricingModel')?.setValue('dacs')">
               <mat-radio-button value="dacs">
                 <div class="radio-text">
-                  <strong>Komplexitätsabhängig (DACS)</strong>
-                  <small>Preis abhängig von der Fallkomplexität</small>
+                  <strong>{{ translate('pricing.businessModel.pricingModel.dacs') }}</strong>
+                  <small>{{ translate('pricing.businessModel.pricingModel.dacsDesc') }}</small>
                 </div>
               </mat-radio-button>
             </div>
           </mat-radio-group>
           <mat-error *ngIf="pricingForm.get('pricingModel')?.invalid && pricingForm.get('pricingModel')?.touched">
-            Bitte wählen Sie ein Preismodell
+            {{ translate('pricing.businessModel.pricingModel') }} {{ translate('common.fillAllFields') }}
           </mat-error>
         </div>
 
@@ -1410,7 +1410,7 @@
 
           <!-- Nutzungsbasiert -->
           <div class="pricing-section" *ngIf="pricingForm.get('pricingModel')?.value === 'usage'">
-            <h4>Nutzungsbasiert - Preiseingaben</h4>
+            <h4>{{ translate('pricing.businessModel.pricingModel.usage') }} - {{ translate('pricing.businessModel.pricingInputs') }}</h4>
             <div class="form-group">
               <mat-form-field appearance="outline" class="full-width">
                 <mat-label>{{ translate('pricing.businessModel.pricingModel.usage') }}</mat-label>
@@ -1423,7 +1423,7 @@
 
           <!-- Hybrid-Modell -->
           <div class="pricing-section" *ngIf="pricingForm.get('pricingModel')?.value === 'hybrid'">
-            <h4>Hybrid-Modell - Preiseingaben</h4>
+            <h4>{{ translate('pricing.businessModel.pricingModel.hybrid') }} - {{ translate('pricing.businessModel.pricingInputs') }}</h4>
             <div class="hybrid-inputs">
               <mat-form-field appearance="outline" class="full-width">
                 <mat-label>{{ translate('pricing.businessModel.pricingModel.subscription') }}</mat-label>

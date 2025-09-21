@@ -10,13 +10,13 @@
       <mat-accordion>
         <mat-expansion-panel *ngFor="let dim of details.dimensions" class="dimension-panel">
           <mat-expansion-panel-header>
-            <mat-panel-title>{{ dim.name }}</mat-panel-title>
+            <mat-panel-title>{{ getTranslatedDimensionName(dim.name) }}</mat-panel-title>
             <mat-panel-description>{{ translate('output.score') }}: {{ dim.dimensionScore }}</mat-panel-description>
           </mat-expansion-panel-header>
           
           <mat-list>
             <mat-list-item *ngFor="let crit of dim.criteria">
-              <div matListItemTitle>{{ crit.name }}</div>
+              <div matListItemTitle>{{ getTranslatedCriterionName(crit.name) }}</div>
               <div matListItemLine>{{ translate('output.score') }}: {{ crit.scoreValue }} - {{ crit.scoreLabel }}</div>
               <div matListItemLine class="criterion-description">{{ crit.description }}</div>
             </mat-list-item>

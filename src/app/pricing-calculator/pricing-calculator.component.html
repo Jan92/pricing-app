@@ -164,30 +164,30 @@
   <!-- Latest Single Simulation Result (Conditional Display) -->
   <mat-card *ngIf="!isSeriesMode && latestSimulation" class="mb-4">
     <mat-card-header>
-      <mat-card-title>Letztes Simulationsergebnis</mat-card-title>
-      <mat-card-subtitle>ID: {{ latestSimulation.id }} | Simuliert am: {{ latestSimulation.timestamp | date:'medium':'':'de' }}</mat-card-subtitle>
+      <mat-card-title>{{ translate('simulationHistory.lastResult') }}</mat-card-title>
+      <mat-card-subtitle>ID: {{ latestSimulation.id }} | {{ translate('simulationHistory.simulatedOn') }} {{ latestSimulation.timestamp | date:'medium':'':'de' }}</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
-      <h4>Eingabeparameter</h4>
+      <h4>{{ translate('simulationHistory.inputParameters') }}</h4>
       <p>
-        Nutzer: {{ latestSimulation.input.numberOfUsers }} | Anfragen/Monat: {{ latestSimulation.input.numberOfRequests }} | KI-Score: {{ latestSimulation.input.aiScore }} <br>
-        Monatl. Preis/Nutzer: {{ latestSimulation.input.pricePerUser | currency:'EUR' }} | Preis/Anfrage: {{ latestSimulation.input.pricePerRequest | currency:'EUR':'symbol':'1.3-5' }} | KI Score Referenzpreis: {{ latestSimulation.input.aiScoreReferencePrice | currency:'EUR':'symbol':'1.4-6' }}
-        <span *ngIf="latestSimulation.description"><br>Beschreibung: {{ latestSimulation.description }}</span>
+        {{ translate('simulationHistory.users') }} {{ latestSimulation.input.numberOfUsers }} | {{ translate('simulationHistory.requestsPerMonth') }} {{ latestSimulation.input.numberOfRequests }} | {{ translate('simulationHistory.aiScore') }} {{ latestSimulation.input.aiScore }} <br>
+        {{ translate('simulationHistory.monthlyPricePerUser') }} {{ latestSimulation.input.pricePerUser | currency:'EUR' }} | {{ translate('simulationHistory.pricePerRequest') }} {{ latestSimulation.input.pricePerRequest | currency:'EUR':'symbol':'1.3-5' }} | {{ translate('simulationHistory.aiScoreReferencePrice') }} {{ latestSimulation.input.aiScoreReferencePrice | currency:'EUR':'symbol':'1.4-6' }}
+        <span *ngIf="latestSimulation.description"><br>{{ translate('simulationHistory.description') }} {{ latestSimulation.description }}</span>
       </p>
       <hr>
-      <h4>Berechnete Jahreskosten</h4>
+      <h4>{{ translate('simulationHistory.calculatedAnnualCosts') }}</h4>
       <div *ngFor="let result of latestSimulation.results" class="mb-2">
         <div *ngIf="result.cost !== null">
           <strong>
             <ng-container [ngSwitch]="result.modelName">
-              <span *ngSwitchCase="'monthly'">Jahreskosten Miete:</span>
-              <span *ngSwitchCase="'volume'">Jahreskosten Volumenbasiert:</span>
-              <span *ngSwitchCase="'aiScore'">Jahreskosten KI-Score-basiert:</span>
+              <span *ngSwitchCase="'monthly'">{{ translate('simulationHistory.annualRentalCosts') }}</span>
+              <span *ngSwitchCase="'volume'">{{ translate('simulationHistory.annualVolumeBasedCosts') }}</span>
+              <span *ngSwitchCase="'aiScore'">{{ translate('simulationHistory.annualAIScoreBasedCosts') }}</span>
             </ng-container>
           </strong>
           {{ result.cost | currency:'EUR':'symbol':'1.2-2' }}
           <br>
-          <small class="text-muted">Rechenweg: {{ result.calculation }}</small>
+          <small class="text-muted">{{ translate('simulationHistory.calculation') }} {{ result.calculation }}</small>
         </div>
       </div>
     </mat-card-content>
@@ -195,7 +195,7 @@
     <mat-card-actions *ngIf="!isSeriesMode && latestSimulation" class="mt-2 mb-2 pl-2">
         <button mat-stroked-button color="accent" (click)="exportToExcel()">
             <mat-icon>save_alt</mat-icon>
-            Ergebnis als Excel exportieren
+            {{ translate('simulationHistory.exportResult') }}
         </button>
     </mat-card-actions>
   </mat-card>

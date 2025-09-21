@@ -117,4 +117,16 @@ export class ScoreOutputComponent implements OnInit {
   translate(key: string): string {
     return this.languageService.translate(key);
   }
+
+  getTranslatedDimensionName(dimensionName: string): string {
+    // Try to translate the dimension name, fallback to original if no translation exists
+    const translated = this.languageService.translate(dimensionName);
+    return translated !== dimensionName ? translated : dimensionName;
+  }
+
+  getTranslatedCriterionName(criterionName: string): string {
+    // Try to translate the criterion name, fallback to original if no translation exists
+    const translated = this.languageService.translate(criterionName);
+    return translated !== criterionName ? translated : criterionName;
+  }
 }
