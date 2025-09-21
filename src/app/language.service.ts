@@ -12,6 +12,9 @@ export class LanguageService {
 
   private translations = {
     de: {
+      // App
+      'app.title': 'Pricing Simulator',
+      
       // Navigation
       'nav.overview': 'Übersicht Scores',
       'nav.newScore': 'Neuen Score berechnen',
@@ -294,6 +297,24 @@ export class LanguageService {
       'pricing.maintenanceCostsTooltip': 'Jährliche Wartungs- und Updatekosten',
       'pricing.expectedCasesTooltip': 'Erwartete Anzahl der Fälle pro Jahr',
       'pricing.amortizationPeriodTooltip': 'Zeitraum für die Amortisation der Entwicklungskosten',
+      
+      // Cost Inputs Error Messages
+      'pricing.developmentCostsError': 'Bitte geben Sie die Entwicklungskosten ein',
+      'pricing.costPerUsageError': 'Bitte geben Sie die Kosten pro Nutzung ein',
+      'pricing.maintenanceCostsError': 'Bitte geben Sie die Wartungskosten ein',
+      'pricing.expectedCasesError': 'Bitte geben Sie die erwartete Fallzahl ein',
+      'pricing.amortizationPeriodError': 'Bitte geben Sie den Amortisierungszeitraum ein',
+      
+      // Common
+      'common.currency': '€',
+      
+      // Pricing Strategy - Cost Calculation
+      'pricing.costCalculation': 'Kostenberechnung',
+      'pricing.costPerCase': 'Selbstkosten pro Fall',
+      'pricing.calculatedCostPerCase': 'Berechnete Selbstkosten pro Fall',
+      'pricing.amortizedDevelopmentCosts': 'Amortisierte Entwicklungskosten',
+      'pricing.maintenanceCostsPerCase': 'Wartungskosten pro Fall',
+      
       
       // Price Simulation
       'simulation.title': 'Preissimulation',
@@ -628,6 +649,9 @@ export class LanguageService {
       }
     },
     en: {
+      // App
+      'app.title': 'Pricing Simulator',
+      
       // Navigation
       'nav.overview': 'Score Overview',
       'nav.newScore': 'Calculate New Score',
@@ -1241,7 +1265,25 @@ export class LanguageService {
       'pricing.costPerUsageTooltip': 'Costs per usage of the system',
       'pricing.maintenanceCostsTooltip': 'Annual maintenance and update costs',
       'pricing.expectedCasesTooltip': 'Expected number of cases per year',
-      'pricing.amortizationPeriodTooltip': 'Period for amortization of development costs'
+      'pricing.amortizationPeriodTooltip': 'Period for amortization of development costs',
+      
+      // Cost Inputs Error Messages
+      'pricing.developmentCostsError': 'Please enter the development costs',
+      'pricing.costPerUsageError': 'Please enter the cost per usage',
+      'pricing.maintenanceCostsError': 'Please enter the maintenance costs',
+      'pricing.expectedCasesError': 'Please enter the expected number of cases',
+      'pricing.amortizationPeriodError': 'Please enter the amortization period',
+      
+      // Common
+      'common.currency': '€',
+      
+      // Pricing Strategy - Cost Calculation
+      'pricing.costCalculation': 'Cost Calculation',
+      'pricing.costPerCase': 'Cost per Case',
+      'pricing.calculatedCostPerCase': 'Calculated Cost per Case',
+      'pricing.amortizedDevelopmentCosts': 'Amortized Development Costs',
+      'pricing.maintenanceCostsPerCase': 'Maintenance Costs per Case',
+      
     }
   };
 

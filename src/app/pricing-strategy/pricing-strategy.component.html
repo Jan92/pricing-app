@@ -83,7 +83,7 @@
               <span matSuffix>€</span>
               <mat-icon matSuffix [matTooltip]="translate('pricing.developmentCostsTooltip')">info</mat-icon>
               <mat-error *ngIf="pricingForm.get('developmentCosts')?.invalid && pricingForm.get('developmentCosts')?.touched">
-                Bitte geben Sie die Entwicklungskosten ein
+                {{ translate('pricing.developmentCostsError') }}
               </mat-error>
             </mat-form-field>
           </div>
@@ -95,42 +95,42 @@
               <span matSuffix>€</span>
               <mat-icon matSuffix [matTooltip]="translate('pricing.costPerUsageTooltip')">info</mat-icon>
               <mat-error *ngIf="pricingForm.get('costPerUsage')?.invalid && pricingForm.get('costPerUsage')?.touched">
-                Bitte geben Sie die Kosten pro Nutzung ein
+                {{ translate('pricing.costPerUsageError') }}
               </mat-error>
             </mat-form-field>
           </div>
 
           <div class="form-group">
             <mat-form-field appearance="outline" class="full-width">
-              <mat-label>Wartungskosten *</mat-label>
+              <mat-label>{{ translate('pricing.maintenanceCosts') }} *</mat-label>
               <input matInput type="number" formControlName="maintenanceCosts" required>
               <span matSuffix>€</span>
-              <mat-icon matSuffix matTooltip="Jährliche Wartungskosten">info</mat-icon>
+              <mat-icon matSuffix [matTooltip]="translate('pricing.maintenanceCostsTooltip')">info</mat-icon>
               <mat-error *ngIf="pricingForm.get('maintenanceCosts')?.invalid && pricingForm.get('maintenanceCosts')?.touched">
-                Bitte geben Sie die Wartungskosten ein
+                {{ translate('pricing.maintenanceCostsError') }}
               </mat-error>
             </mat-form-field>
           </div>
 
           <div class="form-group">
             <mat-form-field appearance="outline" class="full-width">
-              <mat-label>Erwartete Fälle pro Jahr *</mat-label>
+              <mat-label>{{ translate('pricing.expectedCases') }} *</mat-label>
               <input matInput type="number" formControlName="expectedCasesPerYear" required>
-              <mat-icon matSuffix matTooltip="Anzahl der erwarteten Nutzungen pro Jahr">info</mat-icon>
+              <mat-icon matSuffix [matTooltip]="translate('pricing.expectedCasesTooltip')">info</mat-icon>
               <mat-error *ngIf="pricingForm.get('expectedCasesPerYear')?.invalid && pricingForm.get('expectedCasesPerYear')?.touched">
-                Bitte geben Sie die erwartete Fallzahl ein
+                {{ translate('pricing.expectedCasesError') }}
               </mat-error>
             </mat-form-field>
           </div>
 
           <div class="form-group">
             <mat-form-field appearance="outline" class="full-width">
-              <mat-label>Amortisationszeitraum *</mat-label>
+              <mat-label>{{ translate('pricing.amortizationPeriod') }} *</mat-label>
               <input matInput type="number" formControlName="amortizationPeriod" required>
-              <span matSuffix>Jahre</span>
-              <mat-icon matSuffix matTooltip="Zeitraum für die Amortisation der Entwicklungskosten">info</mat-icon>
+              <span matSuffix>{{ translate('pricing.years') }}</span>
+              <mat-icon matSuffix [matTooltip]="translate('pricing.amortizationPeriodTooltip')">info</mat-icon>
               <mat-error *ngIf="pricingForm.get('amortizationPeriod')?.invalid && pricingForm.get('amortizationPeriod')?.touched">
-                Bitte geben Sie den Amortisierungszeitraum ein
+                {{ translate('pricing.amortizationPeriodError') }}
               </mat-error>
             </mat-form-field>
           </div>
@@ -140,19 +140,19 @@
         <div class="cost-calculation" *ngIf="pricingForm.get('developmentCosts')?.value > 0 || pricingForm.get('costPerUsage')?.value > 0">
           <mat-card class="calculation-card">
             <mat-card-header>
-              <mat-card-title>Kostenberechnung</mat-card-title>
-              <mat-card-subtitle>Selbstkosten pro Fall</mat-card-subtitle>
+              <mat-card-title>{{ translate('pricing.costCalculation') }}</mat-card-title>
+              <mat-card-subtitle>{{ translate('pricing.costPerCase') }}</mat-card-subtitle>
             </mat-card-header>
             <mat-card-content>
               <div class="calculation-result">
-                <span class="result-label">Berechnete Selbstkosten pro Fall:</span>
-                <span class="result-value">{{ calculateCostPerCase() | number:'1.2-2' }} €</span>
+                <span class="result-label">{{ translate('pricing.calculatedCostPerCase') }}:</span>
+                <span class="result-value">{{ calculateCostPerCase() | number:'1.2-2' }} {{ translate('common.currency') }}</span>
               </div>
               <div class="calculation-breakdown">
                 <small>
-                  • Amortisierte Entwicklungskosten: {{ (pricingForm.get('developmentCosts')?.value || 0) / ((pricingForm.get('expectedCasesPerYear')?.value || 100) * (pricingForm.get('amortizationPeriod')?.value || 5)) | number:'1.2-2' }} €<br>
-                  • Kosten pro Nutzung: {{ pricingForm.get('costPerUsage')?.value || 0 | number:'1.2-2' }} €<br>
-                  • Wartungskosten pro Fall: {{ (pricingForm.get('maintenanceCosts')?.value || 0) / (pricingForm.get('expectedCasesPerYear')?.value || 100) | number:'1.2-2' }} €
+                  • {{ translate('pricing.amortizedDevelopmentCosts') }}: {{ (pricingForm.get('developmentCosts')?.value || 0) / ((pricingForm.get('expectedCasesPerYear')?.value || 100) * (pricingForm.get('amortizationPeriod')?.value || 5)) | number:'1.2-2' }} {{ translate('common.currency') }}<br>
+                  • {{ translate('pricing.costPerUsage') }}: {{ pricingForm.get('costPerUsage')?.value || 0 | number:'1.2-2' }} {{ translate('common.currency') }}<br>
+                  • {{ translate('pricing.maintenanceCostsPerCase') }}: {{ (pricingForm.get('maintenanceCosts')?.value || 0) / (pricingForm.get('expectedCasesPerYear')?.value || 100) | number:'1.2-2' }} {{ translate('common.currency') }}
                 </small>
               </div>
             </mat-card-content>
@@ -166,12 +166,12 @@
   <div class="phase" *ngIf="currentPhase === 1">
     <mat-card class="strategy-card">
       <mat-card-header>
-        <mat-card-title>Komplexität</mat-card-title>
-        <mat-card-subtitle>Bewertung der technischen und medizinischen Komplexität</mat-card-subtitle>
+        <mat-card-title>{{ translate('pricing.complexity.title') }}</mat-card-title>
+        <mat-card-subtitle>{{ translate('pricing.complexity.subtitle') }}</mat-card-subtitle>
       </mat-card-header>
       <mat-card-content [formGroup]="pricingForm">
         <div class="form-group">
-          <label class="form-label">Messbarkeit des Nutzens *</label>
+          <label class="form-label">{{ translate('pricing.complexity.benefitMeasurability') }} *</label>
           <mat-radio-group formControlName="measurability" class="radio-group" required>
             <div class="radio-option" [class.selected]="pricingForm.get('measurability')?.value === 'high'" (click)="pricingForm.get('measurability')?.setValue('high')">
               <mat-radio-button value="high">
@@ -1296,55 +1296,55 @@
           </mat-error>
         </div>
 
-        <div class="form-group">
-          <label class="form-label">Support-Intensität</label>
-          <div class="slider-container">
-            <div class="slider-labels">
-              <span>Minimal</span>
-              <span>Maximal</span>
-            </div>
-            <div class="radio-group">
-              <div class="radio-option" [class.selected]="pricingForm.get('supportIntensity')?.value === 1" (click)="pricingForm.get('supportIntensity')?.setValue(1)">
-                <mat-radio-button value="1" (click)="$event.stopPropagation()">
-                  <div class="radio-text">
-                    <strong>Level 1 - Minimal</strong>
-                    <small>Grundlegender Support, Selbstbedienung</small>
-                  </div>
-                </mat-radio-button>
-              </div>
-              <div class="radio-option" [class.selected]="pricingForm.get('supportIntensity')?.value === 2" (click)="pricingForm.get('supportIntensity')?.setValue(2)">
-                <mat-radio-button value="2" (click)="$event.stopPropagation()">
-                  <div class="radio-text">
-                    <strong>Level 2 - Basis</strong>
-                    <small>E-Mail Support, Dokumentation</small>
-                  </div>
-                </mat-radio-button>
-              </div>
-              <div class="radio-option" [class.selected]="pricingForm.get('supportIntensity')?.value === 3" (click)="pricingForm.get('supportIntensity')?.setValue(3)">
-                <mat-radio-button value="3" (click)="$event.stopPropagation()">
-                  <div class="radio-text">
-                    <strong>Level 3 - Standard</strong>
-                    <small>Telefon Support, Schulungen</small>
-                  </div>
-                </mat-radio-button>
-              </div>
-              <div class="radio-option" [class.selected]="pricingForm.get('supportIntensity')?.value === 4" (click)="pricingForm.get('supportIntensity')?.setValue(4)">
-                <mat-radio-button value="4" (click)="$event.stopPropagation()">
-                  <div class="radio-text">
-                    <strong>Level 4 - Premium</strong>
-                    <small>Dedizierter Support, 24/7 Verfügbarkeit</small>
-                  </div>
-                </mat-radio-button>
-              </div>
-              <div class="radio-option" [class.selected]="pricingForm.get('supportIntensity')?.value === 5" (click)="pricingForm.get('supportIntensity')?.setValue(5)">
-                <mat-radio-button value="5" (click)="$event.stopPropagation()">
-                  <div class="radio-text">
-                    <strong>Level 5 - Maximal</strong>
-                    <small>Persönlicher Account Manager, On-Site Support</small>
-                  </div>
-                </mat-radio-button>
-              </div>
-            </div>
+                 <div class="form-group">
+           <label class="form-label">Support-Intensität</label>
+           <div class="slider-container">
+             <div class="slider-labels">
+               <span>Minimal</span>
+               <span>Maximal</span>
+             </div>
+             <div class="radio-group">
+               <div class="radio-option" [class.selected]="pricingForm.get('supportIntensity')?.value === 1" (click)="pricingForm.get('supportIntensity')?.setValue(1)">
+                 <mat-radio-button value="1" (click)="$event.stopPropagation()">
+                   <div class="radio-text">
+                     <strong>Level 1 - Minimal</strong>
+                     <small>Grundlegender Support, Selbstbedienung</small>
+                   </div>
+                 </mat-radio-button>
+               </div>
+               <div class="radio-option" [class.selected]="pricingForm.get('supportIntensity')?.value === 2" (click)="pricingForm.get('supportIntensity')?.setValue(2)">
+                 <mat-radio-button value="2" (click)="$event.stopPropagation()">
+                   <div class="radio-text">
+                     <strong>Level 2 - Basis</strong>
+                     <small>E-Mail Support, Dokumentation</small>
+                   </div>
+                 </mat-radio-button>
+               </div>
+               <div class="radio-option" [class.selected]="pricingForm.get('supportIntensity')?.value === 3" (click)="pricingForm.get('supportIntensity')?.setValue(3)">
+                 <mat-radio-button value="3" (click)="$event.stopPropagation()">
+                   <div class="radio-text">
+                     <strong>Level 3 - Standard</strong>
+                     <small>Telefon Support, Schulungen</small>
+                   </div>
+                 </mat-radio-button>
+               </div>
+               <div class="radio-option" [class.selected]="pricingForm.get('supportIntensity')?.value === 4" (click)="pricingForm.get('supportIntensity')?.setValue(4)">
+                 <mat-radio-button value="4" (click)="$event.stopPropagation()">
+                   <div class="radio-text">
+                     <strong>Level 4 - Premium</strong>
+                     <small>Dedizierter Support, 24/7 Verfügbarkeit</small>
+                   </div>
+                 </mat-radio-button>
+               </div>
+               <div class="radio-option" [class.selected]="pricingForm.get('supportIntensity')?.value === 5" (click)="pricingForm.get('supportIntensity')?.setValue(5)">
+                 <mat-radio-button value="5" (click)="$event.stopPropagation()">
+                   <div class="radio-text">
+                     <strong>Level 5 - Maximal</strong>
+                     <small>Persönlicher Account Manager, On-Site Support</small>
+                   </div>
+                 </mat-radio-button>
+               </div>
+             </div>
           </div>
         </div>
 
@@ -1472,7 +1472,7 @@
                     <div class="price-item">
                       <span class="price-label">Komplexe Fälle (Score 4-5):</span>
                       <span class="price-value">{{ calculateDACSPrices().complex | number:'1.2-2' }} €</span>
-                    </div>
+           </div>
                   </div>
                 </mat-card-content>
               </mat-card>
@@ -1506,7 +1506,7 @@
               </div>
             </mat-card-content>
           </mat-card>
-        </div>
+         </div>
       </mat-card-content>
     </mat-card>
   </div>
@@ -1660,19 +1660,19 @@
           <div class="metric-item" *ngIf="pricingForm.get('developmentCosts')?.value > 0 && pricingForm.get('basePrice')?.value > 0">
             <span class="metric-label">Break-even-Punkt:</span>
             <span class="metric-value">ca. {{ Math.ceil((pricingForm.get('developmentCosts')?.value || 0) / (pricingForm.get('basePrice')?.value || 1)) }} Nutzungen</span>
-          </div>
+        </div>
           <div class="metric-item" *ngIf="pricingForm.get('expectedCasesPerYear')?.value > 0 && pricingForm.get('basePrice')?.value > 0">
             <span class="metric-label">Jährlicher Erlös (bei {{ pricingForm.get('expectedCasesPerYear')?.value }} Fällen):</span>
             <span class="metric-value">{{ ((pricingForm.get('basePrice')?.value || 0) * (pricingForm.get('expectedCasesPerYear')?.value || 0)) | number:'1.2-2' }} €</span>
-          </div>
+        </div>
           <div class="metric-item" *ngIf="pricingForm.get('partnerCommission')?.value > 0">
             <span class="metric-label">Partnerprovision ({{ pricingForm.get('partnerCommission')?.value }}%):</span>
             <span class="metric-value">{{ ((pricingForm.get('basePrice')?.value || 0) * (pricingForm.get('partnerCommission')?.value || 0) / 100) | number:'1.2-2' }} € pro Verkauf</span>
-          </div>
+        </div>
           <div class="metric-item" *ngIf="pricingForm.get('installationFee')?.value > 0">
             <span class="metric-label">Installationsgebühr:</span>
             <span class="metric-value">{{ pricingForm.get('installationFee')?.value | number:'1.2-2' }} € (einmalig)</span>
-          </div>
+        </div>
         </div>
       </div>
 
@@ -1707,7 +1707,7 @@
                 <li><strong>Transparenz:</strong> Klare Preisstruktur basierend auf objektiven Kriterien</li>
                 <li><strong>Skalierbarkeit:</strong> Automatische Anpassung an verschiedene Anwendungsfälle</li>
                 <li><strong>Wettbewerbsvorteil:</strong> Differenzierung durch intelligente Preisgestaltung</li>
-              </ul>
+            </ul>
             </div>
             
             <div class="dacs-calculation">
