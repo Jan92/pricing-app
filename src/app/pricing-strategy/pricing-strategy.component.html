@@ -757,7 +757,7 @@
           </div>
 
           <div class="form-group">
-            <label class="form-label">Integration von Leitlinien (Umfang der Einbindung medizinischer Standards.) *</label>
+            <label class="form-label">{{ translate('criteria.guidelineIntegration') }} ({{ translate('criteria.guidelineIntegrationDesc') }}) *</label>
             <div class="score-options flex">
               <label class="score-label" [class.selected]="pricingForm.get('guidelineIntegration')?.value === '1'">
                 <input type="radio" formControlName="guidelineIntegration" value="1" class="ng-untouched ng-pristine ng-valid">
@@ -1143,16 +1143,16 @@
             <div class="radio-option" [class.selected]="pricingForm.get('customerFencing')?.value === 'strong'" (click)="pricingForm.get('customerFencing')?.setValue('strong')">
               <mat-radio-button value="strong">
                 <div class="radio-text">
-                  <strong>Stark</strong>
-                  <small>Hohe Wechselkosten, starke Bindung</small>
+                  <strong>{{ translate('pricing.implementation.customerRetention.strong') }}</strong>
+                  <small>{{ translate('pricing.implementation.customerRetention.strongDesc') }}</small>
                 </div>
               </mat-radio-button>
             </div>
             <div class="radio-option" [class.selected]="pricingForm.get('customerFencing')?.value === 'weak'" (click)="pricingForm.get('customerFencing')?.setValue('weak')">
               <mat-radio-button value="weak">
                 <div class="radio-text">
-                  <strong>Schwach</strong>
-                  <small>Geringe Wechselkosten, schwache Bindung</small>
+                  <strong>{{ translate('pricing.implementation.customerRetention.weak') }}</strong>
+                  <small>{{ translate('pricing.implementation.customerRetention.weakDesc') }}</small>
                 </div>
               </mat-radio-button>
             </div>
@@ -1194,10 +1194,10 @@
         <!-- Installationsgebühr (nur bei On-Premises) -->
         <div class="form-group" *ngIf="pricingForm.get('deploymentType')?.value === 'onpremises'">
           <mat-form-field appearance="outline" class="full-width">
-            <mat-label>{{ translate('pricing.implementation.installationFee') }}</mat-label>
+            <mat-label>{{ translate('pricing.installationFee') }}</mat-label>
             <input matInput type="number" formControlName="installationFee">
             <span matSuffix>€</span>
-            <mat-icon matSuffix matTooltip="Einmalige Gebühr für die Vor-Ort-Installation und Einrichtung">info</mat-icon>
+            <mat-icon matSuffix [matTooltip]="translate('pricing.installationFeeTooltip')">info</mat-icon>
           </mat-form-field>
         </div>
 
@@ -1518,34 +1518,34 @@
         <span class="system-type-badge" [class]="pricingForm.get('autonomy')?.value || 'assistive'">
           {{ results.systemType }}
         </span>
-        <h3>EMPFOHLENE PRICING-STRATEGIE für "{{ pricingForm.get('systemName')?.value || 'Ihr DDSS' }}"</h3>
+        <h3>{{ translate('pricing.results.title') }} für "{{ pricingForm.get('systemName')?.value || 'Ihr DDSS' }}"</h3>
         
-        <h4>SYSTEMCHARAKTERISIERUNG</h4>
+        <h4>{{ translate('pricing.results.systemCharacterization') }}</h4>
         <div class="result-item">
-          <span class="result-label">Autonomie-Level:</span>
+          <span class="result-label">{{ translate('pricing.results.autonomyLevel') }}:</span>
           <span class="result-value">{{ getAutonomyLabel(pricingForm.get('autonomy')?.value) }}</span>
         </div>
         <div class="result-item">
-          <span class="result-label">Messbarkeit:</span>
+          <span class="result-label">{{ translate('pricing.results.measurability') }}:</span>
           <span class="result-value">{{ getMeasurabilityLabel(pricingForm.get('measurability')?.value) }}</span>
         </div>
         <div class="result-item">
-          <span class="result-label">Inferenzkosten:</span>
+          <span class="result-label">{{ translate('pricing.results.inferenceCosts') }}:</span>
           <span class="result-value">{{ getInferenceCostsLabel(pricingForm.get('inferenceCosts')?.value) }}</span>
         </div>
         <div class="result-item">
-          <span class="result-label">Komplexitäts-Score:</span>
+          <span class="result-label">{{ translate('pricing.results.complexityScore') }}:</span>
           <span class="result-value">{{ calculateComplexityScore() }}/20 ({{ getComplexityLevel() | titlecase }})</span>
         </div>
 
         <h4>{{ translate('pricing.market.title') }}</h4>
         <div class="result-item">
-          <span class="result-label">Primärer Sektor:</span>
+          <span class="result-label">{{ translate('pricing.results.primarySector') }}:</span>
           <span class="result-value">{{ getSectorLabel(pricingForm.get('sector')?.value) }}</span>
         </div>
         <div class="result-item">
-          <span class="result-label">Erstattungsintegration:</span>
-          <span class="result-value">{{ pricingForm.get('reimbursement')?.value === 'yes' ? 'Ja (GOÄ/EBM)' : 'Nein' }}</span>
+          <span class="result-label">{{ translate('pricing.results.reimbursementIntegration') }}:</span>
+          <span class="result-value">{{ pricingForm.get('reimbursement')?.value === 'yes' ? translate('pricing.results.yesWithGOA') : translate('pricing.results.no') }}</span>
         </div>
         <div class="result-item">
           <span class="result-label">{{ translate('pricing.implementation.salesComplexity') }}:</span>
@@ -1589,7 +1589,7 @@
 
       <!-- Marktvergleich -->
       <div class="result-section" *ngIf="competitorsArray.length > 0 || pricingForm.get('alternativeMethodCosts')?.value > 0">
-        <h4>MARKTVERGLEICH</h4>
+        <h4>{{ translate('pricing.market.comparison') }}</h4>
         <div class="market-comparison-results">
           <div class="market-stats-results" *ngIf="competitorsArray.length > 0">
             <div class="market-stat-item">
@@ -1642,7 +1642,7 @@
             <p>{{ pricingForm.get('hybridBaseFee')?.value | number:'1.2-2' }} € {{ translate('pricing.businessModel.pricingModel.subscription') }}/Jahr + {{ pricingForm.get('hybridUsageFee')?.value | number:'1.2-2' }} € {{ translate('pricing.businessModel.pricingModel.usage') }}</p>
           </div>
           <div class="pricing-model-card" *ngIf="pricingForm.get('pricingModel')?.value === 'dacs'">
-            <h5>Empfohlener Preis (DACS)</h5>
+            <h5>{{ translate('pricing.businessModel.recommendedPriceDACS') }}</h5>
             <p>{{ translate('pricing.businessModel.dacsPreview') }}:</p>
             <ul>
               <li>{{ translate('pricing.businessModel.simpleCases') }}: {{ calculateDACSPrices().simple | number:'1.2-2' }} €</li>
@@ -1655,23 +1655,23 @@
 
       <!-- Zusätzliche Kennzahlen -->
       <div class="result-section">
-        <h4>ZUSÄTZLICHE KENNZAHLEN</h4>
+        <h4>{{ translate('pricing.results.additionalMetrics') }}</h4>
         <div class="additional-metrics">
           <div class="metric-item" *ngIf="pricingForm.get('developmentCosts')?.value > 0 && pricingForm.get('basePrice')?.value > 0">
-            <span class="metric-label">Break-even-Punkt:</span>
-            <span class="metric-value">ca. {{ Math.ceil((pricingForm.get('developmentCosts')?.value || 0) / (pricingForm.get('basePrice')?.value || 1)) }} Nutzungen</span>
+            <span class="metric-label">{{ translate('pricing.results.breakEvenPoint') }}:</span>
+            <span class="metric-value">{{ translate('pricing.results.approximately') }} {{ Math.ceil((pricingForm.get('developmentCosts')?.value || 0) / (pricingForm.get('basePrice')?.value || 1)) }} {{ translate('pricing.results.usages') }}</span>
         </div>
           <div class="metric-item" *ngIf="pricingForm.get('expectedCasesPerYear')?.value > 0 && pricingForm.get('basePrice')?.value > 0">
-            <span class="metric-label">Jährlicher Erlös (bei {{ pricingForm.get('expectedCasesPerYear')?.value }} Fällen):</span>
+            <span class="metric-label">{{ translate('pricing.results.annualRevenue') }} ({{ translate('pricing.results.cases') }} {{ pricingForm.get('expectedCasesPerYear')?.value }}):</span>
             <span class="metric-value">{{ ((pricingForm.get('basePrice')?.value || 0) * (pricingForm.get('expectedCasesPerYear')?.value || 0)) | number:'1.2-2' }} €</span>
         </div>
           <div class="metric-item" *ngIf="pricingForm.get('partnerCommission')?.value > 0">
-            <span class="metric-label">Partnerprovision ({{ pricingForm.get('partnerCommission')?.value }}%):</span>
-            <span class="metric-value">{{ ((pricingForm.get('basePrice')?.value || 0) * (pricingForm.get('partnerCommission')?.value || 0) / 100) | number:'1.2-2' }} € pro Verkauf</span>
+            <span class="metric-label">{{ translate('pricing.results.partnerCommission') }} ({{ pricingForm.get('partnerCommission')?.value }}%):</span>
+            <span class="metric-value">{{ ((pricingForm.get('basePrice')?.value || 0) * (pricingForm.get('partnerCommission')?.value || 0) / 100) | number:'1.2-2' }} € {{ translate('pricing.results.perSale') }}</span>
         </div>
           <div class="metric-item" *ngIf="pricingForm.get('installationFee')?.value > 0">
-            <span class="metric-label">{{ translate('pricing.implementation.installationFee') }}:</span>
-            <span class="metric-value">{{ pricingForm.get('installationFee')?.value | number:'1.2-2' }} € (einmalig)</span>
+            <span class="metric-label">{{ translate('pricing.installationFee') }}:</span>
+            <span class="metric-value">{{ pricingForm.get('installationFee')?.value | number:'1.2-2' }} € ({{ translate('pricing.results.oneTime') }})</span>
         </div>
         </div>
       </div>

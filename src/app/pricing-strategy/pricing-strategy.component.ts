@@ -625,7 +625,7 @@ export class PricingStrategyComponent implements OnInit {
       alternativeMethodCosts: 'Kosten der bisherigen Methode pro Fall',
       salesEffort: this.languageService.translate('pricing.implementation.salesComplexity'),
       implementation: this.languageService.translate('pricing.implementation.implementationComplexity'),
-      customerFencing: this.languageService.translate('pricing.implementation.customerRetention'),
+      customerFencing: 'Kundenbindung',
       deploymentType: this.languageService.translate('pricing.deploymentType'),
       installationFee: this.languageService.translate('pricing.installationFee'),
       salesChannel: this.languageService.translate('pricing.salesChannel'),
