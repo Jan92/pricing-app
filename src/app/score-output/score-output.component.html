@@ -18,7 +18,7 @@
             <mat-list-item *ngFor="let crit of dim.criteria">
               <div matListItemTitle>{{ getTranslatedCriterionName(crit.name) }}</div>
               <div matListItemLine>{{ translate('output.score') }}: {{ crit.scoreValue }} - {{ crit.scoreLabel }}</div>
-              <div matListItemLine class="criterion-description">{{ crit.description }}</div>
+              <div matListItemLine class="criterion-description">{{ getTranslatedCriterionDescription(crit.name) }}</div>
             </mat-list-item>
           </mat-list>
         </mat-expansion-panel>

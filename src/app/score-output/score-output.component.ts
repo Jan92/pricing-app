@@ -107,7 +107,7 @@ export class ScoreOutputComponent implements OnInit {
         return {
           ...crit,
           scoreValue: scoreValue,
-          scoreLabel: scoreValue ? this.scoreService.getScoreLabel(dim.id, crit.id, scoreValue) : 'N/A'
+          scoreLabel: scoreValue ? this.getTranslatedScoreLabel(scoreValue) : 'N/A'
         };
       })
     }));
@@ -119,14 +119,77 @@ export class ScoreOutputComponent implements OnInit {
   }
 
   getTranslatedDimensionName(dimensionName: string): string {
-    // Try to translate the dimension name, fallback to original if no translation exists
-    const translated = this.languageService.translate(dimensionName);
-    return translated !== dimensionName ? translated : dimensionName;
+    // Map dimension names to translation keys
+    const dimensionTranslationMap: { [key: string]: string } = {
+      'Datenkomplexität und -vielfalt': 'dimensions.dataComplexity',
+      'Komplexität der Erkrankung': 'dimensions.diseaseComplexity',
+      'Schwierigkeitsgrad der Fragestellung': 'dimensions.questionDifficulty',
+      'Ausmaß der KI-Unterstützung': 'dimensions.aiSupportExtent'
+    };
+    
+    const translationKey = dimensionTranslationMap[dimensionName] || dimensionName;
+    return this.languageService.translate(translationKey);
   }
 
   getTranslatedCriterionName(criterionName: string): string {
-    // Try to translate the criterion name, fallback to original if no translation exists
-    const translated = this.languageService.translate(criterionName);
-    return translated !== criterionName ? translated : criterionName;
+    // Map criterion names to translation keys
+    const criterionTranslationMap: { [key: string]: string } = {
+      'Datenquellenvielfalt': 'criteria.sourceVariety',
+      'Datenintegrität': 'criteria.dataIntegrity',
+      'Datenkomplexität': 'criteria.dataComplexityLevel',
+      'Datenverknüpfung': 'criteria.dataLinking',
+      'Datenvolumen': 'criteria.dataVolume',
+      'Seltenheit der Erkrankung': 'criteria.diseaseRarity',
+      'Diagnostische Mehrdeutigkeit': 'criteria.diagnosticAmbiguity',
+      'Prognostische Unsicherheit': 'criteria.prognosticUncertainty',
+      'Multimorbidität': 'criteria.multimorbidity',
+      'Schweregrad der Erkrankung': 'criteria.diseaseSeverity',
+      'Differenzialdiagnostische Tiefe': 'criteria.differentialDepth',
+      'Prognostische Präzision': 'criteria.prognosticPrecision',
+      'Echtzeitanforderung': 'criteria.realtimeRequirement',
+      'Interdisziplinäre Relevanz': 'criteria.interdisciplinaryRelevance',
+      'Dynamische Anpassungsfähigkeit': 'criteria.dynamicAdaptability',
+      'Automatisierungsgrad': 'criteria.automationLevel',
+      'Analyseebene': 'criteria.analysisLevel',
+      'Empfehlungskomplexität': 'criteria.recommendationComplexity',
+      'Leitlinienintegration': 'criteria.guidelineIntegration',
+      'Patientenspezifische Individualisierung': 'criteria.patientIndividualization'
+    };
+    
+    const translationKey = criterionTranslationMap[criterionName] || criterionName;
+    return this.languageService.translate(translationKey);
+  }
+
+  getTranslatedScoreLabel(score: number): string {
+    return this.languageService.translate(`common.scoreLabels.${score}`);
+  }
+
+  getTranslatedCriterionDescription(criterionName: string): string {
+    // Map criterion names to description translation keys
+    const criterionDescriptionMap: { [key: string]: string } = {
+      'Datenquellenvielfalt': 'criteria.sourceVarietyDesc',
+      'Datenintegrität': 'criteria.dataIntegrityDesc',
+      'Datenkomplexität': 'criteria.dataComplexityLevelDesc',
+      'Datenverknüpfung': 'criteria.dataLinkingDesc',
+      'Datenvolumen': 'criteria.dataVolumeDesc',
+      'Seltenheit der Erkrankung': 'criteria.diseaseRarityDesc',
+      'Diagnostische Mehrdeutigkeit': 'criteria.diagnosticAmbiguityDesc',
+      'Prognostische Unsicherheit': 'criteria.prognosticUncertaintyDesc',
+      'Multimorbidität': 'criteria.multimorbidityDesc',
+      'Schweregrad der Erkrankung': 'criteria.diseaseSeverityDesc',
+      'Differenzialdiagnostische Tiefe': 'criteria.differentialDepthDesc',
+      'Prognostische Präzision': 'criteria.prognosticPrecisionDesc',
+      'Echtzeitanforderung': 'criteria.realtimeRequirementDesc',
+      'Interdisziplinäre Relevanz': 'criteria.interdisciplinaryRelevanceDesc',
+      'Dynamische Anpassungsfähigkeit': 'criteria.dynamicAdaptabilityDesc',
+      'Automatisierungsgrad': 'criteria.automationLevelDesc',
+      'Analyseebene': 'criteria.analysisLevelDesc',
+      'Empfehlungskomplexität': 'criteria.recommendationComplexityDesc',
+      'Leitlinienintegration': 'criteria.guidelineIntegrationDesc',
+      'Patientenspezifische Individualisierung': 'criteria.patientIndividualizationDesc'
+    };
+    
+    const translationKey = criterionDescriptionMap[criterionName] || '';
+    return this.languageService.translate(translationKey);
   }
 }

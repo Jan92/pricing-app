@@ -13,7 +13,7 @@ export class LanguageService {
   private translations = {
     de: {
       // App
-      'app.title': 'Pricing Simulator',
+      'app.title': 'Preis-Simulator',
       
       // Navigation
       'nav.overview': 'Übersicht Scores',
@@ -129,9 +129,13 @@ export class LanguageService {
       
       // Dimension Names
       'dimensions.dataComplexity': 'Datenkomplexität und -vielfalt',
+      'dimensions.dataComplexityDesc': 'Diese Dimension bewertet die Eigenschaften und Herausforderungen der Eingangsdaten.',
       'dimensions.diseaseComplexity': 'Komplexität der Erkrankung',
+      'dimensions.diseaseComplexityDesc': 'Diese Dimension bewertet die medizinische Komplexität der zu behandelnden Erkrankung.',
       'dimensions.questionDifficulty': 'Schwierigkeitsgrad der Fragestellung',
+      'dimensions.questionDifficultyDesc': 'Diese Dimension bewertet die Schwierigkeit der zu beantwortenden medizinischen Fragen.',
       'dimensions.aiSupportExtent': 'Ausmaß der KI-Unterstützung',
+      'dimensions.aiSupportExtentDesc': 'Diese Dimension bewertet den Umfang und die Komplexität der KI-Unterstützung.',
       
       // Criterion Names
       'criteria.sourceVariety': 'Datenquellenvielfalt',
@@ -889,9 +893,13 @@ export class LanguageService {
       
       // Dimension Names
       'dimensions.dataComplexity': 'Data Complexity and Diversity',
+      'dimensions.dataComplexityDesc': 'This dimension evaluates the properties and challenges of input data.',
       'dimensions.diseaseComplexity': 'Disease Complexity',
+      'dimensions.diseaseComplexityDesc': 'This dimension evaluates the medical complexity of the disease to be treated.',
       'dimensions.questionDifficulty': 'Question Complexity Level',
+      'dimensions.questionDifficultyDesc': 'This dimension evaluates the difficulty of the medical questions to be answered.',
       'dimensions.aiSupportExtent': 'Extent of AI Support',
+      'dimensions.aiSupportExtentDesc': 'This dimension evaluates the scope and complexity of AI support.',
       
       // Criterion Names
       'criteria.sourceVariety': 'Data Source Diversity',
