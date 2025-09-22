@@ -618,6 +618,15 @@
   align-items: end;
 }
 
+/* Fix euro symbol spacing in price input */
+.competitor-fields mat-form-field[matSuffix] span[matSuffix] {
+  margin-right: 8px;
+}
+
+::ng-deep .competitor-fields .mat-mdc-form-field .mat-mdc-form-field-suffix {
+  padding-right: 8px;
+}
+
 .market-stats {
   margin-top: 20px;
 }

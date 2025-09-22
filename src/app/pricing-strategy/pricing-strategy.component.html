@@ -1426,23 +1426,23 @@
             <h4>{{ translate('pricing.businessModel.pricingModel.hybrid') }} - {{ translate('pricing.businessModel.pricingInputs') }}</h4>
             <div class="hybrid-inputs">
               <mat-form-field appearance="outline" class="full-width">
-                <mat-label>{{ translate('pricing.businessModel.pricingModel.subscription') }}</mat-label>
+                <mat-label>{{ translate('pricing.businessModel.hybridSubscription') }}</mat-label>
                 <input matInput type="number" formControlName="hybridBaseFee">
                 <span matSuffix>€</span>
-                <mat-icon matSuffix matTooltip="Feste jährliche Grundgebühr">info</mat-icon>
+                <mat-icon matSuffix [matTooltip]="translate('pricing.businessModel.hybridSubscriptionTooltip')">info</mat-icon>
               </mat-form-field>
               <mat-form-field appearance="outline" class="full-width">
-                <mat-label>{{ translate('pricing.costPerCase') }}</mat-label>
+                <mat-label>{{ translate('pricing.businessModel.hybridUsageFee') }}</mat-label>
                 <input matInput type="number" formControlName="hybridUsageFee">
                 <span matSuffix>€</span>
-                <mat-icon matSuffix matTooltip="Zusätzliche Gebühr pro Analyse">info</mat-icon>
+                <mat-icon matSuffix [matTooltip]="translate('pricing.businessModel.hybridUsageFeeTooltip')">info</mat-icon>
               </mat-form-field>
             </div>
           </div>
 
           <!-- DACS-Modell -->
           <div class="pricing-section" *ngIf="pricingForm.get('pricingModel')?.value === 'dacs'">
-            <h4>DACS-Modell - Preiseingaben</h4>
+            <h4>{{ translate('pricing.businessModel.dacsPricingInputs') }}</h4>
             <div class="form-group">
               <mat-form-field appearance="outline" class="full-width">
                 <mat-label>{{ translate('pricing.businessModel.basePrice') }}</mat-label>
@@ -1571,9 +1571,9 @@
           </div>
           <div class="cost-breakdown-details">
             <small>
-              • Amortisierte Entwicklungskosten: {{ (pricingForm.get('developmentCosts')?.value || 0) / ((pricingForm.get('expectedCasesPerYear')?.value || 100) * (pricingForm.get('amortizationPeriod')?.value || 5)) | number:'1.2-2' }} €<br>
-              • Kosten pro Nutzung: {{ pricingForm.get('costPerUsage')?.value || 0 | number:'1.2-2' }} €<br>
-              • Wartungskosten pro Fall: {{ (pricingForm.get('maintenanceCosts')?.value || 0) / (pricingForm.get('expectedCasesPerYear')?.value || 100) | number:'1.2-2' }} €
+              • {{ translate('pricing.amortizedDevelopmentCosts') }}: {{ (pricingForm.get('developmentCosts')?.value || 0) / ((pricingForm.get('expectedCasesPerYear')?.value || 100) * (pricingForm.get('amortizationPeriod')?.value || 5)) | number:'1.2-2' }} {{ translate('common.currency') }}<br>
+              • {{ translate('pricing.costPerUsage') }}: {{ pricingForm.get('costPerUsage')?.value || 0 | number:'1.2-2' }} {{ translate('common.currency') }}<br>
+              • {{ translate('pricing.maintenanceCostsPerCase') }}: {{ (pricingForm.get('maintenanceCosts')?.value || 0) / (pricingForm.get('expectedCasesPerYear')?.value || 100) | number:'1.2-2' }} {{ translate('common.currency') }}
             </small>
           </div>
           <div class="cost-item">

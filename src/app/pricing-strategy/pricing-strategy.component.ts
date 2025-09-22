@@ -364,15 +364,20 @@ export class PricingStrategyComponent implements OnInit {
 
 
   nextPhase() {
+    console.log('nextPhase called, currentPhase:', this.currentPhase, 'totalPhases:', this.totalPhases);
+    
     if (!this.validateCurrentPhase()) {
+      console.log('Validation failed');
       return;
     }
     
     this.saveFormData();
     
     if (this.currentPhase === this.totalPhases - 2) {
+      console.log('Generating recommendations...');
       this.generateRecommendations();
     } else if (this.currentPhase < this.totalPhases - 1) {
+      console.log('Moving to next phase');
       this.currentPhase++;
       this.updatePhaseDisplay();
       this.updateProgress();
@@ -453,13 +458,17 @@ export class PricingStrategyComponent implements OnInit {
   }
 
   validateCurrentPhase(): boolean {
+    console.log('validateCurrentPhase called, currentPhase:', this.currentPhase);
+    
     // Wenn wir auf der Ergebnisseite sind, ist die Validierung immer erfolgreich
     if (this.currentPhase === this.totalPhases - 1) {
+      console.log('On results page, validation successful');
       return true;
     }
 
     // Spezielle Validierung für Business Model Phase (Phase 4)
     if (this.currentPhase === 4) {
+      console.log('Validating business model phase');
       return this.validateBusinessModelPhase();
     }
 
@@ -506,8 +515,11 @@ export class PricingStrategyComponent implements OnInit {
     const formValue = this.pricingForm.value;
     const pricingModel = formValue.pricingModel;
     
+    console.log('validateBusinessModelPhase called, pricingModel:', pricingModel, 'formValue:', formValue);
+    
     // Basisvalidierung für erforderliche Felder
     if (!pricingModel) {
+      console.log('No pricing model selected');
       this.snackBar.open('Bitte wählen Sie ein Preismodell aus', 'OK', {
         duration: 3000,
         horizontalPosition: 'center',
@@ -535,11 +547,14 @@ export class PricingStrategyComponent implements OnInit {
         }
         break;
       case 'hybrid':
+        console.log('Validating hybrid model, hybridBaseFee:', formValue.hybridBaseFee, 'hybridUsageFee:', formValue.hybridUsageFee);
         if (!formValue.hybridBaseFee || formValue.hybridBaseFee <= 0) {
+          console.log('hybridBaseFee validation failed');
           errorMessage = this.translate('pricing.validation.validHybridBaseFee');
           isValid = false;
         }
         if (!formValue.hybridUsageFee || formValue.hybridUsageFee <= 0) {
+          console.log('hybridUsageFee validation failed');
           errorMessage = this.translate('pricing.validation.validHybridUsageFee');
           isValid = false;
         }
@@ -553,12 +568,15 @@ export class PricingStrategyComponent implements OnInit {
     }
 
     if (!isValid) {
+      console.log('Business model validation failed:', errorMessage);
       this.snackBar.open(errorMessage, 'OK', {
         duration: 3000,
         horizontalPosition: 'center',
         verticalPosition: 'bottom',
         panelClass: ['error-snackbar']
       });
+    } else {
+      console.log('Business model validation successful');
     }
 
     return isValid;
@@ -566,13 +584,13 @@ export class PricingStrategyComponent implements OnInit {
 
   private getFieldLabel(control: string): string {
     const labels: { [key: string]: string } = {
-      systemName: 'Name des DDSS-Systems',
-      autonomy: 'Autonomie-Level',
-      developmentCosts: 'Entwicklungskosten (einmalig)',
-      costPerUsage: 'Kosten pro Nutzung',
-      maintenanceCosts: 'Wartungs-/Updatekosten (jährlich)',
-      expectedCasesPerYear: 'Erwartete Fallzahl pro Jahr',
-      amortizationPeriod: 'Amortisierungszeitraum (Jahre)',
+      systemName: this.languageService.translate('pricing.systemName'),
+      autonomy: this.languageService.translate('pricing.autonomyLevel'),
+      developmentCosts: this.languageService.translate('pricing.developmentCosts'),
+      costPerUsage: this.languageService.translate('pricing.costPerUsage'),
+      maintenanceCosts: this.languageService.translate('pricing.maintenanceCosts'),
+      expectedCasesPerYear: this.languageService.translate('pricing.expectedCases'),
+      amortizationPeriod: this.languageService.translate('pricing.amortizationPeriod'),
       measurability: this.languageService.translate('pricing.complexity.benefitMeasurability'),
       inferenceCosts: this.languageService.translate('pricing.complexity.aiInferenceCosts'),
       complexityInputMethod: 'Eingabemethode für Komplexitätsbewertung',
@@ -601,25 +619,25 @@ export class PricingStrategyComponent implements OnInit {
       recommendationComplexity: 'Empfehlungskomplexität',
       guidelineIntegration: 'Integration von Leitlinien',
       patientSpecificIndividualization: 'Patientenspezifische Individualisierung',
-      sector: 'Primärer Zielsektor',
-      reimbursement: 'Erstattungsintegration',
-      competition: 'Wettbewerbsintensität',
+      sector: this.languageService.translate('pricing.sector'),
+      reimbursement: this.languageService.translate('pricing.reimbursement'),
+      competition: this.languageService.translate('pricing.competition'),
       alternativeMethodCosts: 'Kosten der bisherigen Methode pro Fall',
-      salesEffort: 'Vertriebskomplexität',
-      implementation: 'Implementierungskomplexität',
-      customerFencing: 'Kundenbindung',
-      deploymentType: 'Bereitstellungsart',
-      installationFee: 'Installationsgebühr',
-      salesChannel: 'Vertriebskanal',
-      partnerCommission: 'Partnerprovision (%)',
-      upgradePath: 'Upgrade-Pfad',
-      supportIntensity: 'Support-Intensität',
-      pricingModel: 'Preismodell',
-      basePrice: 'Basispreis',
-      hybridBaseFee: 'Hybrid: Grundgebühr',
-      hybridUsageFee: 'Hybrid: Nutzungsgebühr',
-      dacsBasePrice: 'DACS: Basispreis',
-      profitMargin: 'Gewinnmarge (%)'
+      salesEffort: this.languageService.translate('pricing.implementation.salesComplexity'),
+      implementation: this.languageService.translate('pricing.implementation.implementationComplexity'),
+      customerFencing: this.languageService.translate('pricing.implementation.customerRetention'),
+      deploymentType: this.languageService.translate('pricing.deploymentType'),
+      installationFee: this.languageService.translate('pricing.installationFee'),
+      salesChannel: this.languageService.translate('pricing.salesChannel'),
+      partnerCommission: this.languageService.translate('pricing.partnerCommission'),
+      upgradePath: this.languageService.translate('pricing.businessModel.upgradePath'),
+      supportIntensity: this.languageService.translate('pricing.implementation.supportLevel'),
+      pricingModel: this.languageService.translate('pricing.businessModel.pricingModel'),
+      basePrice: this.languageService.translate('pricing.businessModel.basePrice'),
+      hybridBaseFee: this.languageService.translate('pricing.businessModel.hybridSubscription'),
+      hybridUsageFee: this.languageService.translate('pricing.businessModel.hybridUsageFee'),
+      dacsBasePrice: this.languageService.translate('pricing.businessModel.basePrice'),
+      profitMargin: this.languageService.translate('pricing.profitMargin')
     };
     return labels[control] || control;
   }
@@ -668,13 +686,17 @@ export class PricingStrategyComponent implements OnInit {
   }
 
   generateRecommendations() {
+    console.log('generateRecommendations called');
+    
     if (!this.validateCurrentPhase()) {
+      console.log('Validation failed in generateRecommendations');
       return;
     }
 
     this.saveFormData();
 
     if (this.pricingForm.valid) {
+      console.log('Form is valid, generating recommendations');
       this.results = this.calculatePricingRecommendations();
       this.currentPhase = this.totalPhases - 1;
       this.updatePhaseDisplay();
@@ -688,6 +710,9 @@ export class PricingStrategyComponent implements OnInit {
         verticalPosition: 'bottom',
         panelClass: ['success-snackbar']
       });
+      console.log('Recommendations generated successfully');
+    } else {
+      console.log('Form is invalid:', this.pricingForm.errors);
     }
   }
 
