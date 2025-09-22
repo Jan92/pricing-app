@@ -408,10 +408,10 @@
         </div>
 
         <!-- 2. Komplexität der Erkrankung -->
-        <h4>2. Komplexität der Erkrankung</h4>
+        <h4>2. {{ translate('dimensions.diseaseComplexity') }}</h4>
         <div class="complexity-grid">
           <div class="form-group">
-            <label class="form-label">Seltenheit der Erkrankung (Prävalenz in der Bevölkerung.) *</label>
+            <label class="form-label">{{ translate('criteria.diseaseRarity') }} ({{ translate('criteria.diseaseRarityDesc') }}) *</label>
             <div class="score-options flex">
               <label class="score-label" [class.selected]="pricingForm.get('diseaseRarity')?.value === '1'">
                 <input type="radio" formControlName="diseaseRarity" value="1" class="ng-untouched ng-pristine ng-valid">
@@ -437,7 +437,7 @@
           </div>
 
           <div class="form-group">
-            <label class="form-label">Diagnostische Mehrdeutigkeit (Schwierigkeit der Abgrenzung von anderen Krankheitsbildern.) *</label>
+            <label class="form-label">{{ translate('criteria.diagnosticAmbiguity') }} ({{ translate('criteria.diagnosticAmbiguityDesc') }}) *</label>
             <div class="score-options flex">
               <label class="score-label" [class.selected]="pricingForm.get('diagnosticAmbiguity')?.value === '1'">
                 <input type="radio" formControlName="diagnosticAmbiguity" value="1" class="ng-untouched ng-pristine ng-valid">
@@ -463,7 +463,7 @@
           </div>
 
           <div class="form-group">
-            <label class="form-label">Prognostische Unsicherheit (Vorhersehbarkeit des Krankheitsverlaufs.) *</label>
+            <label class="form-label">{{ translate('criteria.prognosticUncertainty') }} ({{ translate('criteria.prognosticUncertaintyDesc') }}) *</label>
             <div class="score-options flex">
               <label class="score-label" [class.selected]="pricingForm.get('prognosticUncertainty')?.value === '1'">
                 <input type="radio" formControlName="prognosticUncertainty" value="1" class="ng-untouched ng-pristine ng-valid">
@@ -489,7 +489,7 @@
           </div>
 
           <div class="form-group">
-            <label class="form-label">Multimorbidität (Einfluss anderer Erkrankungen auf die Zielerkrankung.) *</label>
+            <label class="form-label">{{ translate('criteria.multimorbidity') }} ({{ translate('criteria.multimorbidityDesc') }}) *</label>
             <div class="score-options flex">
               <label class="score-label" [class.selected]="pricingForm.get('multimorbidity')?.value === '1'">
                 <input type="radio" formControlName="multimorbidity" value="1" class="ng-untouched ng-pristine ng-valid">
@@ -515,7 +515,7 @@
           </div>
 
           <div class="form-group">
-            <label class="form-label">Schweregrad der Erkrankung (Lethalität und Bedeutung einer frühen Entdeckung.) *</label>
+            <label class="form-label">{{ translate('criteria.diseaseSeverity') }} ({{ translate('criteria.diseaseSeverityDesc') }}) *</label>
             <div class="score-options flex">
               <label class="score-label" [class.selected]="pricingForm.get('diseaseSeverity')?.value === '1'">
                 <input type="radio" formControlName="diseaseSeverity" value="1" class="ng-untouched ng-pristine ng-valid">
@@ -542,10 +542,10 @@
         </div>
 
         <!-- 3. Schwierigkeitsgrad der Fragestellung -->
-        <h4>3. Schwierigkeitsgrad der Fragestellung</h4>
+        <h4>3. {{ translate('dimensions.questionDifficulty') }}</h4>
         <div class="complexity-grid">
           <div class="form-group">
-            <label class="form-label">Differenzialdiagnostische Tiefe (Anzahl möglicher Diagnosen, die in der Anfrage berücksichtigt werden müssen.) *</label>
+            <label class="form-label">{{ translate('criteria.differentialDepth') }} ({{ translate('criteria.differentialDepthDesc') }}) *</label>
             <div class="score-options flex">
               <label class="score-label" [class.selected]="pricingForm.get('differentialDiagnosticDepth')?.value === '1'">
                 <input type="radio" formControlName="differentialDiagnosticDepth" value="1" class="ng-untouched ng-pristine ng-valid">
@@ -571,7 +571,7 @@
           </div>
 
           <div class="form-group">
-            <label class="form-label">Prognostische Präzision (Grad der Genauigkeit und Langfristigkeit der Vorhersage.) *</label>
+            <label class="form-label">{{ translate('criteria.prognosticPrecision') }} ({{ translate('criteria.prognosticPrecisionDesc') }}) *</label>
             <div class="score-options flex">
               <label class="score-label" [class.selected]="pricingForm.get('prognosticPrecision')?.value === '1'">
                 <input type="radio" formControlName="prognosticPrecision" value="1" class="ng-untouched ng-pristine ng-valid">
@@ -597,7 +597,7 @@
           </div>
 
           <div class="form-group">
-            <label class="form-label">Anforderung an die Echtzeit (Erwartung an die Geschwindigkeit des Systems.) *</label>
+            <label class="form-label">{{ translate('criteria.realtimeRequirement') }} ({{ translate('criteria.realtimeRequirementDesc') }}) *</label>
             <div class="score-options flex">
               <label class="score-label" [class.selected]="pricingForm.get('realTimeRequirement')?.value === '1'">
                 <input type="radio" formControlName="realTimeRequirement" value="1" class="ng-untouched ng-pristine ng-valid">
@@ -623,7 +623,7 @@
           </div>
 
           <div class="form-group">
-            <label class="form-label">Interdisziplinäre Relevanz (Anzahl der Fachbereiche, die in die Analyse einfließen.) *</label>
+            <label class="form-label">{{ translate('criteria.interdisciplinaryRelevance') }} ({{ translate('criteria.interdisciplinaryRelevanceDesc') }}) *</label>
             <div class="score-options flex">
               <label class="score-label" [class.selected]="pricingForm.get('interdisciplinaryRelevance')?.value === '1'">
                 <input type="radio" formControlName="interdisciplinaryRelevance" value="1" class="ng-untouched ng-pristine ng-valid">
@@ -649,7 +649,7 @@
           </div>
 
           <div class="form-group">
-            <label class="form-label">Dynamische Anpassungsfähigkeit (Fähigkeit des Systems, auf Änderungen klinischer Parameter zu reagieren.) *</label>
+            <label class="form-label">{{ translate('criteria.dynamicAdaptability') }} ({{ translate('criteria.dynamicAdaptabilityDesc') }}) *</label>
             <div class="score-options flex">
               <label class="score-label" [class.selected]="pricingForm.get('dynamicAdaptability')?.value === '1'">
                 <input type="radio" formControlName="dynamicAdaptability" value="1" class="ng-untouched ng-pristine ng-valid">
@@ -676,10 +676,10 @@
         </div>
 
         <!-- 4. Ausmaß der KI-Unterstützung -->
-        <h4>4. Ausmaß der KI-Unterstützung</h4>
+        <h4>4. {{ translate('dimensions.aiSupportExtent') }}</h4>
         <div class="complexity-grid">
           <div class="form-group">
-            <label class="form-label">Automatisierungsgrad (Grad der Autonomie der KI.) *</label>
+            <label class="form-label">{{ translate('criteria.automationLevel') }} ({{ translate('criteria.automationLevelDesc') }}) *</label>
             <div class="score-options flex">
               <label class="score-label" [class.selected]="pricingForm.get('automationLevel')?.value === '1'">
                 <input type="radio" formControlName="automationLevel" value="1" class="ng-untouched ng-pristine ng-valid">
@@ -705,7 +705,7 @@
           </div>
 
           <div class="form-group">
-            <label class="form-label">Analyseebene (Tiefe der durchgeführten Analyse.) *</label>
+            <label class="form-label">{{ translate('criteria.analysisLevel') }} ({{ translate('criteria.analysisLevelDesc') }}) *</label>
             <div class="score-options flex">
               <label class="score-label" [class.selected]="pricingForm.get('analysisDepth')?.value === '1'">
                 <input type="radio" formControlName="analysisDepth" value="1" class="ng-untouched ng-pristine ng-valid">
@@ -731,7 +731,7 @@
           </div>
 
           <div class="form-group">
-            <label class="form-label">Empfehlungskomplexität (Umfang der Vorschläge oder Handlungspläne.) *</label>
+            <label class="form-label">{{ translate('criteria.recommendationComplexity') }} ({{ translate('criteria.recommendationComplexityDesc') }}) *</label>
             <div class="score-options flex">
               <label class="score-label" [class.selected]="pricingForm.get('recommendationComplexity')?.value === '1'">
                 <input type="radio" formControlName="recommendationComplexity" value="1" class="ng-untouched ng-pristine ng-valid">
@@ -783,7 +783,7 @@
           </div>
 
           <div class="form-group">
-            <label class="form-label">Patientenspezifische Individualisierung (Berücksichtigung individueller Patientenmerkmale.) *</label>
+            <label class="form-label">{{ translate('criteria.patientIndividualization') }} ({{ translate('criteria.patientIndividualizationDesc') }}) *</label>
             <div class="score-options flex">
               <label class="score-label" [class.selected]="pricingForm.get('patientSpecificIndividualization')?.value === '1'">
                 <input type="radio" formControlName="patientSpecificIndividualization" value="1" class="ng-untouched ng-pristine ng-valid">
