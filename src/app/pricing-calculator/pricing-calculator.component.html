@@ -118,33 +118,33 @@
 
   <!-- Display Area for Series Simulation Results -->
   <div *ngIf="isSeriesMode && latestSeriesSimulationRun.length > 0" class="mb-4">
-    <h4>Ergebnisse der Seriensimulation</h4>
+    <h4>{{ translate('simulation.seriesResults') }}</h4>
     <div *ngFor="let runPart of latestSeriesSimulationRun; let i = index" class="series-run-part-card mb-3">
       <mat-card>
         <mat-card-header>
           <mat-card-title>
-            Serie für {{ getSeriesParameterLabel(runPart.parameter) }}: 
-            Ursprungswert = {{ runPart.inputValue }}
+            {{ translate('simulation.seriesFor') }} {{ getSeriesParameterLabel(runPart.parameter) }}: 
+            {{ translate('simulation.originalValue') }} = {{ runPart.inputValue }}
           </mat-card-title>
         </mat-card-header>
         <mat-card-content>
           <table class="table table-sm table-bordered">
             <thead>
               <tr>
-                <th>Szenario</th>
-                <th>Wert für {{ getSeriesParameterLabel(runPart.parameter) }}</th>
-                <th>Jahreskosten Miete</th>
-                <th>Jahreskosten Volumen</th>
-                <th>Jahreskosten KI-Score</th>
+                <th>{{ translate('simulation.scenario') }}</th>
+                <th>{{ translate('simulation.valueFor') }} {{ getSeriesParameterLabel(runPart.parameter) }}</th>
+                <th>{{ translate('simulation.annualRentalCosts') }}</th>
+                <th>{{ translate('simulation.annualVolumeCosts') }}</th>
+                <th>{{ translate('simulation.annualAIScoreCosts') }}</th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let scenario of runPart.scenarios">
-                <td>{{ scenario.type | titlecase }}</td>
+                <td>{{ getTranslatedScenarioType(scenario.type) }}</td>
                 <td>{{ scenario.value }}</td>
-                <td>{{ (scenario.result?.results | findCost:'monthly') !== null ? ((scenario.result?.results | findCost:'monthly') | currency:'EUR':'symbol':'1.2-2') : 'N/V' }}</td>
-                <td>{{ (scenario.result?.results | findCost:'volume') !== null ? ((scenario.result?.results | findCost:'volume') | currency:'EUR':'symbol':'1.2-2') : 'N/V' }}</td>
-                <td>{{ (scenario.result?.results | findCost:'aiScore') !== null ? ((scenario.result?.results | findCost:'aiScore') | currency:'EUR':'symbol':'1.2-2') : 'N/V' }}</td>
+                <td>{{ (scenario.result?.results | findCost:'monthly') !== null ? ((scenario.result?.results | findCost:'monthly') | currency:'EUR':'symbol':'1.2-2') : translate('common.notAvailable') }}</td>
+                <td>{{ (scenario.result?.results | findCost:'volume') !== null ? ((scenario.result?.results | findCost:'volume') | currency:'EUR':'symbol':'1.2-2') : translate('common.notAvailable') }}</td>
+                <td>{{ (scenario.result?.results | findCost:'aiScore') !== null ? ((scenario.result?.results | findCost:'aiScore') | currency:'EUR':'symbol':'1.2-2') : translate('common.notAvailable') }}</td>
               </tr>
             </tbody>
           </table>

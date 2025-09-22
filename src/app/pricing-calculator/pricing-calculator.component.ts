@@ -353,4 +353,16 @@ export class PricingCalculatorComponent implements OnInit {
   translate(key: string): string {
     return this.languageService.translate(key);
   }
+
+  getTranslatedScenarioType(type: string): string {
+    const scenarioTypeMap: { [key: string]: string } = {
+      'original': 'simulation.scenarioOriginal',
+      'half': 'simulation.scenarioHalf',
+      'double': 'simulation.scenarioDouble',
+      'triple': 'simulation.scenarioTriple'
+    };
+    
+    const translationKey = scenarioTypeMap[type] || type;
+    return this.translate(translationKey);
+  }
 }

@@ -46,6 +46,7 @@ export class LanguageService {
       'common.scoreLabels.3': 'Durchschnittlich',
       'common.scoreLabels.4': 'Überdurchschnittlich',
       'common.scoreLabels.5': 'Hoch',
+      'common.notAvailable': 'N/V',
       'common.score': 'Score',
       
       // Score Management
@@ -348,6 +349,20 @@ export class LanguageService {
       'simulationHistory.aiScoreReferencePrice': 'KI Score Referenzpreis:',
       'simulationHistory.description': 'Beschreibung:',
       'simulationHistory.simulatedOn': 'Simuliert am:',
+      
+      // Series Simulation
+      'simulation.seriesResults': 'Ergebnisse der Seriensimulation',
+      'simulation.seriesFor': 'Serie für',
+      'simulation.originalValue': 'Ursprungswert',
+      'simulation.scenario': 'Szenario',
+      'simulation.valueFor': 'Wert für',
+      'simulation.annualRentalCosts': 'Jahreskosten Miete',
+      'simulation.annualVolumeCosts': 'Jahreskosten Volumen',
+      'simulation.annualAIScoreCosts': 'Jahreskosten KI-Score',
+      'simulation.scenarioOriginal': 'Original',
+      'simulation.scenarioHalf': 'Hälfte',
+      'simulation.scenarioDouble': 'Doppelt',
+      'simulation.scenarioTriple': 'Dreifach',
       
       // Cost Inputs Tooltips
       'pricing.developmentCostsTooltip': 'Einmalige Entwicklungskosten für das System',
@@ -810,6 +825,7 @@ export class LanguageService {
       'common.scoreLabels.3': 'Average',
       'common.scoreLabels.4': 'Above average',
       'common.scoreLabels.5': 'High',
+      'common.notAvailable': 'N/A',
       'common.score': 'Score',
       
       // Score Management
@@ -1483,6 +1499,20 @@ export class LanguageService {
       'simulationHistory.aiScoreReferencePrice': 'AI Score Reference Price:',
       'simulationHistory.description': 'Description:',
       'simulationHistory.simulatedOn': 'Simulated on:',
+      
+      // Series Simulation
+      'simulation.seriesResults': 'Series Simulation Results',
+      'simulation.seriesFor': 'Series for',
+      'simulation.originalValue': 'Original Value',
+      'simulation.scenario': 'Scenario',
+      'simulation.valueFor': 'Value for',
+      'simulation.annualRentalCosts': 'Annual Rental Costs',
+      'simulation.annualVolumeCosts': 'Annual Volume Costs',
+      'simulation.annualAIScoreCosts': 'Annual AI-Score Costs',
+      'simulation.scenarioOriginal': 'Original',
+      'simulation.scenarioHalf': 'Half',
+      'simulation.scenarioDouble': 'Double',
+      'simulation.scenarioTriple': 'Triple',
       
       // Cost Inputs Tooltips
       'pricing.developmentCostsTooltip': 'One-time development costs for the system',
