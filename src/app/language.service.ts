@@ -274,6 +274,10 @@ export class LanguageService {
       'pricing.sales.partner': 'Partner/Distributor',
       'pricing.sales.partnerDesc': 'Verkauf über Partner, Provision erforderlich',
       
+      // Installation Fee
+      'pricing.installationFee': 'Installationsgebühr',
+      'pricing.installationFeeTooltip': 'Einmalige Gebühr für die Installation und Einrichtung des Systems',
+      
       // Partner Commission
       'pricing.partnerCommission': 'Partnerprovision',
       'pricing.partnerCommissionTooltip': 'Prozentsatz des Umsatzes, der als Provision an den Partner geht (Standard: ~20%)',
@@ -542,10 +546,6 @@ export class LanguageService {
       'pricing.businessModel.pricingModel.dacsDesc': 'Preis abhängig von der Fallkomplexität',
       'pricing.businessModel.pricingInputs': 'Preiseingaben',
       'pricing.businessModel.dacsPricingInputs': 'DACS-Modell - Preiseingaben',
-      'pricing.deploymentType': 'Bereitstellungsart',
-      'pricing.installationFee': 'Installationsgebühr',
-      'pricing.salesChannel': 'Vertriebskanal',
-      'pricing.partnerCommission': 'Partnerprovision (%)',
       'pricing.validation.invalidField': 'ist ungültig',
       'pricing.validation.validBasePrice': 'Bitte geben Sie einen gültigen Basispreis für das Lizenzmodell ein',
       'pricing.validation.validUsagePrice': 'Bitte geben Sie einen gültigen Preis pro Nutzung ein',
@@ -1067,6 +1067,10 @@ export class LanguageService {
       'pricing.sales.partner': 'Partner/Distributor',
       'pricing.sales.partnerDesc': 'Sales via partners, commission required',
       
+      // Installation Fee
+      'pricing.installationFee': 'Installation Fee',
+      'pricing.installationFeeTooltip': 'One-time fee for installation and setup of the system',
+      
       // Partner Commission
       'pricing.partnerCommission': 'Partner Commission',
       'pricing.partnerCommissionTooltip': 'Percentage of revenue that goes to the partner as commission (Standard: ~20%)',
@@ -1234,10 +1238,6 @@ export class LanguageService {
       'pricing.businessModel.pricingModel.dacsDesc': 'Price dependent on case complexity',
       'pricing.businessModel.pricingInputs': 'Pricing Inputs',
       'pricing.businessModel.dacsPricingInputs': 'DACS Model - Pricing Inputs',
-      'pricing.deploymentType': 'Deployment Type',
-      'pricing.installationFee': 'Installation Fee',
-      'pricing.salesChannel': 'Sales Channel',
-      'pricing.partnerCommission': 'Partner Commission (%)',
       'pricing.validation.invalidField': 'is invalid',
       'pricing.validation.validBasePrice': 'Please enter a valid base price for the license model',
       'pricing.validation.validUsagePrice': 'Please enter a valid price per usage',
