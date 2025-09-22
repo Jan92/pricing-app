@@ -15,11 +15,16 @@
 }
 
 .scale-item {
-  margin-bottom: 15px;
+  margin-bottom: 25px;
 }
 
 .full-width {
   width: 100%;
+}
+
+mat-hint {
+  margin-bottom: 8px;
+  display: block;
 }
 
 h3 {
