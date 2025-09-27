@@ -138,21 +138,33 @@
   display: block;
   padding: 16px;
   margin-bottom: 12px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
   background-color: white;
+  position: relative;
+  min-height: 72px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
 
 .radio-option:hover {
   border-color: #1976d2;
-  background-color: #f5f5f5;
+  background-color: #f8f9fa;
+  box-shadow: 0 2px 6px rgba(25, 118, 210, 0.15);
+  transform: translateY(-1px);
 }
 
 .radio-option.selected {
   border-color: #1976d2;
   background-color: #e3f2fd;
+  box-shadow: 0 3px 8px rgba(25, 118, 210, 0.2);
+  transform: translateY(-1px);
+}
+
+.radio-option:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
 
 .radio-option mat-radio-button {
@@ -166,34 +178,60 @@
   display: block;
 }
 
+::ng-deep .radio-option .mat-mdc-radio-button {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: flex-start;
+}
+
+::ng-deep .radio-option .mat-mdc-radio-button .mdc-form-field {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: flex-start;
+  padding: 0;
+}
+
+::ng-deep .radio-option .mat-mdc-radio-button .mdc-radio {
+  padding: 0;
+  margin-right: 12px;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+::ng-deep .radio-option .mat-mdc-radio-button .mdc-form-field__label {
+  flex: 1;
+  padding: 0;
+  margin: 0;
+}
+
 .radio-text {
   display: block;
   line-height: 1.5;
-  margin-left: 12px;
   cursor: pointer;
   user-select: none;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
+  flex: 1;
 }
 
 .radio-text strong {
   display: block;
-  margin-bottom: 4px;
+  margin-bottom: 6px;
   color: #333;
   font-weight: 600;
+  font-size: 15px;
 }
 
 .radio-text small {
   display: block;
-  margin-top: 8px;
+  margin-top: 6px;
   color: #666;
   font-style: italic;
   font-size: 13px;
-}
-
-::ng-deep .mat-mdc-radio-button .mdc-radio {
-  padding: 12px;
+  line-height: 1.3;
 }
 
 /* Slider Styles */
@@ -219,18 +257,34 @@
 
 ::ng-deep .mat-mdc-slider {
   width: 100%;
-  margin: 16px 0;
+  margin: 20px 0;
 }
 
 ::ng-deep .mat-mdc-slider .mdc-slider__thumb {
-  width: 20px;
-  height: 20px;
+  width: 24px;
+  height: 24px;
   background: #1976d2;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+  border: 3px solid white;
 }
 
 ::ng-deep .mat-mdc-slider .mdc-slider__track--active {
   background: #1976d2;
+  height: 6px;
+}
+
+::ng-deep .mat-mdc-slider .mdc-slider__track {
+  height: 6px;
+  background: #e0e0e0;
+}
+
+::ng-deep .mat-mdc-slider .mdc-slider__thumb:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+}
+
+::ng-deep .mat-mdc-slider .mdc-slider__thumb:focus {
+  box-shadow: 0 0 0 8px rgba(25, 118, 210, 0.2);
 }
 
 /* Navigation */
@@ -393,20 +447,30 @@
 
   .progress-steps {
     flex-wrap: nowrap;
-    gap: 4px;
+    gap: 6px;
     min-width: max-content;
-    padding-bottom: 5px;
+    padding-bottom: 8px;
   }
   
   .step {
-    min-width: 90px;
-    padding: 8px 4px;
-    margin: 0 2px;
+    min-width: 100px;
+    padding: 12px 6px;
+    margin: 0 3px;
+    border-radius: 8px;
+  }
+  
+  .step-number {
+    width: 36px;
+    height: 36px;
+    font-size: 16px;
+    margin-bottom: 6px;
   }
   
   .step-label {
-    font-size: 11px;
-    min-width: 80px;
+    font-size: 12px;
+    min-width: 90px;
+    line-height: 1.2;
+    font-weight: 500;
   }
 
   .step:hover {
@@ -416,10 +480,14 @@
   .form-navigation {
     flex-direction: column;
     gap: 16px;
+    margin-top: 40px;
   }
   
   .form-navigation .btn {
     width: 100%;
+    min-height: 48px;
+    font-size: 16px;
+    padding: 12px 24px;
   }
   
   .pricing-details {
@@ -427,40 +495,181 @@
   }
   
   .radio-option {
-    padding: 12px;
+    padding: 16px;
+    min-height: 64px;
+    margin-bottom: 8px;
+    border-radius: 12px;
+    border: 2px solid #e0e0e0;
+  }
+  
+  .radio-option.selected {
+    border-color: #1976d2;
+    background-color: #e3f2fd;
+    box-shadow: 0 2px 8px rgba(25, 118, 210, 0.15);
+  }
+  
+  .radio-text {
+    font-size: 14px;
+    line-height: 1.4;
+  }
+  
+  .radio-text strong {
+    font-size: 15px;
+    margin-bottom: 6px;
   }
   
   .radio-text small {
-    font-size: 12px;
+    font-size: 13px;
+    line-height: 1.3;
+  }
+  
+  /* Form Fields */
+  ::ng-deep .mat-mdc-form-field {
+    margin-bottom: 20px;
+  }
+  
+  ::ng-deep .mat-mdc-form-field .mat-mdc-form-field-infix {
+    min-height: 48px;
+    padding: 12px 0;
+  }
+  
+  ::ng-deep .mat-mdc-form-field .mat-mdc-form-field-label {
+    font-size: 14px;
+  }
+  
+  /* Cards */
+  .strategy-card {
+    margin-bottom: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+  
+  /* Cost Grid */
+  .costs-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
   }
 }
 
 @media (max-width: 480px) {
   .header h1 {
     font-size: 24px;
+    margin-bottom: 8px;
+  }
+  
+  .header p {
+    font-size: 14px;
+    line-height: 1.4;
   }
   
   .progress-container {
     margin: 0 -16px 20px -16px;
+    padding: 0 12px;
   }
 
   .progress-steps {
-    gap: 6px;
+    gap: 4px;
+    padding-bottom: 6px;
   }
   
   .step {
-    min-width: 80px;
+    min-width: 85px;
+    padding: 10px 4px;
+    margin: 0 2px;
   }
 
   .step-number {
-    width: 28px;
-    height: 28px;
-    font-size: 12px;
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
+    margin-bottom: 4px;
   }
   
   .step-label {
-    min-width: 70px;
-    font-size: 10px;
+    min-width: 75px;
+    font-size: 11px;
+    line-height: 1.1;
+    font-weight: 500;
+  }
+  
+  /* Even smaller radio options for very small screens */
+  .radio-option {
+    padding: 12px;
+    min-height: 56px;
+    margin-bottom: 6px;
+  }
+  
+  .radio-text {
+    font-size: 13px;
+  }
+  
+  .radio-text strong {
+    font-size: 14px;
+    margin-bottom: 4px;
+  }
+  
+  .radio-text small {
+    font-size: 12px;
+  }
+  
+  /* Form fields */
+  ::ng-deep .mat-mdc-form-field .mat-mdc-form-field-infix {
+    min-height: 44px;
+    padding: 10px 0;
+  }
+  
+  /* Navigation buttons */
+  .form-navigation .btn {
+    min-height: 44px;
+    font-size: 15px;
+    padding: 10px 20px;
+  }
+  
+  /* Cards für sehr kleine Bildschirme */
+  .strategy-card {
+    margin: 0 -8px 16px -8px;
+    border-radius: 12px;
+  }
+  
+  ::ng-deep .mat-mdc-card-header {
+    padding: 12px 16px 6px 16px;
+  }
+  
+  ::ng-deep .mat-mdc-card-content {
+    padding: 6px 16px 16px 16px;
+  }
+  
+  ::ng-deep .mat-mdc-card-title {
+    font-size: 16px;
+    line-height: 1.2;
+  }
+  
+  ::ng-deep .mat-mdc-card-subtitle {
+    font-size: 13px;
+    line-height: 1.3;
+  }
+  
+  /* Section headers */
+  h3 {
+    font-size: 16px;
+    margin: 16px 0 12px 0;
+  }
+  
+  /* Cost grid für sehr kleine Bildschirme */
+  .costs-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  
+  /* Slider für sehr kleine Bildschirme */
+  ::ng-deep .mat-mdc-slider .mdc-slider__thumb {
+    width: 28px;
+    height: 28px;
+  }
+  
+  ::ng-deep .mat-mdc-slider .mdc-slider__track--active,
+  ::ng-deep .mat-mdc-slider .mdc-slider__track {
+    height: 8px;
   }
 }
 
@@ -1365,28 +1574,309 @@
   content: "5";
 }
 
-/* Responsive Anpassungen für Radio-Buttons */
-@media (max-width: 768px) {
-  .radio-group {
-    gap: 3px;
+/* iPad Mini und iPad Optimierungen */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .pricing-strategy-container {
+    padding: 24px;
+    max-width: 900px;
+  }
+  
+  .progress-container {
+    margin-bottom: 40px;
+    padding: 0 24px;
+  }
+  
+  .progress-steps {
+    gap: 12px;
+    padding-bottom: 12px;
+  }
+  
+  .step {
+    min-width: 120px;
+    padding: 16px 8px;
+    margin: 0 4px;
+  }
+  
+  .step-number {
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+    margin-bottom: 8px;
+  }
+  
+  .step-label {
+    font-size: 13px;
+    min-width: 100px;
+    line-height: 1.3;
+    font-weight: 500;
+  }
+  
+  .form-navigation {
+    margin-top: 48px;
+  }
+  
+  .form-navigation .btn {
+    min-height: 52px;
+    font-size: 17px;
+    padding: 14px 28px;
   }
   
   .radio-option {
-    padding: 6px 10px;
-    min-height: 44px;
-  }
-  
-  .radio-content {
-    gap: 10px;
-  }
-  
-  .radio-value {
-    width: 22px;
-    height: 22px;
-    font-size: 0.85em;
+    padding: 20px;
+    min-height: 80px;
+    margin-bottom: 12px;
   }
   
   .radio-text {
-    font-size: 0.85em;
+    font-size: 15px;
+  }
+  
+  .radio-text strong {
+    font-size: 16px;
+    margin-bottom: 8px;
+  }
+  
+  .radio-text small {
+    font-size: 14px;
+  }
+  
+  ::ng-deep .mat-mdc-form-field .mat-mdc-form-field-infix {
+    min-height: 52px;
+    padding: 14px 0;
+  }
+  
+  .costs-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+  
+  .strategy-card {
+    margin-bottom: 24px;
+    border-radius: 16px;
+  }
+  
+  ::ng-deep .mat-mdc-card-header {
+    padding: 20px 24px 12px 24px;
+  }
+  
+  ::ng-deep .mat-mdc-card-content {
+    padding: 12px 24px 24px 24px;
+  }
+  
+  ::ng-deep .mat-mdc-card-title {
+    font-size: 20px;
+    line-height: 1.3;
+  }
+  
+  ::ng-deep .mat-mdc-card-subtitle {
+    font-size: 15px;
+    line-height: 1.4;
+  }
+  
+  h3 {
+    font-size: 20px;
+    margin: 24px 0 20px 0;
+  }
+  
+  ::ng-deep .mat-mdc-slider .mdc-slider__thumb {
+    width: 28px;
+    height: 28px;
+  }
+  
+  ::ng-deep .mat-mdc-slider .mdc-slider__track--active,
+  ::ng-deep .mat-mdc-slider .mdc-slider__track {
+    height: 8px;
+  }
+}
+
+/* iPad Pro Optimierungen */
+@media (min-width: 1025px) and (max-width: 1366px) {
+  .pricing-strategy-container {
+    padding: 32px;
+    max-width: 1000px;
+  }
+  
+  .progress-container {
+    margin-bottom: 48px;
+    padding: 0 32px;
+  }
+  
+  .progress-steps {
+    gap: 16px;
+    padding-bottom: 16px;
+  }
+  
+  .step {
+    min-width: 140px;
+    padding: 20px 12px;
+    margin: 0 6px;
+  }
+  
+  .step-number {
+    width: 44px;
+    height: 44px;
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  
+  .step-label {
+    font-size: 14px;
+    min-width: 120px;
+    line-height: 1.4;
+    font-weight: 500;
+  }
+  
+  .form-navigation {
+    margin-top: 56px;
+  }
+  
+  .form-navigation .btn {
+    min-height: 56px;
+    font-size: 18px;
+    padding: 16px 32px;
+  }
+  
+  .radio-option {
+    padding: 24px;
+    min-height: 88px;
+    margin-bottom: 16px;
+  }
+  
+  .radio-text {
+    font-size: 16px;
+  }
+  
+  .radio-text strong {
+    font-size: 17px;
+    margin-bottom: 10px;
+  }
+  
+  .radio-text small {
+    font-size: 15px;
+  }
+  
+  ::ng-deep .mat-mdc-form-field .mat-mdc-form-field-infix {
+    min-height: 56px;
+    padding: 16px 0;
+  }
+  
+  .costs-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+  }
+  
+  .strategy-card {
+    margin-bottom: 32px;
+    border-radius: 20px;
+  }
+  
+  ::ng-deep .mat-mdc-card-header {
+    padding: 24px 32px 16px 32px;
+  }
+  
+  ::ng-deep .mat-mdc-card-content {
+    padding: 16px 32px 32px 32px;
+  }
+  
+  ::ng-deep .mat-mdc-card-title {
+    font-size: 22px;
+    line-height: 1.3;
+  }
+  
+  ::ng-deep .mat-mdc-card-subtitle {
+    font-size: 16px;
+    line-height: 1.4;
+  }
+  
+  h3 {
+    font-size: 22px;
+    margin: 28px 0 24px 0;
+  }
+  
+  ::ng-deep .mat-mdc-slider .mdc-slider__thumb {
+    width: 32px;
+    height: 32px;
+  }
+  
+  ::ng-deep .mat-mdc-slider .mdc-slider__track--active,
+  ::ng-deep .mat-mdc-slider .mdc-slider__track {
+    height: 10px;
+  }
+}
+
+/* Zusätzliche mobile Verbesserungen */
+@media (max-width: 768px) {
+  /* Material Design Cards */
+  .strategy-card {
+    margin: 0 -4px 20px -4px;
+    border-radius: 16px;
+  }
+  
+  ::ng-deep .mat-mdc-card-header {
+    padding: 16px 20px 8px 20px;
+  }
+  
+  ::ng-deep .mat-mdc-card-content {
+    padding: 8px 20px 20px 20px;
+  }
+  
+  ::ng-deep .mat-mdc-card-title {
+    font-size: 18px;
+    line-height: 1.3;
+  }
+  
+  ::ng-deep .mat-mdc-card-subtitle {
+    font-size: 14px;
+    line-height: 1.4;
+  }
+  
+  /* Divider spacing */
+  ::ng-deep .mat-divider {
+    margin: 24px 0 !important;
+  }
+  
+  /* Section headers */
+  h3 {
+    font-size: 18px;
+    margin: 20px 0 16px 0;
+    color: #1976d2;
+    font-weight: 600;
+  }
+  
+  /* Tooltips für mobile */
+  ::ng-deep .mat-mdc-tooltip {
+    font-size: 12px;
+    max-width: 200px;
+  }
+  
+  /* Input field improvements */
+  ::ng-deep .mat-mdc-form-field .mat-mdc-text-field-wrapper {
+    border-radius: 8px;
+  }
+  
+  /* Error messages */
+  ::ng-deep .mat-mdc-form-field-error {
+    font-size: 12px;
+    margin-top: 4px;
+  }
+  
+  /* Chips for mobile */
+  ::ng-deep .mat-mdc-chip {
+    font-size: 13px;
+    min-height: 32px;
+    padding: 0 12px;
+  }
+  
+  /* Tables responsive */
+  ::ng-deep .mat-mdc-table {
+    font-size: 14px;
+  }
+  
+  ::ng-deep .mat-mdc-header-row {
+    min-height: 48px;
+  }
+  
+  ::ng-deep .mat-mdc-row {
+    min-height: 44px;
   }
 }

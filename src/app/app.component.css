@@ -69,10 +69,7 @@
   color: #1976d2;
 }
 
-.main-title {
-  font-size: 1.2rem;
-  font-weight: 500;
-}
+/* Main title styling moved to .mobile-toolbar .main-title */
 
 .content-container {
   padding: 32px 24px 24px 24px;
@@ -98,11 +95,25 @@
 .mobile-toolbar {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   position: sticky;
   top: 0;
   z-index: 100;
   width: 100vw;
   min-height: 56px;
+  padding: 0 16px;
+  box-sizing: border-box;
+}
+
+.mobile-toolbar .main-title {
+  flex: 1;
+  text-align: center;
+  margin: 0 16px;
+  font-size: 1.1rem;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 @media (max-width: 900px) {
@@ -143,6 +154,128 @@
   }
   .hide-desktop {
     display: inline-flex;
+  }
+  
+  /* Mobile toolbar adjustments for very small screens */
+  .mobile-toolbar {
+    padding: 0 12px;
+    min-height: 52px;
+  }
+  
+  .mobile-toolbar .main-title {
+    font-size: 1rem;
+    margin: 0 12px;
+  }
+}
+
+/* Extra small screens (like iPhone SE) */
+@media (max-width: 375px) {
+  .mobile-toolbar {
+    padding: 0 8px;
+    min-height: 48px;
+  }
+  
+  .mobile-toolbar .main-title {
+    font-size: 0.95rem;
+    margin: 0 8px;
+  }
+  
+  .mobile-toolbar button[mat-icon-button] {
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+  }
+  
+  .mobile-toolbar mat-icon {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+  }
+}
+
+/* iPad Mini und iPad Optimierungen */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .sidenav {
+    width: 300px;
+  }
+  
+  .sidenav-header {
+    height: 72px;
+    font-size: 1.5rem;
+  }
+  
+  .sidenav-title {
+    font-size: 1.4rem;
+  }
+  
+  .mat-nav-list .mat-list-item {
+    min-height: 56px;
+    font-size: 1.1rem;
+    padding: 12px 20px;
+  }
+  
+  .mat-list-icon, .mat-icon[matListIcon] {
+    margin-right: 20px;
+    min-width: 28px;
+    font-size: 28px;
+  }
+  
+  .content-container {
+    padding: 40px 32px 32px 32px;
+  }
+  
+  .mobile-toolbar {
+    min-height: 72px;
+    padding: 0 24px;
+  }
+  
+  .mobile-toolbar .main-title {
+    font-size: 1.3rem;
+    margin: 0 24px;
+  }
+  
+  .mobile-toolbar button[mat-icon-button] {
+    width: 48px;
+    height: 48px;
+    line-height: 48px;
+  }
+  
+  .mobile-toolbar mat-icon {
+    font-size: 24px;
+    width: 24px;
+    height: 24px;
+  }
+}
+
+/* iPad Pro Optimierungen */
+@media (min-width: 1025px) and (max-width: 1366px) {
+  .sidenav {
+    width: 320px;
+  }
+  
+  .sidenav-header {
+    height: 80px;
+    font-size: 1.6rem;
+  }
+  
+  .sidenav-title {
+    font-size: 1.5rem;
+  }
+  
+  .mat-nav-list .mat-list-item {
+    min-height: 64px;
+    font-size: 1.15rem;
+    padding: 16px 24px;
+  }
+  
+  .mat-list-icon, .mat-icon[matListIcon] {
+    margin-right: 24px;
+    min-width: 32px;
+    font-size: 32px;
+  }
+  
+  .content-container {
+    padding: 48px 40px 40px 40px;
   }
 }
 
