@@ -18,6 +18,19 @@ import { MatTableModule } from '@angular/material/table';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators, FormsModule, FormArray, FormControl } from '@angular/forms';
 import { LanguageService } from '../language.service';
 
+/**
+ * Pricing Strategy Component
+ * 
+ * Implements a comprehensive pricing strategy calculator for Diagnostic Decision Support Systems (DDSS).
+ * The component guides users through a 6-phase process to determine optimal pricing models based on:
+ * - System characteristics and cost structure
+ * - Technical complexity assessment (20 criteria across 4 dimensions)
+ * - Market competition analysis
+ * - Implementation and deployment considerations
+ * - Business model selection
+ * - Pricing recommendations with ROI calculations
+ */
+
 @Component({
   selector: 'app-pricing-strategy',
   templateUrl: './pricing-strategy.component.html',
@@ -45,14 +58,18 @@ import { LanguageService } from '../language.service';
   ]
 })
 export class PricingStrategyComponent implements OnInit {
+  // Phase management
   currentPhase = 0;
   totalPhases = 6;
+  
+  // Data storage
   formData: any = {};
   results: any = {};
-  pricingForm: FormGroup;
+  pricingForm!: FormGroup;
   
-  // Make Number function available in template
+  // Template utilities
   Number = Number;
+  Math = Math;
   
   phases = [
     'pricing.phases.systemOverview',
@@ -64,72 +81,71 @@ export class PricingStrategyComponent implements OnInit {
   ];
 
   constructor(private fb: FormBuilder, private snackBar: MatSnackBar, private languageService: LanguageService) {
+    this.initializeForm();
+  }
+
+  /**
+   * Initializes the reactive form with all required fields and validators
+   * Organized by pricing strategy phases for clarity
+   */
+  private initializeForm(): void {
     this.pricingForm = this.fb.group({
-      // Schritt 1: System-Übersicht (erweitert)
+      // Phase 1: System Overview & Cost Structure
       systemName: ['', [Validators.required, Validators.minLength(3)]],
       autonomy: ['', Validators.required],
-      // Neue Kosteneingaben
       developmentCosts: [0, [Validators.required, Validators.min(0)]],
       costPerUsage: [0, [Validators.required, Validators.min(0)]],
       maintenanceCosts: [0, [Validators.required, Validators.min(0)]],
       expectedCasesPerYear: [100, [Validators.required, Validators.min(1)]],
       amortizationPeriod: [5, [Validators.required, Validators.min(1), Validators.max(10)]],
+
+      // Phase 2: Technical Complexity Assessment
+      measurability: ['', Validators.required],
+      inferenceCosts: ['', Validators.required],
+      complexityInputMethod: ['detailed', Validators.required],
+      directComplexityScore: [60, [Validators.min(20), Validators.max(100)]],
       
-        // Schritt 2: Technische Komplexität (erweitert)
-        measurability: ['', Validators.required],
-        inferenceCosts: ['', Validators.required],
-        // Komplexitätsbewertung - Eingabemethode
-        complexityInputMethod: ['detailed', Validators.required], // 'detailed' oder 'direct'
-        directComplexityScore: [60, [Validators.min(20), Validators.max(100)]], // Direkte Score-Eingabe
-        
-        // 5-dimensionale Komplexitätsbewertung (20 Unterkriterien) - nur bei detaillierter Eingabe
-        // 1. Datenkomplexität und -vielfalt
-        dataSourceDiversity: [3, [Validators.min(1), Validators.max(5)]],
-        dataIntegrity: [3, [Validators.min(1), Validators.max(5)]],
-        dataComplexity: [3, [Validators.min(1), Validators.max(5)]],
-        dataLinking: [3, [Validators.min(1), Validators.max(5)]],
-        dataVolume: [3, [Validators.min(1), Validators.max(5)]],
-        // 2. Komplexität der Erkrankung
-        diseaseRarity: [3, [Validators.min(1), Validators.max(5)]],
-        diagnosticAmbiguity: [3, [Validators.min(1), Validators.max(5)]],
-        prognosticUncertainty: [3, [Validators.min(1), Validators.max(5)]],
-        multimorbidity: [3, [Validators.min(1), Validators.max(5)]],
-        diseaseSeverity: [3, [Validators.min(1), Validators.max(5)]],
-        // 3. Schwierigkeitsgrad der Fragestellung
-        differentialDiagnosticDepth: [3, [Validators.min(1), Validators.max(5)]],
-        prognosticPrecision: [3, [Validators.min(1), Validators.max(5)]],
-        realTimeRequirement: [3, [Validators.min(1), Validators.max(5)]],
-        interdisciplinaryRelevance: [3, [Validators.min(1), Validators.max(5)]],
-        dynamicAdaptability: [3, [Validators.min(1), Validators.max(5)]],
-        // 4. Ausmaß der KI-Unterstützung
-        automationLevel: [3, [Validators.min(1), Validators.max(5)]],
-        analysisDepth: [3, [Validators.min(1), Validators.max(5)]],
-        recommendationComplexity: [3, [Validators.min(1), Validators.max(5)]],
-        guidelineIntegration: [3, [Validators.min(1), Validators.max(5)]],
-        patientSpecificIndividualization: [3, [Validators.min(1), Validators.max(5)]],
-      
-      // Schritt 3: Markt & Wettbewerb (erweitert)
+      // 20 complexity criteria across 4 dimensions (1-5 scale each)
+      dataSourceDiversity: [3, [Validators.min(1), Validators.max(5)]],
+      dataIntegrity: [3, [Validators.min(1), Validators.max(5)]],
+      dataComplexity: [3, [Validators.min(1), Validators.max(5)]],
+      dataLinking: [3, [Validators.min(1), Validators.max(5)]],
+      dataVolume: [3, [Validators.min(1), Validators.max(5)]],
+      diseaseRarity: [3, [Validators.min(1), Validators.max(5)]],
+      diagnosticAmbiguity: [3, [Validators.min(1), Validators.max(5)]],
+      prognosticUncertainty: [3, [Validators.min(1), Validators.max(5)]],
+      multimorbidity: [3, [Validators.min(1), Validators.max(5)]],
+      diseaseSeverity: [3, [Validators.min(1), Validators.max(5)]],
+      differentialDiagnosticDepth: [3, [Validators.min(1), Validators.max(5)]],
+      prognosticPrecision: [3, [Validators.min(1), Validators.max(5)]],
+      realTimeRequirement: [3, [Validators.min(1), Validators.max(5)]],
+      interdisciplinaryRelevance: [3, [Validators.min(1), Validators.max(5)]],
+      dynamicAdaptability: [3, [Validators.min(1), Validators.max(5)]],
+      automationLevel: [3, [Validators.min(1), Validators.max(5)]],
+      analysisDepth: [3, [Validators.min(1), Validators.max(5)]],
+      recommendationComplexity: [3, [Validators.min(1), Validators.max(5)]],
+      guidelineIntegration: [3, [Validators.min(1), Validators.max(5)]],
+      patientSpecificIndividualization: [3, [Validators.min(1), Validators.max(5)]],
+
+      // Phase 3: Market & Competition Analysis
       sector: ['', Validators.required],
       reimbursement: ['', Validators.required],
       competition: ['', Validators.required],
-      // Wettbewerberdaten
       competitors: this.fb.array([]),
       alternativeMethodCosts: [0, [Validators.min(0)]],
-      
-      // Schritt 4: Implementierung & Vertrieb (erweitert)
+
+      // Phase 4: Implementation & Sales
       salesEffort: ['', Validators.required],
       implementation: ['', Validators.required],
       customerFencing: ['', Validators.required],
-      // Neue Felder
       deploymentType: ['', Validators.required],
       installationFee: [0, [Validators.min(0)]],
       salesChannel: ['', Validators.required],
       partnerCommission: [0, [Validators.min(0), Validators.max(100)]],
-      
-      // Schritt 5: Geschäftsmodell (erweitert)
+
+      // Phase 5: Business Model Selection
       upgradePath: ['', Validators.required],
       supportIntensity: [3, [Validators.required, Validators.min(1), Validators.max(5)]],
-      // Neue Geschäftsmodell-Optionen
       pricingModel: ['', Validators.required],
       basePrice: [0, [Validators.min(0)]],
       hybridBaseFee: [0, [Validators.min(0)]],
@@ -145,7 +161,10 @@ export class PricingStrategyComponent implements OnInit {
     this.updateNavigation();
   }
 
-  // Hilfsmethoden für Kostenberechnung
+  /**
+   * Calculates cost per case based on development, usage, and maintenance costs
+   * Includes amortization of development costs over the expected usage period
+   */
   calculateCostPerCase(): number {
     const formValue = this.pricingForm.value;
     const developmentCosts = formValue.developmentCosts || 0;
@@ -154,45 +173,40 @@ export class PricingStrategyComponent implements OnInit {
     const expectedCasesPerYear = formValue.expectedCasesPerYear || 100;
     const amortizationPeriod = formValue.amortizationPeriod || 5;
 
-    // Berechnung der Selbstkosten pro Fall
     const amortizedDevelopmentCosts = developmentCosts / (expectedCasesPerYear * amortizationPeriod);
     const maintenanceCostsPerCase = maintenanceCosts / expectedCasesPerYear;
     
     return amortizedDevelopmentCosts + costPerUsage + maintenanceCostsPerCase;
   }
 
+  /**
+   * Calculates complexity score based on 20 criteria across 4 dimensions
+   * Returns score in range 20-100 (20 criteria × 1-5 points each)
+   */
   calculateComplexityScore(): number {
     const formValue = this.pricingForm.value;
     const inputMethod = formValue.complexityInputMethod;
     
-    // Direkte Score-Eingabe
     if (inputMethod === 'direct') {
       return Number(formValue.directComplexityScore) || 60;
     }
     
-    // Detaillierte Bewertung (4 Dimensionen, 20 Unterkriterien)
-    // 1. Datenkomplexität und -vielfalt (5 Kriterien)
+    // Detailed assessment: 20 criteria across 4 dimensions
     const dataSourceDiversity = Number(formValue.dataSourceDiversity) || 3;
     const dataIntegrity = Number(formValue.dataIntegrity) || 3;
     const dataComplexity = Number(formValue.dataComplexity) || 3;
     const dataLinking = Number(formValue.dataLinking) || 3;
     const dataVolume = Number(formValue.dataVolume) || 3;
-    
-    // 2. Komplexität der Erkrankung (5 Kriterien)
     const diseaseRarity = Number(formValue.diseaseRarity) || 3;
     const diagnosticAmbiguity = Number(formValue.diagnosticAmbiguity) || 3;
     const prognosticUncertainty = Number(formValue.prognosticUncertainty) || 3;
     const multimorbidity = Number(formValue.multimorbidity) || 3;
     const diseaseSeverity = Number(formValue.diseaseSeverity) || 3;
-    
-    // 3. Schwierigkeitsgrad der Fragestellung (5 Kriterien)
     const differentialDiagnosticDepth = Number(formValue.differentialDiagnosticDepth) || 3;
     const prognosticPrecision = Number(formValue.prognosticPrecision) || 3;
     const realTimeRequirement = Number(formValue.realTimeRequirement) || 3;
     const interdisciplinaryRelevance = Number(formValue.interdisciplinaryRelevance) || 3;
     const dynamicAdaptability = Number(formValue.dynamicAdaptability) || 3;
-    
-    // 4. Ausmaß der KI-Unterstützung (5 Kriterien)
     const automationLevel = Number(formValue.automationLevel) || 3;
     const analysisDepth = Number(formValue.analysisDepth) || 3;
     const recommendationComplexity = Number(formValue.recommendationComplexity) || 3;
@@ -205,6 +219,9 @@ export class PricingStrategyComponent implements OnInit {
            automationLevel + analysisDepth + recommendationComplexity + guidelineIntegration + patientSpecificIndividualization;
   }
 
+  /**
+   * Determines complexity level based on score ranges
+   */
   getComplexityLevel(): string {
     const score = this.calculateComplexityScore();
     if (score <= 40) return this.translate('pricing.complexity.level.low');
@@ -213,7 +230,7 @@ export class PricingStrategyComponent implements OnInit {
     return this.translate('pricing.complexity.level.veryHigh');
   }
 
-  // Wettbewerber-Management
+  // Competitor Management
   get competitorsArray(): FormArray {
     return this.pricingForm.get('competitors') as FormArray;
   }
@@ -231,6 +248,9 @@ export class PricingStrategyComponent implements OnInit {
     this.competitorsArray.removeAt(index);
   }
 
+  /**
+   * Calculates market statistics from competitor data
+   */
   calculateMarketStats(): { min: number, max: number, avg: number } {
     const competitors = this.competitorsArray.value;
     if (competitors.length === 0) return { min: 0, max: 0, avg: 0 };
@@ -245,7 +265,10 @@ export class PricingStrategyComponent implements OnInit {
     };
   }
 
-  // DACS-Preisberechnung
+  /**
+   * Calculates DACS (Dynamic Adaptive Complexity-based System) pricing
+   * Prices vary based on complexity score: simple (50%), medium (100%), complex (150%), very complex (200%)
+   */
   calculateDACSPrices(): { 
     simple: number, 
     medium: number, 
@@ -261,19 +284,19 @@ export class PricingStrategyComponent implements OnInit {
     const profitMargin = this.pricingForm.get('profitMargin')?.value || 20;
     const complexityLevel = this.getComplexityLevel();
     
-    // DACS-Preise basierend auf Komplexität mit Gewinnmarge
-    const simplePrice = (basePrice * 0.5) * (1 + profitMargin / 100); // 50% des Basispreises für einfache Fälle
-    const mediumPrice = basePrice * (1 + profitMargin / 100); // 100% des Basispreises für mittlere Fälle
-    const complexPrice = (basePrice * 1.5) * (1 + profitMargin / 100); // 150% des Basispreises für komplexe Fälle
+    const simplePrice = (basePrice * 0.5) * (1 + profitMargin / 100);
+    const mediumPrice = basePrice * (1 + profitMargin / 100);
+    const complexPrice = (basePrice * 1.5) * (1 + profitMargin / 100);
     
-    // Dynamische Preisanpassung basierend auf tatsächlichem Komplexitätsscore (20-100)
     let dynamicPrice = basePrice;
     if (complexityScore <= 40) {
       dynamicPrice = simplePrice;
     } else if (complexityScore <= 60) {
       dynamicPrice = mediumPrice;
-    } else {
+    } else if (complexityScore <= 80) {
       dynamicPrice = complexPrice;
+    } else {
+      dynamicPrice = (basePrice * 2) * (1 + profitMargin / 100);
     }
     
     return {
@@ -286,13 +309,15 @@ export class PricingStrategyComponent implements OnInit {
       complexityLevel: complexityLevel,
       priceRange: {
         min: simplePrice,
-        max: complexPrice,
-        spread: complexPrice - simplePrice
+        max: dynamicPrice > complexPrice ? dynamicPrice : complexPrice,
+        spread: (dynamicPrice > complexPrice ? dynamicPrice : complexPrice) - simplePrice
       }
     };
   }
 
-  // Hilfsmethode für Slider-Labels und String-Formatierung
+  /**
+   * Formats labels for sliders and string formatting
+   */
   formatLabel(value: number | string): string {
     if (typeof value === 'number') {
       return value.toString();
@@ -300,7 +325,9 @@ export class PricingStrategyComponent implements OnInit {
     return value.charAt(0).toUpperCase() + value.slice(1).replace(/([A-Z])/g, ' $1');
   }
 
-  // Automatische Modell-Empfehlung
+  /**
+   * Generates automatic pricing model recommendations based on system characteristics
+   */
   getModelRecommendation(): string {
     const formValue = this.pricingForm.value;
     const deploymentType = formValue.deploymentType;
@@ -310,22 +337,18 @@ export class PricingStrategyComponent implements OnInit {
 
     let recommendation = '';
 
-    // Cloud + viele Nutzer + variable Kosten hoch: → Vorschlag nutzungsbasiert
     if (deploymentType === 'cloud' && costPerCase > 0) {
       recommendation = this.translate('pricing.modelRecommendation.cloud');
     }
 
-    // On-Premises + wenige große Kunden: → Vorschlag jährliche Lizenz
     if (deploymentType === 'onpremises') {
       recommendation = this.translate('pricing.modelRecommendation.onPremises');
     }
 
-    // Hohe Komplexitäts-Schwankungen: → Vorschlag DACS
-    if (complexityScore > 14) {
+    if (complexityScore > 60) {
       recommendation = this.translate('pricing.modelRecommendation.dacs');
     }
 
-    // Partnervertrieb: → Hinweis auf höhere Preise
     if (salesChannel === 'partner') {
       recommendation += ' ' + this.translate('pricing.modelRecommendation.partner');
     }
@@ -333,7 +356,9 @@ export class PricingStrategyComponent implements OnInit {
     return recommendation;
   }
 
-  // Hilfsmethode für Preismodell-Labels
+  /**
+   * Returns human-readable labels for pricing models
+   */
   getPricingModelLabel(value: string): string {
     const labels: { [key: string]: string } = {
       'license': 'Feste Lizenzgebühr',
@@ -344,15 +369,17 @@ export class PricingStrategyComponent implements OnInit {
     return labels[value] || 'Unbekannt';
   }
 
-  // Math-Objekt für Template-Zugriff
-  Math = Math;
-
+  /**
+   * Translation helper method
+   */
   translate(key: string): string {
     return this.languageService.translate(key);
   }
 
+  /**
+   * Returns score labels for complexity criteria
+   */
   getScoreLabel(criterionId: string, score: number): string {
-    // Use common score labels for scores 2-4, and specific labels for 1 and 5
     if (score === 1) {
       return this.languageService.translate(`common.scoreLabels.1`);
     } else if (score === 5) {
@@ -363,21 +390,19 @@ export class PricingStrategyComponent implements OnInit {
   }
 
 
+  /**
+   * Advances to the next phase after validation
+   */
   nextPhase() {
-    console.log('nextPhase called, currentPhase:', this.currentPhase, 'totalPhases:', this.totalPhases);
-    
     if (!this.validateCurrentPhase()) {
-      console.log('Validation failed');
       return;
     }
     
     this.saveFormData();
     
     if (this.currentPhase === this.totalPhases - 2) {
-      console.log('Generating recommendations...');
       this.generateRecommendations();
     } else if (this.currentPhase < this.totalPhases - 1) {
-      console.log('Moving to next phase');
       this.currentPhase++;
       this.updatePhaseDisplay();
       this.updateProgress();
@@ -385,6 +410,9 @@ export class PricingStrategyComponent implements OnInit {
     }
   }
 
+  /**
+   * Returns to the previous phase
+   */
   previousPhase() {
     if (this.currentPhase > 0) {
       this.currentPhase--;
@@ -394,17 +422,18 @@ export class PricingStrategyComponent implements OnInit {
     }
   }
 
+  /**
+   * Allows jumping to previously visited phases or the next phase
+   */
   jumpToPhase(phaseIndex: number) {
-    // Erlaube nur Sprünge zu bereits besuchten Phasen oder der nächsten Phase
     if (phaseIndex <= this.currentPhase || phaseIndex === this.currentPhase + 1) {
       if (this.currentPhase === this.totalPhases - 1 && phaseIndex < this.currentPhase) {
-        // Wenn wir von den Ergebnissen zurückspringen, speichern wir die aktuellen Ergebnisse
         const savedResults = { ...this.results };
         this.currentPhase = phaseIndex;
         this.updatePhaseDisplay();
         this.updateProgress();
         this.updateNavigation();
-        this.results = savedResults; // Stelle die Ergebnisse wieder her
+        this.results = savedResults;
       } else {
         this.currentPhase = phaseIndex;
         this.updatePhaseDisplay();
@@ -414,6 +443,7 @@ export class PricingStrategyComponent implements OnInit {
     }
   }
 
+  // Phase visibility and navigation helpers
   isPhaseVisible(index: number): boolean {
     return index === this.currentPhase;
   }
@@ -426,16 +456,8 @@ export class PricingStrategyComponent implements OnInit {
     return index < this.currentPhase;
   }
 
-  updatePhaseDisplay() {
-    // Diese Methode bleibt für Kompatibilität, aber die Logik wurde in die Template-Methoden verschoben
-  }
-
   getProgressPercent(): number {
     return ((this.currentPhase + 1) / this.totalPhases) * 100;
-  }
-
-  updateProgress() {
-    // Diese Methode bleibt für Kompatibilität, aber die Logik wurde in die Template-Methoden verschoben
   }
 
   isPrevButtonVisible(): boolean {
@@ -453,26 +475,23 @@ export class PricingStrategyComponent implements OnInit {
     return this.translate('pricing.next');
   }
 
-  updateNavigation() {
-    // Diese Methode bleibt für Kompatibilität, aber die Logik wurde in die Template-Methoden verschoben
-  }
+  // Template compatibility methods
+  updatePhaseDisplay() {}
+  updateProgress() {}
+  updateNavigation() {}
 
+  /**
+   * Validates the current phase form data
+   */
   validateCurrentPhase(): boolean {
-    console.log('validateCurrentPhase called, currentPhase:', this.currentPhase);
-    
-    // Wenn wir auf der Ergebnisseite sind, ist die Validierung immer erfolgreich
     if (this.currentPhase === this.totalPhases - 1) {
-      console.log('On results page, validation successful');
       return true;
     }
 
-    // Spezielle Validierung für Business Model Phase (Phase 4)
     if (this.currentPhase === 4) {
-      console.log('Validating business model phase');
       return this.validateBusinessModelPhase();
     }
 
-    // Prüfe die Validität des Formulars für die aktuelle Phase
     const currentPhaseControls = this.getCurrentPhaseControls();
     const invalidControls = currentPhaseControls.filter(control => {
       const formControl = this.pricingForm.get(control);
@@ -511,15 +530,14 @@ export class PricingStrategyComponent implements OnInit {
     return true;
   }
 
+  /**
+   * Validates business model phase with model-specific requirements
+   */
   private validateBusinessModelPhase(): boolean {
     const formValue = this.pricingForm.value;
     const pricingModel = formValue.pricingModel;
     
-    console.log('validateBusinessModelPhase called, pricingModel:', pricingModel, 'formValue:', formValue);
-    
-    // Basisvalidierung für erforderliche Felder
     if (!pricingModel) {
-      console.log('No pricing model selected');
       this.snackBar.open('Bitte wählen Sie ein Preismodell aus', 'OK', {
         duration: 3000,
         horizontalPosition: 'center',
@@ -529,7 +547,6 @@ export class PricingStrategyComponent implements OnInit {
       return false;
     }
 
-    // Modell-spezifische Validierung
     let isValid = true;
     let errorMessage = '';
 
@@ -547,16 +564,17 @@ export class PricingStrategyComponent implements OnInit {
         }
         break;
       case 'hybrid':
-        console.log('Validating hybrid model, hybridBaseFee:', formValue.hybridBaseFee, 'hybridUsageFee:', formValue.hybridUsageFee);
+        const hybridErrors: string[] = [];
         if (!formValue.hybridBaseFee || formValue.hybridBaseFee <= 0) {
-          console.log('hybridBaseFee validation failed');
-          errorMessage = this.translate('pricing.validation.validHybridBaseFee');
+          hybridErrors.push(this.translate('pricing.validation.validHybridBaseFee'));
           isValid = false;
         }
         if (!formValue.hybridUsageFee || formValue.hybridUsageFee <= 0) {
-          console.log('hybridUsageFee validation failed');
-          errorMessage = this.translate('pricing.validation.validHybridUsageFee');
+          hybridErrors.push(this.translate('pricing.validation.validHybridUsageFee'));
           isValid = false;
+        }
+        if (hybridErrors.length > 0) {
+          errorMessage = hybridErrors.join(' und ');
         }
         break;
       case 'dacs':
@@ -568,20 +586,20 @@ export class PricingStrategyComponent implements OnInit {
     }
 
     if (!isValid) {
-      console.log('Business model validation failed:', errorMessage);
       this.snackBar.open(errorMessage, 'OK', {
         duration: 3000,
         horizontalPosition: 'center',
         verticalPosition: 'bottom',
         panelClass: ['error-snackbar']
       });
-    } else {
-      console.log('Business model validation successful');
     }
 
     return isValid;
   }
 
+  /**
+   * Returns field labels for validation error messages
+   */
   private getFieldLabel(control: string): string {
     const labels: { [key: string]: string } = {
       systemName: this.languageService.translate('pricing.systemName'),
@@ -595,25 +613,21 @@ export class PricingStrategyComponent implements OnInit {
       inferenceCosts: this.languageService.translate('pricing.complexity.aiInferenceCosts'),
       complexityInputMethod: 'Eingabemethode für Komplexitätsbewertung',
       directComplexityScore: 'Direkter AI-Score',
-      // 1. Datenkomplexität und -vielfalt
       dataSourceDiversity: 'Datenquellenvielfalt',
       dataIntegrity: 'Datenintegrität',
       dataComplexity: 'Datenkomplexität',
       dataLinking: 'Datenverknüpfung',
       dataVolume: 'Datenvolumen',
-      // 2. Komplexität der Erkrankung
       diseaseRarity: 'Seltenheit der Erkrankung',
       diagnosticAmbiguity: 'Diagnostische Mehrdeutigkeit',
       prognosticUncertainty: 'Prognostische Unsicherheit',
       multimorbidity: 'Multimorbidität',
       diseaseSeverity: 'Schweregrad der Erkrankung',
-      // 3. Schwierigkeitsgrad der Fragestellung
       differentialDiagnosticDepth: 'Differenzialdiagnostische Tiefe',
       prognosticPrecision: 'Prognostische Präzision',
       realTimeRequirement: 'Anforderung an die Echtzeit',
       interdisciplinaryRelevance: 'Interdisziplinäre Relevanz',
       dynamicAdaptability: 'Dynamische Anpassungsfähigkeit',
-      // 4. Ausmaß der KI-Unterstützung
       automationLevel: 'Automatisierungsgrad',
       analysisDepth: 'Analyseebene',
       recommendationComplexity: 'Empfehlungskomplexität',
@@ -642,8 +656,10 @@ export class PricingStrategyComponent implements OnInit {
     return labels[control] || control;
   }
 
+  /**
+   * Returns form controls that need validation for the current phase
+   */
   private getCurrentPhaseControls(): string[] {
-    // Definiere die Formularfelder für jede Phase
     const phaseControls = {
       0: ['systemName', 'autonomy', 'developmentCosts', 'costPerUsage', 'maintenanceCosts', 'expectedCasesPerYear', 'amortizationPeriod'],
       1: this.getComplexityPhaseControls(),
@@ -655,6 +671,9 @@ export class PricingStrategyComponent implements OnInit {
     return phaseControls[this.currentPhase as keyof typeof phaseControls] || [];
   }
 
+  /**
+   * Returns complexity phase controls based on input method
+   */
   private getComplexityPhaseControls(): string[] {
     const baseControls = ['measurability', 'inferenceCosts', 'complexityInputMethod'];
     const inputMethod = this.pricingForm.get('complexityInputMethod')?.value;
@@ -662,7 +681,6 @@ export class PricingStrategyComponent implements OnInit {
     if (inputMethod === 'direct') {
       return [...baseControls, 'directComplexityScore'];
     } else {
-      // Detaillierte Eingabe - alle 20 Kriterien
       return [...baseControls, 'dataSourceDiversity', 'dataIntegrity', 'dataComplexity', 'dataLinking', 'dataVolume',
               'diseaseRarity', 'diagnosticAmbiguity', 'prognosticUncertainty', 'multimorbidity', 'diseaseSeverity',
               'differentialDiagnosticDepth', 'prognosticPrecision', 'realTimeRequirement', 'interdisciplinaryRelevance', 'dynamicAdaptability',
@@ -670,10 +688,10 @@ export class PricingStrategyComponent implements OnInit {
     }
   }
 
-  // Diese Methode wird nicht mehr benötigt, da wir jetzt Angular Forms Validierung verwenden
-
+  /**
+   * Saves current form data to local storage
+   */
   saveFormData() {
-    // Speichere die Formulardaten aus dem ReactiveForm
     if (this.pricingForm.valid) {
       this.formData = { ...this.pricingForm.value };
       this.snackBar.open(this.translate('pricing.dataSaved'), 'OK', {
@@ -685,41 +703,38 @@ export class PricingStrategyComponent implements OnInit {
     }
   }
 
+  /**
+   * Generates pricing recommendations and advances to results phase
+   */
   generateRecommendations() {
-    console.log('generateRecommendations called');
-    
     if (!this.validateCurrentPhase()) {
-      console.log('Validation failed in generateRecommendations');
       return;
     }
 
     this.saveFormData();
 
     if (this.pricingForm.valid) {
-      console.log('Form is valid, generating recommendations');
       this.results = this.calculatePricingRecommendations();
       this.currentPhase = this.totalPhases - 1;
       this.updatePhaseDisplay();
       this.updateProgress();
       this.updateNavigation();
 
-      // Bestätige die erfolgreiche Generierung
       this.snackBar.open(this.translate('pricing.recommendationGenerated'), 'OK', {
         duration: 3000,
         horizontalPosition: 'center',
         verticalPosition: 'bottom',
         panelClass: ['success-snackbar']
       });
-      console.log('Recommendations generated successfully');
-    } else {
-      console.log('Form is invalid:', this.pricingForm.errors);
     }
   }
 
+  /**
+   * Calculates comprehensive pricing recommendations based on all input parameters
+   */
   calculatePricingRecommendations() {
     const formValue = this.pricingForm.value;
     
-    // Grundlegende Berechnungen
     const basePrice = formValue.basePrice || 0;
     const profitMargin = formValue.profitMargin || 20;
     const complexityScore = this.calculateComplexityScore();
@@ -729,11 +744,9 @@ export class PricingStrategyComponent implements OnInit {
     const maintenanceCosts = formValue.maintenanceCosts || 0;
     const costPerUsage = formValue.costPerUsage || 0;
     
-    // Preisempfehlung basierend auf Komplexität und Geschäftsmodell
     let recommendedPrice = basePrice;
     let pricingModel = formValue.pricingModel || 'license';
     
-    // Anpassung basierend auf Geschäftsmodell
     switch (pricingModel) {
       case 'usage':
         recommendedPrice = costPerUsage * (1 + profitMargin / 100);
@@ -747,54 +760,85 @@ export class PricingStrategyComponent implements OnInit {
         };
         break;
       case 'dacs':
-        const dacsBase = formValue.dacsBasePrice || 0;
         recommendedPrice = this.calculateDACSPrices();
         break;
       default: // license
-        if (complexityScore > 15) {
-          recommendedPrice = basePrice * 1.5; // 50% Aufschlag für hohe Komplexität
-        } else if (complexityScore > 10) {
-          recommendedPrice = basePrice * 1.2; // 20% Aufschlag für mittlere Komplexität
+        if (complexityScore > 80) {
+          recommendedPrice = basePrice * 1.5;
+        } else if (complexityScore > 60) {
+          recommendedPrice = basePrice * 1.2;
         }
         recommendedPrice = recommendedPrice * (1 + profitMargin / 100);
     }
     
-    // Marktvergleich
     const marketStats = this.calculateMarketStats();
     const alternativeCosts = formValue.alternativeMethodCosts || 0;
     
-    // ROI-Berechnung
-    const totalCosts = developmentCosts + (maintenanceCosts * 5); // 5 Jahre Wartung
-    const annualRevenue = typeof recommendedPrice === 'number' 
-      ? recommendedPrice * expectedCases 
-      : (recommendedPrice as any).baseFee + ((recommendedPrice as any).usageFee * expectedCases);
+    const totalCosts = developmentCosts + (maintenanceCosts * 5);
+    let annualRevenue: number;
+    
+    if (typeof recommendedPrice === 'number') {
+      annualRevenue = recommendedPrice * expectedCases;
+    } else if (recommendedPrice && typeof recommendedPrice === 'object') {
+      const priceObj = recommendedPrice as any;
+      if (priceObj.baseFee && priceObj.usageFee) {
+        annualRevenue = priceObj.baseFee + (priceObj.usageFee * expectedCases);
+      } else if (priceObj.dynamic) {
+        annualRevenue = priceObj.dynamic * expectedCases;
+      } else {
+        annualRevenue = 0;
+      }
+    } else {
+      annualRevenue = 0;
+    }
+    
     const roi = totalCosts > 0 ? ((annualRevenue - totalCosts) / totalCosts) * 100 : 0;
     
-    // Break-Even-Punkt
-    const breakEvenCases = totalCosts > 0 
-      ? Math.ceil(totalCosts / (typeof recommendedPrice === 'number' ? recommendedPrice : (recommendedPrice as any).usageFee))
-      : 0;
+    let breakEvenCases = 0;
+    if (totalCosts > 0) {
+      if (typeof recommendedPrice === 'number') {
+        breakEvenCases = Math.ceil(totalCosts / recommendedPrice);
+      } else if (recommendedPrice && typeof recommendedPrice === 'object') {
+        const priceObj = recommendedPrice as any;
+        if (priceObj.baseFee && priceObj.usageFee) {
+          breakEvenCases = Math.ceil(totalCosts / priceObj.usageFee);
+        } else if (priceObj.dynamic) {
+          breakEvenCases = Math.ceil(totalCosts / priceObj.dynamic);
+        }
+      }
+    }
     
-    // Marktvergleich
+    let yourPrice: number;
+    if (typeof recommendedPrice === 'number') {
+      yourPrice = recommendedPrice;
+    } else if (recommendedPrice && typeof recommendedPrice === 'object') {
+      const priceObj = recommendedPrice as any;
+      if (priceObj.baseFee && priceObj.usageFee) {
+        yourPrice = priceObj.baseFee + (priceObj.usageFee * expectedCases);
+      } else if (priceObj.dynamic) {
+        yourPrice = priceObj.dynamic;
+      } else {
+        yourPrice = 0;
+      }
+    } else {
+      yourPrice = 0;
+    }
+    
     const marketComparison = {
-      yourPrice: typeof recommendedPrice === 'number' ? recommendedPrice : (recommendedPrice as any).baseFee,
+      yourPrice: yourPrice,
       marketMin: marketStats.min,
       marketMax: marketStats.max,
       marketAvg: marketStats.avg,
-      isCompetitive: typeof recommendedPrice === 'number' 
-        ? recommendedPrice >= marketStats.min && recommendedPrice <= marketStats.max
-        : (recommendedPrice as any).baseFee >= marketStats.min && (recommendedPrice as any).baseFee <= marketStats.max,
+      isCompetitive: yourPrice >= marketStats.min && yourPrice <= marketStats.max,
       alternativeCosts: alternativeCosts,
-      costSavings: alternativeCosts > 0 ? alternativeCosts - (typeof recommendedPrice === 'number' ? recommendedPrice : (recommendedPrice as any).baseFee) : 0
+      costSavings: alternativeCosts > 0 ? alternativeCosts - yourPrice : 0
     };
     
-    // DACS-Preise berechnen
     const dacsPrices = this.calculateDACSPrices();
     
-    // Implementierungskosten
     const installationFee = formValue.installationFee || 0;
     const partnerCommission = formValue.partnerCommission || 0;
-    const totalImplementationCosts = installationFee + (partnerCommission > 0 ? (typeof recommendedPrice === 'number' ? recommendedPrice : (recommendedPrice as any).baseFee) * partnerCommission / 100 : 0);
+    const totalImplementationCosts = installationFee + (partnerCommission > 0 ? yourPrice * partnerCommission / 100 : 0);
     
     return {
       systemType: formValue.autonomy || 'assistive',
@@ -819,12 +863,16 @@ export class PricingStrategyComponent implements OnInit {
     };
   }
 
-  // Helper methods
+  /**
+   * Checks if results are available for display
+   */
   hasResults(): boolean {
     return this.results && Object.keys(this.results).length > 0;
   }
 
-  // Helper methods for labels
+  /**
+   * Returns human-readable labels for system autonomy levels
+   */
   getAutonomyLabel(value: string): string {
     const labels: { [key: string]: string } = {
       'assistive': 'Assistive (Score 1-2)',
@@ -834,6 +882,9 @@ export class PricingStrategyComponent implements OnInit {
     return labels[value] || 'Nicht spezifiziert';
   }
 
+  /**
+   * Returns human-readable labels for benefit measurability
+   */
   getMeasurabilityLabel(value: string): string {
     const labels: { [key: string]: string } = {
       'high': 'Hoch messbar',
@@ -843,6 +894,9 @@ export class PricingStrategyComponent implements OnInit {
     return labels[value] || 'Nicht spezifiziert';
   }
 
+  /**
+   * Returns human-readable labels for AI inference costs
+   */
   getInferenceCostsLabel(value: string): string {
     const labels: { [key: string]: string } = {
       'low': 'Niedrig',
@@ -852,6 +906,9 @@ export class PricingStrategyComponent implements OnInit {
     return labels[value] || 'Nicht spezifiziert';
   }
 
+  /**
+   * Returns human-readable labels for market sector
+   */
   getSectorLabel(value: string): string {
     const labels: { [key: string]: string } = {
       'public': 'Öffentlich',
@@ -861,6 +918,9 @@ export class PricingStrategyComponent implements OnInit {
     return labels[value] || 'Nicht spezifiziert';
   }
 
+  /**
+   * Returns human-readable labels for sales effort levels
+   */
   getSalesEffortLabel(value: string): string {
     const labels: { [key: string]: string } = {
       'low': 'Niedrig (<10%)',
@@ -870,6 +930,9 @@ export class PricingStrategyComponent implements OnInit {
     return labels[value] || 'Nicht spezifiziert';
   }
 
+  /**
+   * Exports pricing recommendations as PDF
+   */
   exportPDF() {
     if (!this.results || !this.pricingForm.valid) {
       this.snackBar.open(this.translate('pricing.noResultsToExport'), 'OK', {
@@ -909,6 +972,9 @@ export class PricingStrategyComponent implements OnInit {
     }
   }
 
+  /**
+   * Generates HTML content for PDF export
+   */
   private generatePDFContent(): string {
     return `
       <html>
@@ -978,6 +1044,9 @@ export class PricingStrategyComponent implements OnInit {
     `;
   }
 
+  /**
+   * Generates HTML content for results section in PDF
+   */
   private generateResultsHTML(): string {
     return `
       <div class="results-container">
@@ -1031,6 +1100,9 @@ export class PricingStrategyComponent implements OnInit {
   }
 
 
+  /**
+   * Exports pricing recommendations as JSON file
+   */
   exportJSON() {
     if (!this.results || !this.pricingForm.valid) {
       this.snackBar.open(this.translate('pricing.noResultsToExport'), 'OK', {
