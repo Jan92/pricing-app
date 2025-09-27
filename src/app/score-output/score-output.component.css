@@ -48,6 +48,163 @@ h2 {
   font-size: 0.9em;
 }
 
+/* Mobile Optimierung für iPhone und iPad */
+@media (max-width: 600px) {
+  :host {
+    display: block;
+    width: 100vw;
+    max-width: 100vw;
+    margin: 0;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  
+  h2 {
+    font-size: 1.5rem;
+    margin: 0 0 20px 0;
+    text-align: center;
+    color: #1976d2;
+    font-weight: 600;
+  }
+  
+  .dimension-output {
+    margin-bottom: 20px;
+    padding: 16px;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    background: white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  
+  .dimension-output h4 {
+    font-size: 1.2rem;
+    margin: 0 0 12px 0;
+    color: #1976d2;
+    font-weight: 600;
+    border-bottom: 2px solid #1976d2;
+    padding-bottom: 8px;
+  }
+  
+  .dimension-output ul {
+    padding-left: 0;
+    margin: 0;
+  }
+  
+  .dimension-output li {
+    margin-bottom: 12px;
+    padding: 8px 0;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  
+  .dimension-output li:last-child {
+    border-bottom: none;
+  }
+  
+  .dimension-output li strong {
+    display: block;
+    min-width: auto;
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 4px;
+    font-weight: 500;
+  }
+  
+  .score-card, .dimension-panel {
+    width: 100% !important;
+    max-width: 100vw !important;
+    margin: 0 0 16px 0 !important;
+    padding: 16px !important;
+    box-sizing: border-box !important;
+  }
+  
+  .criterion-description {
+    font-size: 0.85rem;
+    color: #888;
+    margin-top: 4px;
+    font-style: italic;
+  }
+}
+
+/* iPad Mini und iPad Optimierungen */
+@media (min-width: 768px) and (max-width: 1024px) {
+  :host {
+    padding: 24px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  
+  h2 {
+    font-size: 1.8rem;
+    margin: 0 0 32px 0;
+  }
+  
+  .dimension-output {
+    margin-bottom: 28px;
+    padding: 24px;
+    border-radius: 16px;
+  }
+  
+  .dimension-output h4 {
+    font-size: 1.4rem;
+    margin: 0 0 16px 0;
+  }
+  
+  .dimension-output li {
+    margin-bottom: 16px;
+    padding: 12px 0;
+  }
+  
+  .dimension-output li strong {
+    font-size: 1rem;
+    margin-bottom: 6px;
+  }
+  
+  .score-card, .dimension-panel {
+    margin: 0 0 20px 0 !important;
+    padding: 20px !important;
+  }
+}
+
+/* iPad Pro Optimierungen */
+@media (min-width: 1025px) and (max-width: 1366px) {
+  :host {
+    padding: 32px;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  
+  h2 {
+    font-size: 2rem;
+    margin: 0 0 40px 0;
+  }
+  
+  .dimension-output {
+    margin-bottom: 32px;
+    padding: 28px;
+    border-radius: 20px;
+  }
+  
+  .dimension-output h4 {
+    font-size: 1.6rem;
+    margin: 0 0 20px 0;
+  }
+  
+  .dimension-output li {
+    margin-bottom: 20px;
+    padding: 16px 0;
+  }
+  
+  .dimension-output li strong {
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+  }
+  
+  .score-card, .dimension-panel {
+    margin: 0 0 24px 0 !important;
+    padding: 24px !important;
+  }
+}
+
 .loading-indicator {
   display: flex;
   flex-direction: column;

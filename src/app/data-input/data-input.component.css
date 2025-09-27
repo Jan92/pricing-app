@@ -86,60 +86,387 @@ button:disabled {
     opacity: 0.6;
 }
 
+/* Mobile Optimierung für iPhone und iPad */
 @media (max-width: 600px) {
-  .w-100, input, button, mat-form-field, textarea {
-    width: 100% !important;
+  /* Container und Layout */
+  :host {
+    display: block;
+    width: 100vw;
+    max-width: 100vw;
+    margin: 0;
+    padding: 16px;
     box-sizing: border-box;
   }
-  .dimension-group, .criterion-group {
-    margin-bottom: 24px;
-    padding: 8px 0;
+  
+  h2 {
+    font-size: 1.5rem;
+    margin: 0 0 20px 0;
+    text-align: center;
+    color: #1976d2;
+    font-weight: 600;
   }
+  
+  /* Form Container */
+  form {
+    width: 100%;
+    max-width: 100vw;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    padding-bottom: 100px; /* Platz für fixierten Button */
+  }
+  
+  /* Form Fields */
+  .w-100, input, button, mat-form-field, textarea {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box;
+  }
+  
+  ::ng-deep .mat-mdc-form-field {
+    width: 100% !important;
+    margin-bottom: 16px;
+  }
+  
+  ::ng-deep .mat-mdc-form-field .mat-mdc-form-field-infix {
+    min-height: 48px;
+    padding: 12px 0;
+  }
+  
+  /* Evaluation ID */
+  p {
+    margin: 0 0 20px 0;
+    padding: 12px 16px;
+    background: #f5f5f5;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #666;
+    word-break: break-all;
+  }
+  
+  /* Dimension Groups */
+  .dimension-group {
+    margin-bottom: 24px;
+    padding: 20px 16px;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    background: white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  
+  .dimension-group h3 {
+    font-size: 1.3rem;
+    margin: 0 0 16px 0;
+    color: #1976d2;
+    font-weight: 600;
+    text-align: center;
+  }
+  
+  /* Criterion Groups */
+  .criterion-group {
+    margin-bottom: 24px;
+    padding: 16px;
+    border-left: 4px solid #1976d2;
+    background: #f8f9fa;
+    border-radius: 8px;
+  }
+  
+  .criterion-group h4 {
+    font-size: 1.1rem;
+    margin: 0 0 12px 0;
+    color: #333;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+  
+  .criterion-group h4 small {
+    display: block;
+    font-size: 0.9rem;
+    color: #666;
+    margin-top: 4px;
+    font-weight: normal;
+    font-style: italic;
+  }
+  
+  /* Score Options */
   .score-options {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 8px;
+    margin-top: 12px;
   }
+  
   .score-label {
-    font-size: 1rem;
-    padding: 4px 0;
+    display: flex !important;
+    align-items: flex-start !important;
+    gap: 12px !important;
+    padding: 12px 16px !important;
+    border: 2px solid #e0e0e0 !important;
+    border-radius: 8px !important;
+    background: white !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+    min-height: 56px !important;
+    box-sizing: border-box !important;
   }
-  button[type="submit"] {
+  
+  .score-label:hover {
+    border-color: #1976d2 !important;
+    background: #f8f9fa !important;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(25, 118, 210, 0.15);
+  }
+  
+  .score-label:has(input:checked) {
+    border-color: #1976d2 !important;
+    background: #e3f2fd !important;
+    box-shadow: 0 2px 8px rgba(25, 118, 210, 0.2);
+  }
+  
+  .score-label input[type="radio"] {
+    margin: 0 !important;
+    flex-shrink: 0 !important;
+    width: 20px !important;
+    height: 20px !important;
+    margin-top: 2px !important;
+  }
+  
+  .score-label span {
+    flex: 1 !important;
+    font-size: 15px !important;
+    line-height: 1.4 !important;
+    color: #333 !important;
+    word-break: break-word !important;
+    overflow-wrap: break-word !important;
+  }
+  
+  /* Save Button */
+  .save-button {
     position: fixed;
     left: 0;
     right: 0;
     bottom: 0;
-    width: 100%; /* statt 100vw */
+    width: 100vw;
     z-index: 100;
     border-radius: 0;
     margin: 0;
-    box-shadow: 0 -2px 8px rgba(0,0,0,0.08);
-    background: #3f51b5;
-    color: #fff;
-    font-weight: bold;
+    box-shadow: 0 -4px 12px rgba(0,0,0,0.15);
+    background: #1976d2;
+    color: white;
+    font-weight: 600;
     font-size: 1.1rem;
     padding: 18px 0;
+    min-height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
   }
-  .mat-form-field {
-    min-width: 0;
+  
+  .save-button:disabled {
+    background: #ccc;
+    cursor: not-allowed;
   }
-  form {
-    max-height: 100vh;
-    overflow-y: auto;
-    padding-bottom: 80px; /* Platz für fixierten Button */
-    scroll-behavior: smooth;
-    width: 100vw;
-    max-width: 100vw;
-    margin: 0;
-    padding-left: 0;
-    padding-right: 0;
+  
+  .save-button mat-icon {
+    font-size: 24px;
+    width: 24px;
+    height: 24px;
   }
-  /* Optional: Äußerer Container, falls vorhanden */
-  .data-input-container {
-    width: 100vw;
-    max-width: 100vw;
-    margin: 0;
-    padding: 0;
+  
+  /* Success Message */
+  .success-message {
+    position: fixed;
+    top: 20px;
+    left: 16px;
+    right: 16px;
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 20px;
+    background-color: #e8f5e8;
+    border: 2px solid #4caf50;
+    border-radius: 12px;
+    color: #2e7d32;
+    font-weight: 600;
+    font-size: 1rem;
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+    animation: slideIn 0.3s ease;
+  }
+  
+  .success-icon {
+    color: #4caf50;
+    font-size: 28px;
+    width: 28px;
+    height: 28px;
+  }
+  
+  @keyframes slideIn {
+    from {
+      transform: translateY(-100px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+}
+
+/* iPad Mini und iPad Optimierungen */
+@media (min-width: 768px) and (max-width: 1024px) {
+  :host {
+    padding: 24px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  
+  h2 {
+    font-size: 1.8rem;
+    margin: 0 0 32px 0;
+  }
+  
+  .dimension-group {
+    margin-bottom: 32px;
+    padding: 28px 24px;
+    border-radius: 16px;
+  }
+  
+  .dimension-group h3 {
+    font-size: 1.5rem;
+    margin: 0 0 20px 0;
+  }
+  
+  .criterion-group {
+    margin-bottom: 28px;
+    padding: 20px;
+  }
+  
+  .criterion-group h4 {
+    font-size: 1.2rem;
+    margin: 0 0 16px 0;
+  }
+  
+  .score-label {
+    padding: 16px 20px !important;
+    min-height: 64px !important;
+    border-radius: 12px !important;
+  }
+  
+  .score-label span {
+    font-size: 16px !important;
+  }
+  
+  .score-label input[type="radio"] {
+    width: 24px !important;
+    height: 24px !important;
+  }
+  
+  ::ng-deep .mat-mdc-form-field .mat-mdc-form-field-infix {
+    min-height: 52px;
+    padding: 14px 0;
+  }
+  
+  .save-button {
+    position: sticky;
+    bottom: 24px;
+    left: auto;
+    right: auto;
+    width: auto;
+    max-width: 400px;
+    margin: 32px auto 0 auto;
+    border-radius: 12px;
+    padding: 20px 32px;
+    font-size: 1.2rem;
+  }
+  
+  .success-message {
+    position: fixed;
+    top: 32px;
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+    max-width: 600px;
+    padding: 20px 24px;
+    font-size: 1.1rem;
+  }
+}
+
+/* iPad Pro Optimierungen */
+@media (min-width: 1025px) and (max-width: 1366px) {
+  :host {
+    padding: 32px;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  
+  h2 {
+    font-size: 2rem;
+    margin: 0 0 40px 0;
+  }
+  
+  .dimension-group {
+    margin-bottom: 40px;
+    padding: 32px 28px;
+    border-radius: 20px;
+  }
+  
+  .dimension-group h3 {
+    font-size: 1.7rem;
+    margin: 0 0 24px 0;
+  }
+  
+  .criterion-group {
+    margin-bottom: 32px;
+    padding: 24px;
+  }
+  
+  .criterion-group h4 {
+    font-size: 1.3rem;
+    margin: 0 0 20px 0;
+  }
+  
+  .score-label {
+    padding: 20px 24px !important;
+    min-height: 72px !important;
+    border-radius: 16px !important;
+  }
+  
+  .score-label span {
+    font-size: 17px !important;
+  }
+  
+  .score-label input[type="radio"] {
+    width: 28px !important;
+    height: 28px !important;
+  }
+  
+  ::ng-deep .mat-mdc-form-field .mat-mdc-form-field-infix {
+    min-height: 56px;
+    padding: 16px 0;
+  }
+  
+  .save-button {
+    position: sticky;
+    bottom: 32px;
+    width: auto;
+    max-width: 500px;
+    margin: 40px auto 0 auto;
+    border-radius: 16px;
+    padding: 24px 40px;
+    font-size: 1.3rem;
+    min-height: 72px;
+  }
+  
+  .success-message {
+    position: fixed;
+    top: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 700px;
+    padding: 24px 28px;
+    font-size: 1.2rem;
   }
 }
 
